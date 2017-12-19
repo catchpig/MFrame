@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 //配置插件
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-
+version = VERSION      //这个是版本号，必须填写
 
 android {
     compileSdkVersion 26
@@ -14,7 +14,7 @@ android {
         targetSdkVersion 26
         versionCode VERSION_CODE as int
         versionName VERSION
-
+        resourcePrefix "mframe_"     //这里随便填
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -39,7 +39,7 @@ dependencies {
 def siteUrl = 'https://github.com/zhuazhu/MFrame'      // 项目的主页   这个是说明，可随便填
 def gitUrl = 'https://github.com/zhuazhu/MFrame.git'      // Git仓库的url
 // 这个是说明，可随便填
-group = "com.zhuazhu"    // 这里是groupId ,必须填写  一般填你唯一的包名
+group = "com.zhuazhu.mframe"    // 这里是groupId ,必须填写  一般填你唯一的包名
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
