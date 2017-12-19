@@ -7,8 +7,6 @@ version = VERSION      //这个是版本号，必须填写
 android {
     compileSdkVersion 26
 
-
-
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 26
