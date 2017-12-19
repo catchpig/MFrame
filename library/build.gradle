@@ -25,6 +25,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 
 }
 
@@ -40,6 +43,7 @@ def siteUrl = 'https://github.com/zhuazhu/MFrame'      // 项目的主页   这�
 def gitUrl = 'https://github.com/zhuazhu/MFrame.git'      // Git仓库的url
 // 这个是说明，可随便填
 group = "com.zhuazhu.mframe"    // 这里是groupId ,必须填写  一般填你唯一的包名
+
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
