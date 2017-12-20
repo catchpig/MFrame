@@ -55,6 +55,10 @@ dependencies {
         exclude group:"com.android.support"
     })
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    api ("com.github.bumptech.glide:okhttp3-integration:4.4.0", {
+        transitive = false
+    })
+
 }
 def siteUrl = 'https://github.com/zhuazhu/MFrame'      // 项目的主页   这个是说明，可随便填
 def gitUrl = 'https://github.com/zhuazhu/MFrame.git'      // Git仓库的url
