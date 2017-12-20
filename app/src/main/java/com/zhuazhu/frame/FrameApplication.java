@@ -1,10 +1,12 @@
 package com.zhuazhu.frame;
 
-import com.zhuazhu.frame.di.module.NetModule;
 import com.zhuazhu.frame.di.component.AppComponent;
 import com.zhuazhu.frame.di.component.DaggerAppComponent;
+import com.zhuazhu.frame.di.module.NetModule;
+
 import mejust.frame.BaseApplication;
 import mejust.frame.di.module.AppModule;
+import mejust.frame.image.ImageUtils;
 
 /**
  * @author : Beaven
@@ -19,6 +21,7 @@ public class FrameApplication extends BaseApplication {
     public void onCreate() {
         FrameConfig.DEBUG = BuildConfig.DEBUG;
         super.onCreate();
+        initImage();
     }
 
     public static AppComponent getAppComponent() {
@@ -28,6 +31,17 @@ public class FrameApplication extends BaseApplication {
                     .netModule(new NetModule())
                     .build();
         }
+
         return appComponent;
+    }
+
+    /**
+     * 初始化图片异步加载工具
+     */
+    public void initImage(){
+//        ImageUtils.setHostImageUrl(BuildConfig.IMAGE_URL);
+//        ImageUtils.setDefalutImage(R.mipmap.cacount);
+//        ImageUtils.setErrorImage(R.mipmap.cash_ing);
+        ImageUtils.init(BuildConfig.IMAGE_URL,R.mipmap.cacount,R.mipmap.cash_ing);
     }
 }
