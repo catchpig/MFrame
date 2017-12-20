@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,7 @@ import java.util.List;
 
 import mejust.frame.R;
 import mejust.frame.image.ImageUtils;
+import mejust.frame.widget.MutipleTouchViewPager;
 
 /**
  * 创建时间:2017/12/20 17:00<br/>
@@ -51,6 +51,19 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
         mUrls = new ArrayList<>();
         mUrls.add(url);
     }
+    /**
+     * 多张图片使用
+     * @param context
+     * @param urls
+     */
+    public ImageDialog(Context context, String... urls) {
+        super(context, R.style.mframe_imagedialog);
+        mUrls = new ArrayList<>();
+        for (String url:urls){
+            mUrls.add(url);
+        }
+    }
+
 
 
     /**
@@ -73,7 +86,7 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
             this.mHostUrl = host;
         }
     }
-    private ViewPager mViewPager;
+    private MutipleTouchViewPager mViewPager;
     private TextView mIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,15 +136,16 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
                     ViewGroup parent = (ViewGroup)vp;
                     parent.removeView(v);
                 }
-                container.addView(v);
+                container.addView(v, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
                 v.setOnClickListener(ImageDialog.this);
                 return v;
             }
 
             @Override
             public void destroyItem(ViewGroup container, int position, Object object) {
-
+                container.removeView((View) object);
             }
+
         });
         mViewPager.setCurrentItem(0);
         mIndex.setText("1/"+ mUrlLength);

@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mejust.frame.dialog.ImageDialog;
 import mejust.frame.image.ImageUtils;
 
@@ -34,6 +37,21 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        new ImageDialog(this,url).show();
+        switch (v.getId()){
+            case R.id.image1:
+                new ImageDialog(this,url).show();
+                break;
+            case R.id.image2:
+                new ImageDialog(this,url,url).show();
+                break;
+            case R.id.image3:
+                List<String> list = new ArrayList<>();
+                list.add(url);
+                list.add(url);
+                list.add(url);
+                new ImageDialog(this,list).show();
+                break;
+        }
+
     }
 }
