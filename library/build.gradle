@@ -55,6 +55,7 @@ dependencies {
         exclude group:"com.android.support"
     })
     annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+    implementation 'com.jakewharton.timber:timber:4.6.0'
 }
 def siteUrl = 'https://github.com/zhuazhu/MFrame'      // 项目的主页   这个是说明，可随便填
 def gitUrl = 'https://github.com/zhuazhu/MFrame.git'      // Git仓库的url

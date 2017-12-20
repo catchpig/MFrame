@@ -13,4 +13,6 @@ public class AppConfig {
      * api base url 字段
      */
     public static final String BASE_URL = "baseUrl";
+
+    public static boolean DEBUG = false;
 }

@@ -17,6 +17,7 @@ public class FrameApplication extends BaseApplication {
 
     @Override
     public void onCreate() {
+        FrameConfig.DEBUG = BuildConfig.DEBUG;
         super.onCreate();
     }
 
