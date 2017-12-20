@@ -1,4 +1,4 @@
-package mejust.frame.log;
+package mejust.frame.utils.log;
 
 import android.support.annotation.NonNull;
 import android.util.Log;

@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import java.lang.reflect.Field;
 import java.util.concurrent.TimeUnit;
 import mejust.frame.app.AppConfig;
-import mejust.frame.log.Logger;
+import mejust.frame.utils.log.Logger;
 import mejust.frame.utils.JsonUtil;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

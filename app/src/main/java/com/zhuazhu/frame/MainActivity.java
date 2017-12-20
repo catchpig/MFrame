@@ -7,7 +7,7 @@ import com.zhuazhu.frame.data.HttpHelper;
 import com.zhuazhu.frame.di.component.DaggerMainComponent;
 import com.zhuazhu.frame.di.module.MainModule;
 import javax.inject.Inject;
-import mejust.frame.log.Logger;
+import mejust.frame.utils.log.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
