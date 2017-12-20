@@ -21,8 +21,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by tao on 2015/11/2.
- * 异常情况捕获
+ * 创建时间:2017/12/20 14:39<br/>
+ * 创建人: 李涛<br/>
+ * 修改人: 李涛<br/>
+ * 修改时间: 2017/12/20 14:39<br/>
+ * 描述:异常情况捕获
  */
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     public static final String TAG = "CrashHandler";
