@@ -12,7 +12,7 @@ import com.google.gson.GsonBuilder;
 
 public class JsonUtil {
 
-    private void JsonUtil() {
+    private JsonUtil() {
         throw new RuntimeException("this class not be instantiated");
     }
 

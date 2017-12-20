@@ -4,7 +4,7 @@ import com.zhuazhu.frame.data.ApiOne;
 import com.zhuazhu.frame.data.ApiTwo;
 import com.zhuazhu.frame.data.HttpHelper;
 import com.zhuazhu.frame.di.scope.ClientOne;
-import com.zhuazhu.frame.di.scope.ClinetTwo;
+import com.zhuazhu.frame.di.scope.ClientTwo;
 import dagger.Module;
 import dagger.Provides;
 import javax.inject.Singleton;
@@ -21,12 +21,12 @@ public class NetModule {
     @Provides
     @ClientOne
     @Singleton
-    public OkHttpClient provideOneClient() {
-        return new OkHttpClient.Builder().build();
+    public OkHttpClient provideOneClient(HttpConfigHelper httpConfigHelper) {
+        return httpConfigHelper.buildDefaultOkHttpClientBuilder().build();
     }
 
     @Provides
-    @ClinetTwo
+    @ClientTwo
     @Singleton
     public OkHttpClient provideTwoClient() {
         return new OkHttpClient.Builder().build();
@@ -41,7 +41,7 @@ public class NetModule {
 
     @Provides
     @Singleton
-    public ApiTwo provideApiTwo(@ClinetTwo OkHttpClient okHttpClient,
+    public ApiTwo provideApiTwo(@ClientTwo OkHttpClient okHttpClient,
             HttpConfigHelper httpConfigHelper) {
         return httpConfigHelper.createApi(ApiTwo.class, okHttpClient);
     }
