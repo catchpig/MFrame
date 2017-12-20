@@ -9,6 +9,9 @@ package mejust.frame.app;
 
 public class AppConfig {
 
+    /**
+     * 程序运行状态区分
+     */
     public static boolean DEBUG = false;
 
     /**
