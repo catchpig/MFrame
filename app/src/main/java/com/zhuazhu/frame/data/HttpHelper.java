@@ -14,4 +14,6 @@ public class HttpHelper {
         this.apiOne = apiOne;
         this.apiTwo = apiTwo;
     }
+
+
 }
