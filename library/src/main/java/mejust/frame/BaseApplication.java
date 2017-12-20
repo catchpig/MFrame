@@ -23,18 +23,24 @@ public abstract class BaseApplication extends com.zhuazhu.application.BaseApplic
         super.onCreate();
         application = this;
         initCash();
-        setLog();
+        initLog();
     }
 
     public static BaseApplication getApplication() {
         return application;
     }
 
+    /**
+     * 初始化异常捕获抓取
+     */
     public void initCash(){
         CrashHandler.getInstance().init(getApplicationContext());
     }
 
-    private void setLog() {
+    /**
+     * 初始化日志打印
+     */
+    private void initLog() {
         if (AppConfig.DEBUG) {
             Timber.plant(new DebugLogTree());
         } else {
