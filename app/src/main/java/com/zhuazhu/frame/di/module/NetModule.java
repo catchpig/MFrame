@@ -21,8 +21,8 @@ public class NetModule {
     @Provides
     @ClientOne
     @Singleton
-    public OkHttpClient provideOneClient() {
-        return new OkHttpClient.Builder().build();
+    public OkHttpClient provideOneClient(HttpConfigHelper httpConfigHelper) {
+        return httpConfigHelper.buildDefaultOkHttpClientBuilder().build();
     }
 
     @Provides

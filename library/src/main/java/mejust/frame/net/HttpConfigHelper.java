@@ -1,9 +1,13 @@
 package mejust.frame.net;
 
+import android.support.annotation.NonNull;
 import java.lang.reflect.Field;
+import java.util.concurrent.TimeUnit;
 import mejust.frame.app.AppConfig;
+import mejust.frame.log.Logger;
 import mejust.frame.utils.JsonUtil;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -45,11 +49,41 @@ public class HttpConfigHelper {
      * @param client OkHttpClient
      * @return Retrofit
      */
-    private Retrofit buildRetrofit(String baseUrl, OkHttpClient client) {
+    public Retrofit buildRetrofit(String baseUrl, OkHttpClient client) {
         return new Retrofit.Builder().baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(JsonUtil.getGson()))
                 .client(client)
                 .build();
+    }
+
+    /**
+     * 生成的默认OkHttpClient.Builder,配置常用的默认操作
+     * 可build()生成，或添加修改参数
+     *
+     * @return OkHttpClient.Builder
+     */
+    public OkHttpClient.Builder buildDefaultOkHttpClientBuilder() {
+        return new OkHttpClient.Builder().addNetworkInterceptor(new NetWorkInterceptor())
+                .addInterceptor(new ParamsInterceptor())
+                .addInterceptor(createHttpLogInterceptor())
+                .connectTimeout(AppConfig.CONNECT_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
+                .readTimeout(AppConfig.READ_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
+                .writeTimeout(AppConfig.WRITE_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true);
+    }
+
+    /**
+     * http请求日志拦截器
+     *
+     * @return HttpLoggingInterceptor
+     */
+    public HttpLoggingInterceptor createHttpLogInterceptor() {
+        return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(@NonNull String message) {
+                Logger.d(AppConfig.URL_LOG, message);
+            }
+        });
     }
 }
