@@ -5,8 +5,8 @@ import android.support.annotation.CallSuper;
 import mejust.frame.cash.CrashHandler;
 
 import mejust.frame.app.AppConfig;
-import mejust.frame.log.DebugLogTree;
-import mejust.frame.log.ReleaseLogTree;
+import mejust.frame.utils.log.DebugLogTree;
+import mejust.frame.utils.log.ReleaseLogTree;
 import timber.log.Timber;
 
 /**
