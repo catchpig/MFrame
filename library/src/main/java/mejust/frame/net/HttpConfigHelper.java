@@ -1,11 +1,12 @@
 package mejust.frame.net;
 
 import android.support.annotation.NonNull;
-import java.lang.reflect.Field;
+import com.zhuazhu.annotation.Url;
+import com.zhuazhu.annotation.util.AnnotionUtil;
 import java.util.concurrent.TimeUnit;
 import mejust.frame.app.AppConfig;
-import mejust.frame.utils.log.Logger;
 import mejust.frame.utils.JsonUtil;
+import mejust.frame.utils.log.Logger;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -29,17 +30,9 @@ public class HttpConfigHelper {
      * @return 请求Api
      */
     public <S> S createApi(Class<S> cls, OkHttpClient client) {
-        String baseUrl = "";
-        try {
-            // 反射获取Api类中定义的“baseUrl”字段
-            Field field = cls.getField(AppConfig.BASE_URL);
-            baseUrl = (String) field.get(cls);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return buildRetrofit(baseUrl, client).create(cls);
+        // 注解获取baseUrl
+        Url url = AnnotionUtil.annotation(cls, Url.class);
+        return buildRetrofit(url.value()[0], client).create(cls);
     }
 
     /**

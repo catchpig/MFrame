@@ -38,7 +38,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
     //工具包
-    api ('com.zhuazhu:library:0.3.8',{
+    api ('com.zhuazhu:library:0.3.9',{
         exclude group: 'com.android.support'
     })
     api 'com.google.code.gson:gson:2.8.2'
