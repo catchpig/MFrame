@@ -11,12 +11,12 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp">
 
-        <mejust.frame.widget.MutipleTouchViewPager
+        <mejust.frame.widget.MultipleTouchViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </mejust.frame.widget.MutipleTouchViewPager>
+        </mejust.frame.widget.MultipleTouchViewPager>
 
         <TextView
             android:id="@+id/index"

@@ -22,7 +22,7 @@ import java.util.List;
 
 import mejust.frame.R;
 import mejust.frame.image.ImageUtils;
-import mejust.frame.widget.MutipleTouchViewPager;
+import mejust.frame.widget.MultipleTouchViewPager;
 
 /**
  * 创建时间:2017/12/20 17:00<br/>
@@ -86,7 +86,7 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
             this.mHostUrl = host;
         }
     }
-    private MutipleTouchViewPager mViewPager;
+    private MultipleTouchViewPager mViewPager;
     private TextView mIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

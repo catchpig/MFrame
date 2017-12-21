@@ -13,12 +13,12 @@ import android.view.MotionEvent;
  * 描述:
  */
 
-public class MutipleTouchViewPager extends ViewPager {
-    public MutipleTouchViewPager(Context context) {
+public class MultipleTouchViewPager extends ViewPager {
+    public MultipleTouchViewPager(Context context) {
         super(context);
     }
 
-    public MutipleTouchViewPager(Context context, AttributeSet attrs) {
+    public MultipleTouchViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -28,16 +28,15 @@ public class MutipleTouchViewPager extends ViewPager {
      * java.lang.IllegalArgumentException: pointerIndex out of range pointerIndex=-1 pointerCount=1
      */
 
-//    @Override
-//    public boolean onTouchEvent(MotionEvent ev) {
-//        try {
-//            return super.onTouchEvent(ev);
-//        } catch (IllegalArgumentException ex) {
-//            ex.printStackTrace();
-//        }
-//        return false;
-//    }
-
+    //    @Override
+    //    public boolean onTouchEvent(MotionEvent ev) {
+    //        try {
+    //            return super.onTouchEvent(ev);
+    //        } catch (IllegalArgumentException ex) {
+    //            ex.printStackTrace();
+    //        }
+    //        return false;
+    //    }
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         try {
