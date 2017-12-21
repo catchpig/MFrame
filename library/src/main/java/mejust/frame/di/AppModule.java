@@ -1,4 +1,4 @@
-package mejust.frame.di.module;
+package mejust.frame.di;
 
 import android.app.Application;
 import dagger.Module;

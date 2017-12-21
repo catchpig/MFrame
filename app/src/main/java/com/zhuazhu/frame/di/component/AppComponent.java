@@ -4,7 +4,7 @@ import com.zhuazhu.frame.data.HttpHelper;
 import com.zhuazhu.frame.di.module.NetModule;
 import dagger.Component;
 import javax.inject.Singleton;
-import mejust.frame.di.module.AppModule;
+import mejust.frame.di.AppModule;
 
 /**
  * @author : Beaven

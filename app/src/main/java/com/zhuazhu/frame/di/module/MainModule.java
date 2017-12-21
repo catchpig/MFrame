@@ -3,7 +3,7 @@ package com.zhuazhu.frame.di.module;
 import com.zhuazhu.frame.mvp.MainContract;
 import dagger.Module;
 import dagger.Provides;
-import mejust.frame.di.scope.ActivityScope;
+import mejust.frame.annotation.ActivityScope;
 
 /**
  * @author : Beaven
