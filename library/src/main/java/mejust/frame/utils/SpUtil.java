@@ -14,7 +14,8 @@ import mejust.frame.BaseApplication;
 
 public class SpUtil {
 
-    private static final String BASE_SP_NAME = BaseApplication.getApplication().getPackageName();
+    private static final String BASE_SP_NAME =
+            BaseApplication.getApplication().getPackageName().replace(".", "_");
     private static volatile SpUtil spUtil;
 
     public static SpUtil getInstance() {
