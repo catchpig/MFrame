@@ -109,7 +109,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         //            }
         //        }.start();
         //保存日志文件
-        saveCatchInfo2File(ex);
+        String logFilePath = saveCatchInfo2File(ex);
+        Logger.e("app crash log save file path:" + logFilePath);
         return true;
     }
 
@@ -188,7 +189,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             fos.write(sb.toString().getBytes("UTF-8"));
             fos.close();
             //          }
-            return fileName;
+            return file.getAbsolutePath();
         } catch (Exception e) {
             LogUtils.e(TAG, "an error occured while writing file..." + flag, e);
         } finally {
