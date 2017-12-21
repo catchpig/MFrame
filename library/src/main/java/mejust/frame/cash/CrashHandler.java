@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import mejust.frame.utils.log.Logger;
 
 /**
  * 创建时间:2017/12/20 14:39<br/>
@@ -49,12 +50,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 获取CrashHandler实例 ,单例模式
-     *
-     * @return
      */
     public static CrashHandler getInstance() {
-        if (instance == null)
-            instance = new CrashHandler();
+        if (instance == null) instance = new CrashHandler();
         return instance;
     }
 
@@ -74,6 +72,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
      */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
+        Logger.e(ex);
         if (!handleException(ex) && mDefaultHandler != null) {
             //如果用户没有处理则让系统默认的异常处理器来处理
             mDefaultHandler.uncaughtException(thread, ex);
@@ -92,7 +91,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     /**
      * 自定义错误处理,收集错误信息 发送错误报告等操作均在此完成.
      *
-     * @param ex
      * @return true:如果处理了该异常信息;否则返回false.
      */
     private boolean handleException(Throwable ex) {
@@ -102,14 +100,14 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         //收集设备参数信息
         collectDeviceInfo(mContext);
         //使用Toast来显示异常信息
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                Looper.prepare();
-//                T.show(mContext, "很抱歉,程序出现异常,即将退出.");
-//                Looper.loop();
-//            }
-//        }.start();
+        //        new Thread() {
+        //            @Override
+        //            public void run() {
+        //                Looper.prepare();
+        //                T.show(mContext, "很抱歉,程序出现异常,即将退出.");
+        //                Looper.loop();
+        //            }
+        //        }.start();
         //保存日志文件
         saveCatchInfo2File(ex);
         return true;
@@ -117,8 +115,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     /**
      * 收集设备参数信息
-     *
-     * @param ctx
      */
     public void collectDeviceInfo(Context ctx) {
         try {
@@ -152,7 +148,6 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     /**
      * 保存错误信息到文件中
      *
-     * @param ex
      * @return 返回文件名称, 便于将文件传送到服务器
      */
     private String saveCatchInfo2File(Throwable ex) {
@@ -185,7 +180,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             if (!dir.exists()) {
                 flag = dir.mkdirs();
             }
-            File file = new File(file_dir,fileName);
+            File file = new File(file_dir, fileName);
             if (!file.exists()) {
                 flag = file.createNewFile();
             }
@@ -195,9 +190,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             //          }
             return fileName;
         } catch (Exception e) {
-            LogUtils.e(TAG, "an error occured while writing file..."+flag, e);
-        }finally {
-            if(fos!=null){
+            LogUtils.e(TAG, "an error occured while writing file..." + flag, e);
+        } finally {
+            if (fos != null) {
                 try {
                     fos.close();
                 } catch (IOException e) {
@@ -207,6 +202,4 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         }
         return null;
     }
-
-
 }

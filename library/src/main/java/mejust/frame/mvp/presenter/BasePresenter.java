@@ -1,5 +1,10 @@
 package mejust.frame.mvp.presenter;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+import io.reactivex.disposables.CompositeDisposable;
+import mejust.frame.mvp.BaseContract;
+
 /**
  * 创建时间:2017-12-21 10:41<br/>
  * 创建人: 王培峰<br/>
@@ -8,5 +13,38 @@ package mejust.frame.mvp.presenter;
  * 描述:
  */
 
-public class BasePresenter {
+public abstract class BasePresenter<V extends BaseContract.View> implements BaseContract.Presenter {
+
+    protected final V view;
+    protected final CompositeDisposable disposable;
+
+    public BasePresenter(@NonNull V view) {
+        this.view = view;
+        this.disposable = new CompositeDisposable();
+    }
+
+    @Override
+    public void onCreate() {
+
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+        disposable.clear();
+    }
+
+    @Override
+    public Context getContext() {
+        return view.getContext();
+    }
 }

@@ -1,44 +1,39 @@
 package com.zhuazhu.frame;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import com.zhuazhu.annotation.LayoutId;
-import com.zhuazhu.frame.data.HttpHelper;
+import com.zhuazhu.frame.data.MFrameTitleBarOptions;
 import com.zhuazhu.frame.di.component.DaggerMainComponent;
 import com.zhuazhu.frame.di.module.MainModule;
-import javax.inject.Inject;
-import mejust.frame.mvp.view.BaseActivity;
-import mejust.frame.widget.TitleBarOptions;
+import com.zhuazhu.frame.mvp.MainContract;
+import com.zhuazhu.frame.mvp.MainPresenter;
+import mejust.frame.mvp.view.BasePresenterActivity;
 
 @LayoutId(R.layout.activity_main)
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BasePresenterActivity<MainPresenter>
+        implements MainContract.View, View.OnClickListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DaggerMainComponent.builder()
-                .appComponent(FrameApplication.getAppComponent())
-                .mainModule(new MainModule())
-                .build()
-                .inject(this);
-        TitleBarOptions options = new TitleBarOptions();
+    protected void initData() {
+        MFrameTitleBarOptions options = new MFrameTitleBarOptions(this);
         options.setTitleString("Hello World");
-        options.setTitleStringColor(getResources().getColor(R.color.colorPrimary));
-        options.setTitleStringSize(18);
-        options.setImgLeftMainId(R.mipmap.cash_ing);
-        options.setTextLeft("返回");
-        options.setTextLeftColor(getResources().getColor(R.color.colorPrimary));
-        options.setTextLeftSize(14);
-        options.setImgRightMainId(R.mipmap.cash_ing);
-        options.setTextRight("退出登录");
-        options.setTextRightColor(getResources().getColor(R.color.colorPrimary));
-        options.setTextRightSize(14);
         setTitleBar(options);
     }
 
-    @Inject
-    HttpHelper httpHelper;
+    @Override
+    protected void injectComponent() {
+        DaggerMainComponent.builder()
+                .appComponent(FrameApplication.getAppComponent())
+                .mainModule(new MainModule(this))
+                .build()
+                .inject(this);
+    }
+
+    @Override
+    protected void initView() {
+
+    }
 
     @Override
     public void onClick(View v) {

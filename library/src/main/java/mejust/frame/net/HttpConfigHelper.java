@@ -32,6 +32,9 @@ public class HttpConfigHelper {
     public <S> S createApi(Class<S> cls, OkHttpClient client) {
         // 注解获取baseUrl
         Url url = AnnotionUtil.annotation(cls, Url.class);
+        if (url == null) {
+            throw new IllegalArgumentException("Api must set baseUrl,@Url");
+        }
         return buildRetrofit(url.value()[0], client).create(cls);
     }
 

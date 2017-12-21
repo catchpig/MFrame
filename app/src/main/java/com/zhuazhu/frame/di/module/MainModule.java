@@ -1,6 +1,8 @@
 package com.zhuazhu.frame.di.module;
 
+import com.zhuazhu.frame.mvp.MainContract;
 import dagger.Module;
+import dagger.Provides;
 import mejust.frame.di.scope.ActivityScope;
 
 /**
@@ -10,4 +12,15 @@ import mejust.frame.di.scope.ActivityScope;
 @ActivityScope
 @Module
 public class MainModule {
+
+    private final MainContract.View view;
+
+    public MainModule(MainContract.View view) {
+        this.view = view;
+    }
+
+    @Provides
+    public MainContract.View provideMainView() {
+        return view;
+    }
 }

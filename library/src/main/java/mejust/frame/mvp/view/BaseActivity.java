@@ -19,7 +19,7 @@ import mejust.frame.widget.TitleBarOptions;
  * 创建人: 王培峰<br/>
  * 修改人: 王培峰<br/>
  * 修改时间: 2017-12-21 10:41<br/>
- * 描述:
+ * 描述: 无MVP的基类，添加了TitleBar管理
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
