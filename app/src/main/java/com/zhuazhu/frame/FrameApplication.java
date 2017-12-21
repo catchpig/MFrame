@@ -4,7 +4,7 @@ import com.zhuazhu.frame.di.component.AppComponent;
 import com.zhuazhu.frame.di.component.DaggerAppComponent;
 import com.zhuazhu.frame.di.module.NetModule;
 
-import mejust.frame.BaseApplication;
+import mejust.frame.app.BaseApplication;
 import mejust.frame.di.AppModule;
 import mejust.frame.image.ImageUtils;
 

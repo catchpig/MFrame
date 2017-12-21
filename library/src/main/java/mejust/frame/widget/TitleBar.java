@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import mejust.frame.R;
 
@@ -22,6 +23,7 @@ import mejust.frame.R;
 
 public class TitleBar extends FrameLayout {
 
+    private LinearLayout layoutTitle;
     private TextView textTitle;
     private ImageView imageLeftMain;
     private ImageView imageLeftMinor;
@@ -41,6 +43,7 @@ public class TitleBar extends FrameLayout {
     public TitleBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View view = LayoutInflater.from(context).inflate(R.layout.mframe_title_bar, this, true);
+        layoutTitle = view.findViewById(R.id.layout_title);
         textTitle = view.findViewById(R.id.mframe_titlebar_title);
         imageLeftMain = view.findViewById(R.id.mframe_titlebar_image_left_main);
         imageLeftMinor = view.findViewById(R.id.mframe_titlebar_image_left_minor);
@@ -51,6 +54,8 @@ public class TitleBar extends FrameLayout {
     }
 
     public void setOptions(@NonNull TitleBarOptions options) {
+        int backgroundColorId = getContext().getResources().getColor(options.getBackgroundColor());
+        layoutTitle.setBackgroundColor(backgroundColorId);
         setTextTitle(options);
         setTextLeft(options);
         setTextRight(options);
@@ -74,6 +79,8 @@ public class TitleBar extends FrameLayout {
         textLeft.setText(options.getTextLeft());
         textLeft.setTextColor(options.getTextLeftColor());
         textLeft.setTextSize(options.getTextLeftSize());
+        textLeft.setOnClickListener(options.getLeftTextListener());
+        textLeft.setBackgroundResource(options.getClickBackground());
     }
 
     private void setTextRight(TitleBarOptions options) {
@@ -84,6 +91,8 @@ public class TitleBar extends FrameLayout {
         textRight.setText(options.getTextRight());
         textRight.setTextColor(options.getTextRightColor());
         textRight.setTextSize(options.getTextRightSize());
+        textRight.setOnClickListener(options.getRightTextListener());
+        textRight.setBackgroundResource(options.getClickBackground());
     }
 
     private void setImageLeftMain(TitleBarOptions options) {
@@ -92,6 +101,8 @@ public class TitleBar extends FrameLayout {
             return;
         }
         imageLeftMain.setImageResource(options.getImgLeftMainId());
+        imageLeftMain.setOnClickListener(options.getLeftMainListener());
+        imageLeftMain.setBackgroundResource(options.getClickBackground());
     }
 
     private void setImageLeftMinor(TitleBarOptions options) {
@@ -100,6 +111,8 @@ public class TitleBar extends FrameLayout {
             return;
         }
         imageLeftMinor.setImageResource(options.getImgLeftMinorId());
+        imageLeftMinor.setOnClickListener(options.getLeftMinorListener());
+        imageLeftMinor.setBackgroundResource(options.getClickBackground());
     }
 
     private void setImageRightMain(TitleBarOptions options) {
@@ -108,6 +121,8 @@ public class TitleBar extends FrameLayout {
             return;
         }
         imageRightMain.setImageResource(options.getImgRightMainId());
+        imageRightMain.setOnClickListener(options.getRightMainListener());
+        imageRightMain.setBackgroundResource(options.getClickBackground());
     }
 
     private void setImageRightMinor(TitleBarOptions options) {
@@ -116,5 +131,7 @@ public class TitleBar extends FrameLayout {
             return;
         }
         imageRightMinor.setImageResource(options.getImgRightMinorId());
+        imageRightMinor.setOnClickListener(options.getRightMinorListener());
+        imageRightMinor.setBackgroundResource(options.getClickBackground());
     }
 }

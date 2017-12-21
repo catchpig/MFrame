@@ -1,5 +1,6 @@
 package mejust.frame.widget;
 
+import android.view.View;
 import java.io.Serializable;
 
 /**
@@ -45,6 +46,11 @@ public class TitleBarOptions implements Serializable {
     private int textLeftSize;
 
     /**
+     * 左边文字点击事件
+     */
+    private View.OnClickListener leftTextListener;
+
+    /**
      * 右边文字
      */
     private String textRight;
@@ -60,9 +66,19 @@ public class TitleBarOptions implements Serializable {
     private int textRightSize;
 
     /**
+     * 右边文字点击事件
+     */
+    private View.OnClickListener rightTextListener;
+
+    /**
      * 左边主图标，左起第一个
      */
     private int imgLeftMainId;
+
+    /**
+     * 左边主图标点击事件
+     */
+    private View.OnClickListener leftMainListener;
 
     /**
      * 左边次要图标，左起第二个
@@ -70,14 +86,39 @@ public class TitleBarOptions implements Serializable {
     private int imgLeftMinorId;
 
     /**
+     * 左边次要图标点击事件
+     */
+    private View.OnClickListener leftMinorListener;
+
+    /**
      * 右边主图标，右起第一个
      */
     private int imgRightMainId;
 
     /**
+     * 右边主图标点击事件
+     */
+    private View.OnClickListener RightMainListener;
+
+    /**
      * 右边次要图标，右起第二个
      */
     private int imgRightMinorId;
+
+    /**
+     * 右边次要图标点击事件
+     */
+    private View.OnClickListener RightMinorListener;
+
+    /**
+     * 背景颜色
+     */
+    private int backgroundColor;
+
+    /**
+     * 点击背景
+     */
+    private int clickBackground;
 
     public String getTitleString() {
         return titleString;
@@ -181,5 +222,69 @@ public class TitleBarOptions implements Serializable {
 
     public void setImgRightMinorId(int imgRightMinorId) {
         this.imgRightMinorId = imgRightMinorId;
+    }
+
+    public View.OnClickListener getLeftMainListener() {
+        return leftMainListener;
+    }
+
+    public void setLeftMainListener(View.OnClickListener leftMainListener) {
+        this.leftMainListener = leftMainListener;
+    }
+
+    public View.OnClickListener getLeftMinorListener() {
+        return leftMinorListener;
+    }
+
+    public void setLeftMinorListener(View.OnClickListener leftMinorListener) {
+        this.leftMinorListener = leftMinorListener;
+    }
+
+    public View.OnClickListener getRightMainListener() {
+        return RightMainListener;
+    }
+
+    public void setRightMainListener(View.OnClickListener rightMainListener) {
+        RightMainListener = rightMainListener;
+    }
+
+    public View.OnClickListener getRightMinorListener() {
+        return RightMinorListener;
+    }
+
+    public void setRightMinorListener(View.OnClickListener rightMinorListener) {
+        RightMinorListener = rightMinorListener;
+    }
+
+    public View.OnClickListener getLeftTextListener() {
+        return leftTextListener;
+    }
+
+    public void setLeftTextListener(View.OnClickListener leftTextListener) {
+        this.leftTextListener = leftTextListener;
+    }
+
+    public View.OnClickListener getRightTextListener() {
+        return rightTextListener;
+    }
+
+    public void setRightTextListener(View.OnClickListener rightTextListener) {
+        this.rightTextListener = rightTextListener;
+    }
+
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public int getClickBackground() {
+        return clickBackground;
+    }
+
+    public void setClickBackground(int clickBackground) {
+        this.clickBackground = clickBackground;
     }
 }

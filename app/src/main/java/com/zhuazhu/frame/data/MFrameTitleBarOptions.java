@@ -1,6 +1,8 @@
 package com.zhuazhu.frame.data;
 
-import android.content.Context;
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
 import com.zhuazhu.frame.R;
 import mejust.frame.widget.TitleBarOptions;
 
@@ -14,12 +16,20 @@ import mejust.frame.widget.TitleBarOptions;
 
 public class MFrameTitleBarOptions extends TitleBarOptions {
 
-    public MFrameTitleBarOptions(Context context) {
-        this.setTitleStringColor(context.getResources().getColor(R.color.colorPrimary));
+    public MFrameTitleBarOptions(final Activity activity) {
+        this.setTitleStringColor(Color.WHITE);
+        this.setBackgroundColor(R.color.colorPrimary);
+        this.setClickBackground(R.drawable.selector_title);
         this.setTitleStringSize(18);
         this.setTextLeftSize(14);
         this.setTextRightSize(14);
-        this.setImgLeftMinorId(R.mipmap.ic_launcher);
+        this.setImgLeftMainId(R.mipmap.ic_launcher);
         this.setTextLeft("返回");
+        this.setLeftMainListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.finish();
+            }
+        });
     }
 }

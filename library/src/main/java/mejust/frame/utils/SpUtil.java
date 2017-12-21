@@ -2,7 +2,7 @@ package mejust.frame.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import mejust.frame.BaseApplication;
+import mejust.frame.app.BaseApplication;
 
 /**
  * 创建时间:2017-12-21 17:50<br/>
