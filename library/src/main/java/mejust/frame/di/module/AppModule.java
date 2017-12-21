@@ -22,6 +22,11 @@ public class AppModule {
         this.application = application;
     }
 
+    /**
+     * 提供应用全局的Application
+     *
+     * @return Application
+     */
     @Singleton
     @Provides
     public Application provideApplication() {
