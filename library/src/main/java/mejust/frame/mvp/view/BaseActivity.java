@@ -59,7 +59,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         unbinder.unbind();
     }
 
+    /**
+     * 设置标题栏
+     *
+     * @param options 标题栏属性
+     */
     public void setTitleBar(@NonNull TitleBarOptions options) {
+        titleBar.setVisibility(View.VISIBLE);
         titleBar.setOptions(options);
     }
 }

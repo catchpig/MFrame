@@ -24,7 +24,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 .inject(this);
         TitleBarOptions options = new TitleBarOptions();
         options.setTitleString("Hello World");
-
+        options.setTitleStringColor(getResources().getColor(R.color.colorPrimary));
+        options.setTitleStringSize(18);
+        options.setImgLeftMainId(R.mipmap.cash_ing);
+        options.setTextLeft("返回");
+        options.setTextLeftColor(getResources().getColor(R.color.colorPrimary));
+        options.setTextLeftSize(14);
+        options.setImgRightMainId(R.mipmap.cash_ing);
+        options.setTextRight("退出登录");
+        options.setTextRightColor(getResources().getColor(R.color.colorPrimary));
+        options.setTextRightSize(14);
+        setTitleBar(options);
     }
 
     @Inject

@@ -15,13 +15,4 @@
       android:onClick="onClick"
       android:text="ImageActivity"
       />
-
-
-  <mejust.frame.widget.TitleBar
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      >
-
-  </mejust.frame.widget.TitleBar>
-
 </LinearLayout>

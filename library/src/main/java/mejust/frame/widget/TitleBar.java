@@ -11,7 +11,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import mejust.frame.R;
-import mejust.frame.utils.log.Logger;
 
 /**
  * 创建时间:2017-12-21 9:49<br/>
@@ -31,9 +30,6 @@ public class TitleBar extends FrameLayout {
     private TextView textLeft;
     private TextView textRight;
 
-    private int width;
-    private int height;
-
     public TitleBar(@NonNull Context context) {
         this(context, null);
     }
@@ -44,7 +40,7 @@ public class TitleBar extends FrameLayout {
 
     public TitleBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        View view = LayoutInflater.from(context).inflate(R.layout.mframe_title_bar, this, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.mframe_title_bar, this, true);
         textTitle = view.findViewById(R.id.mframe_titlebar_title);
         imageLeftMain = view.findViewById(R.id.mframe_titlebar_image_left_main);
         imageLeftMinor = view.findViewById(R.id.mframe_titlebar_image_left_minor);
@@ -52,14 +48,6 @@ public class TitleBar extends FrameLayout {
         imageRightMinor = view.findViewById(R.id.mframe_titlebar_image_right_minor);
         textLeft = view.findViewById(R.id.mframe_titlebar_text_left);
         textRight = view.findViewById(R.id.mframe_titlebar_text_right);
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        width = w;
-        height = h;
-        Logger.d("TitleBar size is width:%d,height:%d", width, height);
     }
 
     public void setOptions(@NonNull TitleBarOptions options) {
