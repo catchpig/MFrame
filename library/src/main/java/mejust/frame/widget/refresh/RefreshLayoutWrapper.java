@@ -1,10 +1,9 @@
-package mejust.frame.widget;
+package mejust.frame.widget.refresh;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.List;
-import mejust.frame.widget.adapter.IPageControl;
 
 /**
  * 创建时间:2017/12/20 16:44<br/>
@@ -14,7 +13,7 @@ import mejust.frame.widget.adapter.IPageControl;
  * 描述: 刷新界面
  */
 
-public class RefreshLayout extends SmartRefreshLayout implements IPageControl {
+public class RefreshLayoutWrapper extends SmartRefreshLayout implements IPageControl {
 
     /**
      * 预显示界面索引
@@ -48,15 +47,15 @@ public class RefreshLayout extends SmartRefreshLayout implements IPageControl {
      */
     private int pageSize = 16;
 
-    public RefreshLayout(Context context) {
+    public RefreshLayoutWrapper(Context context) {
         this(context, null);
     }
 
-    public RefreshLayout(Context context, AttributeSet attrs) {
+    public RefreshLayoutWrapper(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RefreshLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RefreshLayoutWrapper(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
 import com.zhuazhu.frame.R;
-import mejust.frame.widget.TitleBarOptions;
+import mejust.frame.widget.title.TitleBarOptions;
 
 /**
  * 创建时间:2017-12-21 16:51<br/>

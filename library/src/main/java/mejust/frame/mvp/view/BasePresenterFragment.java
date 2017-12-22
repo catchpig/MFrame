@@ -55,16 +55,6 @@ public abstract class BasePresenterFragment<P extends BaseContract.Presenter> ex
     protected abstract void initView();
 
     @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void showContent() {
-
-    }
-
-    @Override
     public Context getContext() {
         return getActivity();
     }

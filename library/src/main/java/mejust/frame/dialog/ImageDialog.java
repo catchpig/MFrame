@@ -28,8 +28,8 @@ import mejust.frame.widget.MultipleTouchViewPager;
  * 创建时间:2017/12/20 17:00<br/>
  * 创建人: 李涛<br/>
  * 修改人: 李涛<br/>
- * 修改时间: 2017/12/20 17:00<br/>
- * 描述:
+ * 修改时间: 2017年12月21日12:47:32<br/>
+ * 描述:图片预览窗口
  */
 
 public class ImageDialog extends Dialog implements View.OnClickListener,OnPageChangeListener {
@@ -91,7 +91,7 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_image);
+        setContentView(R.layout.mframe_dialog_image);
 		/*
          * 获取圣诞框的窗口对象及参数对象以修改对话框的布局设置,
          * 可以直接调用getWindow(),表示获得这个Activity的Window
@@ -101,10 +101,10 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-        ImageView close =  findViewById(R.id.close);
-        FrameLayout frameLayout =  findViewById(R.id.frame);
-        mViewPager = findViewById(R.id.viewPager);
-        mIndex = findViewById(R.id.index);
+        ImageView close =  findViewById(R.id.mframe_close);
+        FrameLayout frameLayout =  findViewById(R.id.mframe_frame);
+        mViewPager = findViewById(R.id.mframe_viewpager);
+        mIndex = findViewById(R.id.mframe_index);
         close.setOnClickListener(this);
         mUrlLength = mUrls.size();
         if(mUrls.size()>0){

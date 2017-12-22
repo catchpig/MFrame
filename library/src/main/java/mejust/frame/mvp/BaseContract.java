@@ -13,10 +13,34 @@ import android.content.Context;
 public interface BaseContract {
 
     interface View {
+        /**
+         * loading一个View<br/>
+         * 可以点击返回键
+         *
+         */
+        void loadingView();
 
-        void showLoading();
+        /**
+         * loading一个Dialog<br/>
+         * 不可以点击返回键
+         */
+        void loadingDialog();
 
-        void showContent();
+        /**
+         * 显示Toast的提示信息
+         * @param msg
+         */
+        void show(String msg);
+
+        /**
+         * 关闭loading
+         */
+        void hidden();
+
+        /**
+         * 打开登录页面
+         */
+        void startLoginActivity();
 
         Context getContext();
     }

@@ -1,5 +1,8 @@
-package com.zhuazhu.frame;
+package com.zhuazhu.frame.mvp.application;
 
+import com.zhuazhu.frame.BuildConfig;
+import com.zhuazhu.frame.FrameConfig;
+import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.component.AppComponent;
 import com.zhuazhu.frame.di.component.DaggerAppComponent;
 import com.zhuazhu.frame.di.module.NetModule;
@@ -42,6 +45,6 @@ public class FrameApplication extends BaseApplication {
 //        ImageUtils.setHostImageUrl(BuildConfig.IMAGE_URL);
 //        ImageUtils.setDefalutImage(R.mipmap.cacount);
 //        ImageUtils.setErrorImage(R.mipmap.cash_ing);
-        ImageUtils.init(BuildConfig.IMAGE_URL,R.mipmap.cacount,R.mipmap.cash_ing);
+        ImageUtils.init(BuildConfig.IMAGE_URL, R.mipmap.cacount,R.mipmap.cash_ing);
     }
 }

@@ -1,9 +1,12 @@
 package mejust.frame.net;
 
 import android.support.annotation.NonNull;
-import com.zhuazhu.annotation.Url;
+
 import com.zhuazhu.annotation.util.AnnotionUtil;
+
 import java.util.concurrent.TimeUnit;
+
+import mejust.frame.annotation.ServiceUrl;
 import mejust.frame.app.AppConfig;
 import mejust.frame.utils.JsonUtil;
 import mejust.frame.utils.log.Logger;
@@ -31,11 +34,11 @@ public class HttpConfigHelper {
      */
     public <S> S createApi(Class<S> cls, OkHttpClient client) {
         // 注解获取baseUrl
-        Url url = AnnotionUtil.annotation(cls, Url.class);
+        ServiceUrl url = AnnotionUtil.annotation(cls, ServiceUrl.class);
         if (url == null) {
             throw new IllegalArgumentException("Api must set baseUrl,@Url");
         }
-        return buildRetrofit(url.value()[0], client).create(cls);
+        return buildRetrofit(url.value(), client).create(cls);
     }
 
     /**

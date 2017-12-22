@@ -13,6 +13,8 @@ import butterknife.ButterKnife;
  * 描述: ViewHolder基类
  */
 public class BaseViewHolder extends RecyclerView.ViewHolder{
+
+
     public BaseViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);

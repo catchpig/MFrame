@@ -6,23 +6,23 @@
     android:background="@color/c_000">
 
     <FrameLayout
-        android:id="@+id/frame"
+        android:id="@+id/mframe_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp">
 
-        <mejust.frame.widget.MultipleTouchViewPager
-            android:id="@+id/viewPager"
+        <mejust.frame.widget.MutipleTouchViewPager
+            android:id="@+id/mframe_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </mejust.frame.widget.MultipleTouchViewPager>
+        </mejust.frame.widget.MutipleTouchViewPager>
 
         <TextView
-            android:id="@+id/index"
+            android:id="@+id/mframe_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/viewPager"
+            android:layout_below="@id/mframe_viewpager"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="10dp"
             android:textColor="@color/c_fff"
@@ -30,7 +30,7 @@
     </FrameLayout>
 
     <ImageView
-        android:id="@+id/close"
+        android:id="@+id/mframe_close"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignParentRight="true"

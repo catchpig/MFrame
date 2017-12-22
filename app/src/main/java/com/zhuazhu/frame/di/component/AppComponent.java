@@ -2,8 +2,10 @@ package com.zhuazhu.frame.di.component;
 
 import com.zhuazhu.frame.data.HttpHelper;
 import com.zhuazhu.frame.di.module.NetModule;
-import dagger.Component;
+
 import javax.inject.Singleton;
+
+import dagger.Component;
 import mejust.frame.di.AppModule;
 
 /**

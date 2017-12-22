@@ -10,7 +10,7 @@ import android.view.MotionEvent;
  * 创建人: 李涛<br/>
  * 修改人: 李涛<br/>
  * 修改时间: 2017/12/20 18:13<br/>
- * 描述:
+ * 描述:ViewPager和PhotoView共用是,解决放大缩小问题的封装
  */
 
 public class MultipleTouchViewPager extends ViewPager {

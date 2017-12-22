@@ -7,19 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import com.zhuazhu.bind.AnnotationBind;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import com.zhuazhu.bind.AnnotationBind;
 import mejust.frame.R;
-import mejust.frame.widget.TitleBar;
-import mejust.frame.widget.TitleBarOptions;
+import mejust.frame.widget.title.TitleBar;
+import mejust.frame.widget.title.TitleBarOptions;
 
 /**
  * 创建时间:2017-12-21 10:41<br/>
  * 创建人: 王培峰<br/>
  * 修改人: 王培峰<br/>
  * 修改时间: 2017-12-21 10:41<br/>
- * 描述: 无MVP的基类，添加了TitleBar管理
+ * 描述: 无MVP的基类，添加了TitleBar管理<br/>
+ * 添加布局文件,不再调用setContentView方法,在继承的子类上添加@layoutId注解
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
