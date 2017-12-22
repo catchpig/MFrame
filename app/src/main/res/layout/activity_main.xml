@@ -6,13 +6,18 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.zhuazhu.frame.MainActivity"
+    tools:context="com.zhuazhu.frame.mvp.activity.MainActivity"
     >
   <Button
       android:id="@+id/image"
       android:layout_width="match_parent"
       android:layout_height="50dp"
       android:onClick="onClick"
-      android:text="ImageActivity"
-      />
+      android:text="ImageActivity"/>
+  <Button
+      android:id="@+id/recycler"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:onClick="onClick"
+      android:text="recylerActivity"/>
 </LinearLayout>

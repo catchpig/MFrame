@@ -1,4 +1,4 @@
-package mejust.frame.widget;
+package mejust.frame.widget.title;
 
 import android.view.View;
 import java.io.Serializable;

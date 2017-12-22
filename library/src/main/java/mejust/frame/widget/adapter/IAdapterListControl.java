@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface IAdapterListControl<T> {
 
-    void setList(List<T> list);
+    void set(List<T> list);
 
-    void addList(List<T> list);
+    void add(List<T> list);
 
     void autoUpdateList(List<T> list);
 
-    T getListItem(int index);
+    T get(int index);
 }

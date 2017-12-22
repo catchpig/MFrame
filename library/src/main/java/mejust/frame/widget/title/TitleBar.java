@@ -1,4 +1,4 @@
-package mejust.frame.widget;
+package mejust.frame.widget.title;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

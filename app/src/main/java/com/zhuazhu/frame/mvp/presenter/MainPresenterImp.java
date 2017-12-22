@@ -1,7 +1,9 @@
-package com.zhuazhu.frame.mvp;
+package com.zhuazhu.frame.mvp.presenter;
 
 import android.support.annotation.NonNull;
 import com.zhuazhu.frame.data.HttpHelper;
+import com.zhuazhu.frame.mvp.contract.MainContract;
+
 import javax.inject.Inject;
 import mejust.frame.mvp.presenter.BasePresenter;
 
@@ -13,13 +15,13 @@ import mejust.frame.mvp.presenter.BasePresenter;
  * 描述:
  */
 
-public class MainPresenter extends BasePresenter<MainContract.View>
+public class MainPresenterImp extends BasePresenter<MainContract.View>
         implements MainContract.Presenter {
 
     private final HttpHelper httpHelper;
 
     @Inject
-    public MainPresenter(@NonNull MainContract.View view, HttpHelper httpHelper) {
+    public MainPresenterImp(@NonNull MainContract.View view, HttpHelper httpHelper) {
         super(view);
         this.httpHelper = httpHelper;
     }

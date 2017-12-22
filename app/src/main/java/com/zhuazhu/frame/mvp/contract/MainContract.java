@@ -1,4 +1,4 @@
-package com.zhuazhu.frame.mvp;
+package com.zhuazhu.frame.mvp.contract;
 
 import mejust.frame.mvp.BaseContract;
 

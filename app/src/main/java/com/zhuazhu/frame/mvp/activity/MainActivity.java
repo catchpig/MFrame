@@ -1,19 +1,22 @@
-package com.zhuazhu.frame;
+package com.zhuazhu.frame.mvp.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import com.zhuazhu.annotation.LayoutId;
+import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.data.MFrameTitleBarOptions;
 import com.zhuazhu.frame.di.component.DaggerMainComponent;
 import com.zhuazhu.frame.di.module.MainModule;
-import com.zhuazhu.frame.mvp.MainContract;
-import com.zhuazhu.frame.mvp.MainPresenter;
+import com.zhuazhu.frame.mvp.contract.MainContract;
+import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
+import com.zhuazhu.frame.mvp.application.FrameApplication;
+
 import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.utils.log.Logger;
 
 @LayoutId(R.layout.activity_main)
-public class MainActivity extends BasePresenterActivity<MainPresenter>
+public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View, View.OnClickListener {
 
     @Override
@@ -51,6 +54,10 @@ public class MainActivity extends BasePresenterActivity<MainPresenter>
                 break;
             case R.id.mframe_titlebar_text_left:
                 Logger.i("点击了左边文字");
+                break;
+            case R.id.recycler:
+                intent.setClass(this, RecyclerActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

@@ -3,6 +3,8 @@ package mejust.frame.mvp.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
+
 import javax.inject.Inject;
 import mejust.frame.mvp.BaseContract;
 
@@ -18,33 +20,33 @@ public abstract class BasePresenterActivity<P extends BaseContract.Presenter> ex
         implements BaseContract.View {
 
     @Inject
-    protected P presenter;
+    protected P mPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initData();
         injectComponent();
+        mPresenter.onCreate();
         initView();
-        presenter.onCreate();
+        initData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.onResume();
+        mPresenter.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        presenter.onPause();
+        mPresenter.onPause();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
+        mPresenter.onDestroy();
     }
 
     /**
@@ -63,13 +65,28 @@ public abstract class BasePresenterActivity<P extends BaseContract.Presenter> ex
     protected abstract void initView();
 
     @Override
-    public void showLoading() {
-
+    public void show(String msg) {
+        Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void showContent() {
+    public void loadingDialog() {
+        //TODO 展示loading的弹窗
+    }
 
+    @Override
+    public void loadingView() {
+        //TODO 展示loading的视图
+    }
+
+    @Override
+    public void hidden() {
+        //TODO 隐藏loading
+    }
+
+    @Override
+    public void startLoginActivity() {
+        //TODO 跳转登录界面
     }
 
     @Override

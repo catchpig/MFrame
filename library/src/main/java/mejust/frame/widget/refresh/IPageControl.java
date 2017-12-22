@@ -1,4 +1,4 @@
-package mejust.frame.widget.adapter;
+package mejust.frame.widget.refresh;
 
 import java.util.List;
 

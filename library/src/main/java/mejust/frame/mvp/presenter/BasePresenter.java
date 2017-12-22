@@ -15,11 +15,11 @@ import mejust.frame.mvp.BaseContract;
 
 public abstract class BasePresenter<V extends BaseContract.View> implements BaseContract.Presenter {
 
-    protected final V view;
+    protected final V mView;
     protected final CompositeDisposable disposable;
 
     public BasePresenter(@NonNull V view) {
-        this.view = view;
+        this.mView = view;
         this.disposable = new CompositeDisposable();
     }
 
@@ -45,6 +45,6 @@ public abstract class BasePresenter<V extends BaseContract.View> implements Base
 
     @Override
     public Context getContext() {
-        return view.getContext();
+        return mView.getContext();
     }
 }

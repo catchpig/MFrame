@@ -6,7 +6,6 @@ package mejust.frame.app;
  * <p>
  * 系统固定字段定义，上层应用可继承，添加字段
  */
-
 public class AppConfig {
 
     /**
