@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.zhuazhu.util.ListUtils;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +30,10 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  * 描述: RecyclerViewAdapter基类
  */
 
-public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
-        RecyclerView.Adapter<BaseViewHolder> implements IAdapterListControl<M>{
+public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
+        extends RecyclerView.Adapter<BaseViewHolder> implements IAdapterListControl<M> {
 
-    protected List<M> mData;
+    private List<M> mData;
     /**
      * 头部类型
      */
@@ -77,9 +78,9 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
     private IPageControl mPageControl;
 
     public RecyclerAdapter() {
-        mData = new ArrayList<>();
-        annotationAdapter();
+        this(null);
     }
+
     public RecyclerAdapter(IPageControl pageControl) {
         mData = new ArrayList<>();
         mPageControl = pageControl;
@@ -87,20 +88,19 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
     }
 
     private Adapter mAdapterAnnotation;
+
     /**
      * 获取@Adapter注解
      */
-    private void annotationAdapter(){
+    private void annotationAdapter() {
         Class cls = this.getClass();
-        if(cls.isAnnotationPresent(Adapter.class)){
+        if (cls.isAnnotationPresent(Adapter.class)) {
             mAdapterAnnotation = this.getClass().getAnnotation(Adapter.class);
         }
-
     }
 
     /**
      * 设置空页面
-     * @param emptyLayout
      */
     public void setEmptyLayout(@LayoutRes int emptyLayout) {
         this.emptyLayout = emptyLayout;
@@ -108,8 +108,6 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
 
     /**
      * 添加头部
-     *
-     * @param headerView
      */
     public void setHeaderView(View headerView) {
         mHeaderView = headerView;
@@ -117,8 +115,6 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
 
     /**
      * 获取头部
-     *
-     * @return
      */
     public View getHeaderView() {
         return mHeaderView;
@@ -126,8 +122,6 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
 
     /**
      * 添加底部
-     *
-     * @param footerView
      */
     public void setFooterView(View footerView) {
         mFooterView = footerView;
@@ -135,8 +129,6 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
 
     /**
      * 获取底部
-     *
-     * @return
      */
     public View getFooterView() {
         return mFooterView;
@@ -144,34 +136,30 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
 
     /**
      * 设置每行点击事件的监听
-     *
-     * @param listener
      */
-    public void setOnItemClickListener(RecyclerAdapter.OnItemClickListener
-                                               listener) {
+    public void setOnItemClickListener(RecyclerAdapter.OnItemClickListener listener) {
         mListener = listener;
     }
 
     public List<M> getData() {
-        if(ListUtils.isEmpty(mData)){
+        if (ListUtils.isEmpty(mData)) {
             throw new IllegalStateException("mData is empty(数据为空)");
         }
         return mData;
     }
 
-    public M get(int position){
-        if(position<0||position>(mData.size()-1)){
+    public M get(int position) {
+        if (position < 0 || position > (mData.size() - 1)) {
             throw new IllegalStateException("position必须大于0,且不能大于mData的个数");
         }
-        if(ListUtils.isEmpty(mData)){
+        if (ListUtils.isEmpty(mData)) {
             return null;
         }
         return mData.get(position);
     }
+
     /**
      * 设置list为这个list
-     *
-     * @param data
      */
     public void set(List<M> data) {
         firstLoad = false;
@@ -191,8 +179,6 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
 
     /**
      * list中添加更多的数据
-     *
-     * @param data
      */
     public void add(List<M> data) {
         if (mData == null) {
@@ -201,6 +187,7 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
         mData.addAll(data);
         notifyDataSetChanged();
     }
+
     /**
      * 自动更新列表集合，根据当前刷新状态判断进行刷新或加载操作
      *
@@ -225,7 +212,7 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
 
     @Override
     public int getItemViewType(int position) {
-        if(position==0&&showEmpty){
+        if (position == 0 && showEmpty) {
             //当前数据空位,展示空页面
             return TYPE_EMPTY;
         }
@@ -244,7 +231,6 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
     /**
      * 标准的item的类型
      *
-     * @param position
      * @return 返回参数不能小于0
      */
     @IntRange(from = 0)
@@ -263,18 +249,17 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
             //有底部,item的个数+1
             size++;
         }
-        if(size==0){
+        if (size == 0) {
             showEmpty = true;
             size = 1;
-        }else{
+        } else {
             showEmpty = false;
         }
         return size;
     }
 
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int
-            viewType) {
+    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //加载头部信息
         if (TYPE_HEADER == viewType) {
             return new HeaderAndFooterViewHolder(mHeaderView);
@@ -284,12 +269,12 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
             return new HeaderAndFooterViewHolder(mFooterView);
         }
         //加载空页面
-        if(TYPE_EMPTY == viewType){
-            View v = inflate(emptyLayout,parent);
+        if (TYPE_EMPTY == viewType) {
+            View v = inflate(emptyLayout, parent);
             return new HeaderAndFooterViewHolder(v);
         }
         //反射获取ViewHolder
-        if(mAdapterAnnotation!=null){
+        if (mAdapterAnnotation != null) {
             return reflectViewHolder(parent);
         }
         return createHolder(parent, viewType);
@@ -297,11 +282,10 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
 
     /**
      * 反射获得ViewHolder
-     * @param parent
-     * @return
      */
-    private VH reflectViewHolder(ViewGroup parent){
-        View v = inflate(mAdapterAnnotation.layout(),parent);
+    @SuppressWarnings("unchecked")
+    private VH reflectViewHolder(ViewGroup parent) {
+        View v = inflate(mAdapterAnnotation.layout(), parent);
         Class<VH> c = (Class<VH>) mAdapterAnnotation.holder();
         VH holder = null;
         try {
@@ -309,35 +293,36 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
             holder = con.newInstance(v);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
-        }finally {
-            return holder;
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
+        return holder;
     }
 
     /**
-     * 除头部和底部的ViewHodler的获取
+     * 除头部和底部的ViewHolder的获取
      *
-     * @param parent
      * @param viewType holder的类型
-     * @return
      */
-    public VH createHolder(ViewGroup parent, int viewType){
+    protected VH createHolder(ViewGroup parent, int viewType) {
         return null;
-    };
+    }
 
     /**
-     * 获取需要viewholder的view
+     * 获取需要viewHolder的view
      *
      * @param layoutId 布局文件
-     * @param group
-     * @return
      */
     protected View inflate(int layoutId, ViewGroup group) {
         LayoutInflater inflater = LayoutInflater.from(group.getContext());
-        View v = inflater.inflate(layoutId, group, false);
-        return v;
+        return inflater.inflate(layoutId, group, false);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         int index = position;
@@ -346,7 +331,7 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
             if (getItemViewType(position) == TYPE_HEADER) {
                 return;
             } else {
-                /**
+                /*
                  * 有头部的情况,需要要减1,否则取item的数据会取到当前数据的下一条,
                  * 取出最后一条数据的时候,会报下标溢出
                  */
@@ -360,11 +345,11 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
             }
         }
         //空页面状态,不需要设置holder的内容
-        if(getItemViewType(position)==TYPE_EMPTY){
+        if (getItemViewType(position) == TYPE_EMPTY) {
             //第一次加载数据,不展示空页面
-            if(firstLoad){
+            if (firstLoad) {
                 holder.itemView.setVisibility(View.INVISIBLE);
-            }else{
+            } else {
                 holder.itemView.setVisibility(View.VISIBLE);
             }
             return;
@@ -375,7 +360,7 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.itemClick(mRecyclerView.getId(),finalIndex);
+                    mListener.itemClick(mRecyclerView.getId(), finalIndex);
                 }
             }
         });
@@ -384,14 +369,12 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
     }
 
     /**
-     * 绑定viewholder的数据
-     *
-     * @param holder
-     * @param m
-     * @param position
+     * 绑定viewHolder的数据
      */
     public abstract void bindViewHolder(VH holder, M m, int position);
+
     private RecyclerView mRecyclerView;
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -399,25 +382,24 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
         RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
         if (manager instanceof GridLayoutManager) {
             final GridLayoutManager gridManager = ((GridLayoutManager) manager);
-            gridManager.setSpanSizeLookup(new GridLayoutManager
-                    .SpanSizeLookup() {
+            gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
-                    return (getItemViewType(position) == TYPE_HEADER ||
-                            getItemViewType(position) == TYPE_FOOTER) ?
-                            gridManager.getSpanCount() : 1;
+                    return (getItemViewType(position) == TYPE_HEADER
+                            || getItemViewType(position) == TYPE_FOOTER)
+                            ? gridManager.getSpanCount() : 1;
                 }
             });
         }
-
     }
 
     @Override
     public void onViewAttachedToWindow(BaseViewHolder holder) {
         super.onViewAttachedToWindow(holder);
         ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-        if (lp != null && lp instanceof StaggeredGridLayoutManager
-                .LayoutParams && holder.getLayoutPosition() == 0) {
+        if (lp != null
+                && lp instanceof StaggeredGridLayoutManager.LayoutParams
+                && holder.getLayoutPosition() == 0) {
             StaggeredGridLayoutManager.LayoutParams p =
                     (StaggeredGridLayoutManager.LayoutParams) lp;
             p.setFullSpan(true);
@@ -434,16 +416,14 @@ public abstract class RecyclerAdapter<M,VH extends BaseViewHolder> extends
         }
     }
 
-
     /**
      * item点击事件
      */
     public interface OnItemClickListener {
         /**
-         *
-         * @param id  RecyclerView.getId()
+         * @param id RecyclerView.getId()
          * @param position item所在的位置
          */
-        void itemClick(@IdRes int id,int position);
+        void itemClick(@IdRes int id, int position);
     }
 }

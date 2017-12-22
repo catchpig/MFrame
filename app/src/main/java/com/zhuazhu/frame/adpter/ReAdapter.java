@@ -7,11 +7,10 @@ import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.mvp.model.User;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import mejust.frame.annotation.Adapter;
 import mejust.frame.widget.adapter.BaseViewHolder;
-import mejust.frame.widget.refresh.IPageControl;
 import mejust.frame.widget.adapter.RecyclerAdapter;
+import mejust.frame.widget.refresh.IPageControl;
 
 /**
  * 创建时间:2017/12/22 0:36<br/>
@@ -22,6 +21,7 @@ import mejust.frame.widget.adapter.RecyclerAdapter;
  */
 @Adapter(layout = R.layout.item_re,holder = ReAdapter.ViewHolder.class)
 public class ReAdapter extends RecyclerAdapter<User, ReAdapter.ViewHolder> {
+
     public ReAdapter(IPageControl pageControl){
         super(pageControl);
     }
@@ -37,7 +37,6 @@ public class ReAdapter extends RecyclerAdapter<User, ReAdapter.ViewHolder> {
 
         ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(view);
         }
     }
 }

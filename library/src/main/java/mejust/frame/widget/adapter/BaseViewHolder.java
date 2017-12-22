@@ -12,11 +12,10 @@ import butterknife.ButterKnife;
  * 修改时间: 2017/12/21  19:45<br/>
  * 描述: ViewHolder基类
  */
-public class BaseViewHolder extends RecyclerView.ViewHolder{
-
+public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     public BaseViewHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
 }

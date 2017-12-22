@@ -23,13 +23,15 @@ import mejust.frame.widget.refresh.IPageControl;
  * 描述:
  */
 
-public class RecyclerPresenterImp extends BasePresenter<RecyclerContract.View> implements
-        RecyclerContract.Presenter {
+public class RecyclerPresenterImp extends BasePresenter<RecyclerContract.View>
+        implements RecyclerContract.Presenter {
+
     private ReAdapter mAdapter;
     private IPageControl mPageControl;
+
     @Inject
     public RecyclerPresenterImp(@NonNull RecyclerContract.View view, ReAdapter adapter,
-                                IPageControl pageControl) {
+            IPageControl pageControl) {
         super(view);
         mAdapter = adapter;
         mPageControl = pageControl;
@@ -47,7 +49,7 @@ public class RecyclerPresenterImp extends BasePresenter<RecyclerContract.View> i
             public void run() {
                 mAdapter.autoUpdateList(users());
             }
-        },2000);
+        }, 2000);
     }
 
     @Override
@@ -55,11 +57,11 @@ public class RecyclerPresenterImp extends BasePresenter<RecyclerContract.View> i
         mAdapter.add(users());
     }
 
-    public List<User> users(){
+    public List<User> users() {
         List<User> list = new ArrayList<>();
-        for (int i=0;i<16;i++){
+        for (int i = 0; i < 16; i++) {
             User user = new User();
-            user.setName("名字"+i);
+            user.setName("名字" + i);
             list.add(user);
         }
         return list;

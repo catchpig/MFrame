@@ -12,5 +12,6 @@ import mejust.frame.widget.adapter.BaseViewHolder;
 
 public interface AdapterDelegate<T> {
     void getLayoutId();
-    void bindView(BaseViewHolder holder,T data,int postion);
+
+    void bindView(BaseViewHolder holder, T data, int position);
 }

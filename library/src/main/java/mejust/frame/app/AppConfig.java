@@ -14,24 +14,22 @@ public class AppConfig {
     public static boolean DEBUG = false;
 
     /**
-     * api base url 字段
-     */
-    public static final String BASE_URL = "baseUrl";
-
-    /**
      * 网络请求详情打印
      */
-    public static final String URL_LOG = "OkHttp";
+    public static String URL_LOG = "OkHttp";
+
     /**
      * 连接超时，单位：秒
      */
-    public static final long CONNECT_TIME_OUT_DEFAULT = 10;
+    public static long CONNECT_TIME_OUT_DEFAULT = 10;
+
     /**
      * 读取超时，单位：秒
      */
-    public static final long READ_TIME_OUT_DEFAULT = 10;
+    public static long READ_TIME_OUT_DEFAULT = 10;
+
     /**
      * 写入超时，单位：秒
      */
-    public static final long WRITE_TIME_OUT_DEFAULT = 10;
+    public static long WRITE_TIME_OUT_DEFAULT = 10;
 }

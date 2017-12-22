@@ -60,12 +60,20 @@ public class RefreshLayoutWrapper extends SmartRefreshLayout implements IPageCon
         init();
     }
 
-
     private void init() {
         currentPageIndex = 1;
         prePageIndex = NONE_PRE_PAGE_INDEX;
         setDisableContentWhenLoading(true);
         setDisableContentWhenRefresh(true);
+    }
+
+    /**
+     * 设置单页加载数据数
+     *
+     * @param pageSize 单页数据项
+     */
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
     /**

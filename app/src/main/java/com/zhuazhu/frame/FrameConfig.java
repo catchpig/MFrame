@@ -9,4 +9,7 @@ import mejust.frame.app.AppConfig;
 
 public class FrameConfig extends AppConfig {
 
+    public static void init() {
+        DEBUG = BuildConfig.DEBUG;
+    }
 }
