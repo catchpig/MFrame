@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import com.zhuazhu.annotation.LayoutId;
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.adpter.ReAdapter;
-import com.zhuazhu.frame.di.component.DaggerRecyclerComponent;
 import com.zhuazhu.frame.di.module.RecyclerModule;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.RecyclerContract;
@@ -27,20 +26,22 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
 @LayoutId(R.layout.activity_recycler)
 public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp> implements
         RecyclerContract.View {
+
     @BindView(R.id.recycler)
     RecyclerView mRecycler;
     @BindView(R.id.refresh)
     RefreshLayoutWrapper mRefresh;
 
     @Override
-    protected void initData() {
+    protected void initParam() {
 
     }
 
     @Override
     protected void injectComponent() {
-        DaggerRecyclerComponent.builder().appComponent(FrameApplication.getAppComponent())
-                .recyclerModule(new RecyclerModule(this,mRefresh)).build().inject(this);
+        FrameApplication.getAppComponent()
+                .recyclerComponent(new RecyclerModule(this, mRefresh))
+                .inject(this);
     }
 
     @Override

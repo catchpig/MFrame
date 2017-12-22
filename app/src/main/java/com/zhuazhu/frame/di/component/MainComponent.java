@@ -1,8 +1,9 @@
 package com.zhuazhu.frame.di.component;
 
-import com.zhuazhu.frame.mvp.activity.MainActivity;
 import com.zhuazhu.frame.di.module.MainModule;
-import dagger.Component;
+import com.zhuazhu.frame.mvp.activity.MainActivity;
+
+import dagger.Subcomponent;
 import mejust.frame.annotation.ActivityScope;
 
 /**
@@ -10,7 +11,7 @@ import mejust.frame.annotation.ActivityScope;
  * @date : 2017-12-20 12:49
  */
 @ActivityScope
-@Component(modules = MainModule.class, dependencies = AppComponent.class)
+@Subcomponent(modules = MainModule.class)
 public interface MainComponent {
     void inject(MainActivity activity);
 }

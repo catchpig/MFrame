@@ -1,7 +1,9 @@
 package com.zhuazhu.frame.di.component;
 
 import com.zhuazhu.frame.data.HttpHelper;
+import com.zhuazhu.frame.di.module.MainModule;
 import com.zhuazhu.frame.di.module.NetModule;
+import com.zhuazhu.frame.di.module.RecyclerModule;
 
 import javax.inject.Singleton;
 
@@ -13,8 +15,12 @@ import mejust.frame.di.AppModule;
  * @date : 2017-12-20 11:41
  */
 @Singleton
-@Component(modules = { NetModule.class, AppModule.class })
+@Component(modules = {NetModule.class, AppModule.class})
 public interface AppComponent {
 
     HttpHelper getHttpHelper();
+
+    MainComponent mainComponent(MainModule mainModule);
+
+    RecyclerComponent recyclerComponent(RecyclerModule module);
 }

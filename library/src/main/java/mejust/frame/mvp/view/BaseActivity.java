@@ -1,5 +1,6 @@
 package mejust.frame.mvp.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,12 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.zhuazhu.bind.AnnotationBind;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import mejust.frame.R;
+import mejust.frame.mvp.BaseContract;
 import mejust.frame.widget.title.TitleBar;
 import mejust.frame.widget.title.TitleBarOptions;
 
@@ -24,7 +27,7 @@ import mejust.frame.widget.title.TitleBarOptions;
  * 描述: 无MVP的基类，添加了TitleBar管理<br/>
  * 添加布局文件,不再调用setContentView方法,在继承的子类上添加@layoutId注解
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity implements BaseContract.View {
 
     private LinearLayout layoutRoot;
     private Unbinder unbinder;
@@ -70,5 +73,35 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setTitleBar(@NonNull TitleBarOptions options) {
         titleBar.setVisibility(View.VISIBLE);
         titleBar.setOptions(options);
+    }
+
+    @Override
+    public void show(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void loadingDialog() {
+        //TODO 展示loading的弹窗
+    }
+
+    @Override
+    public void loadingView() {
+        //TODO 展示loading的视图
+    }
+
+    @Override
+    public void hidden() {
+        //TODO 隐藏loading
+    }
+
+    @Override
+    public void startLoginActivity() {
+        //TODO 跳转登录界面
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }

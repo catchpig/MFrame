@@ -1,11 +1,10 @@
 package mejust.frame.mvp.view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import javax.inject.Inject;
+
 import mejust.frame.mvp.BaseContract;
 
 /**
@@ -16,8 +15,7 @@ import mejust.frame.mvp.BaseContract;
  * 描述:
  */
 
-public abstract class BasePresenterActivity<P extends BaseContract.Presenter> extends BaseActivity
-        implements BaseContract.View {
+public abstract class BasePresenterActivity<P extends BaseContract.Presenter> extends BaseActivity {
 
     @Inject
     protected P mPresenter;
@@ -25,10 +23,10 @@ public abstract class BasePresenterActivity<P extends BaseContract.Presenter> ex
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initParam();
         injectComponent();
-        mPresenter.onCreate();
         initView();
-        initData();
+        mPresenter.onCreate();
     }
 
     @Override
@@ -50,9 +48,9 @@ public abstract class BasePresenterActivity<P extends BaseContract.Presenter> ex
     }
 
     /**
-     * 初始化Data
+     * 初始化参数数据
      */
-    protected abstract void initData();
+    protected abstract void initParam();
 
     /**
      * 依赖注入
@@ -63,34 +61,4 @@ public abstract class BasePresenterActivity<P extends BaseContract.Presenter> ex
      * 初始化View
      */
     protected abstract void initView();
-
-    @Override
-    public void show(String msg) {
-        Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void loadingDialog() {
-        //TODO 展示loading的弹窗
-    }
-
-    @Override
-    public void loadingView() {
-        //TODO 展示loading的视图
-    }
-
-    @Override
-    public void hidden() {
-        //TODO 隐藏loading
-    }
-
-    @Override
-    public void startLoginActivity() {
-        //TODO 跳转登录界面
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
-    }
 }
