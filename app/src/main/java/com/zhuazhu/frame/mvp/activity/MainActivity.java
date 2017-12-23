@@ -1,33 +1,26 @@
 package com.zhuazhu.frame.mvp.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.View;
+import android.widget.TextView;
 
 import com.zhuazhu.annotation.LayoutId;
 import com.zhuazhu.frame.R;
-import com.zhuazhu.frame.data.MFrameTitleBarOptions;
 import com.zhuazhu.frame.di.module.MainModule;
+import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
-import com.zhuazhu.frame.mvp.application.FrameApplication;
 
+import mejust.frame.annotation.TextRightFirstEvent;
+import mejust.frame.annotation.TitileBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
-import mejust.frame.utils.log.Logger;
 
 @LayoutId(R.layout.activity_main)
+@TitileBar("首页")
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
-        implements MainContract.View, View.OnClickListener {
-
+        implements MainContract.View {
     @Override
     protected void initParam() {
-        MFrameTitleBarOptions options = new MFrameTitleBarOptions(this);
-        options.setTitleString("正规的标题");
-        options.setTextLeft("退出登录");
-        options.setTextLeftSize(14);
-        options.setTextLeftColor(Color.WHITE);
-        options.setLeftTextListener(this);
-        setTitleBar(options);
     }
 
     @Override
@@ -41,17 +34,18 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
     protected void initView() {
 
     }
+    @TextRightFirstEvent("详情")
+    protected void detail(TextView v){
 
+    }
     @Override
     public void onClick(View v) {
+        super.onClick(v);
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.image:
                 intent.setClass(this, ImageActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.mframe_titlebar_text_left:
-                Logger.i("点击了左边文字");
                 break;
             case R.id.recycler:
                 intent.setClass(this, RecyclerActivity.class);

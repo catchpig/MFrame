@@ -2,6 +2,7 @@ package mejust.frame.annotation;
 
 import android.support.annotation.LayoutRes;
 
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,6 +19,7 @@ import mejust.frame.widget.adapter.BaseViewHolder;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface Adapter {
     @LayoutRes
     int layout();

@@ -12,7 +12,7 @@ android {
         targetSdkVersion 26
         versionCode VERSION_CODE as int
         versionName VERSION
-        resourcePrefix "mframe_"     //这里随便填
+        resourcePrefix ""     //这里随便填
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:26.1.0'
     //刷新控件
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
     //工具包
     api ('com.zhuazhu:library:0.3.9',{
         exclude group: 'com.android.support'

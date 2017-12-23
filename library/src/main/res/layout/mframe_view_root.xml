@@ -8,7 +8,5 @@
   <mejust.frame.widget.title.TitleBar
       android:id="@+id/title_bar"
       android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:visibility="gone"
-      />
+      android:layout_height="@dimen/title_height"/>
 </LinearLayout>

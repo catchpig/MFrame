@@ -1,5 +1,8 @@
 package com.zhuazhu.frame.mvp.application;
 
+import android.graphics.Color;
+import android.view.View;
+
 import com.zhuazhu.frame.BuildConfig;
 import com.zhuazhu.frame.FrameConfig;
 import com.zhuazhu.frame.R;
@@ -9,6 +12,10 @@ import com.zhuazhu.frame.di.module.NetModule;
 import mejust.frame.app.BaseApplication;
 import mejust.frame.di.AppModule;
 import mejust.frame.image.ImageUtils;
+import mejust.frame.mvp.view.BaseActivity;
+import mejust.frame.widget.title.DefalutTitleBarOption;
+import mejust.frame.widget.title.TitleBar;
+import mejust.frame.widget.title.TitleBarOptions;
 
 /**
  * @author : Beaven
@@ -16,7 +23,22 @@ import mejust.frame.image.ImageUtils;
  */
 
 public class FrameApplication extends BaseApplication {
-
+    static {
+        BaseActivity.setDefalutTitleBarOption(new DefalutTitleBarOption() {
+            @Override
+            public TitleBarOptions creatOption(TitleBar titleBar) {
+                TitleBarOptions options = new TitleBarOptions();
+                options.setBackgroundColor(R.color.title_backgroud);
+                options.setTextColor(R.color.white);
+                options.setTitleTextSize(18);
+                options.setBackImage(R.mipmap.back);
+                options.setBactTextSize(15);
+                options.setBackText("返回");
+                options.setRightTextSize(15);
+                return options;
+            }
+        });
+    }
     private static AppComponent appComponent;
 
     @Override

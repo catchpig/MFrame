@@ -12,6 +12,7 @@ import com.zhuazhu.frame.mvp.contract.RecyclerContract;
 import com.zhuazhu.frame.mvp.presenter.RecyclerPresenterImp;
 
 import butterknife.BindView;
+import mejust.frame.annotation.TitileBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.widget.refresh.OnRefreshListener;
 import mejust.frame.widget.refresh.RefreshLayoutWrapper;
@@ -24,6 +25,7 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  * 描述:
  */
 @LayoutId(R.layout.activity_recycler)
+@TitileBar(value = "列表",backText = "首页")
 public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp> implements
         RecyclerContract.View {
 
