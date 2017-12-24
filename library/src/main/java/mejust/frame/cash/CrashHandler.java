@@ -4,9 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
-
-import com.zhuazhu.util.LogUtils;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import conm.zhuazhu.common.utils.LogUtils;
 import mejust.frame.utils.log.Logger;
 
 /**
@@ -176,7 +175,8 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             String time = formatter.format(new Date());
             String fileName = "crash-" + time + "-" + timestamp + ".log";
             String file_dir = getFilePath();
-            //          if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            //          if (Environment.getExternalStorageState().equals(Environment
+            // .MEDIA_MOUNTED)) {
             File dir = new File(file_dir);
             if (!dir.exists()) {
                 flag = dir.mkdirs();

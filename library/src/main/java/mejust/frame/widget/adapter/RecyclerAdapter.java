@@ -10,13 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.zhuazhu.util.ListUtils;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import conm.zhuazhu.common.utils.ListUtils;
 import mejust.frame.R;
 import mejust.frame.annotation.Adapter;
 import mejust.frame.widget.refresh.IPageControl;

@@ -4,13 +4,12 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.zhuazhu.util.StringUtils;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import conm.zhuazhu.common.utils.StringUtils;
 import mejust.frame.annotation.ImageRightFirstEvent;
 import mejust.frame.annotation.ImageRightSecondEvent;
 import mejust.frame.annotation.TextRightFirstEvent;

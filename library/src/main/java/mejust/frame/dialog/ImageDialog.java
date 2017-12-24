@@ -15,11 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.chrisbanes.photoview.PhotoView;
-import com.zhuazhu.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import conm.zhuazhu.common.utils.StringUtils;
 import mejust.frame.R;
 import mejust.frame.image.ImageUtils;
 import mejust.frame.widget.MultipleTouchViewPager;
