@@ -28,10 +28,17 @@ import mejust.frame.utils.log.Logger;
 
 public class TitleBarAnnotationUtils {
     private static final String TAG = "TitleBarAnnotationUtils";
-
+    /**
+     * 绑定注解(@TitleBar,@TextRightFirstEvent,@TextRightSecondEvent,@ImageRightFirstEvent,@ImageRightSecondEvent)
+     * @param activity
+     * @param titleBar
+     * @return true:有TitleBar这个注解<br/>false:没有TitleBar这个注解
+     */
     public static void inject(@NonNull Activity activity, @NonNull TitleBar titleBar) {
         Class<?> activityClass = activity.getClass();
-        setTitleBarAnnotation(activityClass, titleBar);
+        if(!setTitleBarAnnotation(activityClass, titleBar)){
+            return;
+        }
         Method[] methods = activityClass.getDeclaredMethods();
         for (Method method : methods) {
             //如果当前方法是静态方法或者私有方法,直接忽略
@@ -155,11 +162,13 @@ public class TitleBarAnnotationUtils {
      *
      * @param cls
      * @param titleBar
+     * @return true:有TitleBar这个注解<br/>false:没有TitleBar这个注解
      */
-    private static void setTitleBarAnnotation(Class<?> cls, TitleBar titleBar) {
+    private static boolean setTitleBarAnnotation(Class<?> cls, TitleBar titleBar) {
         TitileBar bar = annotation(cls, TitileBar.class);
         if (bar == null) {
             Logger.e(TAG, cls.getName() + "当前类没有TitleBar注解");
+            return false;
         } else {
             titleBar.setTitleText(bar.value());
             boolean hiddenBack = bar.hiddenBack();
@@ -178,9 +187,22 @@ public class TitleBarAnnotationUtils {
             if(backgroundColor != -1){
                 titleBar.setTitleBarBackgroundColor(backgroundColor);
             }
+            return true;
         }
     }
 
+    /**
+     * 判断当前类是否有TitileBar这个注解
+     * @param cls
+     * @return
+     */
+    public static boolean isTitleBarAnnotation(Class<?> cls){
+        TitileBar titileBar = annotation(cls,TitileBar.class);
+        if(titileBar==null){
+            return false;
+        }
+        return true;
+    }
     private static <T extends Annotation> T annotation(Class<?> cls, Class<T> aCls) {
         if (cls.isAnnotationPresent(aCls)) {
             return cls.getAnnotation(aCls);

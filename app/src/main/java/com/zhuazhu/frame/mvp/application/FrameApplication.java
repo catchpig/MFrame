@@ -1,7 +1,6 @@
 package com.zhuazhu.frame.mvp.application;
 
-import android.graphics.Color;
-import android.view.View;
+import android.app.Activity;
 
 import com.zhuazhu.frame.BuildConfig;
 import com.zhuazhu.frame.FrameConfig;
@@ -9,10 +8,12 @@ import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.component.AppComponent;
 import com.zhuazhu.frame.di.component.DaggerAppComponent;
 import com.zhuazhu.frame.di.module.NetModule;
+
 import mejust.frame.app.BaseApplication;
 import mejust.frame.di.AppModule;
 import mejust.frame.image.ImageUtils;
 import mejust.frame.mvp.view.BaseActivity;
+import mejust.frame.mvp.view.DefaultLoginOption;
 import mejust.frame.widget.title.DefalutTitleBarOption;
 import mejust.frame.widget.title.TitleBar;
 import mejust.frame.widget.title.TitleBarOptions;
@@ -38,6 +39,12 @@ public class FrameApplication extends BaseApplication {
                 return options;
             }
         });
+        BaseActivity.setDefaultLoginOption(new DefaultLoginOption() {
+            @Override
+            public void login(Activity activity) {
+
+            }
+        });
     }
     private static AppComponent appComponent;
 
@@ -51,7 +58,7 @@ public class FrameApplication extends BaseApplication {
     public static AppComponent getAppComponent() {
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
-                    .appModule(new AppModule(getApplication()))
+                    .appModule(new AppModule(getInstance()))
                     .netModule(new NetModule())
                     .build();
         }

@@ -20,9 +20,9 @@ import mejust.frame.R;
 /**
  * 创建时间:2017-12-21 9:49<br/>
  * 创建人: 王培峰<br/>
- * 修改人: 王培峰<br/>
- * 修改时间: 2017-12-21 9:49<br/>
- * 描述: 自定义Title
+ * 修改人: 李涛<br/>
+ * 修改时间: 2017年12月24日12:56:41<br/>
+ * 描述: 自定义TitleBar,默认按钮被隐藏了的
  */
 
 public class TitleBar extends FrameLayout {

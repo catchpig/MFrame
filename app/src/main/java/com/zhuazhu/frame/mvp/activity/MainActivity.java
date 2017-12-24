@@ -1,6 +1,7 @@
 package com.zhuazhu.frame.mvp.activity;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
@@ -36,7 +37,13 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
     }
     @TextRightFirstEvent("详情")
     protected void detail(TextView v){
-
+        loadingView();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hidden();
+            }
+        },2000);
     }
     @Override
     public void onClick(View v) {
