@@ -9,7 +9,6 @@ android {
         targetSdkVersion 26
         versionCode VERSION_CODE as int
         versionName VERSION
-        resourcePrefix ""     //这里随便填
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -44,7 +43,7 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
     //工具包
-    api ('com.zhuazhu:library:0.3.9',{
+    api ('com.github.zhuazhu:Common:1.0.0',{
         exclude group: 'com.android.support'
     })
     api 'com.google.code.gson:gson:2.8.2'
@@ -69,4 +68,6 @@ dependencies {
     api 'com.github.chrisbanes:PhotoView:2.1.3'
     api 'com.jakewharton.timber:timber:4.6.0'
     api 'com.jakewharton:butterknife:8.5.0'
+    //动画
+    api 'com.wang.avi:library:2.1.3'
 }

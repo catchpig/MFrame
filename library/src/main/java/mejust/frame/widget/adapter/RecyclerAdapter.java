@@ -66,7 +66,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
     /**
      * 空页面layout
      */
-    private int emptyLayout = R.layout.mframe_view_load_empty;
+    private int emptyLayout = R.layout.view_load_empty;
     /**
      * 是否是第一次加载数据
      */

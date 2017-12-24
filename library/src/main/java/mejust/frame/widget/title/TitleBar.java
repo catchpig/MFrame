@@ -48,7 +48,7 @@ public class TitleBar extends FrameLayout {
 
     public TitleBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        View view = LayoutInflater.from(context).inflate(R.layout.mframe_title_bar, this, true);
+        View view = LayoutInflater.from(context).inflate(R.layout.title_bar, this, true);
         layoutTitle = view.findViewById(R.id.layout_title);
         layoutBack = view.findViewById(R.id.mframe_back_layout);
         layoutRight = view.findViewById(R.id.mframe_layout_right);

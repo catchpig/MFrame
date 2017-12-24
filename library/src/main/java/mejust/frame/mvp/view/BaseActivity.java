@@ -12,13 +12,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.zhuazhu.bind.AnnotationBind;
-import com.zhuazhu.dialog.LoadingDialog;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import mejust.frame.R;
 import mejust.frame.app.BaseApplication;
+import mejust.frame.bind.AnnotationBind;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.widget.title.DefalutTitleBarOption;
 import mejust.frame.widget.title.TitleBar;
@@ -33,7 +31,7 @@ import mejust.frame.widget.title.TitleBarOptions;
  * 描述: 无MVP的基类<br/>
  *
  * 添加布局文件,不再调用setContentView方法,在继承的子类上添加<br/>
- * {@link com.zhuazhu.annotation.LayoutId}注解<br/><br/>
+ * {@link mejust.frame.annotation.LayoutId}注解<br/><br/>
  *
  * 默认的标题,用标题栏注解<br/>
  * {@link mejust.frame.annotation.TitileBar}<br/><br/>
@@ -60,7 +58,7 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.mframe_view_root);
+        super.setContentView(R.layout.view_root);
         AnnotationBind.inject(this);
         mUnbinder = ButterKnife.bind(this);
         initTitleBar();
@@ -143,7 +141,10 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
         if(mLoadingDialog !=null){
             return;
         }
-        mLoadingDialog = LoadingDialog.show(this);
+        mLoadingDialog = new Dialog(this,R.style.mframe_imagedialog);
+        mLoadingDialog.setCancelable(false);// 不可以用“返回键”取消
+        mLoadingDialog.setContentView(R.layout.dialog_loading);
+        mLoadingDialog.show();
     }
 
     @Override

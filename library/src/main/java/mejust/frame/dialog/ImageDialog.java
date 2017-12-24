@@ -91,7 +91,7 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mframe_dialog_image);
+        setContentView(R.layout.dialog_image);
 		/*
          * 获取圣诞框的窗口对象及参数对象以修改对话框的布局设置,
          * 可以直接调用getWindow(),表示获得这个Activity的Window
