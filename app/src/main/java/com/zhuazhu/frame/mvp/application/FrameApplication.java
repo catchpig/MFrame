@@ -13,7 +13,7 @@ import mejust.frame.app.BaseApplication;
 import mejust.frame.di.AppModule;
 import mejust.frame.image.ImageUtils;
 import mejust.frame.mvp.view.BaseActivity;
-import mejust.frame.mvp.view.DefaultLoginOption;
+import mejust.frame.mvp.view.option.DefaultActivityOption;
 import mejust.frame.widget.title.DefalutTitleBarOption;
 import mejust.frame.widget.title.TitleBar;
 import mejust.frame.widget.title.TitleBarOptions;
@@ -39,10 +39,15 @@ public class FrameApplication extends BaseApplication {
                 return options;
             }
         });
-        BaseActivity.setDefaultLoginOption(new DefaultLoginOption() {
+        BaseActivity.setDefaultActivityOption(new DefaultActivityOption() {
             @Override
             public void login(Activity activity) {
 
+            }
+
+            @Override
+            public int statusBarColor() {
+                return R.color.c_1e81d2;
             }
         });
     }

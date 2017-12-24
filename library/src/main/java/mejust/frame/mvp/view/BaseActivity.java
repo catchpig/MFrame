@@ -4,8 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +20,12 @@ import mejust.frame.R;
 import mejust.frame.app.BaseApplication;
 import mejust.frame.bind.AnnotationBind;
 import mejust.frame.mvp.BaseContract;
+import mejust.frame.mvp.view.option.DefaultActivityOption;
 import mejust.frame.widget.title.DefalutTitleBarOption;
 import mejust.frame.widget.title.TitleBar;
 import mejust.frame.widget.title.TitleBarAnnotationUtils;
 import mejust.frame.widget.title.TitleBarOptions;
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * 创建时间:2017-12-21 10:41<br/>
@@ -50,7 +54,7 @@ import mejust.frame.widget.title.TitleBarOptions;
  */
 public class BaseActivity extends AppCompatActivity implements BaseContract.View,View.OnClickListener{
     private static DefalutTitleBarOption sTitleBarOption;
-    private static DefaultLoginOption sLoginOption;
+    private static DefaultActivityOption sActivityOption;
     private RelativeLayout mLayoutBody;
     private Unbinder mUnbinder;
     private TitleBar mTitleBar;
@@ -59,6 +63,7 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.view_root);
+        initStatusBar();
         AnnotationBind.inject(this);
         mUnbinder = ButterKnife.bind(this);
         initTitleBar();
@@ -121,6 +126,26 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
         BaseApplication.getInstance().finishActivity(this);
 
     }
+    /**
+     * 初始化状态栏
+     */
+    private void initStatusBar(){
+        setStatusBarColor(sActivityOption.statusBarColor());
+    }
+
+    /**
+     * 状态栏透明
+     */
+    public void translucentStatusBar(){
+        StatusBarCompat.translucentStatusBar(this);
+    }
+    /**
+     * 设置状态栏颜色
+     * @param color
+     */
+    public void setStatusBarColor(@ColorRes int color){
+        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, color));
+    }
 
     /**
      * 设置标题栏
@@ -168,15 +193,15 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
     }
 
     /**
-     * 设置跳转的登录的回调接口
+     * 设置activity的默认参数
      * @param option
      */
-    public static void setDefaultLoginOption(@NonNull DefaultLoginOption option){
-        sLoginOption = option;
+    public static void setDefaultActivityOption(@NonNull DefaultActivityOption option){
+        sActivityOption = option;
     }
     @Override
     public void startLoginActivity() {
-        sLoginOption.login(this);
+        sActivityOption.login(this);
     }
 
     @Override

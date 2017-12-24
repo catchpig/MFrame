@@ -3,7 +3,6 @@ package com.zhuazhu.frame.mvp.activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.zhuazhu.annotation.LayoutId;
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.adpter.ReAdapter;
 import com.zhuazhu.frame.di.module.RecyclerModule;
@@ -12,6 +11,7 @@ import com.zhuazhu.frame.mvp.contract.RecyclerContract;
 import com.zhuazhu.frame.mvp.presenter.RecyclerPresenterImp;
 
 import butterknife.BindView;
+import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TitileBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.widget.refresh.OnRefreshListener;

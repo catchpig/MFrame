@@ -5,13 +5,13 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zhuazhu.annotation.LayoutId;
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.module.MainModule;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
 
+import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitileBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
