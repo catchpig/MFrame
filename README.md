@@ -3,6 +3,9 @@
 
   ---
   [在线文档地址](https://jitpack.io/com/github/zhuazhu/MFrame/0.1.4/javadoc)
+  ```
+  如果在线文档不是最新的,请用这个地址访问:https://jitpack.io/com/github/zhuazhu/MFrame/{最新的版本号}/javadoc
+  ```
 
 ## 项目基类库
 
