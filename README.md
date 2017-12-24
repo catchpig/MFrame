@@ -1,6 +1,5 @@
 # MFrame
-    [![Release](https://jitpack.io/v/zhuazhu/MFrame.svg)]
-    (https://jitpack.io/#zhuazhu/MFrame)
+  [![Release](https://jitpack.io/v/zhuazhu/MFrame.svg)](https://jitpack.io/#zhuazhu/MFrame)
 ## 项目基类库
 
  集成了常用的第三方库，使用MVP模式的搭建的基类库，便于项目的开发。集成的库列表：
