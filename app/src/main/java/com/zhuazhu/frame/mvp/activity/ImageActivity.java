@@ -11,7 +11,6 @@ import com.zhuazhu.frame.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import mejust.frame.annotation.Adapter;
 import mejust.frame.dialog.ImageDialog;
 import mejust.frame.image.ImageUtils;
 
@@ -22,6 +21,7 @@ import mejust.frame.image.ImageUtils;
  * 修改时间: 2017/12/20 16:28<br/>
  * 描述:
  */
+
 public class ImageActivity extends AppCompatActivity implements View.OnClickListener{
     private String url = "http://image.tianjimedia.com/uploadImages/2015/285/24/586K2UOWHG9D.jpg";
     @Override

@@ -34,7 +34,7 @@ public class HttpConfigHelper {
      */
     public <S> S createApi(Class<S> cls, OkHttpClient client) {
         // 注解获取baseUrl
-        ServiceUrl url = AnnotionUtils.annotation(cls, ServiceUrl.class);
+        ServiceUrl url = AnnotionUtils.annotationRecycle(cls, ServiceUrl.class);
         if (url == null) {
             throw new IllegalArgumentException("Api must set baseUrl,@Url");
         }

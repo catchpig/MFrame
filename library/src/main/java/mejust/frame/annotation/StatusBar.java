@@ -1,6 +1,7 @@
 package mejust.frame.annotation;
 
 import android.support.annotation.ColorRes;
+import android.support.annotation.IntRange;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -9,44 +10,39 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 创建时间:2017/12/23 21:25<br/>
+ * 创建时间:2017/12/25 12:31<br/>
  * 创建人: 李涛<br/>
  * 修改人: 李涛<br/>
- * 修改时间: 2017/12/23 21:25<br/>
- * 描述:titileBar的属性设置
+ * 修改时间: 2017/12/25 12:31<br/>
+ * 描述:状态栏注解
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface TitileBar {
+public @interface StatusBar {
     /**
-     * 标题内容
-     * @return
-     */
-    String value();
-
-    /**
-     * 隐藏返回键
-     * @return
-     */
-    boolean hiddenBack() default false;
-
-    /**
-     * 返回按钮的文字
-     * @return
-     */
-    String backText() default "";
-
-    /**
-     * 文字的颜色
-     * @return
-     */
-    int textColor() default -1;
-
-    /**
-     * 背景色
+     * 颜色值
      * @return
      */
     @ColorRes
-    int background() default -1;
+    int value() default -1;
+
+    /**
+     * 透明
+     * @return
+     */
+    boolean translucent() default false;
+
+    /**
+     * 隐藏状态栏背景
+     * @return
+     */
+    boolean hiddenBackground() default false;
+
+    /**
+     * 透明度
+     * @return
+     */
+    @IntRange(from = 0,to = 255)
+    int alpha() default 255;
 }

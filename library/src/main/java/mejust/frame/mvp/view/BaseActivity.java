@@ -17,13 +17,13 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import mejust.frame.R;
+import mejust.frame.annotation.utils.StatusBarUtils;
+import mejust.frame.annotation.utils.TitleBarAnnotationUtils;
 import mejust.frame.app.BaseApplication;
 import mejust.frame.bind.AnnotationBind;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.mvp.view.option.DefaultActivityOption;
-import mejust.frame.widget.title.DefaultTitleBarOption;
 import mejust.frame.widget.title.TitleBar;
-import mejust.frame.widget.title.TitleBarAnnotationUtils;
 import mejust.frame.widget.title.TitleBarOptions;
 import qiu.niorgai.StatusBarCompat;
 
@@ -38,8 +38,8 @@ import qiu.niorgai.StatusBarCompat;
  * {@link mejust.frame.annotation.LayoutId}注解<br/><br/>
  * <p>
  * 默认的标题,用标题栏注解<br/>
- * {@link mejust.frame.annotation.TitileBar}<br/><br/>
- * <p>
+ * {@link mejust.frame.annotation.TitleBar}<br/><br/>
+ *
  * 标题栏右边第一个文字的按钮监听和文字的设置用注解<br/>
  * {@link mejust.frame.annotation.TextRightFirstEvent}<br/><br/>
  * <p>
@@ -48,26 +48,30 @@ import qiu.niorgai.StatusBarCompat;
  * <p>
  * 标题栏右边第一个图片的按钮监听和文字的设置用注解<br/>
  * {@link mejust.frame.annotation.ImageRightFirstEvent}<br/><br/>
- * <p>
+ *
  * 标题栏右边第二个图片的按钮监听和文字的设置用注解<br/>
  * {@link mejust.frame.annotation.ImageRightSecondEvent}<br/><br/>
+ *
+ * 状态栏设置,用注解<br/>
+ * {@link mejust.frame.annotation.StatusBar}
  */
-public class BaseActivity extends AppCompatActivity
-        implements BaseContract.View, View.OnClickListener {
-    private static DefaultTitleBarOption sTitleBarOption;
+public class BaseActivity extends AppCompatActivity implements BaseContract.View,View.OnClickListener{
     private static DefaultActivityOption sActivityOption;
     private RelativeLayout mLayoutBody;
     private Unbinder mUnBinder;
     private TitleBar mTitleBar;
     private View mLoadingView;
     private Dialog mLoadingDialog;
-
+    @CallSuper
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
+        方法调用顺序不能改变
+         */
         super.setContentView(R.layout.view_root);
         initStatusBar();
-        AnnotationBind.inject(this);
+        AnnotationBind.injectLayoutId(this);
         mUnBinder = ButterKnife.bind(this);
         initTitleBar();
         initLoadingView();
@@ -75,29 +79,29 @@ public class BaseActivity extends AppCompatActivity
         BaseApplication.getInstance().addActivity(this);
     }
 
+    /**
+     * 设置基类activity的参数(标题栏参数,状态栏颜色,登录页面)
+     * @param option
+     */
+    public static void setDefaultActivityOption(DefaultActivityOption option){
+        sActivityOption = option;
+    }
+
     private void initLoadingView() {
         setContentView(R.layout.view_loading);
         mLoadingView = findViewById(R.id.layout_loading);
         mLoadingView.setVisibility(View.GONE);
     }
-
-    /**
-     * 设置默认的标题栏参数
-     */
-    public static void setDefaultTitleBarOption(@NonNull DefaultTitleBarOption option) {
-        sTitleBarOption = option;
-    }
-
     /**
      * 初始化TitleBar
      */
-    private void initTitleBar() {
+    private void initTitleBar(){
         mTitleBar = findViewById(R.id.title_bar);
         //有@TitleBar这个注解,才执行下面的操作
-        if (TitleBarAnnotationUtils.isTitleBarAnnotation(getClass())) {
-            TitleBarOptions options = sTitleBarOption.createOption(mTitleBar);
+        if(TitleBarAnnotationUtils.isTitleBarAnnotation(getClass())){
+            TitleBarOptions options = sActivityOption.titleBarOption();
             setTitleBar(options);
-            TitleBarAnnotationUtils.inject(this, mTitleBar);
+            AnnotationBind.injectTitleBar(this,mTitleBar);
             mTitleBar.setBackListener(this);
         } else {
             mTitleBar.setVisibility(View.GONE);
@@ -127,25 +131,28 @@ public class BaseActivity extends AppCompatActivity
         //结束Activity,从栈中移除该Activity
         BaseApplication.getInstance().finishActivity(this);
     }
-
     /**
      * 初始化状态栏
      */
-    private void initStatusBar() {
-        setStatusBarColor(sActivityOption.statusBarColor());
+    private void initStatusBar(){
+        if(StatusBarUtils.isStatusBar(this)){
+            AnnotationBind.injectStatusBar(this);
+        }else{
+            setStatusBarColor(sActivityOption.statusBarColor());
+        }
     }
 
     /**
      * 状态栏透明
      */
-    public void translucentStatusBar() {
+    public void translucentStatusBar(){
         StatusBarCompat.translucentStatusBar(this);
     }
-
     /**
      * 设置状态栏颜色
+     * @param color
      */
-    public void setStatusBarColor(@ColorRes int color) {
+    public void setStatusBarColor(@ColorRes int color){
         StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, color));
     }
 
@@ -162,13 +169,12 @@ public class BaseActivity extends AppCompatActivity
     public void show(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
-
     @Override
     public void loadingDialog() {
-        if (mLoadingDialog != null) {
+        if(mLoadingDialog !=null){
             return;
         }
-        mLoadingDialog = new Dialog(this, R.style.mframe_imagedialog);
+        mLoadingDialog = new Dialog(this,R.style.mframe_imagedialog);
         mLoadingDialog.setCancelable(false);// 不可以用“返回键”取消
         mLoadingDialog.setContentView(R.layout.dialog_loading);
         mLoadingDialog.show();
@@ -176,7 +182,7 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void loadingView() {
-        if (mLoadingView == null) {
+        if(mLoadingView ==null){
             return;
         }
         mLoadingView.setVisibility(View.VISIBLE);
@@ -192,14 +198,6 @@ public class BaseActivity extends AppCompatActivity
             mLoadingView.setVisibility(View.GONE);
         }
     }
-
-    /**
-     * 设置activity的默认参数
-     */
-    public static void setDefaultActivityOption(@NonNull DefaultActivityOption option) {
-        sActivityOption = option;
-    }
-
     @Override
     public void startLoginActivity() {
         sActivityOption.login(this);
@@ -209,7 +207,6 @@ public class BaseActivity extends AppCompatActivity
     public Context getContext() {
         return this;
     }
-
     @CallSuper
     @Override
     public void onClick(View v) {

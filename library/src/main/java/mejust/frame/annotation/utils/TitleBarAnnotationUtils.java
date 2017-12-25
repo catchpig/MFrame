@@ -1,20 +1,17 @@
-package mejust.frame.widget.title;
+package mejust.frame.annotation.utils;
 
-import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 
 import conm.zhuazhu.common.utils.StringUtils;
 import mejust.frame.annotation.ImageRightFirstEvent;
 import mejust.frame.annotation.ImageRightSecondEvent;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TextRightSecondEvent;
-import mejust.frame.annotation.TitileBar;
+import mejust.frame.annotation.TitleBar;
 import mejust.frame.utils.log.Logger;
 
 /**
@@ -27,46 +24,10 @@ import mejust.frame.utils.log.Logger;
 
 public class TitleBarAnnotationUtils {
     private static final String TAG = "TitleBarAnnotationUtils";
-    /**
-     * 绑定注解(@TitleBar,@TextRightFirstEvent,@TextRightSecondEvent,@ImageRightFirstEvent,@ImageRightSecondEvent)
-     * @param activity
-     * @param titleBar
-     * @return true:有TitleBar这个注解<br/>false:没有TitleBar这个注解
-     */
-    public static void inject(@NonNull Activity activity, @NonNull TitleBar titleBar) {
-        Class<?> activityClass = activity.getClass();
-        if(!setTitleBarAnnotation(activityClass, titleBar)){
-            return;
-        }
-        Method[] methods = activityClass.getDeclaredMethods();
-        for (Method method : methods) {
-            //如果当前方法是静态方法或者私有方法,直接忽略
-            if (Modifier.isStatic(method.getModifiers()) || Modifier.isPrivate(method
-                    .getModifiers())) {
-                continue;
-            }
-            //第一个文字的注解
-            TextRightFirstEvent textRightFirstEvent = method.getAnnotation(TextRightFirstEvent
-                    .class);
-            setRightTextFirstAnnotation(activity, method, textRightFirstEvent, titleBar);
-            //第二个文字的注解
-            TextRightSecondEvent textRightSecondEvent = method.getAnnotation(TextRightSecondEvent
-                    .class);
-            setRightTextSecondAnnotation(activity, method, textRightSecondEvent, titleBar);
-            //第一个图片的注释
-            ImageRightFirstEvent imageRightFirstEvent = method.getAnnotation(ImageRightFirstEvent
-                    .class);
-            setRightFirstImageAnnotation(activity, method, imageRightFirstEvent, titleBar);
-            //第二个图片的注释
-            ImageRightSecondEvent imageRightSecondEvent = method.getAnnotation(ImageRightSecondEvent
-                    .class);
-            setRightSecondImageAnnotation(activity, method, imageRightSecondEvent, titleBar);
-        }
-    }
 
     public static void setRightSecondImageAnnotation(@NonNull Object object, final Method method,
                                                      ImageRightSecondEvent imageRightSecondEvent,
-                                                     TitleBar titleBar) {
+                                                     mejust.frame.widget.title.TitleBar titleBar) {
         if (imageRightSecondEvent == null) {
             return;
         } else {
@@ -89,7 +50,7 @@ public class TitleBarAnnotationUtils {
 
     public static void setRightFirstImageAnnotation(@NonNull Object object, final Method method,
                                                     ImageRightFirstEvent imageRightFirstEvent,
-                                                    TitleBar titleBar) {
+                                                    mejust.frame.widget.title.TitleBar titleBar) {
         if (imageRightFirstEvent == null) {
             return;
         } else {
@@ -112,7 +73,7 @@ public class TitleBarAnnotationUtils {
 
     public static void setRightTextSecondAnnotation(@NonNull Object object, Method method,
                                                     TextRightSecondEvent textRightSecondEvent,
-                                                    TitleBar titleBar) {
+                                                    mejust.frame.widget.title.TitleBar titleBar) {
         if (textRightSecondEvent == null) {
             return;
         } else {
@@ -135,7 +96,7 @@ public class TitleBarAnnotationUtils {
 
     public static void setRightTextFirstAnnotation(@NonNull Object object, Method method,
                                                    TextRightFirstEvent textRightFirstEvent,
-                                                   TitleBar titleBar) {
+                                                   mejust.frame.widget.title.TitleBar titleBar) {
         if (textRightFirstEvent == null) {
             return;
         } else {
@@ -163,8 +124,8 @@ public class TitleBarAnnotationUtils {
      * @param titleBar
      * @return true:有TitleBar这个注解<br/>false:没有TitleBar这个注解
      */
-    private static boolean setTitleBarAnnotation(Class<?> cls, TitleBar titleBar) {
-        TitileBar bar = annotation(cls, TitileBar.class);
+    public static boolean setTitleBarAnnotation(Class<?> cls, mejust.frame.widget.title.TitleBar titleBar) {
+        TitleBar bar = AnnotionUtils.annotation(cls, TitleBar.class);
         if (bar == null) {
             Logger.e(TAG, cls.getName() + "当前类没有TitleBar注解");
             return false;
@@ -196,17 +157,10 @@ public class TitleBarAnnotationUtils {
      * @return
      */
     public static boolean isTitleBarAnnotation(Class<?> cls){
-        TitileBar titileBar = annotation(cls,TitileBar.class);
+        TitleBar titileBar = AnnotionUtils.annotation(cls,TitleBar.class);
         if(titileBar==null){
             return false;
         }
         return true;
-    }
-    private static <T extends Annotation> T annotation(Class<?> cls, Class<T> aCls) {
-        if (cls.isAnnotationPresent(aCls)) {
-            return cls.getAnnotation(aCls);
-        } else {
-            return null;
-        }
     }
 }

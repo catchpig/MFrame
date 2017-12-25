@@ -1,6 +1,7 @@
 package mejust.frame.mvp.view;
 
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ public abstract class BasePresenterActivity<P extends BaseContract.Presenter> ex
 
     @Inject
     protected P mPresenter;
-
+    @CallSuper
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

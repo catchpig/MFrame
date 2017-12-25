@@ -13,11 +13,11 @@ import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
 
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
-import mejust.frame.annotation.TitileBar;
+import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
 
 @LayoutId(R.layout.activity_main)
-@TitileBar("首页")
+@TitleBar("首页")
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
     @Override

@@ -12,7 +12,8 @@ import com.zhuazhu.frame.mvp.presenter.RecyclerPresenterImp;
 
 import butterknife.BindView;
 import mejust.frame.annotation.LayoutId;
-import mejust.frame.annotation.TitileBar;
+import mejust.frame.annotation.StatusBar;
+import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.widget.refresh.OnRefreshListener;
 import mejust.frame.widget.refresh.RefreshLayoutWrapper;
@@ -25,7 +26,8 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  * 描述:
  */
 @LayoutId(R.layout.activity_recycler)
-@TitileBar(value = "列表",backText = "首页")
+@TitleBar(value = "列表",backText = "首页")
+@StatusBar(R.color.c_000)
 public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp> implements
         RecyclerContract.View {
 

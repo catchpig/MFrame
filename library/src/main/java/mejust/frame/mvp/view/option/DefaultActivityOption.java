@@ -3,6 +3,8 @@ package mejust.frame.mvp.view.option;
 import android.app.Activity;
 import android.support.annotation.ColorRes;
 
+import mejust.frame.widget.title.TitleBarOptions;
+
 /**
  * 创建时间:2017/12/24 14:19<br/>
  * 创建人: 李涛<br/>
@@ -24,4 +26,10 @@ public interface DefaultActivityOption {
      */
     @ColorRes
     int statusBarColor();
+
+    /**
+     * 默认的标题栏参数
+     * @return
+     */
+    TitleBarOptions titleBarOption();
 }

@@ -1,5 +1,7 @@
 package mejust.frame.annotation.utils;
 
+import android.support.annotation.NonNull;
+
 import java.lang.annotation.Annotation;
 
 /**
@@ -12,13 +14,31 @@ import java.lang.annotation.Annotation;
 
 public class AnnotionUtils {
     /**
-     * 获取注解类
+     * 只在当前类中获取注解类
      * @param cls 使用了注解的class
      * @param aCls 注解的class
      * @param <A>
      * @return
      */
-    public static <A extends Annotation> A annotation(Class<?> cls, Class<A> aCls){
+    public static <A extends Annotation> A annotation(@NonNull Class<?> cls, Class<A> aCls){
+        if (cls == null) {
+            return null;
+        }
+        if(cls.isAnnotationPresent(aCls)){
+            return cls.getAnnotation(aCls);
+        }else {
+            return null;
+        }
+
+    }
+    /**
+     * 循环获取注解类(当前类中无A注解,就到他的父类中找A注解,递归虚招)
+     * @param cls 使用了注解的class
+     * @param aCls 注解的class
+     * @param <A>
+     * @return
+     */
+    public static <A extends Annotation> A annotationRecycle(@NonNull Class<?> cls, Class<A> aCls){
         if (cls == null) {
             return null;
         }
@@ -27,7 +47,7 @@ public class AnnotionUtils {
             a = cls.getAnnotation(aCls);
         }
         if (a == null) {
-            return annotation(cls.getSuperclass(),aCls);
+            return annotationRecycle(cls.getSuperclass(),aCls);
         }
         return a;
     }
