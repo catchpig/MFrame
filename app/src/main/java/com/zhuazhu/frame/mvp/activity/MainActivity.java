@@ -26,25 +26,25 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void injectComponent() {
-        FrameApplication.getAppComponent()
-                .mainComponent(new MainModule(this))
-                .inject(this);
+        FrameApplication.getAppComponent().mainComponent(new MainModule(this)).inject(this);
     }
 
     @Override
     protected void initView() {
 
     }
+
     @TextRightFirstEvent("详情")
-    protected void detail(TextView v){
-        loadingView();
+    protected void detail(TextView v) {
+        loadingDialog();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 hidden();
             }
-        },2000);
+        }, 2000);
     }
+
     @Override
     public void onClick(View v) {
         super.onClick(v);

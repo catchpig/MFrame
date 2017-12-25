@@ -8,6 +8,6 @@ package mejust.frame.widget.title;
  * 描述:默认的标题栏参数
  */
 
-public interface DefalutTitleBarOption {
-    TitleBarOptions creatOption(TitleBar titleBar);
+public interface DefaultTitleBarOption {
+    TitleBarOptions createOption(TitleBar titleBar);
 }

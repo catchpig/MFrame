@@ -14,7 +14,7 @@ import mejust.frame.di.AppModule;
 import mejust.frame.image.ImageUtils;
 import mejust.frame.mvp.view.BaseActivity;
 import mejust.frame.mvp.view.option.DefaultActivityOption;
-import mejust.frame.widget.title.DefalutTitleBarOption;
+import mejust.frame.widget.title.DefaultTitleBarOption;
 import mejust.frame.widget.title.TitleBar;
 import mejust.frame.widget.title.TitleBarOptions;
 
@@ -25,9 +25,9 @@ import mejust.frame.widget.title.TitleBarOptions;
 
 public class FrameApplication extends BaseApplication {
     static {
-        BaseActivity.setDefalutTitleBarOption(new DefalutTitleBarOption() {
+        BaseActivity.setDefaultTitleBarOption(new DefaultTitleBarOption() {
             @Override
-            public TitleBarOptions creatOption(TitleBar titleBar) {
+            public TitleBarOptions createOption(TitleBar titleBar) {
                 TitleBarOptions options = new TitleBarOptions();
                 options.setBackgroundColor(R.color.title_backgroud);
                 options.setTextColor(R.color.white);
