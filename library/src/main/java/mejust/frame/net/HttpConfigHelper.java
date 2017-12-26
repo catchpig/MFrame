@@ -2,7 +2,6 @@ package mejust.frame.net;
 
 import android.support.annotation.NonNull;
 
-
 import java.util.concurrent.TimeUnit;
 
 import mejust.frame.annotation.ServiceUrl;
@@ -48,7 +47,7 @@ public class HttpConfigHelper {
      * @param client OkHttpClient
      * @return Retrofit
      */
-    public Retrofit buildRetrofit(String baseUrl, OkHttpClient client) {
+    private Retrofit buildRetrofit(String baseUrl, OkHttpClient client) {
         return new Retrofit.Builder().baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(JsonUtil.getGson()))
@@ -63,9 +62,7 @@ public class HttpConfigHelper {
      * @return OkHttpClient.Builder
      */
     public OkHttpClient.Builder buildDefaultOkHttpClientBuilder() {
-        return new OkHttpClient.Builder().addNetworkInterceptor(new NetWorkInterceptor())
-                .addInterceptor(new ParamsInterceptor())
-                .addInterceptor(createHttpLogInterceptor())
+        return new OkHttpClient.Builder().addInterceptor(createHttpLogInterceptor())
                 .connectTimeout(AppConfig.CONNECT_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
                 .readTimeout(AppConfig.READ_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
                 .writeTimeout(AppConfig.WRITE_TIME_OUT_DEFAULT, TimeUnit.SECONDS)

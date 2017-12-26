@@ -11,9 +11,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import mejust.frame.R;
@@ -39,7 +40,7 @@ import qiu.niorgai.StatusBarCompat;
  * <p>
  * 默认的标题,用标题栏注解<br/>
  * {@link mejust.frame.annotation.TitleBar}<br/><br/>
- *
+ * <p>
  * 标题栏右边第一个文字的按钮监听和文字的设置用注解<br/>
  * {@link mejust.frame.annotation.TextRightFirstEvent}<br/><br/>
  * <p>
@@ -48,26 +49,29 @@ import qiu.niorgai.StatusBarCompat;
  * <p>
  * 标题栏右边第一个图片的按钮监听和文字的设置用注解<br/>
  * {@link mejust.frame.annotation.ImageRightFirstEvent}<br/><br/>
- *
+ * <p>
  * 标题栏右边第二个图片的按钮监听和文字的设置用注解<br/>
  * {@link mejust.frame.annotation.ImageRightSecondEvent}<br/><br/>
- *
+ * <p>
  * 状态栏设置,用注解<br/>
  * {@link mejust.frame.annotation.StatusBar}
  */
-public class BaseActivity extends AppCompatActivity implements BaseContract.View,View.OnClickListener{
+public class BaseActivity extends AppCompatActivity
+        implements BaseContract.View, View.OnClickListener {
+
     private static DefaultActivityOption sActivityOption;
     private RelativeLayout mLayoutBody;
     private Unbinder mUnBinder;
     private TitleBar mTitleBar;
     private View mLoadingView;
     private Dialog mLoadingDialog;
+
     @CallSuper
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /*
-        方法调用顺序不能改变
+         * 方法调用顺序不能改变
          */
         super.setContentView(R.layout.view_root);
         initStatusBar();
@@ -81,9 +85,8 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
 
     /**
      * 设置基类activity的参数(标题栏参数,状态栏颜色,登录页面)
-     * @param option
      */
-    public static void setDefaultActivityOption(DefaultActivityOption option){
+    public static void setDefaultActivityOption(DefaultActivityOption option) {
         sActivityOption = option;
     }
 
@@ -92,16 +95,17 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
         mLoadingView = findViewById(R.id.layout_loading);
         mLoadingView.setVisibility(View.GONE);
     }
+
     /**
      * 初始化TitleBar
      */
-    private void initTitleBar(){
+    private void initTitleBar() {
         mTitleBar = findViewById(R.id.title_bar);
         //有@TitleBar这个注解,才执行下面的操作
-        if(TitleBarAnnotationUtils.isTitleBarAnnotation(getClass())){
+        if (TitleBarAnnotationUtils.isTitleBarAnnotation(getClass())) {
             TitleBarOptions options = sActivityOption.titleBarOption();
             setTitleBar(options);
-            AnnotationBind.injectTitleBar(this,mTitleBar);
+            AnnotationBind.injectTitleBar(this, mTitleBar);
             mTitleBar.setBackListener(this);
         } else {
             mTitleBar.setVisibility(View.GONE);
@@ -131,13 +135,14 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
         //结束Activity,从栈中移除该Activity
         BaseApplication.getInstance().finishActivity(this);
     }
+
     /**
      * 初始化状态栏
      */
-    private void initStatusBar(){
-        if(StatusBarUtils.isStatusBar(this)){
+    private void initStatusBar() {
+        if (StatusBarUtils.isStatusBar(this)) {
             AnnotationBind.injectStatusBar(this);
-        }else{
+        } else {
             setStatusBarColor(sActivityOption.statusBarColor());
         }
     }
@@ -145,14 +150,14 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
     /**
      * 状态栏透明
      */
-    public void translucentStatusBar(){
+    public void translucentStatusBar() {
         StatusBarCompat.translucentStatusBar(this);
     }
+
     /**
      * 设置状态栏颜色
-     * @param color
      */
-    public void setStatusBarColor(@ColorRes int color){
+    public void setStatusBarColor(@ColorRes int color) {
         StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, color));
     }
 
@@ -165,16 +170,26 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
         mTitleBar.setOptions(options);
     }
 
+    /**
+     * 设置全屏
+     */
+    public void fullScreen() {
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
     @Override
     public void show(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
+
     @Override
     public void loadingDialog() {
-        if(mLoadingDialog !=null){
+        if (mLoadingDialog != null) {
             return;
         }
-        mLoadingDialog = new Dialog(this,R.style.mframe_imagedialog);
+        mLoadingDialog = new Dialog(this, R.style.mframe_imagedialog);
         mLoadingDialog.setCancelable(false);// 不可以用“返回键”取消
         mLoadingDialog.setContentView(R.layout.dialog_loading);
         mLoadingDialog.show();
@@ -182,7 +197,7 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
 
     @Override
     public void loadingView() {
-        if(mLoadingView ==null){
+        if (mLoadingView == null) {
             return;
         }
         mLoadingView.setVisibility(View.VISIBLE);
@@ -198,6 +213,7 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
             mLoadingView.setVisibility(View.GONE);
         }
     }
+
     @Override
     public void startLoginActivity() {
         sActivityOption.login(this);
@@ -207,6 +223,7 @@ public class BaseActivity extends AppCompatActivity implements BaseContract.View
     public Context getContext() {
         return this;
     }
+
     @CallSuper
     @Override
     public void onClick(View v) {
