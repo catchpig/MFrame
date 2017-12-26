@@ -323,7 +323,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, int position) {
+    public void onBindViewHolder(BaseViewHolder holder,final int position) {
         int index = position;
         if (mHeaderView != null) {
             //当前holder是头部就直接返回,不需要去设置viewholder的内容
@@ -354,16 +354,17 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
             return;
         }
         final int finalIndex = index;
+        M m = mData.get(index);
         //设置item的点击回调事件
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.itemClick(mRecyclerView.getId(), finalIndex);
+                    mListener.itemClick(mRecyclerView.getId(), m,finalIndex);
                 }
             }
         });
-        M m = mData.get(index);
+
         bindViewHolder((VH) holder, m, position);
     }
 
@@ -411,18 +412,19 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
     static class HeaderAndFooterViewHolder extends BaseViewHolder {
 
         public HeaderAndFooterViewHolder(View itemView) {
-            super(itemView);
+            super(itemView,false);
         }
     }
 
     /**
      * item点击事件
      */
-    public interface OnItemClickListener {
+    public interface OnItemClickListener<M> {
         /**
          * @param id RecyclerView.getId()
+         * @param m item下的实体
          * @param position item所在的位置
          */
-        void itemClick(@IdRes int id, int position);
+        void itemClick(@IdRes int id,M m,int position);
     }
 }

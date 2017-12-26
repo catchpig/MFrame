@@ -1,5 +1,6 @@
 package mejust.frame.image;
 
+import android.databinding.BindingAdapter;
 import android.support.annotation.DrawableRes;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ public class ImageUtils {
      * @param imageView
      * @param url 地址
      */
+    @BindingAdapter("imageUrl")
     public static void show(ImageView imageView, String url){
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))

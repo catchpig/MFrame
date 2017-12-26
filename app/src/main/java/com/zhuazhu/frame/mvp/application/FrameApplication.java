@@ -1,7 +1,18 @@
 package com.zhuazhu.frame.mvp.application;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Color;
+import android.support.annotation.NonNull;
 
+import com.scwang.smartrefresh.header.WaveSwipeHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.zhuazhu.frame.BuildConfig;
 import com.zhuazhu.frame.FrameConfig;
 import com.zhuazhu.frame.R;
@@ -37,10 +48,36 @@ public class FrameApplication extends BaseApplication {
 
             @Override
             public TitleBarOptions titleBarOption() {
-                return null;
+                TitleBarOptions options = new TitleBarOptions();
+                options.setBackgroundColor(R.color.title_backgroud);
+                options.setTextColor(R.color.white);
+                options.setTitleTextSize(18);
+                options.setBackImage(R.mipmap.back);
+                options.setBactTextSize(15);
+                options.setBackText("返回");
+                options.setRightTextSize(15);
+                return options;
+            }
+        });
+        SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
+            @NonNull
+            @Override
+            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
+                WaveSwipeHeader header = new WaveSwipeHeader(context);
+                layout.setEnableHeaderTranslationContent(false);
+                layout.setPrimaryColors(Color.parseColor("#333333"), Color.parseColor("#7898ab"));
+                return header;
+            }
+        });
+        SmartRefreshLayout.setDefaultRefreshFooterCreater(new DefaultRefreshFooterCreater() {
+            @NonNull
+            @Override
+            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
+                return new BallPulseFooter(context);
             }
         });
     }
+
     private static AppComponent appComponent;
 
     @Override
@@ -52,10 +89,8 @@ public class FrameApplication extends BaseApplication {
 
     public static AppComponent getAppComponent() {
         if (appComponent == null) {
-            appComponent = DaggerAppComponent.builder()
-                    .appModule(new AppModule(getInstance()))
-                    .netModule(new NetModule())
-                    .build();
+            appComponent = DaggerAppComponent.builder().appModule(new AppModule(getInstance()))
+                    .netModule(new NetModule()).build();
         }
 
         return appComponent;
@@ -65,9 +100,6 @@ public class FrameApplication extends BaseApplication {
      * 初始化图片异步加载工具
      */
     public void initImage() {
-        //        ImageUtils.setHostImageUrl(BuildConfig.IMAGE_URL);
-        //        ImageUtils.setDefalutImage(R.mipmap.cacount);
-        //        ImageUtils.setErrorImage(R.mipmap.cash_ing);
         ImageUtils.init(BuildConfig.IMAGE_URL, R.mipmap.cacount, R.mipmap.cash_ing);
     }
 }

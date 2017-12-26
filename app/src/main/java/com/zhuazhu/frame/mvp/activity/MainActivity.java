@@ -16,8 +16,8 @@ import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
 
-@LayoutId(R.layout.activity_main)
 @TitleBar("首页")
+@LayoutId(R.layout.activity_main)
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
     @Override

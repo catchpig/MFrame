@@ -13,6 +13,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import mejust.frame.mvp.presenter.BasePresenter;
+import mejust.frame.widget.adapter.RecyclerAdapter;
 import mejust.frame.widget.refresh.IPageControl;
 
 /**
@@ -24,7 +25,7 @@ import mejust.frame.widget.refresh.IPageControl;
  */
 
 public class RecyclerPresenterImp extends BasePresenter<RecyclerContract.View>
-        implements RecyclerContract.Presenter {
+        implements RecyclerContract.Presenter,RecyclerAdapter.OnItemClickListener<User> {
 
     private ReAdapter mAdapter;
     private IPageControl mPageControl;
@@ -40,6 +41,7 @@ public class RecyclerPresenterImp extends BasePresenter<RecyclerContract.View>
     @Override
     public void onCreate() {
         mView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(this);
     }
 
     @Override
@@ -61,9 +63,16 @@ public class RecyclerPresenterImp extends BasePresenter<RecyclerContract.View>
         List<User> list = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
             User user = new User();
+            user.setId(i);
             user.setName("名字" + i);
             list.add(user);
         }
         return list;
+    }
+
+    @Override
+    public void itemClick(int id, User user, int position) {
+        user.setId(position);
+        user.setName("我是第"+position+"行,我被点击了");
     }
 }

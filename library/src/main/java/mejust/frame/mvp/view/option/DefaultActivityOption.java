@@ -2,6 +2,7 @@ package mejust.frame.mvp.view.option;
 
 import android.app.Activity;
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 
 import mejust.frame.widget.title.TitleBarOptions;
 
@@ -31,5 +32,6 @@ public interface DefaultActivityOption {
      * 默认的标题栏参数
      * @return
      */
+    @NonNull
     TitleBarOptions titleBarOption();
 }

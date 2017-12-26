@@ -1,5 +1,6 @@
 package com.zhuazhu.frame.mvp.activity;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.zhuazhu.frame.R;
+import com.zhuazhu.frame.databinding.ActivityImageBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +29,14 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image);
+//        setContentView(R.layout.activity_image);
+        ActivityImageBinding binding = DataBindingUtil.setContentView(this,R.layout
+                .activity_image);
         ImageView img1 = findViewById(R.id.image1);
         ImageView img2 = findViewById(R.id.image2);
         ImageView img3 = findViewById(R.id.image3);
-
-        ImageUtils.show(img1,url);
+        binding.setImageUrl(url);
+//        ImageUtils.show(img1,url);
         ImageUtils.showCircle(img2,url);
         ImageUtils.showRound(img3,url,10);
     }

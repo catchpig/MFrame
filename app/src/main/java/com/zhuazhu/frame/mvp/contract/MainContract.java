@@ -10,11 +10,11 @@ import mejust.frame.mvp.BaseContract;
  * 描述:
  */
 
-public class MainContract {
+public interface MainContract {
 
-    public interface View extends BaseContract.View {
+    interface View extends BaseContract.View {
     }
 
-    public interface Presenter extends BaseContract.Presenter {
+    interface Presenter extends BaseContract.Presenter {
     }
 }

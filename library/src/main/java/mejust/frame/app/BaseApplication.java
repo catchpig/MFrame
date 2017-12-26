@@ -32,25 +32,7 @@ import timber.log.Timber;
  */
 
 public class BaseApplication extends Application {
-    static {
-        SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
-            @NonNull
-            @Override
-            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
-                WaveSwipeHeader header = new WaveSwipeHeader(context);
-                layout.setEnableHeaderTranslationContent(false);
-                layout.setPrimaryColors(Color.parseColor("#333333"),Color.parseColor("#7898ab"));
-                return header;
-            }
-        });
-        SmartRefreshLayout.setDefaultRefreshFooterCreater(new DefaultRefreshFooterCreater() {
-            @NonNull
-            @Override
-            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
-                return new BallPulseFooter(context);
-            }
-        });
-    }
+
     private static BaseApplication instance;
 
     public static BaseApplication getInstance() {

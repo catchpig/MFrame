@@ -15,6 +15,7 @@ import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.StatusBar;
 import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
+import mejust.frame.widget.divider.SpacesItemDecoration;
 import mejust.frame.widget.refresh.OnRefreshListener;
 import mejust.frame.widget.refresh.RefreshLayoutWrapper;
 
@@ -60,18 +61,10 @@ public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp
     }
 
     @Override
-    public void finishRefresh() {
-        mRefresh.finishRefresh();
-    }
-
-    @Override
-    public void errorRefresh() {
-
-    }
-
-    @Override
     public void setAdapter(ReAdapter adapter) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(0,1,R.color.white);
+        mRecycler.addItemDecoration(decoration);
         mRecycler.setLayoutManager(linearLayoutManager);
         mRecycler.setAdapter(adapter);
     }

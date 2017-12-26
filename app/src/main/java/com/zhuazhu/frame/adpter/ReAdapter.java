@@ -1,12 +1,11 @@
 package com.zhuazhu.frame.adpter;
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.zhuazhu.frame.R;
+import com.zhuazhu.frame.databinding.ItemReBinding;
 import com.zhuazhu.frame.mvp.model.User;
 
-import butterknife.BindView;
 import mejust.frame.annotation.Adapter;
 import mejust.frame.widget.adapter.BaseViewHolder;
 import mejust.frame.widget.adapter.RecyclerAdapter;
@@ -28,12 +27,13 @@ public class ReAdapter extends RecyclerAdapter<User, ReAdapter.ViewHolder> {
 
     @Override
     public void bindViewHolder(ViewHolder holder, User user, int position) {
-        holder.mName.setText(user.getName());
+//        ItemReBinding binding = DataBindingUtil.bind(holder.itemView);
+//        binding.setUser(user);
+//        holder.mName.setText(user.getName());
+        holder.t.setUser(user);
     }
 
-    static class ViewHolder extends BaseViewHolder {
-        @BindView(R.id.name)
-        TextView mName;
+    static class ViewHolder extends BaseViewHolder<ItemReBinding> {
 
         ViewHolder(View view) {
             super(view);

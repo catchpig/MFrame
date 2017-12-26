@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.List;
 
+import conm.zhuazhu.common.utils.ListUtils;
+
 /**
  * 创建时间:2017/12/20 16:44<br/>
  * 创建人: 李涛<br/>
@@ -63,8 +65,8 @@ public class RefreshLayoutWrapper extends SmartRefreshLayout implements IPageCon
     private void init() {
         currentPageIndex = 1;
         prePageIndex = NONE_PRE_PAGE_INDEX;
-        setDisableContentWhenLoading(true);
-        setDisableContentWhenRefresh(true);
+//        setDisableContentWhenLoading(true);
+//        setDisableContentWhenRefresh(true);
     }
 
     /**
@@ -84,10 +86,13 @@ public class RefreshLayoutWrapper extends SmartRefreshLayout implements IPageCon
     @Override
     public void updateSuccess(List<?> list) {
         if (isRefreshing()) {
+            setEnableLoadmore(true);
             setLoadmoreFinished(false);
         } else if (isLoading()) {
-            if ((list == null || list.isEmpty()) || list.size() < pageSize) {
+            if (ListUtils.isEmpty(list) || list.size() < pageSize) {
                 setLoadmoreFinished(true);
+            }else{
+                setEnableRefresh(true);
             }
         }
         updateCurrentPageIndex();

@@ -18,8 +18,6 @@ public interface RecyclerContract {
 
     interface View extends BaseContract.View{
         void setAdapter(ReAdapter adapter);
-        void finishRefresh();
-        void errorRefresh();
     }
 
     interface Presenter extends BaseContract.Presenter {

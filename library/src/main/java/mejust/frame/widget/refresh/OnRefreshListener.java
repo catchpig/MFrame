@@ -20,6 +20,7 @@ public abstract class OnRefreshListener implements OnRefreshLoadmoreListener {
         RefreshLayoutWrapper refreshLayoutWrapper = (RefreshLayoutWrapper) refreshlayout;
         //将页码变为1
         refreshLayoutWrapper.resetPageIndex();
+        refreshlayout.setEnableLoadmore(false);
         update(refreshLayoutWrapper);
     }
 
@@ -31,6 +32,7 @@ public abstract class OnRefreshListener implements OnRefreshLoadmoreListener {
         RefreshLayoutWrapper refreshLayoutWrapper = (RefreshLayoutWrapper) refreshlayout;
         //请求列表的参数页码加1
         refreshLayoutWrapper.loadNextPageIndex();
+        refreshlayout.setEnableRefresh(false);
         update(refreshLayoutWrapper);
     }
 

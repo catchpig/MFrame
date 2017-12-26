@@ -16,7 +16,8 @@ import mejust.frame.mvp.BaseContract;
  * 描述:
  */
 
-public abstract class BasePresenterActivity<P extends BaseContract.Presenter> extends BaseActivity {
+public abstract class BasePresenterActivity<P extends BaseContract.Presenter> extends
+        BaseActivity {
 
     @Inject
     protected P mPresenter;
@@ -29,19 +30,21 @@ public abstract class BasePresenterActivity<P extends BaseContract.Presenter> ex
         initView();
         mPresenter.onCreate();
     }
-
+    @CallSuper
     @Override
     protected void onResume() {
         super.onResume();
         mPresenter.onResume();
     }
 
+    @CallSuper
     @Override
     protected void onPause() {
         super.onPause();
         mPresenter.onPause();
     }
 
+    @CallSuper
     @Override
     protected void onDestroy() {
         super.onDestroy();

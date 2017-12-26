@@ -3,7 +3,8 @@ package mejust.frame.widget.divider;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -12,7 +13,11 @@ import android.view.View;
 import conm.zhuazhu.common.utils.ScreenUtils;
 
 /**
- * Created by CiferLiao on 2017/3/14.
+ * 创建时间:2017/12/20 18:13<br/>
+ * 创建人: 李涛<br/>
+ * 修改人: 李涛<br/>
+ * 修改时间:  2017年12月26日11:04:57<br/>
+ * 描述:下拉刷新和上拉加载更多的封装类
  */
 
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
@@ -44,7 +49,7 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
      * @param topBottomDp 上下分割线的高度(单位dp)
      * @param mColor      分割线的颜色
      */
-    public SpacesItemDecoration(float leftRightDp, float topBottomDp, @ColorInt int mColor) {
+    public SpacesItemDecoration(float leftRightDp, float topBottomDp, @ColorRes int mColor) {
         this(leftRightDp, topBottomDp);
         this.mColor = mColor;
     }
@@ -95,13 +100,15 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
             tbpx = 1;
         }
         SpacesItemDecorationEntrust entrust = null;
+        //将ColorRes转化为ColorInt
+        int colorInt = ContextCompat.getColor(recycler.getContext(),mColor);
         //要注意这边的GridLayoutManager是继承LinearLayoutManager，所以要先判断GridLayoutManager
         if (manager instanceof GridLayoutManager) {
-            entrust = new GridEntrust(lrpx, tbpx, mColor, outermostBorder);
+            entrust = new GridEntrust(lrpx, tbpx, colorInt, outermostBorder);
         } else if (manager instanceof StaggeredGridLayoutManager) {
-            entrust = new StaggeredGridEntrust(lrpx, tbpx, mColor);
+            entrust = new StaggeredGridEntrust(lrpx, tbpx, colorInt);
         } else {//其他的都当做Linear来进行计算
-            entrust = new LinearEntrust(lrpx, tbpx, mColor);
+            entrust = new LinearEntrust(lrpx, tbpx, colorInt);
         }
         return entrust;
     }
