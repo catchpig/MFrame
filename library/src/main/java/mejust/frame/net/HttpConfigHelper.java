@@ -62,7 +62,7 @@ public class HttpConfigHelper {
      * @return OkHttpClient.Builder
      */
     public OkHttpClient.Builder buildDefaultOkHttpClientBuilder() {
-        return new OkHttpClient.Builder().addInterceptor(createHttpLogInterceptor())
+        return new OkHttpClient.Builder()
                 .connectTimeout(AppConfig.CONNECT_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
                 .readTimeout(AppConfig.READ_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
                 .writeTimeout(AppConfig.WRITE_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
