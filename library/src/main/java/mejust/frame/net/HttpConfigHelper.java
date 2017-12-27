@@ -75,11 +75,15 @@ public class HttpConfigHelper {
      * @return HttpLoggingInterceptor
      */
     public HttpLoggingInterceptor createHttpLogInterceptor() {
-        return new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(@NonNull String message) {
-                Logger.d(AppConfig.URL_LOG, message);
-            }
-        });
+        HttpLoggingInterceptor interceptor =
+                new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+                    @Override
+                    public void log(@NonNull String message) {
+                        Logger.d(AppConfig.URL_LOG, message);
+                    }
+                });
+        interceptor.setLevel(AppConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY
+                : HttpLoggingInterceptor.Level.NONE);
+        return interceptor;
     }
 }
