@@ -65,54 +65,55 @@ public class TitleBar extends FrameLayout {
         imageRight1.setVisibility(GONE);
         imageRight2.setVisibility(GONE);
     }
+
     /**
      * 设置右边第二个按钮的监听
-     * @param listener
      */
-    public void setImageRightSecondListener(OnClickListener listener){
+    public void setImageRightSecondListener(OnClickListener listener) {
         imageRight2.setVisibility(VISIBLE);
         imageRight2.setOnClickListener(listener);
     }
+
     /**
      * 设置右边第一个按钮的监听
-     * @param listener
      */
-    public void setImageRightFirstListener(OnClickListener listener){
+    public void setImageRightFirstListener(OnClickListener listener) {
         imageRight1.setVisibility(VISIBLE);
         imageRight1.setOnClickListener(listener);
     }
+
     /**
      * 设置右边第一个文字按钮的监听
-     * @param listener
      */
-    public void setTextRightFirstListener(OnClickListener listener){
+    public void setTextRightFirstListener(OnClickListener listener) {
         textRight1.setVisibility(VISIBLE);
         textRight1.setOnClickListener(listener);
     }
+
     /**
      * 设置右边第二个文字按钮的监听
-     * @param listener
      */
-    public void setTextRightSecondListener(OnClickListener listener){
+    public void setTextRightSecondListener(OnClickListener listener) {
         textRight2.setVisibility(VISIBLE);
         textRight2.setOnClickListener(listener);
     }
+
     /**
      * 设置返回按钮的监听
-     * @param listener
      */
-    public void setBackListener(OnClickListener listener){
+    public void setBackListener(OnClickListener listener) {
         layoutBack.setOnClickListener(listener);
     }
+
     /**
      * 隐藏返回按钮
      */
-    public void hiddenBackButton(){
+    public void hiddenBackButton() {
         layoutBack.setVisibility(GONE);
     }
+
     /**
      * 设置基本属性
-     * @param options
      */
     public void setOptions(@NonNull TitleBarOptions options) {
         //背景
@@ -127,115 +128,104 @@ public class TitleBar extends FrameLayout {
         setTitleTextSize(options.getTitleTextSize());
         //右边按钮
         setRightTextSize(options.getRightTextSize());
+        // 标题文字
+        setTitleText(options.getTitleText());
     }
 
     /**
      * 设置文字颜色
-     * @param color
      */
-    public void setTextColor(int color){
+    public void setTextColor(int color) {
         textBack.setTextColor(color);
         textRight1.setTextColor(color);
         textRight2.setTextColor(color);
         textTitle.setTextColor(color);
-
     }
 
     /**
      * 设置标题的文字
-     * @param titleText
      */
-    public void setTitleText(String titleText){
+    public void setTitleText(String titleText) {
         textTitle.setText(titleText);
     }
 
     /**
      * 设置标题的文字大小
-     * @param titleSize
      */
-    private void setTitleTextSize(float titleSize){
+    private void setTitleTextSize(float titleSize) {
         textTitle.setTextSize(titleSize);
     }
 
     /**
      * 设置返回文字的大小
-     * @param textBackSize
      */
-    private void setBackTextSize(int textBackSize){
-        textBack.setTextSize(TypedValue.COMPLEX_UNIT_SP,textBackSize);
+    private void setBackTextSize(int textBackSize) {
+        textBack.setTextSize(TypedValue.COMPLEX_UNIT_SP, textBackSize);
     }
 
     /**
      * 设置返回的文字
-     * @param backText
      */
-    public void setBackText(String backText){
+    public void setBackText(String backText) {
         textBack.setText(backText);
     }
 
     /**
      * 设置返回的图片
-     * @param backImage
      */
-    private void setBackImage(@DrawableRes int backImage){
+    private void setBackImage(@DrawableRes int backImage) {
         imageBack.setImageResource(backImage);
     }
+
     /**
      * 设置右边按钮文字的大小
-     * @param textRightSize
      */
-    private void setRightTextSize(int textRightSize){
-        textRight1.setTextSize(TypedValue.COMPLEX_UNIT_SP,textRightSize);
-        textRight2.setTextSize(TypedValue.COMPLEX_UNIT_SP,textRightSize);
+    private void setRightTextSize(int textRightSize) {
+        textRight1.setTextSize(TypedValue.COMPLEX_UNIT_SP, textRightSize);
+        textRight2.setTextSize(TypedValue.COMPLEX_UNIT_SP, textRightSize);
     }
 
     /**
      * 设置右边第一个文字
-     * @param rightText1
      */
-    public void setRightText1(String rightText1){
+    public void setRightText1(String rightText1) {
         textRight1.setText(rightText1);
     }
+
     /**
      * 设置右边第二个文字
-     * @param rightText2
      */
-    public void setRightText2(String rightText2){
+    public void setRightText2(String rightText2) {
         textRight2.setText(rightText2);
     }
 
     /**
      * 设置右边第一张图片
-     * @param rightImage1
      */
-    public void setRightImage1(@DrawableRes int rightImage1){
+    public void setRightImage1(@DrawableRes int rightImage1) {
         imageRight1.setVisibility(VISIBLE);
         imageRight1.setImageResource(rightImage1);
     }
 
     /**
      * 设置右边第二张图片
-     * @param rightImage2
      */
-    public void setRightImage2(@DrawableRes int rightImage2){
+    public void setRightImage2(@DrawableRes int rightImage2) {
         imageRight2.setVisibility(VISIBLE);
         imageRight2.setImageResource(rightImage2);
     }
 
     /**
      * 设置背景颜色
-     * @param backgroundColor
      */
-    public void setTitleBarBackgroundColor(@ColorRes int backgroundColor){
+    public void setTitleBarBackgroundColor(@ColorRes int backgroundColor) {
         layoutTitle.setBackgroundResource(backgroundColor);
         layoutBack.setBackgroundResource(backgroundColor);
         layoutRight.setBackgroundResource(backgroundColor);
-
     }
+
     /**
      * 转换颜色值
-     * @param color
-     * @return
      */
     public int colorRes(@ColorRes int color) {
         return ContextCompat.getColor(getContext(), color);

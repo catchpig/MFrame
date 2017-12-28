@@ -60,6 +60,7 @@ public class BaseActivity extends AppCompatActivity
         implements BaseContract.View, View.OnClickListener {
 
     private static DefaultActivityOption sActivityOption;
+    private TitleBarOptions titleBarOptions;
     private RelativeLayout mLayoutBody;
     private Unbinder mUnBinder;
     private TitleBar mTitleBar;
@@ -90,6 +91,16 @@ public class BaseActivity extends AppCompatActivity
         sActivityOption = option;
     }
 
+    /**
+     * 获取当前页面的TitleBar配置
+     */
+    public TitleBarOptions getTitleBarOptions() {
+        if (titleBarOptions == null) {
+            throw new IllegalStateException("设置TitleBar,必须添加@TitleBar注解");
+        }
+        return titleBarOptions;
+    }
+
     private void initLoadingView() {
         setContentView(R.layout.view_loading);
         mLoadingView = findViewById(R.id.layout_loading);
@@ -103,8 +114,8 @@ public class BaseActivity extends AppCompatActivity
         mTitleBar = findViewById(R.id.title_bar);
         //有@TitleBar这个注解,才执行下面的操作
         if (TitleBarAnnotationUtils.isTitleBarAnnotation(getClass())) {
-            TitleBarOptions options = sActivityOption.titleBarOption();
-            setTitleBar(options);
+            titleBarOptions = sActivityOption.titleBarOption();
+            setTitleBar(titleBarOptions);
             AnnotationBind.injectTitleBar(this, mTitleBar);
             mTitleBar.setBackListener(this);
         } else {

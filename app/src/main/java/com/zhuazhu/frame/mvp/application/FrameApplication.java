@@ -46,6 +46,7 @@ public class FrameApplication extends BaseApplication {
                 return R.color.c_1e81d2;
             }
 
+            @NonNull
             @Override
             public TitleBarOptions titleBarOption() {
                 TitleBarOptions options = new TitleBarOptions();

@@ -4,19 +4,16 @@ import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
 import android.widget.TextView;
-
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.module.MainModule;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
-
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
-import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
+import mejust.frame.widget.title.TitleBarOptions;
 
-@TitleBar("首页")
 @LayoutId(R.layout.activity_main)
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
@@ -31,7 +28,9 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void initView() {
-
+        TitleBarOptions titleBarOptions = getTitleBarOptions();
+        titleBarOptions.setTitleText("首页");
+        setTitleBar(titleBarOptions);
     }
 
     @TextRightFirstEvent("详情")
