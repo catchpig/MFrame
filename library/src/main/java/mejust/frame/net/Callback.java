@@ -20,7 +20,9 @@ import mejust.frame.utils.log.Logger;
  */
 
 public abstract class Callback<T> extends ResourceSubscriber<T> {
-    public static final String TAG = "Callback";
+
+    private static final String TAG = "Callback";
+
     /**
      * loading类型
      */
@@ -28,34 +30,32 @@ public abstract class Callback<T> extends ResourceSubscriber<T> {
         /**
          * 不展示
          */
-        LOADING_NO,
-        /**
+        LOADING_NO, /**
          * 展示dialog
          */
-        LOADING_DIALOG,
-        /**
+        LOADING_DIALOG, /*
          * 展示view
          */
-        LOADING_VIEW;
+        LOADING_VIEW
     }
+
     private BaseContract.View mView;
     private Type mType = Type.LOADING_DIALOG;
-    public Callback(){
 
-    }
-    public Callback(BaseContract.View view){
+    public Callback(BaseContract.View view) {
         mView = view;
     }
 
-    public Callback(BaseContract.View view,Type type){
+    public Callback(BaseContract.View view, Type type) {
         mView = view;
         mType = type;
     }
+
     @Override
     protected void onStart() {
         super.onStart();
-        if(mView!=null){
-            switch (mType){
+        if (mView != null) {
+            switch (mType) {
                 case LOADING_NO:
                     break;
                 case LOADING_DIALOG:
@@ -77,27 +77,34 @@ public abstract class Callback<T> extends ResourceSubscriber<T> {
 
     @Override
     public void onError(Throwable t) {
-        Logger.e(TAG,t.getMessage());
-        String msg = "";
-        if(t instanceof TokenErrorException){
+        Logger.e(TAG, t.getMessage());
+        String msg;
+        if (t instanceof TokenErrorException) {
             TokenErrorException e = (TokenErrorException) t;
             msg = e.getMessage();
-            mView.startLoginActivity();
-        }else if(t instanceof HttpException){
+            if (mView != null) {
+                mView.startLoginActivity();
+            }
+        } else if (t instanceof HttpException) {
             HttpException e = (HttpException) t;
             msg = e.getMessage();
-        }else if(t instanceof ConnectException || t instanceof SocketTimeoutException
-                || t instanceof UnknownHostException || t instanceof UnknownServiceException){
+        } else if (t instanceof ConnectException
+                || t instanceof SocketTimeoutException
+                || t instanceof UnknownHostException
+                || t instanceof UnknownServiceException) {
             msg = "连接超时,请检查网络";
-        }else{
+        } else {
             msg = "未知异常";
         }
-        mView.show(msg);
+        if (mView != null) {
+            mView.show(msg);
+        }
+        onComplete();
     }
 
     @Override
     public void onComplete() {
-        if(mView!=null){
+        if (mView != null) {
             mView.hidden();
         }
     }
