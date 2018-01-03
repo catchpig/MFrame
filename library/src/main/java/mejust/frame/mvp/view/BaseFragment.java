@@ -6,10 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import mejust.frame.bind.AnnotationBind;
+import mejust.frame.mvp.BaseContract;
 
 /**
  * 创建时间:2017-12-21 18:52<br/>
@@ -19,9 +20,18 @@ import mejust.frame.bind.AnnotationBind;
  * 描述:
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements BaseContract.View {
 
     private Unbinder unbinder;
+    private BaseActivity activity;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getActivity() != null) {
+            activity = (BaseActivity) getActivity();
+        }
+    }
 
     @Nullable
     @Override
@@ -36,5 +46,30 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @Override
+    public void loadingView() {
+        activity.loadingView();
+    }
+
+    @Override
+    public void loadingDialog() {
+        activity.loadingDialog();
+    }
+
+    @Override
+    public void show(String msg) {
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void hidden() {
+        activity.hidden();
+    }
+
+    @Override
+    public void startLoginActivity() {
+        activity.startLoginActivity();
     }
 }

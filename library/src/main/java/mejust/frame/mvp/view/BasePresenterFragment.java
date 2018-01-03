@@ -15,8 +15,7 @@ import mejust.frame.mvp.BaseContract;
  * 描述:
  */
 
-public abstract class BasePresenterFragment<P extends BaseContract.Presenter> extends BaseFragment
-        implements BaseContract.View {
+public abstract class BasePresenterFragment<P extends BaseContract.Presenter> extends BaseFragment {
 
     @Inject
     protected P presenter;
