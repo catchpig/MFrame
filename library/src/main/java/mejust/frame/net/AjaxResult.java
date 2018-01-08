@@ -9,32 +9,32 @@ package mejust.frame.net;
  */
 
 public class AjaxResult<T> {
-    private int code;
-    private String msg;
-    private T result;
 
-    public int getCode() {
+    private String code;
+    private String message;
+    private T data;
+
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public T getResult() {
-        return result;
+    public T getData() {
+        return data;
     }
 
-    public void setResult(T result) {
-        this.result = result;
+    public void setData(T data) {
+        this.data = data;
     }
-
 }
