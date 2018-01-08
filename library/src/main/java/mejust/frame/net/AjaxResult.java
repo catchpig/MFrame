@@ -14,8 +14,12 @@ public class AjaxResult<T> {
     private String message;
     private T data;
 
-    public String getCode() {
-        return code;
+    public int getCode() {
+        try {
+            return Integer.valueOf(code);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
     }
 
     public void setCode(String code) {
