@@ -1,9 +1,6 @@
 package mejust.frame.net;
 
-import android.support.annotation.NonNull;
-
 import java.util.concurrent.TimeUnit;
-
 import mejust.frame.annotation.ServiceUrl;
 import mejust.frame.annotation.utils.AnnotionUtils;
 import mejust.frame.app.AppConfig;
@@ -47,7 +44,7 @@ public class HttpConfigHelper {
      * @param client OkHttpClient
      * @return Retrofit
      */
-    private Retrofit buildRetrofit(String baseUrl, OkHttpClient client) {
+    public Retrofit buildRetrofit(String baseUrl, OkHttpClient client) {
         return new Retrofit.Builder().baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(JsonUtil.getGson()))
@@ -62,8 +59,8 @@ public class HttpConfigHelper {
      * @return OkHttpClient.Builder
      */
     public OkHttpClient.Builder buildDefaultOkHttpClientBuilder() {
-        return new OkHttpClient.Builder()
-                .connectTimeout(AppConfig.CONNECT_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
+        return new OkHttpClient.Builder().connectTimeout(AppConfig.CONNECT_TIME_OUT_DEFAULT,
+                TimeUnit.SECONDS)
                 .readTimeout(AppConfig.READ_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
                 .writeTimeout(AppConfig.WRITE_TIME_OUT_DEFAULT, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true);
@@ -76,12 +73,7 @@ public class HttpConfigHelper {
      */
     public HttpLoggingInterceptor createHttpLogInterceptor() {
         HttpLoggingInterceptor interceptor =
-                new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                    @Override
-                    public void log(@NonNull String message) {
-                        Logger.d(AppConfig.URL_LOG, message);
-                    }
-                });
+                new HttpLoggingInterceptor(message -> Logger.d(AppConfig.URL_LOG, message));
         interceptor.setLevel(AppConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY
                 : HttpLoggingInterceptor.Level.NONE);
         return interceptor;

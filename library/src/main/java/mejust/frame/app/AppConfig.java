@@ -32,4 +32,9 @@ public class AppConfig {
      * 写入超时，单位：秒
      */
     public static long WRITE_TIME_OUT_DEFAULT = 10;
+
+    /**
+     * json解析时间格式
+     */
+    public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 }

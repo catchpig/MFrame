@@ -2,6 +2,7 @@ package mejust.frame.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import mejust.frame.app.AppConfig;
 
 /**
  * @author : Beaven
@@ -16,7 +17,8 @@ public class JsonUtil {
         throw new RuntimeException("this class not be instantiated");
     }
 
-    private static final Gson gson = new GsonBuilder().create();
+    private static final Gson gson =
+            new GsonBuilder().setDateFormat(AppConfig.DATE_FORMAT).create();
 
     public static Gson getGson() {
         return gson;
