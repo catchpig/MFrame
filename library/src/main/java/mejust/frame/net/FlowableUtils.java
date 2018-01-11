@@ -1,6 +1,5 @@
 package mejust.frame.net;
 
-import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -18,21 +17,8 @@ import mejust.frame.exception.TokenErrorException;
  */
 
 public class FlowableUtils {
+
     private FlowableUtils() {
-    }
-
-    public static <T> Flowable<T> successData(final T t) {
-        return Flowable.create(emitter -> {
-            emitter.onNext(t);
-            emitter.onComplete();
-        }, BackpressureStrategy.BUFFER);
-    }
-
-    public static <T> Flowable<T> errorData(Exception e) {
-        return Flowable.create(emitter -> {
-            emitter.onError(e);
-            emitter.onComplete();
-        }, BackpressureStrategy.BUFFER);
     }
 
     /** 统一的线程切换处理 */
@@ -46,9 +32,9 @@ public class FlowableUtils {
      *
      * @return 结果
      */
-    public static <T> FlowableTransformer<AjaxResult<T>, T> transformerResult() {
+    public static <T> FlowableTransformer<AjaxResult<T>, Optional<T>> transformerResult() {
         return httpResponseFollowable -> httpResponseFollowable.flatMap(
-                (Function<AjaxResult<T>, Flowable<T>>) result -> {
+                (Function<AjaxResult<T>, Flowable<Optional<T>>>) result -> {
                     int code = result.getCode();
                     Exception exception;
                     switch (code) {
@@ -56,7 +42,7 @@ public class FlowableUtils {
                             exception = new HttpException(code, "code返回值错误");
                             break;
                         case 200:
-                            return successData(result.getData());
+                            return Flowable.just(result.getData());
                         case 405:
                             exception = new TokenErrorException(code);
                             break;
@@ -64,7 +50,7 @@ public class FlowableUtils {
                             exception = new HttpException(code, result.getMessage());
                             break;
                     }
-                    return errorData(exception);
+                    return Flowable.error(exception);
                 });
     }
 
@@ -73,7 +59,7 @@ public class FlowableUtils {
      *
      * @param <T> 回调成功数据的实体泛型
      */
-    public static <T> Flowable<T> create(Flowable<AjaxResult<T>> flowable) {
+    public static <T> Flowable<Optional<T>> create(Flowable<AjaxResult<T>> flowable) {
         return flowable.compose(transformerResult()).compose(rxSchedulerHelper());
     }
 }

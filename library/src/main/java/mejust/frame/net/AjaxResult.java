@@ -34,8 +34,8 @@ public class AjaxResult<T> {
         this.message = message;
     }
 
-    public T getData() {
-        return data;
+    public Optional<T> getData() {
+        return Optional.ofNullable(data);
     }
 
     public void setData(T data) {
