@@ -1,6 +1,6 @@
 package mejust.frame.mvp;
 
-import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 
 /**
  * 创建时间:2017-12-21 16:17<br/>
@@ -16,7 +16,6 @@ public interface BaseContract {
         /**
          * loading一个View<br/>
          * 可以点击返回键
-         *
          */
         void loadingView();
 
@@ -28,7 +27,6 @@ public interface BaseContract {
 
         /**
          * 显示Toast的提示信息
-         * @param msg
          */
         void show(String msg);
 
@@ -42,7 +40,7 @@ public interface BaseContract {
          */
         void startLoginActivity();
 
-        Context getContext();
+        FragmentActivity getViewActivity();
     }
 
     interface Presenter {
@@ -55,6 +53,6 @@ public interface BaseContract {
 
         void onDestroy();
 
-        Context getContext();
+        FragmentActivity getViewActivity();
     }
 }

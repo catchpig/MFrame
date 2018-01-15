@@ -198,9 +198,6 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
             throw new IllegalStateException("pageControl must be set");
         }
         mPageControl.updateSuccess(list);
-        if (ListUtils.isEmpty(list)) {
-            return;
-        }
         int states = mPageControl.getRefreshStates();
         if (states == RefreshLayoutWrapper.REFRESH_LOADING) {
             add(list);
@@ -323,7 +320,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
 
     @SuppressWarnings("unchecked")
     @Override
-    public void onBindViewHolder(BaseViewHolder holder,final int position) {
+    public void onBindViewHolder(BaseViewHolder holder, final int position) {
         int index = position;
         if (mHeaderView != null) {
             //当前holder是头部就直接返回,不需要去设置viewholder的内容
@@ -360,7 +357,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.itemClick(mRecyclerView.getId(), m,finalIndex);
+                    mListener.itemClick(mRecyclerView.getId(), m, finalIndex);
                 }
             }
         });
@@ -412,7 +409,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
     static class HeaderAndFooterViewHolder extends BaseViewHolder {
 
         public HeaderAndFooterViewHolder(View itemView) {
-            super(itemView,false);
+            super(itemView, false);
         }
     }
 
@@ -425,6 +422,6 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
          * @param m item下的实体
          * @param position item所在的位置
          */
-        void itemClick(@IdRes int id,M m,int position);
+        void itemClick(@IdRes int id, M m, int position);
     }
 }

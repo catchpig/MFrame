@@ -1,8 +1,8 @@
 package mejust.frame.mvp.view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import javax.inject.Inject;
 import mejust.frame.mvp.BaseContract;
@@ -54,7 +54,7 @@ public abstract class BasePresenterFragment<P extends BaseContract.Presenter> ex
     protected abstract void initView();
 
     @Override
-    public Context getContext() {
+    public FragmentActivity getViewActivity() {
         return getActivity();
     }
 }

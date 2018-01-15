@@ -1,8 +1,7 @@
 package mejust.frame.mvp.presenter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-
+import android.support.v4.app.FragmentActivity;
 import io.reactivex.disposables.CompositeDisposable;
 import mejust.frame.mvp.BaseContract;
 
@@ -14,8 +13,7 @@ import mejust.frame.mvp.BaseContract;
  * 描述:
  */
 
-public abstract class BasePresenter<V extends BaseContract.View> implements
-        BaseContract.Presenter {
+public abstract class BasePresenter<V extends BaseContract.View> implements BaseContract.Presenter {
 
     protected final V mView;
     protected final CompositeDisposable disposable;
@@ -24,7 +22,6 @@ public abstract class BasePresenter<V extends BaseContract.View> implements
         this.mView = view;
         this.disposable = new CompositeDisposable();
     }
-
 
     @Override
     public void onCreate() {
@@ -47,7 +44,7 @@ public abstract class BasePresenter<V extends BaseContract.View> implements
     }
 
     @Override
-    public Context getContext() {
-        return mView.getContext();
+    public FragmentActivity getViewActivity() {
+        return mView.getViewActivity();
     }
 }
