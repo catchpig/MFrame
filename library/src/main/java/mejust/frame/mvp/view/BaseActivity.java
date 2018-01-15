@@ -24,6 +24,7 @@ import mejust.frame.app.BaseApplication;
 import mejust.frame.bind.AnnotationBind;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.mvp.view.option.DefaultActivityOption;
+import mejust.frame.widget.ToastMsg;
 import mejust.frame.widget.title.TitleBar;
 import mejust.frame.widget.title.TitleBarOptions;
 import qiu.niorgai.StatusBarCompat;
@@ -192,7 +193,7 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void show(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        ToastMsg.makeText(msg);
     }
 
     @Override

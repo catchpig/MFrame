@@ -21,6 +21,7 @@ import java.util.Stack;
 import mejust.frame.cash.CrashHandler;
 import mejust.frame.utils.log.DebugLogTree;
 import mejust.frame.utils.log.ReleaseLogTree;
+import mejust.frame.widget.ToastMsg;
 import timber.log.Timber;
 
 /**
@@ -48,6 +49,7 @@ public class BaseApplication extends Application {
         instance = this;
         initCash();
         initLog();
+        ToastMsg.init(this);
     }
 
     /**
