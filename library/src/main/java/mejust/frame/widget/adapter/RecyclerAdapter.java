@@ -288,6 +288,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
             Constructor<VH> con = c.getConstructor(View.class);
             holder = con.newInstance(v);
         } catch (NoSuchMethodException e) {
+            System.err.println("检查ViewHolder类及构造函数是否是public");
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();

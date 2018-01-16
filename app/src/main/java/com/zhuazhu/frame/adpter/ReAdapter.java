@@ -18,24 +18,24 @@ import mejust.frame.widget.refresh.IPageControl;
  * 修改时间: 2017/12/22 0:36<br/>
  * 描述:
  */
-@Adapter(layout = R.layout.item_re,holder = ReAdapter.ViewHolder.class)
+@Adapter(layout = R.layout.item_re, holder = ReAdapter.ViewHolder.class)
 public class ReAdapter extends RecyclerAdapter<User, ReAdapter.ViewHolder> {
 
-    public ReAdapter(IPageControl pageControl){
+    public ReAdapter(IPageControl pageControl) {
         super(pageControl);
     }
 
     @Override
     public void bindViewHolder(ViewHolder holder, User user, int position) {
-//        ItemReBinding binding = DataBindingUtil.bind(holder.itemView);
-//        binding.setUser(user);
-//        holder.mName.setText(user.getName());
+        //        ItemReBinding binding = DataBindingUtil.bind(holder.itemView);
+        //        binding.setUser(user);
+        //        holder.mName.setText(user.getName());
         holder.t.setUser(user);
     }
 
-    static class ViewHolder extends BaseViewHolder<ItemReBinding> {
+    public static class ViewHolder extends BaseViewHolder<ItemReBinding> {
 
-        ViewHolder(View view) {
+        public ViewHolder(View view) {
             super(view);
         }
     }
