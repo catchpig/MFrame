@@ -65,8 +65,8 @@ public class RefreshLayoutWrapper extends SmartRefreshLayout implements IPageCon
     private void init() {
         currentPageIndex = 1;
         prePageIndex = NONE_PRE_PAGE_INDEX;
-//        setDisableContentWhenLoading(true);
-//        setDisableContentWhenRefresh(true);
+        //        setDisableContentWhenLoading(true);
+        //        setDisableContentWhenRefresh(true);
     }
 
     /**
@@ -89,10 +89,9 @@ public class RefreshLayoutWrapper extends SmartRefreshLayout implements IPageCon
             setEnableLoadmore(true);
             setLoadmoreFinished(false);
         } else if (isLoading()) {
+            setEnableRefresh(true);
             if (ListUtils.isEmpty(list) || list.size() < pageSize) {
                 setLoadmoreFinished(true);
-            }else{
-                setEnableRefresh(true);
             }
         }
         updateCurrentPageIndex();
