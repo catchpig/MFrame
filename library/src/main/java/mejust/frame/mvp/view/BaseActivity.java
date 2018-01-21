@@ -81,8 +81,6 @@ public class BaseActivity extends AppCompatActivity
         mUnBinder = ButterKnife.bind(this);
         initTitleBar();
         initLoadingView();
-        //添加activity到栈中
-//        BaseApplication.getInstance().addActivity(this);
     }
 
     /**
@@ -144,8 +142,6 @@ public class BaseActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         mUnBinder.unbind();
-        //结束Activity,从栈中移除该Activity
-        BaseApplication.getInstance().finishActivity(this);
     }
 
     /**

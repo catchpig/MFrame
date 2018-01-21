@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 
 import com.scwang.smartrefresh.header.WaveSwipeHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -20,6 +21,7 @@ import com.zhuazhu.frame.di.component.AppComponent;
 import com.zhuazhu.frame.di.component.DaggerAppComponent;
 import com.zhuazhu.frame.di.module.NetModule;
 
+import conm.zhuazhu.common.utils.Utils;
 import mejust.frame.app.BaseApplication;
 import mejust.frame.di.AppModule;
 import mejust.frame.image.ImageUtils;
@@ -90,7 +92,7 @@ public class FrameApplication extends BaseApplication {
 
     public static AppComponent getAppComponent() {
         if (appComponent == null) {
-            appComponent = DaggerAppComponent.builder().appModule(new AppModule(getInstance()))
+            appComponent = DaggerAppComponent.builder().appModule(new AppModule(Utils.getApp()))
                     .netModule(new NetModule()).build();
         }
 
