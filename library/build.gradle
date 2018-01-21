@@ -45,7 +45,7 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
     //工具包
-    api ('com.github.zhuazhu:Common:1.0.0',{
+    api ('com.github.zhuazhu:Common:1.0.2',{
         exclude group: 'com.android.support'
     })
     api 'com.google.code.gson:gson:2.8.2'

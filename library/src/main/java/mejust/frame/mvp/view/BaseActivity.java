@@ -82,7 +82,7 @@ public class BaseActivity extends AppCompatActivity
         initTitleBar();
         initLoadingView();
         //添加activity到栈中
-        BaseApplication.getInstance().addActivity(this);
+//        BaseApplication.getInstance().addActivity(this);
     }
 
     /**

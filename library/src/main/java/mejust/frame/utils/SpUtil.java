@@ -2,6 +2,9 @@ package mejust.frame.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import conm.zhuazhu.common.utils.AppUtils;
+import conm.zhuazhu.common.utils.Utils;
 import mejust.frame.app.BaseApplication;
 
 /**
@@ -14,8 +17,7 @@ import mejust.frame.app.BaseApplication;
 
 public class SpUtil {
 
-    private static final String BASE_SP_NAME =
-            BaseApplication.getInstance().getPackageName().replace(".", "_");
+    private static final String BASE_SP_NAME = AppUtils.getAppPackageName().replace(".", "_");
     private static volatile SpUtil spUtil;
 
     public static SpUtil getInstance() {
@@ -36,8 +38,7 @@ public class SpUtil {
     private SharedPreferences preferences;
 
     private SpUtil(String name) {
-        preferences =
-                BaseApplication.getInstance().getSharedPreferences(name, Context.MODE_PRIVATE);
+        preferences = Utils.getApp().getSharedPreferences(name, Context.MODE_PRIVATE);
     }
 
     public void putStringApply(String key, String value) {
