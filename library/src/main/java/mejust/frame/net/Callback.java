@@ -1,5 +1,7 @@
 package mejust.frame.net;
 
+import android.accounts.NetworkErrorException;
+
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -98,7 +100,9 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
                 || t instanceof UnknownHostException
                 || t instanceof UnknownServiceException) {
             msg = "连接超时,请检查网络";
-        } else {
+        } else if(t instanceof NullPointerException){
+            msg = "空指针异常";
+        }else {
             msg = "未知异常";
         }
         if (mView != null) {

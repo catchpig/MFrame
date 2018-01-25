@@ -9,9 +9,17 @@ package mejust.frame.net;
  */
 
 public class AjaxResult<T> {
-
+    /**
+     * 返回码
+     */
     private String code;
+    /**
+     * 返回的提示信息
+     */
     private String message;
+    /**
+     * 返回码为200的时候,真正需要的数据
+     */
     private T data;
 
     public int getCode() {

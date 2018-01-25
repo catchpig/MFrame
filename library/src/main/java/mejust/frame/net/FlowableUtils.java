@@ -43,10 +43,10 @@ public class FlowableUtils {
                             break;
                         case 200://
                             return Flowable.just(result.getData());
-                        case 405:
+                        case 405://token失效
                             exception = new TokenErrorException(code);
                             break;
-                        default:
+                        default://服务返回错误信息
                             exception = new HttpException(code, result.getMessage());
                             break;
                     }
