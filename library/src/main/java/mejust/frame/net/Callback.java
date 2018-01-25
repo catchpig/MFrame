@@ -19,7 +19,7 @@ import mejust.frame.utils.log.Logger;
  * 描述:接口回调函数
  */
 
-public abstract class Callback<T> extends ResourceSubscriber<T> {
+public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
 
     private static final String TAG = "Callback";
 
@@ -54,6 +54,7 @@ public abstract class Callback<T> extends ResourceSubscriber<T> {
     @Override
     protected void onStart() {
         super.onStart();
+
         if (mView != null) {
             switch (mType) {
                 case LOADING_NO:
@@ -69,8 +70,12 @@ public abstract class Callback<T> extends ResourceSubscriber<T> {
     }
 
     @Override
-    public void onNext(T t) {
-        success(t);
+    public void onNext(Optional<T> optional) {
+        if(optional.isEmpty()){
+            success(null);
+        }else{
+            success(optional.get());
+        }
     }
 
     public abstract void success(T t);
@@ -79,7 +84,7 @@ public abstract class Callback<T> extends ResourceSubscriber<T> {
     public void onError(Throwable t) {
         Logger.e(TAG, t.getMessage());
         String msg;
-        if (t instanceof TokenErrorException) {
+        if (t instanceof TokenErrorException) {//token失效
             TokenErrorException e = (TokenErrorException) t;
             msg = e.getMessage();
             if (mView != null) {

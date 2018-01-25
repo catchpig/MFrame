@@ -41,7 +41,7 @@ public class FlowableUtils {
                         case -1:
                             exception = new HttpException(code, "code返回值错误");
                             break;
-                        case 200:
+                        case 200://
                             return Flowable.just(result.getData());
                         case 405:
                             exception = new TokenErrorException(code);
