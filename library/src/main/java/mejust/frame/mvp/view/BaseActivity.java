@@ -1,6 +1,8 @@
 package mejust.frame.mvp.view;
 
 import android.app.Dialog;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorRes;
@@ -13,17 +15,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import conm.zhuazhu.common.utils.NetworkUtils;
 import mejust.frame.R;
 import mejust.frame.annotation.utils.StatusBarUtils;
 import mejust.frame.annotation.utils.TitleBarAnnotationUtils;
-import mejust.frame.app.BaseApplication;
 import mejust.frame.bind.AnnotationBind;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.mvp.view.option.DefaultActivityOption;
+import mejust.frame.receiver.NetworkReceiver;
+import mejust.frame.receiver.NetworkReceiver.OnNetworkListener;
 import mejust.frame.widget.ToastMsg;
 import mejust.frame.widget.title.TitleBar;
 import mejust.frame.widget.title.TitleBarOptions;
@@ -56,9 +61,13 @@ import qiu.niorgai.StatusBarCompat;
  * <p>
  * 状态栏设置,用注解<br/>
  * {@link mejust.frame.annotation.StatusBar}
+ * <p>
+ * 在manifest中必须开启权限:<br/>
+ * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}
+ * <p>
  */
 public class BaseActivity extends AppCompatActivity
-        implements BaseContract.View, View.OnClickListener {
+        implements BaseContract.View, View.OnClickListener,OnNetworkListener {
 
     private static DefaultActivityOption sActivityOption;
     private TitleBarOptions titleBarOptions;
@@ -81,6 +90,16 @@ public class BaseActivity extends AppCompatActivity
         mUnBinder = ButterKnife.bind(this);
         initTitleBar();
         initLoadingView();
+        initNetworkTip();
+    }
+    private LinearLayout mNetworkTip;
+
+    /**
+     * 初始化网络未打开的提示控件
+     */
+    private void initNetworkTip(){
+        mNetworkTip = findViewById(R.id.network_tip);
+        mNetworkTip.setOnClickListener(this);
     }
 
     /**
@@ -137,11 +156,27 @@ public class BaseActivity extends AppCompatActivity
     public void setContentView(int layoutResID) {
         setContentView(View.inflate(this, layoutResID, null));
     }
+    private NetworkReceiver mNetworkReceiver;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //注册网络变化广播监听
+        if(mNetworkReceiver==null){
+            mNetworkReceiver = new NetworkReceiver();
+            mNetworkReceiver.setOnMetworkListener(this);
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+            registerReceiver(mNetworkReceiver,filter);
+        }
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mUnBinder.unbind();
+        if(mNetworkReceiver!=null){
+            unregisterReceiver(mNetworkReceiver);
+        }
     }
 
     /**
@@ -238,6 +273,17 @@ public class BaseActivity extends AppCompatActivity
         int i = v.getId();
         if (i == R.id.mframe_back_layout) {//返回
             finish();
+        }else if(i==R.id.network_tip){
+            NetworkUtils.openWirelessSettings();
+        }
+    }
+
+    @Override
+    public void onNetwork(boolean network) {
+        if(network){
+            mNetworkTip.setVisibility(View.GONE);
+        }else{
+            mNetworkTip.setVisibility(View.VISIBLE);
         }
     }
 }

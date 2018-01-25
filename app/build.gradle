@@ -9,21 +9,27 @@ android {
         targetSdkVersion 26
         versionCode VERSION_CODE as int
         versionName VERSION
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
     }
     buildTypes {
         release {
-            buildConfigField "String","IMAGE_URL",RELEASE_IMAGE_URL
+            buildConfigField "String", "IMAGE_URL", RELEASE_IMAGE_URL
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            buildConfigField "String","IMAGE_URL",DEBUG_IMAGE_URL
+            buildConfigField "String", "IMAGE_URL", DEBUG_IMAGE_URL
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding{
+    dataBinding {
         enabled = true
     }
     compileOptions {

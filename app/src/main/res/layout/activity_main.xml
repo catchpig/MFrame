@@ -21,4 +21,10 @@
       android:layout_height="50dp"
       android:onClick="onClick"
       android:text="recylerActivity"/>
+  <Button
+      android:id="@+id/puppet"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:onClick="onClick"
+      android:text="puppet"/>
 </LinearLayout>

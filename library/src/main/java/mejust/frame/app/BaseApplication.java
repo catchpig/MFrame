@@ -1,22 +1,7 @@
 package mejust.frame.app;
 
-import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
-
-import com.scwang.smartrefresh.header.WaveSwipeHeader;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
-
-import java.util.Stack;
 
 import conm.zhuazhu.common.utils.Utils;
 import mejust.frame.cash.CrashHandler;
@@ -64,4 +49,5 @@ public class BaseApplication extends Application {
             Timber.plant(new ReleaseLogTree());
         }
     }
+
 }

@@ -12,7 +12,6 @@ import com.zhuazhu.frame.mvp.presenter.RecyclerPresenterImp;
 
 import butterknife.BindView;
 import mejust.frame.annotation.LayoutId;
-import mejust.frame.annotation.StatusBar;
 import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.widget.divider.SpacesItemDecoration;
@@ -28,7 +27,6 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  */
 @LayoutId(R.layout.activity_recycler)
 @TitleBar(value = "列表",backText = "首页")
-@StatusBar(R.color.c_000)
 public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp> implements
         RecyclerContract.View {
 
@@ -59,7 +57,6 @@ public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp
         });
         mRefresh.autoRefresh();
     }
-
     @Override
     public void setAdapter(ReAdapter adapter) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
