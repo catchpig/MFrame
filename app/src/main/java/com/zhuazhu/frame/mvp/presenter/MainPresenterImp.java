@@ -1,19 +1,13 @@
 package com.zhuazhu.frame.mvp.presenter;
 
 import android.support.annotation.NonNull;
-
 import com.zhuazhu.frame.data.HttpHelper;
 import com.zhuazhu.frame.mvp.contract.MainContract;
-
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-
 import io.reactivex.Flowable;
 import io.reactivex.subscribers.ResourceSubscriber;
+import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
 import mejust.frame.mvp.presenter.BasePresenter;
-import mejust.frame.net.AjaxResult;
-import mejust.frame.net.Callback;
 import mejust.frame.net.FlowableUtils;
 import mejust.frame.utils.log.Logger;
 
@@ -39,17 +33,14 @@ public class MainPresenterImp extends BasePresenter<MainContract.View>
     @Override
     public void onCreate() {
         super.onCreate();
-        AjaxResult<String> result = new AjaxResult<>();
-        result.setCode("200");
-        execute(FlowableUtils.create(Flowable.just(result)), new Callback<String>() {
-
-
-
-            @Override
-            public void success(String s) {
-                Logger.i("MainPresenterImp",s);
-            }
-        });
+        //AjaxResult<String> result = new AjaxResult<>();
+        //result.setCode("200");
+        //execute(FlowableUtils.create(Flowable.just(result)), new Callback<String>() {
+        //    @Override
+        //    public void success(String s) {
+        //        Logger.i("MainPresenterImp", s);
+        //    }
+        //});
     }
 
     @Override

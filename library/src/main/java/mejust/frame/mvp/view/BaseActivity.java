@@ -25,6 +25,7 @@ import mejust.frame.R;
 import mejust.frame.annotation.utils.StatusBarUtils;
 import mejust.frame.annotation.utils.TitleBarAnnotationUtils;
 import mejust.frame.bind.AnnotationBind;
+import mejust.frame.dialog.ToastDialog;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.mvp.view.option.DefaultActivityOption;
 import mejust.frame.receiver.NetworkReceiver;
@@ -77,6 +78,7 @@ public abstract class BaseActivity extends AppCompatActivity
     private View mLoadingView;
     private Dialog mLoadingDialog;
     private NetworkReceiver mNetworkReceiver;
+    private ToastDialog toastDialog;
 
     @CallSuper
     @Override
@@ -173,12 +175,21 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mUnBinder.unbind();
+    protected void onStop() {
+        super.onStop();
+        if (toastDialog != null) {
+            toastDialog.cancel();
+            toastDialog = null;
+        }
         if (mNetworkReceiver != null) {
             unregisterReceiver(mNetworkReceiver);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUnBinder.unbind();
     }
 
     /**
@@ -230,8 +241,14 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     @Override
-    public void showToastDialog(String msg) {
-
+    public void showToastDialog(CharSequence msg, View.OnClickListener clickListener) {
+        if (toastDialog != null) {
+            toastDialog.dismiss();
+        }
+        toastDialog = new ToastDialog.Builder(this).content(msg)
+                .setDetermine(true, clickListener)
+                .build();
+        toastDialog.show();
     }
 
     @Override

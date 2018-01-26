@@ -66,8 +66,8 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
     }
 
     @Override
-    public void showToastDialog(String msg) {
-        activity.showToastDialog(msg);
+    public void showToastDialog(CharSequence msg, View.OnClickListener clickListener) {
+        activity.showToastDialog(msg, clickListener);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package mejust.frame.mvp;
 
 import android.support.v4.app.FragmentActivity;
-
 import io.reactivex.Flowable;
 import mejust.frame.net.Callback;
 import mejust.frame.net.Optional;
@@ -37,7 +36,7 @@ public interface BaseContract {
         /**
          * 显示dialog提醒信息
          */
-        void showToastDialog(String msg);
+        void showToastDialog(CharSequence msg, android.view.View.OnClickListener clickListener);
 
         /**
          * 关闭loading
@@ -55,9 +54,6 @@ public interface BaseContract {
     interface Presenter {
         /**
          * 处理请求接口(线程安全,防止内存泄露)
-         * @param flowable
-         * @param callback
-         * @param <T>
          */
         <T> void execute(Flowable<Optional<T>> flowable, Callback<T> callback);
 

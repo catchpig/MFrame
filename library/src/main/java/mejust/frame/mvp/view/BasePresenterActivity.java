@@ -16,11 +16,11 @@ import mejust.frame.mvp.BaseContract;
  * 描述:
  */
 
-public abstract class BasePresenterActivity<P extends BaseContract.Presenter> extends
-        BaseActivity {
+public abstract class BasePresenterActivity<P extends BaseContract.Presenter> extends BaseActivity {
 
     @Inject
     protected P mPresenter;
+
     @CallSuper
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public abstract class BasePresenterActivity<P extends BaseContract.Presenter> ex
         initView();
         mPresenter.onCreate();
     }
+
     @CallSuper
     @Override
     protected void onResume() {
