@@ -66,8 +66,8 @@ import qiu.niorgai.StatusBarCompat;
  * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}
  * <p>
  */
-public class BaseActivity extends AppCompatActivity
-        implements BaseContract.View, View.OnClickListener,OnNetworkListener {
+public abstract class BaseActivity extends AppCompatActivity
+        implements BaseContract.View, View.OnClickListener, OnNetworkListener {
 
     private static DefaultActivityOption sActivityOption;
     private TitleBarOptions titleBarOptions;
@@ -76,6 +76,7 @@ public class BaseActivity extends AppCompatActivity
     private TitleBar mTitleBar;
     private View mLoadingView;
     private Dialog mLoadingDialog;
+    private NetworkReceiver mNetworkReceiver;
 
     @CallSuper
     @Override
@@ -92,12 +93,13 @@ public class BaseActivity extends AppCompatActivity
         initLoadingView();
         initNetworkTip();
     }
+
     private LinearLayout mNetworkTip;
 
     /**
      * 初始化网络未打开的提示控件
      */
-    private void initNetworkTip(){
+    private void initNetworkTip() {
         mNetworkTip = findViewById(R.id.network_tip);
         mNetworkTip.setOnClickListener(this);
     }
@@ -156,17 +158,17 @@ public class BaseActivity extends AppCompatActivity
     public void setContentView(int layoutResID) {
         setContentView(View.inflate(this, layoutResID, null));
     }
-    private NetworkReceiver mNetworkReceiver;
+
     @Override
     protected void onStart() {
         super.onStart();
         //注册网络变化广播监听
-        if(mNetworkReceiver==null){
+        if (mNetworkReceiver == null) {
             mNetworkReceiver = new NetworkReceiver();
-            mNetworkReceiver.setOnMetworkListener(this);
+            mNetworkReceiver.setOnNetworkListener(this);
             IntentFilter filter = new IntentFilter();
             filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            registerReceiver(mNetworkReceiver,filter);
+            registerReceiver(mNetworkReceiver, filter);
         }
     }
 
@@ -174,7 +176,7 @@ public class BaseActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         mUnBinder.unbind();
-        if(mNetworkReceiver!=null){
+        if (mNetworkReceiver != null) {
             unregisterReceiver(mNetworkReceiver);
         }
     }
@@ -228,33 +230,44 @@ public class BaseActivity extends AppCompatActivity
     }
 
     @Override
+    public void showToastDialog(String msg) {
+
+    }
+
+    @Override
     public void loadingDialog() {
-        if (mLoadingDialog != null) {
-            return;
-        }
-        mLoadingDialog = new Dialog(this, R.style.mframe_imagedialog);
-        mLoadingDialog.setCancelable(false);// 不可以用“返回键”取消
-        mLoadingDialog.setContentView(R.layout.dialog_loading);
-        mLoadingDialog.show();
+        runOnUiThread(() -> {
+            if (mLoadingDialog != null) {
+                return;
+            }
+            mLoadingDialog = new Dialog(BaseActivity.this, R.style.mframe_imagedialog);
+            mLoadingDialog.setCancelable(false);// 不可以用“返回键”取消
+            mLoadingDialog.setContentView(R.layout.dialog_loading);
+            mLoadingDialog.show();
+        });
     }
 
     @Override
     public void loadingView() {
-        if (mLoadingView == null) {
-            return;
-        }
-        mLoadingView.setVisibility(View.VISIBLE);
+        runOnUiThread(() -> {
+            if (mLoadingView == null) {
+                return;
+            }
+            mLoadingView.setVisibility(View.VISIBLE);
+        });
     }
 
     @Override
     public void hidden() {
-        if (mLoadingDialog != null) {
-            mLoadingDialog.cancel();
-            mLoadingDialog = null;
-        }
-        if (mLoadingView != null) {
-            mLoadingView.setVisibility(View.GONE);
-        }
+        runOnUiThread(() -> {
+            if (mLoadingDialog != null) {
+                mLoadingDialog.cancel();
+                mLoadingDialog = null;
+            }
+            if (mLoadingView != null) {
+                mLoadingView.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
@@ -273,16 +286,16 @@ public class BaseActivity extends AppCompatActivity
         int i = v.getId();
         if (i == R.id.mframe_back_layout) {//返回
             finish();
-        }else if(i==R.id.network_tip){
+        } else if (i == R.id.network_tip) {
             NetworkUtils.openWirelessSettings();
         }
     }
 
     @Override
     public void onNetwork(boolean network) {
-        if(network){
+        if (network) {
             mNetworkTip.setVisibility(View.GONE);
-        }else{
+        } else {
             mNetworkTip.setVisibility(View.VISIBLE);
         }
     }

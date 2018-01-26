@@ -4,9 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.util.Log;
-
+import android.text.TextUtils;
 import conm.zhuazhu.common.utils.NetworkUtils;
+import mejust.frame.utils.log.Logger;
 
 /**
  * 创建时间:2018-01-25 9:57<br/>
@@ -25,23 +25,27 @@ public class NetworkReceiver extends BroadcastReceiver {
      */
     public boolean isNetwork = true;
     public OnNetworkListener mOnNetworkListener;
-    public void setOnMetworkListener(OnNetworkListener listener){
+
+    public void setOnNetworkListener(OnNetworkListener listener) {
         mOnNetworkListener = listener;
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
+        if (TextUtils.isEmpty(action)) {
+            return;
+        }
         switch (action) {
             case ConnectivityManager.CONNECTIVITY_ACTION:
                 if (NetworkUtils.isConnected()) {
-                    Log.i(TAG,"有网络");
                     isNetwork = true;
+                    Logger.i(TAG, "有网络");
                 } else {
-                    Log.i(TAG,"无网络");
                     isNetwork = false;
+                    Logger.i(TAG, "无网络");
                 }
-                if(mOnNetworkListener!=null){
+                if (mOnNetworkListener != null) {
                     mOnNetworkListener.onNetwork(isNetwork);
                 }
                 break;
@@ -51,7 +55,7 @@ public class NetworkReceiver extends BroadcastReceiver {
     /**
      * 网络监听器
      */
-    public interface OnNetworkListener{
+    public interface OnNetworkListener {
         void onNetwork(boolean network);
     }
 }

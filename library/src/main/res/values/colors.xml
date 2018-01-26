@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="c_fff">#ffffff</color>
-    <color name="c_000">#000000</color>
-    <color name="c_333">#333333</color>
-    <color name="c_665959">#665959</color>
-    <color name="c_ffdfdf">#ffdfdf</color>
-    <color name="c_1e81d2">#1e81d2</color>
+  <color name="c_fff">#ffffff</color>
+  <color name="c_000">#000000</color>
+  <color name="c_333">#333333</color>
+  <color name="c_665959">#665959</color>
+  <color name="c_ffdfdf">#ffdfdf</color>
+  <color name="c_1e81d2">#1e81d2</color>
 </resources>

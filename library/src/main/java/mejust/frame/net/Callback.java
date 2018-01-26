@@ -1,13 +1,11 @@
 package mejust.frame.net;
 
-import android.accounts.NetworkErrorException;
-
+import android.support.annotation.Nullable;
+import io.reactivex.subscribers.ResourceSubscriber;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
-
-import io.reactivex.subscribers.ResourceSubscriber;
 import mejust.frame.exception.HttpException;
 import mejust.frame.exception.TokenErrorException;
 import mejust.frame.mvp.BaseContract;
@@ -73,14 +71,14 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
 
     @Override
     public void onNext(Optional<T> optional) {
-        if(optional.isEmpty()){
+        if (optional.isEmpty()) {
             success(null);
-        }else{
+        } else {
             success(optional.get());
         }
     }
 
-    public abstract void success(T t);
+    public abstract void success(@Nullable T t);
 
     @Override
     public void onError(Throwable t) {
@@ -100,9 +98,9 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
                 || t instanceof UnknownHostException
                 || t instanceof UnknownServiceException) {
             msg = "连接超时,请检查网络";
-        } else if(t instanceof NullPointerException){
+        } else if (t instanceof NullPointerException) {
             msg = "空指针异常";
-        }else {
+        } else {
             msg = "未知异常";
         }
         if (mView != null) {

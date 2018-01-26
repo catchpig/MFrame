@@ -2,19 +2,15 @@ package com.zhuazhu.frame.mvp.activity;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.module.MainModule;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
-
-import java.util.List;
-
 import io.reactivex.Flowable;
+import java.util.List;
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;
@@ -22,11 +18,15 @@ import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.net.AjaxResult;
 import mejust.frame.net.Callback;
 import mejust.frame.net.FlowableUtils;
+import mejust.frame.utils.log.Logger;
 
 @LayoutId(R.layout.activity_main)
-@TitleBar(value = "首页",hiddenBack = true)
+@TitleBar(value = "首页", hiddenBack = true)
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
+
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void initParam() {
     }
@@ -45,7 +45,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
             @Override
             public void success(List<String> strings) {
-                Log.i("MainActivty",strings.toString());
+                Logger.i(TAG, strings == null);
             }
 
             @Override
@@ -56,14 +56,9 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
     }
 
     @TextRightFirstEvent("详情")
-    protected void detail(TextView v) {
+    public void detail(TextView v) {
         loadingDialog();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                hidden();
-            }
-        }, 2000);
+        new Handler().postDelayed(this::hidden, 2000);
     }
 
     @Override
