@@ -12,6 +12,8 @@ import mejust.frame.net.AjaxResult;
 import mejust.frame.net.Callback;
 import mejust.frame.net.FlowableUtils;
 import mejust.frame.utils.log.Logger;
+import mejust.frame.net.FlowableUtils;
+import mejust.frame.utils.log.Logger;
 
 /**
  * 创建时间:2017-12-21 16:39<br/>
@@ -46,5 +48,43 @@ public class MainPresenterImp extends BasePresenter<MainContract.View>
                 Logger.i("MainPresenterImp",s);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    private void checkLoading() {
+        mView.loadingDialog();
+        Flowable.timer(2000, TimeUnit.MILLISECONDS)
+                .flatMap(aLong -> {
+                    mView.hidden();
+                    return Flowable.just(String.valueOf(aLong));
+                })
+                .delay(2000, TimeUnit.MILLISECONDS)
+                .map(s -> {
+                    mView.loadingDialog();
+                    return s;
+                })
+                .delay(2000, TimeUnit.MILLISECONDS)
+                .compose(FlowableUtils.rxSchedulerHelper())
+                .subscribeWith(new ResourceSubscriber<String>() {
+                    @Override
+                    public void onNext(String s) {
+                        Logger.i(s);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        Logger.e(t);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hidden();
+                        Logger.i("onComplete");
+                    }
+                });
     }
 }

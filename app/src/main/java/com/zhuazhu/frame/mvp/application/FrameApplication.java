@@ -1,18 +1,11 @@
 package com.zhuazhu.frame.mvp.application;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
-
 import com.scwang.smartrefresh.header.WaveSwipeHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.zhuazhu.frame.BuildConfig;
 import com.zhuazhu.frame.FrameConfig;
@@ -20,7 +13,7 @@ import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.component.AppComponent;
 import com.zhuazhu.frame.di.component.DaggerAppComponent;
 import com.zhuazhu.frame.di.module.NetModule;
-
+import com.zhuazhu.frame.mvp.activity.MainActivity;
 import conm.zhuazhu.common.utils.Utils;
 import mejust.frame.app.BaseApplication;
 import mejust.frame.di.AppModule;
@@ -40,7 +33,7 @@ public class FrameApplication extends BaseApplication {
         BaseActivity.setDefaultActivityOption(new DefaultActivityOption() {
             @Override
             public void login(Activity activity) {
-
+                activity.startActivity(new Intent(activity, MainActivity.class));
             }
 
             @Override
@@ -62,23 +55,14 @@ public class FrameApplication extends BaseApplication {
                 return options;
             }
         });
-        SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
-            @NonNull
-            @Override
-            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
-                WaveSwipeHeader header = new WaveSwipeHeader(context);
-                layout.setEnableHeaderTranslationContent(false);
-                layout.setPrimaryColors(Color.parseColor("#333333"), Color.parseColor("#7898ab"));
-                return header;
-            }
+        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> {
+            WaveSwipeHeader header = new WaveSwipeHeader(context);
+            layout.setEnableHeaderTranslationContent(false);
+            layout.setPrimaryColors(Color.parseColor("#333333"), Color.parseColor("#7898ab"));
+            return header;
         });
-        SmartRefreshLayout.setDefaultRefreshFooterCreater(new DefaultRefreshFooterCreater() {
-            @NonNull
-            @Override
-            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
-                return new BallPulseFooter(context);
-            }
-        });
+        SmartRefreshLayout.setDefaultRefreshFooterCreater(
+                (context, layout) -> new BallPulseFooter(context));
     }
 
     private static AppComponent appComponent;
@@ -92,8 +76,10 @@ public class FrameApplication extends BaseApplication {
 
     public static AppComponent getAppComponent() {
         if (appComponent == null) {
-            appComponent = DaggerAppComponent.builder().appModule(new AppModule(Utils.getApp()))
-                    .netModule(new NetModule()).build();
+            appComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(Utils.getApp()))
+                    .netModule(new NetModule())
+                    .build();
         }
 
         return appComponent;

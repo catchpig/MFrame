@@ -17,33 +17,82 @@ import conm.zhuazhu.common.utils.StringUtils;
  * 修改人: 李涛<br/>
  * 修改时间: 2017/12/20 14:39<br/>
  * 描述:网络图片异步加载工具<br/>
- *  在Application中初始化ImageUtils.init(hostImageUrl,defalutImage,errorImage)
+ * 在Application中初始化ImageUtils.init(hostImageUrl,defalutImage,errorImage)
  */
 
 public class ImageUtils {
+
+    /**
+     * 加载错误的图片
+     */
+    private static int sErrorImage;
+    /**
+     * 正在加载中图片
+     */
+    private static int sDefaultImage;
+    /**
+     * 图片域名地址
+     */
+    private static String HOST_IMAGE_URL;
+
+    /**
+     * 初始化
+     *
+     * @param hostImageUrl 图片域名地址
+     * @param defaultImage 加载中显示的图片
+     * @param errorImage 加载错误显示的图片
+     */
+    public static void init(String hostImageUrl, @DrawableRes int defaultImage,
+            @DrawableRes int errorImage) {
+        HOST_IMAGE_URL = hostImageUrl;
+        sDefaultImage = defaultImage;
+        sErrorImage = errorImage;
+    }
+
+    /**
+     * 设置加载失败后显示的图片
+     */
+    public static void setErrorImage(@DrawableRes int errorImage) {
+        sErrorImage = errorImage;
+    }
+
+    /**
+     * 设置正在加载中显示的图片
+     */
+    public static void setDefalutImage(@DrawableRes int defaultImage) {
+        sDefaultImage = defaultImage;
+    }
+
+    /**
+     * 设置图片域名地址
+     */
+    public static void setHostImageUrl(String hostImageUrl) {
+        HOST_IMAGE_URL = hostImageUrl;
+    }
+
     /**
      * 加载图片
-     * @param imageView
+     *
      * @param url 地址
      */
     @BindingAdapter("imageUrl")
-    public static void show(ImageView imageView, String url){
+    public static void show(ImageView imageView, String url) {
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
-                .placeholder(sDefalutImage)
+                .placeholder(sDefaultImage)
                 .error(sErrorImage)
                 .into(imageView);
     }
 
     /**
      * 加载圆形图片
-     * @param imageView
+     *
      * @param url 地址
      */
-    public static void showCircle(ImageView imageView,String url){
+    public static void showCircle(ImageView imageView, String url) {
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
-                .placeholder(sDefalutImage)
+                .placeholder(sDefaultImage)
                 .error(sErrorImage)
                 .transform(new CircleCrop())
                 .into(imageView);
@@ -51,83 +100,30 @@ public class ImageUtils {
 
     /**
      * 加载圆角图片
-     * @param imageView
+     *
      * @param url 地址
-     * @param raduisDp 圆角大小
+     * @param radiusDp 圆角大小
      */
-    public static void showRound(ImageView imageView,String url,float raduisDp){
-        int raduis = ScreenUtils.dpToPxInt(imageView.getContext(),raduisDp);
+    public static void showRound(ImageView imageView, String url, float radiusDp) {
+        int radius = ScreenUtils.dpToPxInt(imageView.getContext(), radiusDp);
         ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
-                .placeholder(sDefalutImage)
+                .placeholder(sDefaultImage)
                 .error(sErrorImage)
-                .transform(new RoundedCorners(raduis))
-                .override(layoutParams.width,layoutParams.height)
+                .transform(new RoundedCorners(radius))
+                .override(layoutParams.width, layoutParams.height)
                 .into(imageView);
-
     }
 
     /**
      * 包装url
-     * @param url
-     * @return
      */
-    public static String packUrl(String url){
+    public static String packUrl(String url) {
         if (StringUtils.validateHttpOrHttps(url)) {
             return url;
         } else {
-            return HOST_IMAGE_URL +url;
+            return HOST_IMAGE_URL + url;
         }
-    }
-
-    /**
-     * 加载错误的图片
-     */
-    private static int sErrorImage;
-
-    /**
-     *  设置加载失败后显示的图片
-     * @param errorImage
-     */
-    public static void setErrorImage(@DrawableRes int errorImage){
-        sErrorImage = errorImage;
-    }
-
-    /**
-     * 正在加载中图片
-     */
-    private static int sDefalutImage;
-
-    /**
-     *  设置正在加载中显示的图片
-     * @param defalutImage
-     */
-    public static void setDefalutImage(@DrawableRes int defalutImage){
-        sDefalutImage = defalutImage;
-    }
-    /**
-     * 图片域名地址
-     */
-    public static String HOST_IMAGE_URL;
-
-    /**
-     * 设置图片域名地址
-     * @param hostImageUrl
-     */
-    public static void setHostImageUrl(String hostImageUrl){
-        HOST_IMAGE_URL = hostImageUrl;
-    }
-
-    /**
-     * 初始化
-     * @param hostImageUrl 图片域名地址
-     * @param defalutImage 加载中显示的图片
-     * @param errorImage 加载错误显示的图片
-     */
-    public static void init(String hostImageUrl,@DrawableRes int defalutImage,@DrawableRes int errorImage){
-        HOST_IMAGE_URL = hostImageUrl;
-        sDefalutImage = defalutImage;
-        sErrorImage = errorImage;
     }
 }

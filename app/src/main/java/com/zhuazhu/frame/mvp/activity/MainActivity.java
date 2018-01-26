@@ -37,7 +37,12 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
     @TextRightFirstEvent("详情")
     protected void detail(TextView v) {
         loadingDialog();
-        new Handler().postDelayed(() -> hidden(), 2000);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hidden();
+            }
+        }, 2000);
     }
 
     @Override

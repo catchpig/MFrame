@@ -35,6 +35,11 @@ public interface BaseContract {
         void show(String msg);
 
         /**
+         * 显示dialog提醒信息
+         */
+        void showToastDialog(String msg);
+
+        /**
          * 关闭loading
          */
         void hidden();

@@ -8,8 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import mejust.frame.bind.AnnotationBind;
@@ -23,7 +21,7 @@ import mejust.frame.mvp.BaseContract;
  * 描述:
  */
 
-public abstract class BaseFragment extends Fragment implements BaseContract.View{
+public abstract class BaseFragment extends Fragment implements BaseContract.View {
 
     private Unbinder unbinder;
     private BaseActivity activity;
@@ -64,7 +62,12 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
 
     @Override
     public void show(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+        activity.show(msg);
+    }
+
+    @Override
+    public void showToastDialog(String msg) {
+        activity.showToastDialog(msg);
     }
 
     @Override

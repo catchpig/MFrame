@@ -11,5 +11,5 @@ import com.bumptech.glide.module.AppGlideModule;
  * 描述:Glide注解
  */
 @GlideModule
-public class MAppGLideModule extends AppGlideModule{
+public class MAppGlideModule extends AppGlideModule {
 }
