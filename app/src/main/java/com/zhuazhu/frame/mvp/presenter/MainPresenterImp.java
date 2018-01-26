@@ -1,17 +1,19 @@
 package com.zhuazhu.frame.mvp.presenter;
 
 import android.support.annotation.NonNull;
+
 import com.zhuazhu.frame.data.HttpHelper;
 import com.zhuazhu.frame.mvp.contract.MainContract;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import io.reactivex.subscribers.ResourceSubscriber;
 import mejust.frame.mvp.presenter.BasePresenter;
 import mejust.frame.net.AjaxResult;
 import mejust.frame.net.Callback;
-import mejust.frame.net.FlowableUtils;
-import mejust.frame.utils.log.Logger;
 import mejust.frame.net.FlowableUtils;
 import mejust.frame.utils.log.Logger;
 
