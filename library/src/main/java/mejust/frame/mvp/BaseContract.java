@@ -2,6 +2,10 @@ package mejust.frame.mvp;
 
 import android.support.v4.app.FragmentActivity;
 
+import io.reactivex.Flowable;
+import mejust.frame.net.Callback;
+import mejust.frame.net.Optional;
+
 /**
  * 创建时间:2017-12-21 16:17<br/>
  * 创建人: 王培峰<br/>
@@ -44,6 +48,13 @@ public interface BaseContract {
     }
 
     interface Presenter {
+        /**
+         * 处理请求接口(线程安全,防止内存泄露)
+         * @param flowable
+         * @param callback
+         * @param <T>
+         */
+        <T> void execute(Flowable<Optional<T>> flowable, Callback<T> callback);
 
         void onCreate();
 

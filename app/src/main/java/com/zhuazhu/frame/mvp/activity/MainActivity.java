@@ -2,7 +2,6 @@ package com.zhuazhu.frame.mvp.activity;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,16 +11,10 @@ import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
 
-import java.util.List;
-
-import io.reactivex.Flowable;
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
-import mejust.frame.net.AjaxResult;
-import mejust.frame.net.Callback;
-import mejust.frame.net.FlowableUtils;
 
 @LayoutId(R.layout.activity_main)
 @TitleBar(value = "首页",hiddenBack = true)
@@ -38,32 +31,13 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void initView() {
-        AjaxResult<List<String>> result = new AjaxResult<>();
-        result.setCode("200");
-        result.setMessage("20");
-        FlowableUtils.create(Flowable.just(result)).subscribeWith(new Callback<List<String>>(null) {
 
-            @Override
-            public void success(List<String> strings) {
-                Log.i("MainActivty",strings.toString());
-            }
-
-            @Override
-            public void onError(Throwable t) {
-                super.onError(t);
-            }
-        });
     }
 
     @TextRightFirstEvent("详情")
     protected void detail(TextView v) {
         loadingDialog();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                hidden();
-            }
-        }, 2000);
+        new Handler().postDelayed(() -> hidden(), 2000);
     }
 
     @Override

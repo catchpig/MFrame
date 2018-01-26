@@ -1,7 +1,5 @@
 package mejust.frame.net;
 
-import android.accounts.NetworkErrorException;
-
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -43,6 +41,9 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
 
     private BaseContract.View mView;
     private Type mType = Type.LOADING_DIALOG;
+    public Callback(){
+        mType = Type.LOADING_NO;
+    }
 
     public Callback(BaseContract.View view) {
         mView = view;
@@ -53,10 +54,10 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
         mType = type;
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
-
         if (mView != null) {
             switch (mType) {
                 case LOADING_NO:
