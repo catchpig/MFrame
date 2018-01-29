@@ -242,13 +242,15 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override
     public void showToastDialog(CharSequence msg, View.OnClickListener clickListener) {
-        if (toastDialog != null) {
-            toastDialog.dismiss();
-        }
-        toastDialog = new ToastDialog.Builder(this).content(msg)
-                .setDetermine(true, clickListener)
-                .build();
-        toastDialog.show();
+        runOnUiThread(() -> {
+            if (toastDialog != null) {
+                toastDialog.cancel();
+            }
+            toastDialog = new ToastDialog.Builder(this).content(msg)
+                    .setDetermine(true, clickListener)
+                    .build();
+            toastDialog.show();
+        });
     }
 
     @Override
