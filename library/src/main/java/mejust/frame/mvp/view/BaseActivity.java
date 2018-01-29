@@ -304,7 +304,7 @@ public abstract class BaseActivity extends AppCompatActivity
         if (i == R.id.mframe_back_layout) {//返回
             finish();
         } else if (i == R.id.network_tip) {
-            NetworkUtils.openWirelessSettings();
+            NetworkUtils.openWifiSettings();
         }
     }
 
