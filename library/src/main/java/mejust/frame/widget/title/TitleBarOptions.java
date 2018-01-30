@@ -34,30 +34,11 @@ public class TitleBarOptions implements Serializable {
      * 返回按钮后面文字的大小
      */
     private int bactTextSize;
-    /**
-     * 标题文字
-     */
-    private String titleText;
+
     /**
      * 标题文字的大小
      */
     private int titleTextSize;
-    /**
-     * 右边位子
-     */
-    private String rightText;
-    /**
-     * 右边文字的大小
-     */
-    private int rightTextSize;
-    /**
-     * 右边第一张图片
-     */
-    private int rightImage1;
-    /**
-     * 右边第二张图片
-     */
-    private int rightImage2;
 
     public int getBackgroundColor() {
         return backgroundColor;
@@ -99,14 +80,6 @@ public class TitleBarOptions implements Serializable {
         this.bactTextSize = bactTextSize;
     }
 
-    public String getTitleText() {
-        return titleText;
-    }
-
-    public void setTitleText(String titleText) {
-        this.titleText = titleText;
-    }
-
     public int getTitleTextSize() {
         return titleTextSize;
     }
@@ -115,35 +88,6 @@ public class TitleBarOptions implements Serializable {
         this.titleTextSize = titleTextSize;
     }
 
-    public String getRightText() {
-        return rightText;
-    }
 
-    public void setRightText(String rightText) {
-        this.rightText = rightText;
-    }
 
-    public int getRightTextSize() {
-        return rightTextSize;
-    }
-
-    public void setRightTextSize(int rightTextSize) {
-        this.rightTextSize = rightTextSize;
-    }
-
-    public int getRightImage1() {
-        return rightImage1;
-    }
-
-    public void setRightImage1(@DrawableRes int rightImage1) {
-        this.rightImage1 = rightImage1;
-    }
-
-    public int getRightImage2() {
-        return rightImage2;
-    }
-
-    public void setRightImage2(@DrawableRes int rightImage2) {
-        this.rightImage2 = rightImage2;
-    }
 }

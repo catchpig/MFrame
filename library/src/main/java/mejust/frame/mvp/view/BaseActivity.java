@@ -113,16 +113,6 @@ public abstract class BaseActivity extends AppCompatActivity
         sActivityOption = option;
     }
 
-    /**
-     * 获取当前页面的TitleBar配置
-     */
-    public TitleBarOptions getTitleBarOptions() {
-        if (titleBarOptions == null) {
-            throw new IllegalStateException("设置TitleBar,必须添加@TitleBar注解");
-        }
-        return titleBarOptions;
-    }
-
     private void initLoadingView() {
         setContentView(R.layout.view_loading);
         mLoadingView = findViewById(R.id.layout_loading);
