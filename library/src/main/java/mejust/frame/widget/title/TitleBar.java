@@ -127,6 +127,8 @@ public class TitleBar extends FrameLayout {
         setTextColor(colorRes(options.getTextColor()));
         //标题
         setTitleTextSize(options.getTitleTextSize());
+        // 标题文字
+        setTitleText(options.getTitleText());
         setRightTextSize(options.getBackTextSize());
     }
 
