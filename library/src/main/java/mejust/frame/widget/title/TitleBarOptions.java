@@ -33,7 +33,7 @@ public class TitleBarOptions implements Serializable {
     /**
      * 返回按钮后面文字的大小
      */
-    private int bactTextSize;
+    private int backTextSize;
 
     /**
      * 标题文字的大小
@@ -72,12 +72,12 @@ public class TitleBarOptions implements Serializable {
         this.backText = backText;
     }
 
-    public int getBactTextSize() {
-        return bactTextSize;
+    public int getBackTextSize() {
+        return backTextSize;
     }
 
-    public void setBactTextSize(int bactTextSize) {
-        this.bactTextSize = bactTextSize;
+    public void setBackTextSize(int backTextSize) {
+        this.backTextSize = backTextSize;
     }
 
     public int getTitleTextSize() {
@@ -87,7 +87,4 @@ public class TitleBarOptions implements Serializable {
     public void setTitleTextSize(int titleTextSize) {
         this.titleTextSize = titleTextSize;
     }
-
-
-
 }
