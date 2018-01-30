@@ -49,9 +49,8 @@ public class FrameApplication extends BaseApplication {
                 options.setTextColor(R.color.white);
                 options.setTitleTextSize(18);
                 options.setBackImage(R.mipmap.back);
-                options.setBactTextSize(15);
+                options.setBackTextSize(15);
                 options.setBackText("返回");
-                options.setRightTextSize(15);
                 return options;
             }
         });

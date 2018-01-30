@@ -12,7 +12,6 @@ import java.io.Serializable;
  * 修改时间: 2017-12-21 11:28<br/>
  * 描述: TitleBar的数据类
  */
-
 public class TitleBarOptions implements Serializable {
     /**
      * 背景颜色
@@ -33,12 +32,15 @@ public class TitleBarOptions implements Serializable {
     /**
      * 返回按钮后面文字的大小
      */
-    private int bactTextSize;
-
+    private int backTextSize;
     /**
      * 标题文字的大小
      */
     private int titleTextSize;
+    /**
+     * 标题文字
+     */
+    private String titleText;
 
     public int getBackgroundColor() {
         return backgroundColor;
@@ -72,12 +74,12 @@ public class TitleBarOptions implements Serializable {
         this.backText = backText;
     }
 
-    public int getBactTextSize() {
-        return bactTextSize;
+    public int getBackTextSize() {
+        return backTextSize;
     }
 
-    public void setBactTextSize(int bactTextSize) {
-        this.bactTextSize = bactTextSize;
+    public void setBackTextSize(int backTextSize) {
+        this.backTextSize = backTextSize;
     }
 
     public int getTitleTextSize() {
@@ -88,6 +90,11 @@ public class TitleBarOptions implements Serializable {
         this.titleTextSize = titleTextSize;
     }
 
+    public String getTitleText() {
+        return titleText;
+    }
 
-
+    public void setTitleText(String titleText) {
+        this.titleText = titleText;
+    }
 }

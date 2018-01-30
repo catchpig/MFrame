@@ -69,7 +69,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置右边第二个图片按钮的监听
-     * @param listener
      */
     public void setImageRightSecondListener(OnClickListener listener) {
         imageRight2.setVisibility(VISIBLE);
@@ -78,7 +77,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置右边第一个图片按钮的监听
-     * @param listener
      */
     public void setImageRightFirstListener(OnClickListener listener) {
         imageRight1.setVisibility(VISIBLE);
@@ -87,7 +85,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置右边第一个文字按钮的监听
-     * @param listener
      */
     public void setTextRightFirstListener(OnClickListener listener) {
         textRight1.setVisibility(VISIBLE);
@@ -96,7 +93,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置右边第二个文字按钮的监听
-     * @param listener
      */
     public void setTextRightSecondListener(OnClickListener listener) {
         textRight2.setVisibility(VISIBLE);
@@ -105,7 +101,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置返回按钮的监听
-     * @param listener
      */
     public void setBackListener(OnClickListener listener) {
         layoutBack.setOnClickListener(listener);
@@ -120,7 +115,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置基本属性
-     * @param options
      */
     public void setOptions(@NonNull TitleBarOptions options) {
         //背景
@@ -128,20 +122,18 @@ public class TitleBar extends FrameLayout {
         //返回
         setBackImage(options.getBackImage());
         setBackText(options.getBackText());
-        setBackTextSize(options.getBactTextSize());
+        setBackTextSize(options.getBackTextSize());
         //文字颜色
         setTextColor(colorRes(options.getTextColor()));
         //标题
         setTitleTextSize(options.getTitleTextSize());
-        //右边按钮
-        setRightTextSize(options.getRightTextSize());
         // 标题文字
         setTitleText(options.getTitleText());
+        setRightTextSize(options.getBackTextSize());
     }
 
     /**
      * 设置文字颜色
-     * @param color
      */
     public void setTextColor(int color) {
         textBack.setTextColor(color);
@@ -152,7 +144,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置标题的文字
-     * @param titleText
      */
     public void setTitleText(String titleText) {
         textTitle.setText(titleText);
@@ -160,14 +151,16 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置标题的文字大小
+     *
      * @param titleSize 单位:sp
      */
     private void setTitleTextSize(float titleSize) {
-        textTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP,titleSize);
+        textTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleSize);
     }
 
     /**
      * 设置返回文字的大小
+     *
      * @param textBackSize 单位:sp
      */
     private void setBackTextSize(int textBackSize) {
@@ -176,7 +169,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置返回的文字
-     * @param backText
      */
     public void setBackText(String backText) {
         textBack.setText(backText);
@@ -184,7 +176,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置返回的图片
-     * @param backImage
      */
     private void setBackImage(@DrawableRes int backImage) {
         imageBack.setImageResource(backImage);
@@ -192,6 +183,7 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置右边按钮文字的大小
+     *
      * @param textRightSize 单位:sp
      */
     private void setRightTextSize(int textRightSize) {
@@ -201,7 +193,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置右边第一个文字
-     * @param rightText1
      */
     public void setRightText1(String rightText1) {
         textRight1.setText(rightText1);
@@ -209,7 +200,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置右边第二个文字
-     * @param rightText2
      */
     public void setRightText2(String rightText2) {
         textRight2.setText(rightText2);
@@ -217,7 +207,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置右边第一张图片
-     * @param rightImage1
      */
     public void setRightImage1(@DrawableRes int rightImage1) {
         imageRight1.setVisibility(VISIBLE);
@@ -226,7 +215,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置右边第二张图片
-     * @param rightImage2
      */
     public void setRightImage2(@DrawableRes int rightImage2) {
         imageRight2.setVisibility(VISIBLE);
@@ -235,7 +223,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 设置背景颜色
-     * @param backgroundColor
      */
     public void setTitleBarBackgroundColor(@ColorRes int backgroundColor) {
         layoutTitle.setBackgroundResource(backgroundColor);
@@ -245,8 +232,6 @@ public class TitleBar extends FrameLayout {
 
     /**
      * 转换颜色值
-     * @param color
-     * @return
      */
     @ColorInt
     public int colorRes(@ColorRes int color) {
