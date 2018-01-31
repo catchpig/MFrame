@@ -183,6 +183,7 @@ public abstract class BaseActivity extends AppCompatActivity
         }
         if (mNetworkReceiver != null) {
             unregisterReceiver(mNetworkReceiver);
+            mNetworkReceiver = null;
         }
     }
 
