@@ -2,10 +2,8 @@ package mejust.frame.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import conm.zhuazhu.common.utils.AppUtils;
 import conm.zhuazhu.common.utils.Utils;
-import mejust.frame.app.BaseApplication;
 
 /**
  * 创建时间:2017-12-21 17:50<br/>
@@ -18,21 +16,13 @@ import mejust.frame.app.BaseApplication;
 public class SpUtil {
 
     private static final String BASE_SP_NAME = AppUtils.getAppPackageName().replace(".", "_");
-    private static volatile SpUtil spUtil;
 
     public static SpUtil getInstance() {
         return getInstance(BASE_SP_NAME);
     }
 
     public static SpUtil getInstance(String name) {
-        if (spUtil == null) {
-            synchronized (SpUtil.class) {
-                if (spUtil == null) {
-                    spUtil = new SpUtil(name);
-                }
-            }
-        }
-        return spUtil;
+        return new SpUtil(name);
     }
 
     private SharedPreferences preferences;
