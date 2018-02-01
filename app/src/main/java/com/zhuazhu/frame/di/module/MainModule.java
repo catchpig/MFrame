@@ -1,26 +1,19 @@
 package com.zhuazhu.frame.di.module;
 
 import com.zhuazhu.frame.mvp.contract.MainContract;
+
 import dagger.Module;
-import dagger.Provides;
-import mejust.frame.annotation.ActivityScope;
+import mejust.frame.di.module.ActivityModule;
 
 /**
  * @author : Beaven
  * @date : 2017-12-20 12:48
  */
+
 @Module
-public class MainModule {
-
-    private final MainContract.View view;
-
+public class MainModule extends ActivityModule<MainContract.View> {
     public MainModule(MainContract.View view) {
-        this.view = view;
+        super(view);
     }
 
-    @ActivityScope
-    @Provides
-    public MainContract.View provideMainView() {
-        return view;
-    }
 }

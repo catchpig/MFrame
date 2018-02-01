@@ -16,7 +16,7 @@ import com.zhuazhu.frame.di.module.NetModule;
 import com.zhuazhu.frame.mvp.activity.MainActivity;
 import conm.zhuazhu.common.utils.Utils;
 import mejust.frame.app.BaseApplication;
-import mejust.frame.di.AppModule;
+import mejust.frame.di.module.AppModule;
 import mejust.frame.image.ImageUtils;
 import mejust.frame.mvp.view.BaseActivity;
 import mejust.frame.mvp.view.option.DefaultActivityOption;

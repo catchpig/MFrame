@@ -8,7 +8,7 @@ import com.zhuazhu.frame.di.module.RecyclerModule;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import mejust.frame.di.AppModule;
+import mejust.frame.di.module.AppModule;
 
 /**
  * @author : Beaven

@@ -5,7 +5,7 @@ import com.zhuazhu.frame.mvp.contract.RecyclerContract;
 
 import dagger.Module;
 import dagger.Provides;
-import mejust.frame.annotation.ActivityScope;
+import mejust.frame.di.module.ActivityModule;
 import mejust.frame.widget.refresh.IPageControl;
 
 /**
@@ -15,19 +15,15 @@ import mejust.frame.widget.refresh.IPageControl;
  * 修改时间: 2017/12/22 0:15<br/>
  * 描述:
  */
-@ActivityScope
 @Module
-public class RecyclerModule {
-    private RecyclerContract.View mView;
+public class RecyclerModule extends ActivityModule<RecyclerContract.View> {
     private IPageControl mPageControl;
     public RecyclerModule(RecyclerContract.View view,IPageControl pageControl){
-        mView = view;
+        super(view);
         mPageControl = pageControl;
     }
-    @Provides
-    public RecyclerContract.View provideRecyclerView(){
-        return mView;
-    };
+
+
     @Provides
     public IPageControl providePageControl(){
         return mPageControl;
@@ -36,4 +32,5 @@ public class RecyclerModule {
     public ReAdapter provideReAdapter(IPageControl pageControl){
         return  new ReAdapter(pageControl);
     }
+
 }
