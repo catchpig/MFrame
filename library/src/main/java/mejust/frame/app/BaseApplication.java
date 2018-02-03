@@ -5,6 +5,8 @@ import android.support.annotation.CallSuper;
 
 import conm.zhuazhu.common.utils.Utils;
 import mejust.frame.cash.CrashHandler;
+import mejust.frame.mvp.view.BaseActivity;
+import mejust.frame.mvp.view.option.DefaultActivityOption;
 import mejust.frame.utils.log.DebugLogTree;
 import mejust.frame.utils.log.ReleaseLogTree;
 import mejust.frame.widget.ToastMsg;
@@ -18,7 +20,8 @@ import timber.log.Timber;
  * 描述: 无MVP的基类<br/>
  */
 
-public class BaseApplication extends Application {
+public abstract class BaseApplication extends Application{
+
 
     @CallSuper
     @Override

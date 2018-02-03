@@ -18,6 +18,8 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.gyf.barlibrary.ImmersionBar;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import conm.zhuazhu.common.utils.NetworkUtils;
@@ -33,7 +35,6 @@ import mejust.frame.receiver.NetworkReceiver.OnNetworkListener;
 import mejust.frame.widget.ToastMsg;
 import mejust.frame.widget.title.TitleBar;
 import mejust.frame.widget.title.TitleBarOptions;
-import qiu.niorgai.StatusBarCompat;
 
 /**
  * 创建时间:2017-12-21 10:41<br/>
@@ -79,6 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity
     private Dialog mLoadingDialog;
     private NetworkReceiver mNetworkReceiver;
     private ToastDialog toastDialog;
+    private ImmersionBar immersionBar;
 
     @CallSuper
     @Override
@@ -191,32 +193,26 @@ public abstract class BaseActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         mUnBinder.unbind();
+        if(immersionBar!=null){
+            immersionBar.destroy();
+        }
     }
 
     /**
      * 初始化状态栏
      */
     private void initStatusBar() {
+        if(immersionBar==null){
+            immersionBar = ImmersionBar.with(this);
+        }
         if (StatusBarUtils.isStatusBar(this)) {
-            AnnotationBind.injectStatusBar(this);
+            AnnotationBind.injectStatusBar(this,immersionBar);
         } else {
-            setStatusBarColor(sActivityOption.statusBarColor());
+            AnnotationBind.configStatusBar(sActivityOption.statusBarOption(),immersionBar);
         }
     }
 
-    /**
-     * 状态栏透明
-     */
-    public void translucentStatusBar() {
-        StatusBarCompat.translucentStatusBar(this);
-    }
 
-    /**
-     * 设置状态栏颜色
-     */
-    public void setStatusBarColor(@ColorRes int color) {
-        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this, color));
-    }
 
     /**
      * 设置标题栏
@@ -227,14 +223,6 @@ public abstract class BaseActivity extends AppCompatActivity
         mTitleBar.setOptions(options);
     }
 
-    /**
-     * 设置全屏
-     */
-    public void fullScreen() {
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    }
 
     @Override
     public void show(String msg) {

@@ -129,7 +129,8 @@ public class TitleBar extends FrameLayout {
         setTitleTextSize(options.getTitleTextSize());
         // 标题文字
         setTitleText(options.getTitleText());
-        setRightTextSize(options.getBackTextSize());
+        //右边文字的大小
+        setRightTextSize(options.getRightTextSize());
     }
 
     /**

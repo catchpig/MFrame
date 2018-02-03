@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 
+import mejust.frame.annotation.options.StatusBarOption;
 import mejust.frame.widget.title.TitleBarOptions;
 
 /**
@@ -22,11 +23,10 @@ public interface DefaultActivityOption {
     void login(Activity activity);
 
     /**
-     * 状态栏颜色
+     * 状态栏
      * @return
      */
-    @ColorRes
-    int statusBarColor();
+    StatusBarOption statusBarOption();
 
     /**
      * 默认的标题栏参数

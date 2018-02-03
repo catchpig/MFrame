@@ -15,6 +15,7 @@ import com.zhuazhu.frame.di.component.DaggerAppComponent;
 import com.zhuazhu.frame.di.module.NetModule;
 import com.zhuazhu.frame.mvp.activity.MainActivity;
 import conm.zhuazhu.common.utils.Utils;
+import mejust.frame.annotation.options.StatusBarOption;
 import mejust.frame.app.BaseApplication;
 import mejust.frame.di.module.AppModule;
 import mejust.frame.image.ImageUtils;
@@ -37,19 +38,23 @@ public class FrameApplication extends BaseApplication {
             }
 
             @Override
-            public int statusBarColor() {
-                return R.color.c_1e81d2;
+            public StatusBarOption statusBarOption() {
+                StatusBarOption option = new StatusBarOption();
+                option.setStatusBarColor(R.color.c_fff);
+                option.setStatusBarDarkFont(true);
+                return option;
             }
 
             @NonNull
             @Override
             public TitleBarOptions titleBarOption() {
                 TitleBarOptions options = new TitleBarOptions();
-                options.setBackgroundColor(R.color.title_backgroud);
-                options.setTextColor(R.color.white);
+                options.setBackgroundColor(R.color.white);
+                options.setTextColor(R.color.c_000);
                 options.setTitleTextSize(18);
                 options.setBackImage(R.mipmap.back);
                 options.setBackTextSize(15);
+                options.setRightTextSize(15);
                 options.setBackText("返回");
                 return options;
             }

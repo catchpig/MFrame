@@ -1,6 +1,7 @@
 package mejust.frame.annotation;
 
 import android.support.annotation.ColorRes;
+import android.support.annotation.FloatRange;
 import android.support.annotation.IntRange;
 
 import java.lang.annotation.Documented;
@@ -28,6 +29,23 @@ public @interface StatusBar {
     int value() default -1;
 
     /**
+     * 状态栏变换后的颜色
+     * @return
+     */
+    int statusBarColorTransform() default -1;
+
+    /**
+     * flyme OS状态栏字体颜色
+     * @return
+     */
+    int flymeOSStatusBarFontColor() default -1;
+
+    /**
+     * 状态栏字体是深色，不写默认为亮色
+     * @return
+     */
+    boolean statusBarDarkFont() default false;
+    /**
      * 透明
      * @return
      */
@@ -37,12 +55,12 @@ public @interface StatusBar {
      * 隐藏状态栏背景
      * @return
      */
-    boolean hiddenBackground() default false;
+    boolean hidden() default false;
 
     /**
      * 透明度
      * @return
      */
-    @IntRange(from = 0,to = 255)
-    int alpha() default 255;
+    @FloatRange(from = 0,to = 1)
+    float alpha() default 0;
 }

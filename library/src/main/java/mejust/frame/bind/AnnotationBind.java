@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gyf.barlibrary.ImmersionBar;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -17,11 +19,11 @@ import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.StatusBar;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TextRightSecondEvent;
+import mejust.frame.annotation.options.StatusBarOption;
 import mejust.frame.annotation.utils.AnnotionUtils;
 import mejust.frame.annotation.utils.TitleBarAnnotationUtils;
 import mejust.frame.utils.log.Logger;
 import mejust.frame.widget.title.TitleBar;
-import qiu.niorgai.StatusBarCompat;
 
 /**
  * 创建时间:2017/4/2 18:11
@@ -36,10 +38,11 @@ public class AnnotationBind {
 
     /**
      * 注入activity的布局文件
+     *
      * @param activity
      */
-    public static void injectLayoutId(@NonNull Activity activity){
-        LayoutId layoutId = AnnotionUtils.annotationRecycle(activity.getClass(),LayoutId.class);
+    public static void injectLayoutId(@NonNull Activity activity) {
+        LayoutId layoutId = AnnotionUtils.annotationRecycle(activity.getClass(), LayoutId.class);
         if (layoutId != null) {
             activity.setContentView(layoutId.value());
         } else {
@@ -49,34 +52,60 @@ public class AnnotationBind {
 
     /**
      * 注入StatusBar注解
+     *
      * @param activity
      */
-    public static void injectStatusBar(@NonNull Activity activity){
-        StatusBar statusBar = AnnotionUtils.annotation(activity.getClass(),StatusBar.class);
-        if(statusBar!=null){
+    public static void injectStatusBar(@NonNull Activity activity, ImmersionBar immersionBar) {
+        StatusBar statusBar = AnnotionUtils.annotation(activity.getClass(), StatusBar.class);
+        if (statusBar != null) {
             int color = statusBar.value();
-            int alpha = statusBar.alpha();
+            int statusBarColorTransform = statusBar.statusBarColorTransform();
+            int flymeOSStatusBarFontColor = statusBar.flymeOSStatusBarFontColor();
+            float alpha = statusBar.alpha();
             boolean translucent = statusBar.translucent();
-            boolean hiddenBackground = statusBar.hiddenBackground();
-            if(translucent){
-                StatusBarCompat.translucentStatusBar(activity,hiddenBackground);
-            }else{
-                if(color!=-1){
-                    StatusBarCompat.setStatusBarColor(activity, ContextCompat.getColor(activity,
-                            color),alpha);
-                }
-            }
+            boolean hidden = statusBar.hidden();
+            boolean statusBarDarkFont = statusBar.statusBarDarkFont();
+            StatusBarOption option = new StatusBarOption(color, statusBarColorTransform, flymeOSStatusBarFontColor, alpha, statusBarDarkFont, translucent, hidden);
+            configStatusBar(option, immersionBar);
         }
     }
+
+    /**
+     * 配置状态栏
+     *
+     * @param option
+     * @param immersionBar
+     */
+    public static void configStatusBar(StatusBarOption option, ImmersionBar immersionBar) {
+        boolean hidden = option.isHidden();
+        immersionBar = immersionBar.fullScreen(hidden);
+        if (!hidden) {
+            if (option.isTranslucent()) {
+                immersionBar = immersionBar.transparentStatusBar();
+            }
+            int statusBarColorTransform = option.getStatusBarColorTransform();
+            if (statusBarColorTransform != -1) {
+                immersionBar = immersionBar.statusBarColorTransform(statusBarColorTransform);
+            }
+            int flymeOSStatusBarFontColor = option.getFlymeOSStatusBarFontColor();
+            if (flymeOSStatusBarFontColor != -1) {
+                immersionBar = immersionBar.flymeOSStatusBarFontColor(flymeOSStatusBarFontColor);
+            }
+            immersionBar = immersionBar.statusBarDarkFont(option.isStatusBarDarkFont()).statusBarColor(option.getStatusBarColor(), option.getAlpha()).fitsSystemWindows(true);
+        }
+        immersionBar.init();
+    }
+
     /**
      * 绑定注解(@TitleBar,@TextRightFirstEvent,@TextRightSecondEvent,@ImageRightFirstEvent,@ImageRightSecondEvent)
+     *
      * @param activity
      * @param titleBar
      * @return true:有TitleBar这个注解<br/>false:没有TitleBar这个注解
      */
     public static void injectTitleBar(@NonNull Activity activity, @NonNull TitleBar titleBar) {
         Class<?> activityClass = activity.getClass();
-        if(!TitleBarAnnotationUtils.setTitleBarAnnotation(activityClass, titleBar)){
+        if (!TitleBarAnnotationUtils.setTitleBarAnnotation(activityClass, titleBar)) {
             return;
         }
         Method[] methods = activityClass.getDeclaredMethods();
@@ -109,19 +138,20 @@ public class AnnotationBind {
 
     /**
      * 注入fragment的布局文件
+     *
      * @param fragment
      * @param inflater
      * @param container
      * @return 当前注解文件的View
      */
     public static View injectLayoutId(Fragment fragment, LayoutInflater inflater,
-                                      ViewGroup container){
-        LayoutId layoutId = AnnotionUtils.annotationRecycle(fragment.getClass(),LayoutId.class);
+                                      ViewGroup container) {
+        LayoutId layoutId = AnnotionUtils.annotationRecycle(fragment.getClass(), LayoutId.class);
         View v = null;
-        if(layoutId!=null){
-            v = inflater.inflate(layoutId.value(),container,false);
-        }else{
-            Logger.i(TAG,"layoutId为空,请设置layoutId");
+        if (layoutId != null) {
+            v = inflater.inflate(layoutId.value(), container, false);
+        } else {
+            Logger.i(TAG, "layoutId为空,请设置layoutId");
         }
         return v;
     }

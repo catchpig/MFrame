@@ -41,6 +41,10 @@ public class TitleBarOptions implements Serializable {
      * 标题文字
      */
     private String titleText;
+    /**
+     * 右边文字的大小
+     */
+    private int rightTextSize;
 
     public int getBackgroundColor() {
         return backgroundColor;
@@ -96,5 +100,13 @@ public class TitleBarOptions implements Serializable {
 
     public void setTitleText(String titleText) {
         this.titleText = titleText;
+    }
+
+    public int getRightTextSize() {
+        return rightTextSize;
+    }
+
+    public void setRightTextSize(int rightTextSize) {
+        this.rightTextSize = rightTextSize;
     }
 }
