@@ -53,10 +53,10 @@ public class AnnotationBind {
     /**
      * 注入StatusBar注解
      *
-     * @param activity
+     * @param obj
      */
-    public static void injectStatusBar(@NonNull Activity activity, ImmersionBar immersionBar) {
-        StatusBar statusBar = AnnotionUtils.annotation(activity.getClass(), StatusBar.class);
+    public static void injectStatusBar(@NonNull Object obj, ImmersionBar immersionBar) {
+        StatusBar statusBar = AnnotionUtils.annotation(obj.getClass(), StatusBar.class);
         if (statusBar != null) {
             int color = statusBar.value();
             int statusBarColorTransform = statusBar.statusBarColorTransform();

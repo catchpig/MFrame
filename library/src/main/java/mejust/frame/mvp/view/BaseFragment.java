@@ -8,8 +8,12 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.gyf.barlibrary.ImmersionBar;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import mejust.frame.annotation.utils.StatusBarUtils;
 import mejust.frame.bind.AnnotationBind;
 import mejust.frame.mvp.BaseContract;
 
@@ -23,15 +27,18 @@ import mejust.frame.mvp.BaseContract;
 
 public abstract class BaseFragment extends Fragment implements BaseContract.View {
 
-    private Unbinder unbinder;
-    private BaseActivity activity;
+    private Unbinder mUnbinder;
+    private BaseActivity mActivity;
+    private ImmersionBar mImmersionBar;
 
+    @CallSuper
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getActivity() != null) {
-            activity = (BaseActivity) getActivity();
+            mActivity = (BaseActivity) getActivity();
         }
+
     }
 
     @CallSuper
@@ -40,48 +47,85 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         View view = AnnotationBind.injectLayoutId(this, inflater, container);
-        unbinder = ButterKnife.bind(this, view);
+        initStatusBar();
+        mUnbinder = ButterKnife.bind(this, view);
         return view;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbinder.unbind();
+    /**
+     * 初始化状态栏
+     */
+    private void initStatusBar() {
+        if(mImmersionBar ==null){
+            mImmersionBar = ImmersionBar.with(this);
+        }
+        if (StatusBarUtils.isStatusBar(this)) {
+            AnnotationBind.injectStatusBar(this, mImmersionBar);
+        } else {
+            AnnotationBind.configStatusBar(mActivity.getStatusBarOption(), mImmersionBar);
+        }
     }
 
     @Override
     public void loadingView() {
-        activity.loadingView();
+        mActivity.loadingView();
     }
 
     @Override
     public void loadingDialog() {
-        activity.loadingDialog();
+        mActivity.loadingDialog();
     }
 
     @Override
     public void show(String msg) {
-        activity.show(msg);
+        mActivity.show(msg);
     }
 
     @Override
     public void showToastDialog(CharSequence msg, View.OnClickListener clickListener) {
-        activity.showToastDialog(msg, clickListener);
+        mActivity.showToastDialog(msg, clickListener);
     }
 
     @Override
     public void hidden() {
-        activity.hidden();
+        mActivity.hidden();
     }
 
     @Override
     public void startLoginActivity() {
-        activity.startLoginActivity();
+        mActivity.startLoginActivity();
     }
 
     @Override
     public FragmentActivity getViewActivity() {
         return getActivity();
+    }
+
+    /**
+     * 获取状态栏高度(px)
+     * @return
+     */
+    @Override
+    public int getStatusBarHeight() {
+        return ImmersionBar.getStatusBarHeight(getActivity());
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden && mImmersionBar != null){
+            mImmersionBar.init();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(mUnbinder!=null){
+            mUnbinder.unbind();
+        }
+        if(mImmersionBar!=null){
+            mImmersionBar.destroy();
+        }
     }
 }

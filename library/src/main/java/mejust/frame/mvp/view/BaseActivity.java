@@ -5,16 +5,12 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
-import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -24,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import conm.zhuazhu.common.utils.NetworkUtils;
 import mejust.frame.R;
+import mejust.frame.annotation.options.StatusBarOption;
 import mejust.frame.annotation.utils.StatusBarUtils;
 import mejust.frame.annotation.utils.TitleBarAnnotationUtils;
 import mejust.frame.bind.AnnotationBind;
@@ -69,18 +66,17 @@ import mejust.frame.widget.title.TitleBarOptions;
  * <p>
  */
 public abstract class BaseActivity extends AppCompatActivity
-        implements BaseContract.View, View.OnClickListener, OnNetworkListener {
+        implements BaseContract.View, View.OnClickListener {
 
     private static DefaultActivityOption sActivityOption;
-    private TitleBarOptions titleBarOptions;
     private RelativeLayout mLayoutBody;
     private Unbinder mUnBinder;
     private TitleBar mTitleBar;
     private View mLoadingView;
     private Dialog mLoadingDialog;
     private NetworkReceiver mNetworkReceiver;
-    private ToastDialog toastDialog;
-    private ImmersionBar immersionBar;
+    private ToastDialog mToastDialog;
+    private ImmersionBar mImmersionBar;
 
     @CallSuper
     @Override
@@ -105,7 +101,10 @@ public abstract class BaseActivity extends AppCompatActivity
      */
     private void initNetworkTip() {
         mNetworkTip = findViewById(R.id.network_tip);
-        mNetworkTip.setOnClickListener(this);
+        //设置打开网络点击监听事件
+        mNetworkTip.setOnClickListener(v -> {
+            NetworkUtils.openWifiSettings();
+        });
     }
 
     /**
@@ -115,15 +114,6 @@ public abstract class BaseActivity extends AppCompatActivity
         sActivityOption = option;
     }
 
-    /**
-     * 获取当前页面的TitleBar配置
-     */
-    public TitleBarOptions getTitleBarOptions() {
-        if (titleBarOptions == null) {
-            throw new IllegalStateException("设置TitleBar,必须添加@TitleBar注解");
-        }
-        return titleBarOptions;
-    }
 
     private void initLoadingView() {
         setContentView(R.layout.view_loading);
@@ -138,10 +128,13 @@ public abstract class BaseActivity extends AppCompatActivity
         mTitleBar = findViewById(R.id.title_bar);
         //有@TitleBar这个注解,才执行下面的操作
         if (TitleBarAnnotationUtils.isTitleBarAnnotation(getClass())) {
-            titleBarOptions = sActivityOption.titleBarOption();
-            setTitleBar(titleBarOptions);
+            TitleBarOptions titleBarOptions = sActivityOption.titleBarOption();
+            mTitleBar.setOptions(titleBarOptions);
             AnnotationBind.injectTitleBar(this, mTitleBar);
-            mTitleBar.setBackListener(this);
+            //设置返回按钮监听事件(关闭当前页面)
+            mTitleBar.setBackListener(v -> {
+                finish();
+            });
         } else {
             mTitleBar.setVisibility(View.GONE);
         }
@@ -169,7 +162,15 @@ public abstract class BaseActivity extends AppCompatActivity
         //注册网络变化广播监听
         if (mNetworkReceiver == null) {
             mNetworkReceiver = new NetworkReceiver();
-            mNetworkReceiver.setOnNetworkListener(this);
+            mNetworkReceiver.setOnNetworkListener(network -> {
+                if (network) {
+                    //网络提示页面隐藏
+                    mNetworkTip.setVisibility(View.GONE);
+                } else {
+                    //网络提示页面展示
+                    mNetworkTip.setVisibility(View.VISIBLE);
+                }
+            });
             IntentFilter filter = new IntentFilter();
             filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
             registerReceiver(mNetworkReceiver, filter);
@@ -179,9 +180,9 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-        if (toastDialog != null) {
-            toastDialog.cancel();
-            toastDialog = null;
+        if (mToastDialog != null) {
+            mToastDialog.cancel();
+            mToastDialog = null;
         }
         if (mNetworkReceiver != null) {
             unregisterReceiver(mNetworkReceiver);
@@ -193,8 +194,8 @@ public abstract class BaseActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         mUnBinder.unbind();
-        if(immersionBar!=null){
-            immersionBar.destroy();
+        if(mImmersionBar !=null){
+            mImmersionBar.destroy();
         }
     }
 
@@ -202,16 +203,31 @@ public abstract class BaseActivity extends AppCompatActivity
      * 初始化状态栏
      */
     private void initStatusBar() {
-        if(immersionBar==null){
-            immersionBar = ImmersionBar.with(this);
+        if(mImmersionBar ==null){
+            mImmersionBar = ImmersionBar.with(this);
         }
         if (StatusBarUtils.isStatusBar(this)) {
-            AnnotationBind.injectStatusBar(this,immersionBar);
+            AnnotationBind.injectStatusBar(this, mImmersionBar);
         } else {
-            AnnotationBind.configStatusBar(sActivityOption.statusBarOption(),immersionBar);
+            AnnotationBind.configStatusBar(sActivityOption.statusBarOption(), mImmersionBar);
         }
     }
 
+    /**
+     * 获取状态栏公共参数
+     * @return
+     */
+    public StatusBarOption getStatusBarOption(){
+        return sActivityOption.statusBarOption();
+    }
+    /**
+     * 获取状态栏高度(px)
+     * @return
+     */
+    @Override
+    public int getStatusBarHeight(){
+        return ImmersionBar.getStatusBarHeight(this);
+    }
 
 
     /**
@@ -219,7 +235,7 @@ public abstract class BaseActivity extends AppCompatActivity
      *
      * @param options 标题栏属性
      */
-    public void setTitleBar(@NonNull TitleBarOptions options) {
+    protected void setTitleBar(@NonNull TitleBarOptions options) {
         mTitleBar.setOptions(options);
     }
 
@@ -232,13 +248,13 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override
     public void showToastDialog(CharSequence msg, View.OnClickListener clickListener) {
         runOnUiThread(() -> {
-            if (toastDialog != null) {
-                toastDialog.cancel();
+            if (mToastDialog != null) {
+                mToastDialog.cancel();
             }
-            toastDialog = new ToastDialog.Builder(this).content(msg)
+            mToastDialog = new ToastDialog.Builder(this).content(msg)
                     .setDetermine(true, clickListener)
                     .build();
-            toastDialog.show();
+            mToastDialog.show();
         });
     }
 
@@ -288,23 +304,8 @@ public abstract class BaseActivity extends AppCompatActivity
         return this;
     }
 
-    @CallSuper
     @Override
     public void onClick(View v) {
-        int i = v.getId();
-        if (i == R.id.mframe_back_layout) {//返回
-            finish();
-        } else if (i == R.id.network_tip) {
-            NetworkUtils.openWifiSettings();
-        }
-    }
 
-    @Override
-    public void onNetwork(boolean network) {
-        if (network) {
-            mNetworkTip.setVisibility(View.GONE);
-        } else {
-            mNetworkTip.setVisibility(View.VISIBLE);
-        }
     }
 }

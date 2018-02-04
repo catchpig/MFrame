@@ -16,11 +16,11 @@ import mejust.frame.annotation.StatusBar;
 public class StatusBarUtils {
     /**
      * 判断当前类中是否有StatusBar注解
-     * @param activity
+     * @param obj
      * @return
      */
-    public static boolean isStatusBar(@NonNull Activity activity){
-        StatusBar statusBar = AnnotionUtils.annotation(activity.getClass(),StatusBar.class);
+    public static boolean isStatusBar(@NonNull Object obj){
+        StatusBar statusBar = AnnotionUtils.annotation(obj.getClass(),StatusBar.class);
         if(statusBar==null){
             return false;
         }
