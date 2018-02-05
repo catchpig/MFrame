@@ -1,9 +1,5 @@
 package mejust.frame.annotation;
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.FloatRange;
-import android.support.annotation.IntRange;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -21,46 +17,19 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface StatusBar {
-    /**
-     * 颜色值
-     * @return
-     */
-    @ColorRes
-    int value() default -1;
 
     /**
-     * 状态栏变换后的颜色
-     * @return
+     * 是否使用沉浸式布局,Activity中默认为初始化
      */
-    int statusBarColorTransform() default -1;
+    boolean isInitActivity() default true;
 
     /**
-     * flyme OS状态栏字体颜色
-     * @return
+     * 是否使用沉浸式布局,在Fragment中默认为不初始化操作
      */
-    int flymeOSStatusBarFontColor() default -1;
+    boolean isInitFragment() default false;
 
     /**
-     * 状态栏字体是深色，不写默认为亮色
-     * @return
+     * 是否设置状态栏字体灰色
      */
-    boolean statusBarDarkFont() default false;
-    /**
-     * 透明
-     * @return
-     */
-    boolean translucent() default false;
-
-    /**
-     * 隐藏状态栏背景
-     * @return
-     */
-    boolean hidden() default false;
-
-    /**
-     * 透明度
-     * @return
-     */
-    @FloatRange(from = 0,to = 1)
-    float alpha() default 0;
+    boolean isDarkStatus() default false;
 }

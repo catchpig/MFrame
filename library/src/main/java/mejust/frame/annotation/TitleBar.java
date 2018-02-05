@@ -13,7 +13,6 @@ import java.lang.annotation.Target;
  * 创建人: 李涛<br/>
  * 修改人: 李涛<br/>
  * 修改时间: 2017/12/23 21:25<br/>
- * 描述:titileBar的属性设置
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -21,32 +20,26 @@ import java.lang.annotation.Target;
 public @interface TitleBar {
     /**
      * 标题内容
-     * @return
      */
     String value();
 
     /**
      * 隐藏返回键
-     * @return
      */
     boolean hiddenBack() default false;
 
     /**
      * 返回按钮的文字
-     * @return
      */
     String backText() default "";
 
     /**
      * 文字的颜色
-     * @return
      */
     int textColor() default -1;
 
     /**
      * 背景色
-     * @return
      */
-    @ColorRes
-    int background() default -1;
+    @ColorRes int background() default -1;
 }

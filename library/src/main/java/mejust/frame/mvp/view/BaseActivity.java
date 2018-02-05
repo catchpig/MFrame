@@ -8,19 +8,18 @@ import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.gyf.barlibrary.ImmersionBar;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import conm.zhuazhu.common.utils.KeyboardUtils;
 import conm.zhuazhu.common.utils.NetworkUtils;
 import mejust.frame.R;
-import mejust.frame.annotation.options.StatusBarOption;
+import mejust.frame.annotation.utils.AnnotionUtils;
 import mejust.frame.annotation.utils.StatusBarUtils;
 import mejust.frame.annotation.utils.TitleBarAnnotationUtils;
 import mejust.frame.bind.AnnotationBind;
@@ -28,8 +27,8 @@ import mejust.frame.dialog.ToastDialog;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.mvp.view.option.DefaultActivityOption;
 import mejust.frame.receiver.NetworkReceiver;
-import mejust.frame.receiver.NetworkReceiver.OnNetworkListener;
 import mejust.frame.widget.ToastMsg;
+import mejust.frame.widget.title.StatusBar;
 import mejust.frame.widget.title.TitleBar;
 import mejust.frame.widget.title.TitleBarOptions;
 
@@ -65,10 +64,10 @@ import mejust.frame.widget.title.TitleBarOptions;
  * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}
  * <p>
  */
-public abstract class BaseActivity extends AppCompatActivity
-        implements BaseContract.View, View.OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements BaseContract.View {
 
     private static DefaultActivityOption sActivityOption;
+    private TitleBarOptions titleBarOptions;
     private RelativeLayout mLayoutBody;
     private Unbinder mUnBinder;
     private TitleBar mTitleBar;
@@ -76,7 +75,7 @@ public abstract class BaseActivity extends AppCompatActivity
     private Dialog mLoadingDialog;
     private NetworkReceiver mNetworkReceiver;
     private ToastDialog mToastDialog;
-    private ImmersionBar mImmersionBar;
+    protected StatusBar mStatusBar;
 
     @CallSuper
     @Override
@@ -86,10 +85,10 @@ public abstract class BaseActivity extends AppCompatActivity
          * 方法调用顺序不能改变
          */
         super.setContentView(R.layout.view_root);
-        initStatusBar();
         AnnotationBind.injectLayoutId(this);
         mUnBinder = ButterKnife.bind(this);
         initTitleBar();
+        initStatusBar();
         initLoadingView();
         initNetworkTip();
     }
@@ -102,9 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity
     private void initNetworkTip() {
         mNetworkTip = findViewById(R.id.network_tip);
         //设置打开网络点击监听事件
-        mNetworkTip.setOnClickListener(v -> {
-            NetworkUtils.openWifiSettings();
-        });
+        mNetworkTip.setOnClickListener(v -> NetworkUtils.openWifiSettings());
     }
 
     /**
@@ -113,7 +110,6 @@ public abstract class BaseActivity extends AppCompatActivity
     public static void setDefaultActivityOption(DefaultActivityOption option) {
         sActivityOption = option;
     }
-
 
     private void initLoadingView() {
         setContentView(R.layout.view_loading);
@@ -127,17 +123,37 @@ public abstract class BaseActivity extends AppCompatActivity
     private void initTitleBar() {
         mTitleBar = findViewById(R.id.title_bar);
         //有@TitleBar这个注解,才执行下面的操作
-        if (TitleBarAnnotationUtils.isTitleBarAnnotation(getClass())) {
-            TitleBarOptions titleBarOptions = sActivityOption.titleBarOption();
+        if (TitleBarAnnotationUtils.isTitleBarAnnotation(this.getClass())) {
+            titleBarOptions = sActivityOption.titleBarOption();
             mTitleBar.setOptions(titleBarOptions);
             AnnotationBind.injectTitleBar(this, mTitleBar);
             //设置返回按钮监听事件(关闭当前页面)
-            mTitleBar.setBackListener(v -> {
-                finish();
-            });
+            mTitleBar.setBackListener(v -> finish());
         } else {
             mTitleBar.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * 初始化状态栏
+     */
+    private void initStatusBar() {
+        mejust.frame.annotation.StatusBar statusBar =
+                AnnotionUtils.annotation(this.getClass(), mejust.frame.annotation.StatusBar.class);
+        if (statusBar != null && !statusBar.isInitActivity()) {
+            return;
+        }
+        mStatusBar = StatusBar.with(this);
+        if (TitleBarAnnotationUtils.isTitleBarAnnotation(this.getClass())) {
+            mStatusBar = mStatusBar.statusBarView(R.id.top_view)
+                    .statusBarColor(sActivityOption.titleBarOption().getBackgroundColor());
+            if (StatusBarUtils.isDarkStatus(ContextCompat.getColor(this,
+                    sActivityOption.titleBarOption().getBackgroundColor())) || (statusBar != null
+                    && statusBar.isDarkStatus())) {
+                mStatusBar = mStatusBar.statusBarDarkFont(true, 0.2f);
+            }
+        }
+        mStatusBar.init();
     }
 
     @Override
@@ -191,44 +207,19 @@ public abstract class BaseActivity extends AppCompatActivity
     }
 
     @Override
+    public void finish() {
+        super.finish();
+        KeyboardUtils.hideSoftInput(this);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mUnBinder.unbind();
-        if(mImmersionBar !=null){
-            mImmersionBar.destroy();
+        if (mStatusBar != null) {
+            mStatusBar.destroy();
         }
     }
-
-    /**
-     * 初始化状态栏
-     */
-    private void initStatusBar() {
-        if(mImmersionBar ==null){
-            mImmersionBar = ImmersionBar.with(this);
-        }
-        if (StatusBarUtils.isStatusBar(this)) {
-            AnnotationBind.injectStatusBar(this, mImmersionBar);
-        } else {
-            AnnotationBind.configStatusBar(sActivityOption.statusBarOption(), mImmersionBar);
-        }
-    }
-
-    /**
-     * 获取状态栏公共参数
-     * @return
-     */
-    public StatusBarOption getStatusBarOption(){
-        return sActivityOption.statusBarOption();
-    }
-    /**
-     * 获取状态栏高度(px)
-     * @return
-     */
-    @Override
-    public int getStatusBarHeight(){
-        return ImmersionBar.getStatusBarHeight(this);
-    }
-
 
     /**
      * 设置标题栏
@@ -239,6 +230,15 @@ public abstract class BaseActivity extends AppCompatActivity
         mTitleBar.setOptions(options);
     }
 
+    /**
+     * 获取当前页面的TitleBar配置
+     */
+    public TitleBarOptions getTitleBarOptions() {
+        if (titleBarOptions == null) {
+            throw new IllegalStateException("设置TitleBar,必须添加@TitleBar注解");
+        }
+        return titleBarOptions;
+    }
 
     @Override
     public void show(String msg) {
@@ -302,10 +302,5 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override
     public FragmentActivity getViewActivity() {
         return this;
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 }

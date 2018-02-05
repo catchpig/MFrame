@@ -8,14 +8,12 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.gyf.barlibrary.ImmersionBar;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import mejust.frame.annotation.utils.StatusBarUtils;
+import mejust.frame.annotation.utils.AnnotionUtils;
 import mejust.frame.bind.AnnotationBind;
 import mejust.frame.mvp.BaseContract;
+import mejust.frame.widget.title.StatusBar;
 
 /**
  * 创建时间:2017-12-21 18:52<br/>
@@ -24,12 +22,11 @@ import mejust.frame.mvp.BaseContract;
  * 修改时间: 2017-12-21 18:52<br/>
  * 描述:
  */
-
 public abstract class BaseFragment extends Fragment implements BaseContract.View {
 
     private Unbinder mUnbinder;
     private BaseActivity mActivity;
-    private ImmersionBar mImmersionBar;
+    protected StatusBar mStatusBar;
 
     @CallSuper
     @Override
@@ -38,7 +35,6 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
         if (getActivity() != null) {
             mActivity = (BaseActivity) getActivity();
         }
-
     }
 
     @CallSuper
@@ -56,13 +52,14 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
      * 初始化状态栏
      */
     private void initStatusBar() {
-        if(mImmersionBar ==null){
-            mImmersionBar = ImmersionBar.with(this);
-        }
-        if (StatusBarUtils.isStatusBar(this)) {
-            AnnotationBind.injectStatusBar(this, mImmersionBar);
-        } else {
-            AnnotationBind.configStatusBar(mActivity.getStatusBarOption(), mImmersionBar);
+        mejust.frame.annotation.StatusBar statusBar =
+                AnnotionUtils.annotation(this.getClass(), mejust.frame.annotation.StatusBar.class);
+        if (statusBar != null && statusBar.isInitFragment()) {
+            mStatusBar = StatusBar.with(getViewActivity(), this);
+            if (statusBar.isDarkStatus()) {
+                mStatusBar = mStatusBar.statusBarDarkFont(true, 0.2f);
+            }
+            mStatusBar.init();
         }
     }
 
@@ -101,31 +98,14 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
         return getActivity();
     }
 
-    /**
-     * 获取状态栏高度(px)
-     * @return
-     */
-    @Override
-    public int getStatusBarHeight() {
-        return ImmersionBar.getStatusBarHeight(getActivity());
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if(!hidden && mImmersionBar != null){
-            mImmersionBar.init();
-        }
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(mUnbinder!=null){
+        if (mUnbinder != null) {
             mUnbinder.unbind();
         }
-        if(mImmersionBar!=null){
-            mImmersionBar.destroy();
+        if (mStatusBar != null) {
+            mStatusBar.destroy();
         }
     }
 }

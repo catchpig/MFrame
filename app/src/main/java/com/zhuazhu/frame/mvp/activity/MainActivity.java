@@ -17,6 +17,7 @@ import mejust.frame.mvp.view.BasePresenterActivity;
 @TitleBar(value = "首页", hiddenBack = true)
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
+
     @Override
     protected void initParam() {
     }
@@ -28,24 +29,14 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void initView() {
-
     }
 
     @TextRightFirstEvent("详情")
     public void detail(TextView v) {
-        //loadingDialog();
-        //new Handler().postDelayed(new Runnable() {
-        //    @Override
-        //    public void run() {
-        //        hidden();
-        //    }
-        //}, 2000);
         showToastDialog("Hello World", null);
     }
 
-    @Override
     public void onClick(View v) {
-        super.onClick(v);
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.image:

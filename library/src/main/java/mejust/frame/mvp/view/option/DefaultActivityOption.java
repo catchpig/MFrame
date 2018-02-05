@@ -1,10 +1,8 @@
 package mejust.frame.mvp.view.option;
 
 import android.app.Activity;
-import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 
-import mejust.frame.annotation.options.StatusBarOption;
 import mejust.frame.widget.title.TitleBarOptions;
 
 /**
@@ -18,19 +16,11 @@ import mejust.frame.widget.title.TitleBarOptions;
 public interface DefaultActivityOption {
     /**
      * 登录
-     * @param activity
      */
     void login(Activity activity);
 
     /**
-     * 状态栏
-     * @return
-     */
-    StatusBarOption statusBarOption();
-
-    /**
      * 默认的标题栏参数
-     * @return
      */
     @NonNull
     TitleBarOptions titleBarOption();

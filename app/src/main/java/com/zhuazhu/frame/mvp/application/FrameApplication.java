@@ -15,7 +15,6 @@ import com.zhuazhu.frame.di.component.DaggerAppComponent;
 import com.zhuazhu.frame.di.module.NetModule;
 import com.zhuazhu.frame.mvp.activity.MainActivity;
 import conm.zhuazhu.common.utils.Utils;
-import mejust.frame.annotation.options.StatusBarOption;
 import mejust.frame.app.BaseApplication;
 import mejust.frame.di.module.AppModule;
 import mejust.frame.image.ImageUtils;
@@ -35,14 +34,6 @@ public class FrameApplication extends BaseApplication {
             @Override
             public void login(Activity activity) {
                 activity.startActivity(new Intent(activity, MainActivity.class));
-            }
-
-            @Override
-            public StatusBarOption statusBarOption() {
-                StatusBarOption option = new StatusBarOption();
-                option.setStatusBarColor(R.color.c_fff);
-                option.setStatusBarDarkFont(true);
-                return option;
             }
 
             @NonNull

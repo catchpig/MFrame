@@ -2,17 +2,14 @@ package com.zhuazhu.frame.mvp.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
+import butterknife.BindView;
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.adpter.ReAdapter;
 import com.zhuazhu.frame.di.module.RecyclerModule;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.RecyclerContract;
 import com.zhuazhu.frame.mvp.presenter.RecyclerPresenterImp;
-
-import butterknife.BindView;
 import mejust.frame.annotation.LayoutId;
-import mejust.frame.annotation.StatusBar;
 import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.widget.divider.SpacesItemDecoration;
@@ -27,15 +24,12 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  * 描述:
  */
 @LayoutId(R.layout.activity_recycler)
-@TitleBar(value = "列表",backText = "首页")
-@StatusBar(R.color.c_1e81d2)
-public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp> implements
-        RecyclerContract.View {
+@TitleBar(value = "列表", backText = "首页")
+public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp>
+        implements RecyclerContract.View {
 
-    @BindView(R.id.recycler)
-    RecyclerView mRecycler;
-    @BindView(R.id.refresh)
-    RefreshLayoutWrapper mRefresh;
+    @BindView(R.id.recycler) RecyclerView mRecycler;
+    @BindView(R.id.refresh) RefreshLayoutWrapper mRefresh;
 
     @Override
     protected void initParam() {
@@ -59,10 +53,11 @@ public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp
         });
         mRefresh.autoRefresh();
     }
+
     @Override
     public void setAdapter(ReAdapter adapter) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        SpacesItemDecoration decoration = new SpacesItemDecoration(0,1,R.color.white);
+        SpacesItemDecoration decoration = new SpacesItemDecoration(0, 1, R.color.white);
         mRecycler.addItemDecoration(decoration);
         mRecycler.setLayoutManager(linearLayoutManager);
         mRecycler.setAdapter(adapter);

@@ -48,13 +48,10 @@ public interface BaseContract {
          */
         void startLoginActivity();
 
-        FragmentActivity getViewActivity();
-
         /**
-         * 获取状态栏高度(px)
-         * @return
+         * 页面Activity
          */
-        int getStatusBarHeight();
+        FragmentActivity getViewActivity();
     }
 
     interface Presenter {
