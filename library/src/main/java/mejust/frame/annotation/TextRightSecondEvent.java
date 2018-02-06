@@ -19,7 +19,6 @@ import java.lang.annotation.Target;
 public @interface TextRightSecondEvent {
     /**
      * 文字的内容
-     * @return
      */
     String value();
 }

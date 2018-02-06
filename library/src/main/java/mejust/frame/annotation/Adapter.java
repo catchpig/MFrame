@@ -21,7 +21,7 @@ import mejust.frame.widget.adapter.BaseViewHolder;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Adapter {
-    @LayoutRes
-    int layout();
+    @LayoutRes int layout();
+
     Class<? extends BaseViewHolder> holder();
 }

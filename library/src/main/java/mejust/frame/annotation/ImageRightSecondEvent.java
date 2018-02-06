@@ -21,8 +21,6 @@ import java.lang.annotation.Target;
 public @interface ImageRightSecondEvent {
     /**
      * 按钮的图片的资源id
-     * @return
      */
-    @DrawableRes
-    int value();
+    @DrawableRes int value();
 }
