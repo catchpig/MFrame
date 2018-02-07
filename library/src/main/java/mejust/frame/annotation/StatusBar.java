@@ -18,18 +18,23 @@ import java.lang.annotation.Target;
 @Documented
 public @interface StatusBar {
 
-    /**
-     * 是否使用沉浸式布局,Activity中默认为初始化
-     */
-    boolean isInitActivity() default true;
+  /**
+   * 是否使用沉浸式布局,Activity中默认为初始化
+   */
+  boolean isInitActivity() default true;
 
-    /**
-     * 是否使用沉浸式布局,在Fragment中默认为不初始化操作
-     */
-    boolean isInitFragment() default false;
+  /**
+   * 是否使用沉浸式布局,在Fragment中默认为不初始化操作
+   */
+  boolean isInitFragment() default false;
 
-    /**
-     * 是否设置状态栏字体灰色
-     */
-    boolean isDarkStatus() default false;
+  /**
+   * 是否设置状态栏字体灰色
+   */
+  boolean isDarkStatus() default false;
+
+  /**
+   * 用于fragment中，用于判断fragment显示是否是通过show()和hide()形式使用
+   */
+  boolean isHideStatus() default true;
 }
