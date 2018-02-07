@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@color/c_000"
+    android:background="@color/c_1e81d2"
     tools:context="com.zhuazhu.frame.mvp.activity.MainActivity"
     >
   <Button

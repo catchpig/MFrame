@@ -589,6 +589,15 @@ public final class StatusBar {
     }
 
     /**
+     * 透明状态栏和导航栏
+     * @return
+     */
+    public StatusBar transparentBar(){
+        immersionBar = immersionBar.transparentBar();
+        return this;
+    }
+
+    /**
      * 一键重置所有参数
      * Reset immersion bar.
      *
