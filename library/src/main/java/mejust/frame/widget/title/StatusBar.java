@@ -81,6 +81,14 @@ public final class StatusBar {
     }
 
     /**
+     * 透明状态栏和导航栏
+     */
+    public StatusBar transparentBar(){
+        immersionBar = immersionBar.transparentBar();
+        return this;
+    }
+
+    /**
      * 状态栏颜色
      *
      * @param statusBarColor 状态栏颜色，资源文件（R.color.xxx）
@@ -585,15 +593,6 @@ public final class StatusBar {
      */
     public StatusBar statusBarColorTransformEnable(boolean statusBarFlag) {
         immersionBar = immersionBar.statusBarColorTransformEnable(statusBarFlag);
-        return this;
-    }
-
-    /**
-     * 透明状态栏和导航栏
-     * @return
-     */
-    public StatusBar transparentBar(){
-        immersionBar = immersionBar.transparentBar();
         return this;
     }
 
