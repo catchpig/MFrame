@@ -138,12 +138,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
      * 初始化状态栏
      */
     private void initStatusBar() {
+        mStatusBar = StatusBar.with(this);
         mejust.frame.annotation.StatusBar statusBar =
                 AnnotionUtils.annotation(this.getClass(), mejust.frame.annotation.StatusBar.class);
         if (statusBar != null && !statusBar.isInitActivity()) {
             return;
         }
-        mStatusBar = StatusBar.with(this);
         if (TitleBarAnnotationUtils.isTitleBarAnnotation(this.getClass())) {
             mStatusBar = mStatusBar.statusBarView(R.id.top_view)
                     .statusBarColor(sActivityOption.titleBarOption().getBackgroundColor());

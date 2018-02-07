@@ -29,6 +29,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void initView() {
+        mStatusBar.transparentBar().init();
     }
 
     @TextRightFirstEvent("详情")

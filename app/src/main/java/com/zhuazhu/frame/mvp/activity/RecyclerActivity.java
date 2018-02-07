@@ -2,13 +2,15 @@ package com.zhuazhu.frame.mvp.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import butterknife.BindView;
+
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.adpter.ReAdapter;
 import com.zhuazhu.frame.di.module.RecyclerModule;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.RecyclerContract;
 import com.zhuazhu.frame.mvp.presenter.RecyclerPresenterImp;
+
+import butterknife.BindView;
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
@@ -25,11 +27,13 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  */
 @LayoutId(R.layout.activity_recycler)
 @TitleBar(value = "列表", backText = "首页")
-public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp>
-        implements RecyclerContract.View {
+public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp> implements
+        RecyclerContract.View {
 
-    @BindView(R.id.recycler) RecyclerView mRecycler;
-    @BindView(R.id.refresh) RefreshLayoutWrapper mRefresh;
+    @BindView(R.id.recycler)
+    RecyclerView mRecycler;
+    @BindView(R.id.refresh)
+    RefreshLayoutWrapper mRefresh;
 
     @Override
     protected void initParam() {
@@ -38,8 +42,7 @@ public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp
 
     @Override
     protected void injectComponent() {
-        FrameApplication.getAppComponent()
-                .recyclerComponent(new RecyclerModule(this, mRefresh))
+        FrameApplication.getAppComponent().recyclerComponent(new RecyclerModule(this, mRefresh))
                 .inject(this);
     }
 
