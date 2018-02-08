@@ -22,6 +22,7 @@ import mejust.frame.R;
 import mejust.frame.annotation.utils.AnnotionUtils;
 import mejust.frame.annotation.utils.StatusBarUtils;
 import mejust.frame.annotation.utils.TitleBarAnnotationUtils;
+import mejust.frame.app.AppConfig;
 import mejust.frame.bind.AnnotationBind;
 import mejust.frame.dialog.ToastDialog;
 import mejust.frame.mvp.BaseContract;
@@ -175,8 +176,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     @Override
     protected void onStart() {
         super.onStart();
-        //注册网络变化广播监听
-        if (mNetworkReceiver == null) {
+        //注册网络变化广播监听,标志位默认监听
+        if (AppConfig.NETWORK_STATUS_MONITORING && mNetworkReceiver == null) {
             mNetworkReceiver = new NetworkReceiver();
             mNetworkReceiver.setOnNetworkListener(network -> {
                 if (network) {

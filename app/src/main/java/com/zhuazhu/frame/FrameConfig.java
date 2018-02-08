@@ -11,5 +11,6 @@ public class FrameConfig extends AppConfig {
 
     public static void init() {
         DEBUG = BuildConfig.DEBUG;
+        NETWORK_STATUS_MONITORING = false;
     }
 }

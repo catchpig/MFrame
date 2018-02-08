@@ -37,4 +37,9 @@ public class AppConfig {
      * json解析时间格式
      */
     public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    /**
+     * 网络状态监听标志判断
+     */
+    public static boolean NETWORK_STATUS_MONITORING = true;
 }
