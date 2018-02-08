@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import conm.zhuazhu.common.utils.AppUtils;
 import conm.zhuazhu.common.utils.Utils;
+import mejust.frame.utils.log.Logger;
 
 /**
  * 创建时间:2017-12-21 17:50<br/>
@@ -36,7 +37,11 @@ public class SpUtil {
     }
 
     public boolean putStringCommit(String key, String value) {
-        return preferences.edit().putString(key, value).commit();
+        boolean flag = preferences.edit().putString(key, value).commit();
+        if(!flag){
+            loggerFaild(key);
+        }
+        return flag;
     }
 
     public void putIntApply(String key, int value) {
@@ -44,7 +49,11 @@ public class SpUtil {
     }
 
     public boolean putIntCommit(String key, int value) {
-        return preferences.edit().putInt(key, value).commit();
+        boolean flag = preferences.edit().putInt(key, value).commit();
+        if(!flag){
+            loggerFaild(key);
+        }
+        return flag;
     }
 
     public void putBooleanApply(String key, boolean value) {
@@ -52,7 +61,11 @@ public class SpUtil {
     }
 
     public boolean putBooleanCommit(String key, boolean value) {
-        return preferences.edit().putBoolean(key, value).commit();
+        boolean flag = preferences.edit().putBoolean(key, value).commit();
+        if(!flag){
+            loggerFaild(key);
+        }
+        return flag;
     }
 
     public String getString(String key) {
@@ -93,5 +106,13 @@ public class SpUtil {
 
     public boolean clearCommit() {
         return preferences.edit().clear().commit();
+    }
+
+    /**
+     * 打印错误日志
+     * @param msg
+     */
+    public void loggerFaild(String msg){
+        Logger.e("save %s commit fail,please check!",msg);
     }
 }
