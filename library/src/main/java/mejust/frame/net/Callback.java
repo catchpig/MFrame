@@ -9,6 +9,7 @@ import java.net.UnknownServiceException;
 
 import io.reactivex.subscribers.ResourceSubscriber;
 import mejust.frame.exception.HttpException;
+import mejust.frame.exception.SignErrorException;
 import mejust.frame.exception.TokenErrorException;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.utils.log.Logger;
@@ -32,10 +33,12 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
         /**
          * 不展示
          */
-        LOADING_NO, /**
+        LOADING_NO,
+        /**
          * 展示dialog
          */
-        LOADING_DIALOG, /*
+        LOADING_DIALOG,
+        /*
          * 展示view
          */
         LOADING_VIEW
@@ -94,7 +97,10 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
             if (mView != null) {
                 mView.startLoginActivity();
             }
-        } else if (t instanceof HttpException) {
+        } else if(t instanceof SignErrorException){//验签失败
+            SignErrorException e = (SignErrorException) t;
+            msg = e.getMessage();
+        }else if (t instanceof HttpException) {
             HttpException e = (HttpException) t;
             msg = e.getMessage();
         } else if (t instanceof ConnectException
