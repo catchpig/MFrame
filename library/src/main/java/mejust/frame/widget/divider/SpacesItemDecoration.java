@@ -89,8 +89,8 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
     private SpacesItemDecorationEntrust getEntrust(RecyclerView recycler) {
         RecyclerView.LayoutManager manager = recycler.getLayoutManager();
         Context context = recycler.getContext();
-        float leftRightPx = ScreenUtils.dpToPx(context, leftRight);
-        float topBottomPx = ScreenUtils.dpToPx(context, topBottom);
+        float leftRightPx = ScreenUtils.dpToPx(leftRight);
+        float topBottomPx = ScreenUtils.dpToPx(topBottom);
         int lrpx = (int) leftRightPx;
         int tbpx = (int) topBottomPx;
         if (leftRightPx >= 0 && leftRightPx < 1) {

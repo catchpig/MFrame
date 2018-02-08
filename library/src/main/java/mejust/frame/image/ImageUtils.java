@@ -105,7 +105,7 @@ public class ImageUtils {
      * @param radiusDp 圆角大小
      */
     public static void showRound(ImageView imageView, String url, float radiusDp) {
-        int radius = ScreenUtils.dpToPxInt(imageView.getContext(), radiusDp);
+        int radius = ScreenUtils.dpToPxInt(radiusDp);
         ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
