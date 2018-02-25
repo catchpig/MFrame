@@ -26,7 +26,7 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  * 创建人: 廖斌<br/>
  * 修改人: 李涛<br/>
  * 修改时间: 2017年12月22日13:43:56<br/>
- * 描述: RecyclerViewAdapter基类
+ * 描述: RecyclerAdapter基类
  */
 
 public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
