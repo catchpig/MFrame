@@ -113,6 +113,11 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
   }
 
   @Override
+  public void finishView() {
+    getViewActivity().finish();
+  }
+
+  @Override
   public void onDestroy() {
     super.onDestroy();
     if (mUnbinder != null) {
