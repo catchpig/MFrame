@@ -60,7 +60,7 @@ public class FrameApplication extends BaseApplication {
                 (context, layout) -> new BallPulseFooter(context));
     }
 
-    private static AppComponent appComponent;
+
 
     @Override
     public void onCreate() {
@@ -68,7 +68,7 @@ public class FrameApplication extends BaseApplication {
         super.onCreate();
         initImage();
     }
-
+    private static AppComponent appComponent;
     public static AppComponent getAppComponent() {
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
@@ -76,7 +76,6 @@ public class FrameApplication extends BaseApplication {
                     .netModule(new NetModule())
                     .build();
         }
-
         return appComponent;
     }
 

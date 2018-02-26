@@ -304,4 +304,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     public FragmentActivity getViewActivity() {
         return this;
     }
+
+    @Override
+    public void finishView(){
+        finish();
+    }
 }

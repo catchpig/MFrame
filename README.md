@@ -73,3 +73,17 @@
     4. 网络配置封装，请求结果工具
     5. Activity,Fragment,Presenter基类
     6. 图片加载，缩放工具
+## 接入步骤
+1.在Application中添加
+```
+    private static AppComponent appComponent;
+    public static AppComponent getAppComponent() {
+        if (appComponent == null) {
+            appComponent = DaggerAppComponent.builder()
+                    .appModule(new AppModule(Utils.getApp()))
+                    .netModule(new NetModule())
+                    .build();
+        }
+        return appComponent;
+    }
+```

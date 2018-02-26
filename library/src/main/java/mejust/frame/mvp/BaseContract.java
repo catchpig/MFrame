@@ -52,6 +52,11 @@ public interface BaseContract {
          * 页面Activity
          */
         FragmentActivity getViewActivity();
+
+        /**
+         * 关闭activity
+         */
+        void finishView();
     }
 
     interface Presenter {
