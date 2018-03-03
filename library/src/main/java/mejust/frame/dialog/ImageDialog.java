@@ -112,6 +112,16 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
             initViewPage();
         }
     }
+    /**
+     * 设置当前查看哪张图片
+     * @param index
+     */
+    private void setIndex(int index){
+        if(index>=mUrlLength){
+            return;
+        }
+        mViewPager.setCurrentItem(index);
+    }
     private void initViewPage(){
         mViewPager.setAdapter(new PagerAdapter() {
             @Override
