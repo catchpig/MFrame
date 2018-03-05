@@ -90,7 +90,6 @@ public class ImageUtils {
      * @param defaultImage  默认图
      * @param errorImage   错误图
      */
-    @BindingAdapter("imageUrl")
     public static void show(ImageView imageView, String url,@DrawableRes int defaultImage,@DrawableRes int errorImage) {
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
