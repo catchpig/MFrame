@@ -216,7 +216,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
             //当前view是头部信息
             return TYPE_HEADER;
         }
-        if (position == getItemCount() && mFooterView != null) {
+        if (position == getItemCount() - 1 && mFooterView != null) {
             //当前view是底部信息
             return TYPE_FOOTER;
         }
@@ -352,6 +352,9 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
             return;
         }
         final int finalIndex = index;
+        if (mData == null || mData.isEmpty() || index < 0 || index > mData.size() - 1) {
+            return;
+        }
         M m = mData.get(index);
         //设置item的点击回调事件
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -27,8 +27,8 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  */
 @LayoutId(R.layout.activity_recycler)
 @TitleBar(value = "列表", backText = "首页")
-public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp> implements
-        RecyclerContract.View {
+public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp>
+        implements RecyclerContract.View {
 
     @BindView(R.id.recycler)
     RecyclerView mRecycler;
@@ -42,7 +42,8 @@ public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp
 
     @Override
     protected void injectComponent() {
-        FrameApplication.getAppComponent().recyclerComponent(new RecyclerModule(this, mRefresh))
+        FrameApplication.getAppComponent()
+                .recyclerComponent(new RecyclerModule(this, mRefresh))
                 .inject(this);
     }
 

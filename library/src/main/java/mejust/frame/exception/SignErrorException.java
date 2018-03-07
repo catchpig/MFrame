@@ -19,10 +19,11 @@ public class SignErrorException extends Exception {
      * 错误信息
      */
     private String message;
-    public SignErrorException(int code){
+
+    public SignErrorException(int code) {
         this.code = code;
         this.message = "验签失败";
-        Logger.e(this,code+":"+message);
+        Logger.e(this, code + ":" + message);
     }
 
     public int getCode() {

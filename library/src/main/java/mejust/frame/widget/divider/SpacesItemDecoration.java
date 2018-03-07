@@ -47,7 +47,7 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
      *
      * @param leftRightDp 左右分割线宽度(单位dp)
      * @param topBottomDp 上下分割线的高度(单位dp)
-     * @param mColor      分割线的颜色
+     * @param mColor 分割线的颜色
      */
     public SpacesItemDecoration(float leftRightDp, float topBottomDp, @ColorRes int mColor) {
         this(leftRightDp, topBottomDp);
@@ -56,8 +56,6 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * grid外边框是否设置分割线
-     *
-     * @param outermostBorder
      */
     public void setOutermostBorder(boolean outermostBorder) {
         this.outermostBorder = outermostBorder;
@@ -77,13 +75,12 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State
-            state) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+            RecyclerView.State state) {
         if (mEntrust == null) {
             mEntrust = getEntrust(parent);
         }
         mEntrust.getItemOffsets(outRect, view, parent, state);
-
     }
 
     private SpacesItemDecorationEntrust getEntrust(RecyclerView recycler) {
@@ -101,7 +98,7 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         }
         SpacesItemDecorationEntrust entrust = null;
         //将ColorRes转化为ColorInt
-        int colorInt = ContextCompat.getColor(recycler.getContext(),mColor);
+        int colorInt = ContextCompat.getColor(recycler.getContext(), mColor);
         //要注意这边的GridLayoutManager是继承LinearLayoutManager，所以要先判断GridLayoutManager
         if (manager instanceof GridLayoutManager) {
             entrust = new GridEntrust(lrpx, tbpx, colorInt, outermostBorder);
@@ -112,5 +109,4 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         }
         return entrust;
     }
-
 }

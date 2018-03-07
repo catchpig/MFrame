@@ -2,78 +2,78 @@ apply plugin: 'com.android.library'
 apply from: 'jitpack.gradle'
 
 android {
-  compileSdkVersion 26
+    compileSdkVersion 26
 
-  defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion 26
-    versionCode VERSION_CODE as int
-    versionName VERSION
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode VERSION_CODE as int
+        versionName VERSION
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-  }
-  dataBinding {
-    enabled = true
-  }
-  lintOptions {
-    abortOnError false
-  }
-  compileOptions {
-    targetCompatibility 1.8
-    sourceCompatibility 1.8
-  }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    lintOptions {
+        abortOnError false
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
 
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'com.android.support.test:runner:1.0.1'
-  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
-  api "com.android.support:appcompat-v7:$support_version"
-  api "com.android.support:recyclerview-v7:$support_version"
-  //刷新控件
-  api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
-  api 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
-  //工具包
-  api('com.github.zhuazhu:Common:1.0.4', {
-    exclude group: 'com.android.support'
-  })
-  api 'com.google.code.gson:gson:2.8.2'
-  //dagger
-  api "com.google.dagger:dagger:$dagger_version"
-  annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
-  //okhttp3
-  api "com.squareup.okhttp3:okhttp:$okhttp3_version"
-  api "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
-  //retrofit2
-  api "com.squareup.retrofit2:retrofit:$retrofit2_version"
-  api "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
-  api "com.squareup.retrofit2:converter-gson:$retrofit2_version"
-  //rxjava
-  api "io.reactivex.rxjava2:rxjava:2.1.7"
-  api 'io.reactivex.rxjava2:rxandroid:2.0.1'
-  //图片异步加载框架
-  api("com.github.bumptech.glide:glide:$glide_version", {
-    exclude group: "com.android.support"
-  })
-  annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
-  api("com.github.bumptech.glide:okhttp3-integration:$glide_version", {
-    transitive = false
-  })
-  //图片放大缩小控件
-  api 'com.github.chrisbanes:PhotoView:2.1.3'
-  api 'com.jakewharton.timber:timber:4.6.0'
-  api 'com.jakewharton:butterknife:8.5.0'
-  //动画
-  api 'com.wang.avi:library:2.1.3'
-  //状态栏
-  api 'com.gyf.barlibrary:barlibrary:2.3.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api "com.android.support:appcompat-v7:$support_version"
+    api "com.android.support:recyclerview-v7:$support_version"
+    //刷新控件
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    //工具包
+    api('com.github.zhuazhu:Common:1.0.4', {
+        exclude group: 'com.android.support'
+    })
+    api 'com.google.code.gson:gson:2.8.2'
+    //dagger
+    api "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    //okhttp3
+    api "com.squareup.okhttp3:okhttp:$okhttp3_version"
+    api "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
+    //retrofit2
+    api "com.squareup.retrofit2:retrofit:$retrofit2_version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+    //rxjava
+    api "io.reactivex.rxjava2:rxjava:2.1.7"
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    //图片异步加载框架
+    api("com.github.bumptech.glide:glide:$glide_version", {
+        exclude group: "com.android.support"
+    })
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    api("com.github.bumptech.glide:okhttp3-integration:$glide_version", {
+        transitive = false
+    })
+    //图片放大缩小控件
+    api 'com.github.chrisbanes:PhotoView:2.1.3'
+    api 'com.jakewharton.timber:timber:4.6.0'
+    api 'com.jakewharton:butterknife:8.5.0'
+    //动画
+    api 'com.wang.avi:library:2.1.3'
+    //状态栏
+    api 'com.gyf.barlibrary:barlibrary:2.3.0'
 }
