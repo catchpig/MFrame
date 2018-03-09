@@ -19,10 +19,11 @@ public class TokenErrorException extends Exception {
      * 错误信息
      */
     private String message;
-    public TokenErrorException(int code){
+
+    public TokenErrorException(int code) {
         this.code = code;
         this.message = "token失效";
-        Logger.e(this,code+":"+message);
+        Logger.e(this, code + ":" + message);
     }
 
     public int getCode() {

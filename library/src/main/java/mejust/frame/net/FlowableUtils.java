@@ -5,6 +5,7 @@ import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import mejust.frame.app.AppConfig;
 import mejust.frame.exception.HttpException;
 import mejust.frame.exception.SignErrorException;
 import mejust.frame.exception.TokenErrorException;
@@ -39,15 +40,15 @@ public class FlowableUtils {
                     int code = result.getCode();
                     Exception exception;
                     switch (code) {
-                        case 200://成功
+                        case AppConfig.NETWORK_CODE_SUCCESS:
                             return Flowable.just(result.getData());
-                        case 405://token失效
+                        case AppConfig.NETWORK_CODE_TOKEN_ERROR:
                             exception = new TokenErrorException(code);
                             break;
-                        case 2001://验签失败
+                        case AppConfig.NETWORK_CODE_SIGN_ERROR:
                             exception = new SignErrorException(code);
                             break;
-                        default://服务返回错误信息
+                        default:
                             exception = new HttpException(code, result.getMessage());
                             break;
                     }

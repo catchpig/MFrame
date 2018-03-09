@@ -12,6 +12,7 @@ import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
+import mejust.frame.upgrade.UpgradeAppManager;
 
 @LayoutId(R.layout.activity_main)
 @TitleBar(value = "首页", hiddenBack = true)
@@ -51,6 +52,9 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
             case R.id.puppet:
                 intent.setClass(this, PuppetActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.upgrade:
+                new UpgradeAppManager("http://dl.mejust.com/weijie_app/weijie-pro.apk").start(this);
                 break;
             default:
                 break;

@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:background="@color/c_1e81d2"
-    tools:context="com.zhuazhu.frame.mvp.activity.MainActivity"
-    >
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:background="@color/c_1e81d2"
+   android:gravity="center_horizontal"
+   android:orientation="vertical"
+   tools:context="com.zhuazhu.frame.mvp.activity.MainActivity"
+   >
   <Button
-      android:id="@+id/image"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:onClick="onClick"
-      android:text="ImageActivity"/>
+     android:id="@+id/image"
+     android:layout_width="match_parent"
+     android:layout_height="50dp"
+     android:onClick="onClick"
+     android:text="ImageActivity"
+     />
   <Button
-      android:id="@+id/recycler"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:onClick="onClick"
-      android:text="recylerActivity"/>
+     android:id="@+id/recycler"
+     android:layout_width="match_parent"
+     android:layout_height="50dp"
+     android:onClick="onClick"
+     android:text="recylerActivity"
+     />
   <Button
-      android:id="@+id/puppet"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:onClick="onClick"
-      android:text="puppet"/>
+     android:id="@+id/puppet"
+     android:layout_width="match_parent"
+     android:layout_height="50dp"
+     android:onClick="onClick"
+     android:text="puppet"
+     />
+  <Button
+     android:id="@+id/upgrade"
+     android:layout_width="match_parent"
+     android:layout_height="50dp"
+     android:onClick="onClick"
+     android:text="upgrade"
+     />
 </LinearLayout>

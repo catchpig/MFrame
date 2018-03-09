@@ -20,11 +20,12 @@ public class ToastMsg {
     private static Toast result;
     private static TextView textView;
 
-    public static void init(Context context){
+    public static void init(Context context) {
         result = new Toast(context);
 
         //获取LayoutInflater对象
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater =
+                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //由layout文件创建一个View对象
         View layout = inflater.inflate(R.layout.toast_in_style_layout, null);
 
@@ -33,16 +34,16 @@ public class ToastMsg {
 
         result.setView(layout);
         result.setDuration(Toast.LENGTH_SHORT);
-//        result.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        //        result.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
     }
 
-    public static void makeText(String text,int duration){
+    public static void makeText(String text, int duration) {
         textView.setText(text);
         result.setDuration(duration);
         result.show();
     }
 
-    public static void makeText(String text){
+    public static void makeText(String text) {
         textView.setText(text);
         result.show();
     }

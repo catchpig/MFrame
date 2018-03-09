@@ -17,6 +17,7 @@ import mejust.frame.utils.log.Logger;
  */
 
 public class NetworkReceiver extends BroadcastReceiver {
+
     private static final String TAG = "NetworkReceiver";
     /**
      * 是否有网络
@@ -24,6 +25,7 @@ public class NetworkReceiver extends BroadcastReceiver {
      * false:有网络
      */
     public boolean isNetwork = true;
+
     public OnNetworkListener mOnNetworkListener;
 
     public void setOnNetworkListener(OnNetworkListener listener) {
@@ -56,6 +58,7 @@ public class NetworkReceiver extends BroadcastReceiver {
      * 网络监听器
      */
     public interface OnNetworkListener {
+
         void onNetwork(boolean network);
     }
 }

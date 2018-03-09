@@ -14,6 +14,7 @@ import android.view.MotionEvent;
  */
 
 public class MultipleTouchViewPager extends ViewPager {
+
     public MultipleTouchViewPager(Context context) {
         super(context);
     }

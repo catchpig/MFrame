@@ -38,7 +38,7 @@ public class SpUtil {
 
     public boolean putStringCommit(String key, String value) {
         boolean flag = preferences.edit().putString(key, value).commit();
-        if(!flag){
+        if (!flag) {
             loggerFaild(key);
         }
         return flag;
@@ -50,7 +50,7 @@ public class SpUtil {
 
     public boolean putIntCommit(String key, int value) {
         boolean flag = preferences.edit().putInt(key, value).commit();
-        if(!flag){
+        if (!flag) {
             loggerFaild(key);
         }
         return flag;
@@ -62,7 +62,7 @@ public class SpUtil {
 
     public boolean putBooleanCommit(String key, boolean value) {
         boolean flag = preferences.edit().putBoolean(key, value).commit();
-        if(!flag){
+        if (!flag) {
             loggerFaild(key);
         }
         return flag;
@@ -110,9 +110,8 @@ public class SpUtil {
 
     /**
      * 打印错误日志
-     * @param msg
      */
-    public void loggerFaild(String msg){
-        Logger.e("save %s commit fail,please check!",msg);
+    public void loggerFaild(String msg) {
+        Logger.e("save %s commit fail,please check!", msg);
     }
 }

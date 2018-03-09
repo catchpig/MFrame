@@ -86,11 +86,13 @@ public class ImageUtils {
 
     /**
      * 加载图片
+     *
      * @param url 图片地址
-     * @param defaultImage  默认图
-     * @param errorImage   错误图
+     * @param defaultImage 默认图
+     * @param errorImage 错误图
      */
-    public static void show(ImageView imageView, String url,@DrawableRes int defaultImage,@DrawableRes int errorImage) {
+    public static void show(ImageView imageView, String url, @DrawableRes int defaultImage,
+            @DrawableRes int errorImage) {
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
                 .placeholder(defaultImage)
@@ -112,14 +114,15 @@ public class ImageUtils {
                 .into(imageView);
     }
 
-
     /**
      * 加载圆形图片
+     *
      * @param url 图片地址
-     * @param defaultImage  默认图
-     * @param errorImage  错误图
+     * @param defaultImage 默认图
+     * @param errorImage 错误图
      */
-    public static void showCircle(ImageView imageView, String url,@DrawableRes int defaultImage,@DrawableRes int errorImage) {
+    public static void showCircle(ImageView imageView, String url, @DrawableRes int defaultImage,
+            @DrawableRes int errorImage) {
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
                 .placeholder(defaultImage)

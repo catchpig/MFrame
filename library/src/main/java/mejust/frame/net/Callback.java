@@ -46,7 +46,8 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
 
     private BaseContract.View mView;
     private Type mType = Type.LOADING_DIALOG;
-    public Callback(){
+
+    public Callback() {
         mType = Type.LOADING_NO;
     }
 
@@ -72,6 +73,8 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
                 case LOADING_VIEW:
                     mView.loadingView();
                     break;
+                default:
+                    break;
             }
         }
     }
@@ -85,7 +88,7 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
         }
     }
 
-    public abstract void success(@Nullable T t);
+    protected abstract void success(@Nullable T t);
 
     @Override
     public void onError(Throwable t) {
@@ -97,10 +100,10 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
             if (mView != null) {
                 mView.startLoginActivity();
             }
-        } else if(t instanceof SignErrorException){//验签失败
+        } else if (t instanceof SignErrorException) {//验签失败
             SignErrorException e = (SignErrorException) t;
             msg = e.getMessage();
-        }else if (t instanceof HttpException) {
+        } else if (t instanceof HttpException) {
             HttpException e = (HttpException) t;
             msg = e.getMessage();
         } else if (t instanceof ConnectException

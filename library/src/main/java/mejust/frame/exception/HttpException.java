@@ -19,10 +19,11 @@ public class HttpException extends Exception {
      * 错误信息
      */
     private String message;
-    public HttpException(int code,String message){
+
+    public HttpException(int code, String message) {
         this.code = code;
         this.message = message;
-        Logger.e(this,code+":"+message);
+        Logger.e(this, code + ":" + message);
     }
 
     public int getCode() {

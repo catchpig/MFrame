@@ -60,15 +60,15 @@ public class FrameApplication extends BaseApplication {
                 (context, layout) -> new BallPulseFooter(context));
     }
 
-
-
     @Override
     public void onCreate() {
         FrameConfig.init();
         super.onCreate();
         initImage();
     }
+
     private static AppComponent appComponent;
+
     public static AppComponent getAppComponent() {
         if (appComponent == null) {
             appComponent = DaggerAppComponent.builder()
