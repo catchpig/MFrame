@@ -19,14 +19,36 @@ public class UpgradeAppManager {
 
     /* 更新APP下载地址 */
     private String url;
+    /* 是否显示通知栏进度 */
+    private boolean isShowNotification;
+    /* 是否显示dialog进度 */
+    private boolean isShowDialog;
+    /* 进度通知相关参数 */
+    private ProgressMessageBuilder progressMessageBuilder;
 
     public UpgradeAppManager(@NonNull String url) {
         this.url = url;
     }
 
+    public UpgradeAppManager setNotificationProgress(boolean isShowNotification,
+            ProgressMessageBuilder progressMessageBuilder) {
+        this.isShowNotification = isShowNotification;
+        this.progressMessageBuilder = progressMessageBuilder;
+        return this;
+    }
+
+    public UpgradeAppManager setDialogProgress(boolean isShowDialog,
+            ProgressMessageBuilder progressMessageBuilder) {
+        this.isShowDialog = isShowDialog;
+        this.progressMessageBuilder = progressMessageBuilder;
+        return this;
+    }
+
     public void start(Context context) {
         String path = new File(createParentFile(), getFileName()).getAbsolutePath();
-        //DownloadIntentService.start(context, url, path);
+        // TODO: 2018/03/09 这里放入
+        DownloadResultReceiver resultReceiver = new DownloadResultReceiver(null);
+        DownloadIntentService.start(context, url, path, resultReceiver);
     }
 
     /**
