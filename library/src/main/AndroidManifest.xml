@@ -8,9 +8,18 @@
 
   <application>
     <service
-       android:name=".upgrade.DownloadIntentService"
+       android:name=".upgrade.UpgradeDownloadService"
        android:exported="false">
     </service>
+    <provider
+       android:name="android.support.v4.content.FileProvider"
+       android:authorities="${applicationId}.versionProvider"
+       android:exported="false"
+       android:grantUriPermissions="true">
+      <meta-data
+         android:name="android.support.FILE_PROVIDER_PATHS"
+         android:resource="@xml/version_upgrade_file_path"/>
+    </provider>
   </application>
 
 </manifest>

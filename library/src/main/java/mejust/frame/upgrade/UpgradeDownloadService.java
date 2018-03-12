@@ -21,7 +21,7 @@ import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
 
-public class DownloadIntentService extends IntentService {
+public class UpgradeDownloadService extends IntentService {
 
     private static final String DOWNLOAD_ACTION = "download_action";
     private static final String DOWNLOAD_PARAM_URL = "download_param_url";
@@ -32,10 +32,11 @@ public class DownloadIntentService extends IntentService {
     public static final int DOWNLOAD_RESULT_FAIL = 0x112;
     public static final int DOWNLOAD_RESULT_LOADING = 0x113;
     public static final String DOWNLOAD_RESULT_PROGRESS = "download_progress";
+    public static final String DOWNLOAD_RESULT_PATH = "download_path";
 
     public static void start(Context context, String url, String path,
             ResultReceiver resultReceiver) {
-        Intent intent = new Intent(context, DownloadIntentService.class);
+        Intent intent = new Intent(context, UpgradeDownloadService.class);
         intent.setAction(DOWNLOAD_ACTION);
         intent.putExtra(DOWNLOAD_PARAM_URL, url);
         intent.putExtra(DOWNLOAD_PARAM_PATH, path);
@@ -47,8 +48,8 @@ public class DownloadIntentService extends IntentService {
     private String path;
     private ResultReceiver resultReceiver;
 
-    public DownloadIntentService() {
-        super("DownloadIntentService");
+    public UpgradeDownloadService() {
+        super("UpgradeDownloadService");
     }
 
     @Override
@@ -100,7 +101,9 @@ public class DownloadIntentService extends IntentService {
                         bufferedSink.write(bytes, 0, len);
                         progress += len;
                         if (progress - contentLength >= 0) {
-                            resultReceiver.send(DOWNLOAD_RESULT_SUCCESS, null);
+                            Bundle bundle = new Bundle();
+                            bundle.putString(DOWNLOAD_RESULT_PATH, path);
+                            resultReceiver.send(DOWNLOAD_RESULT_SUCCESS, bundle);
                         } else {
                             int pro = (int) ((double) progress / (double) contentLength * 100);
                             Bundle bundle = new Bundle();

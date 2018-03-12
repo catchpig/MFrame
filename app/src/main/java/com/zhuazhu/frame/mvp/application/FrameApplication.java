@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
-import com.scwang.smartrefresh.header.WaveSwipeHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.zhuazhu.frame.BuildConfig;
 import com.zhuazhu.frame.FrameConfig;
 import com.zhuazhu.frame.R;
@@ -51,10 +51,10 @@ public class FrameApplication extends BaseApplication {
             }
         });
         SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> {
-            WaveSwipeHeader header = new WaveSwipeHeader(context);
+            ClassicsHeader classicsHeader = new ClassicsHeader(context);
             layout.setEnableHeaderTranslationContent(false);
             layout.setPrimaryColors(Color.parseColor("#333333"), Color.parseColor("#7898ab"));
-            return header;
+            return classicsHeader;
         });
         SmartRefreshLayout.setDefaultRefreshFooterCreater(
                 (context, layout) -> new BallPulseFooter(context));

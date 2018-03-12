@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   xmlns:tools="http://schemas.android.com/tools"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:gravity="center"
+   android:orientation="vertical"
+   android:paddingBottom="30dp"
+   android:paddingTop="30dp"
+   >
+  <TextView
+     android:id="@+id/text_upgrade_name"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginLeft="16dp"
+     android:layout_marginRight="16dp"
+     android:textColor="#333333"
+     android:textSize="15sp"
+     tools:text="微街应用下载"
+     />
+
+  <ProgressBar
+     android:id="@+id/pro_upgrade"
+     android:layout_width="match_parent"
+     android:layout_height="4dp"
+     android:layout_marginBottom="10dp"
+     android:layout_marginLeft="25dp"
+     android:layout_marginRight="25dp"
+     android:layout_marginTop="20dp"
+     android:progressDrawable="@drawable/progress_upgrade_app"
+     style="?android:attr/progressBarStyleHorizontal"
+     />
+
+  <TextView
+     android:id="@+id/text_content_progress"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginLeft="40dp"
+     android:layout_marginRight="40dp"
+     android:gravity="end"
+     android:textColor="#333333"
+     android:textSize="13sp"
+     tools:text="正在下载中..."
+     />
+</LinearLayout>

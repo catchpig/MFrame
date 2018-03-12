@@ -1,5 +1,7 @@
 package mejust.frame.upgrade;
 
+import java.io.Serializable;
+
 /**
  * 创建时间: 2018/03/09 17:45<br>
  * 创建人: 王培峰<br>
@@ -7,9 +9,13 @@ package mejust.frame.upgrade;
  * 修改时间: 2018/03/09 17:45<br>
  * 描述:
  */
-public class ProgressMessageBuilder {
+public class ProgressMessageBuilder implements Serializable {
 
+    private static final long serialVersionUID = -7863198910142138929L;
+
+    /* 通知栏图标 */
     private int smallIcon;
+    /* 通知栏标题 */
     private String contentTitle;
 
     public ProgressMessageBuilder(int smallIcon, String contentTitle) {
@@ -21,15 +27,7 @@ public class ProgressMessageBuilder {
         return smallIcon;
     }
 
-    public void setSmallIcon(int smallIcon) {
-        this.smallIcon = smallIcon;
-    }
-
     public String getContentTitle() {
         return contentTitle;
-    }
-
-    public void setContentTitle(String contentTitle) {
-        this.contentTitle = contentTitle;
     }
 }

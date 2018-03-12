@@ -9,8 +9,6 @@ package mejust.frame.upgrade;
  */
 public interface ProgressHelper {
 
-    void create();
-
     void updateProgress(int progress);
 
     void downloadSuccess();

@@ -2,4 +2,7 @@
   <string name="app_name">library</string>
   <string name="no_data">暂无数据</string>
   <string name="network_desc">当前网络不可用，请点击检查你的网络</string>
+  <string name="download_ing">正在下载中…</string>
+  <string name="download_success">下载完成</string>
+  <string name="download_fail">下载失败</string>
 </resources>

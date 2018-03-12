@@ -12,6 +12,8 @@ import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
+import mejust.frame.upgrade.ProgressMessageBuilder;
+import mejust.frame.upgrade.ProgressType;
 import mejust.frame.upgrade.UpgradeAppManager;
 
 @LayoutId(R.layout.activity_main)
@@ -54,7 +56,10 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
                 startActivity(intent);
                 break;
             case R.id.upgrade:
-                new UpgradeAppManager("http://dl.mejust.com/weijie_app/weijie-pro.apk").start(this);
+                new UpgradeAppManager(
+                        "http://dl.mejust.com/weijie_app/weijie-pro.apk").setProgressManager(
+                        ProgressType.NOTIFICATION,
+                        new ProgressMessageBuilder(R.mipmap.ic_launcher, "app更新")).start(this);
                 break;
             default:
                 break;
