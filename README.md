@@ -33,7 +33,6 @@
 
      //刷新控件
      api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
-     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
      //工具包
      api ('com.github.zhuazhu:Common:1.0.0',{
          exclude group: 'com.android.support'
@@ -67,12 +66,13 @@
 
 ## 提供功能
 
-    1. 列表刷新,分页
-    2. ReyclerViewAdapter基类，添加headerView、footerView、emptyView
-    3. Log,Json,SharedPreference工具类
-    4. 网络配置封装，请求结果工具
-    5. Activity,Fragment,Presenter基类
-    6. 图片加载，缩放工具
+    1. Activity,Fragment,Presenter基类
+    2. Adapter基类，开启dataBinding，提供HeadView、FootView添加
+    3. 网络请求结果转换封装，自动处理异常
+    4. 列表刷新加载封装
+    5. 日志工具库
+    6. APP更新库
+
 ## 接入步骤
 1.在Application中添加
 ```
