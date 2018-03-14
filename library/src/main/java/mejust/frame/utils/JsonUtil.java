@@ -2,6 +2,10 @@ package mejust.frame.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
+
 import mejust.frame.app.AppConfig;
 
 /**
@@ -24,11 +28,33 @@ public class JsonUtil {
         return gson;
     }
 
+    /**
+     * 转换为字符串
+     * @param object
+     * @return
+     */
     public static String toString(Object object) {
         return gson.toJson(object);
     }
 
+    /**
+     * 字符串转化为对象
+     * @param jsonString
+     * @param classOfT
+     * @param <T>
+     * @return
+     */
     public static <T> T fromJson(String jsonString, Class<T> classOfT) {
         return gson.fromJson(jsonString, classOfT);
+    }
+
+    /**
+     * 字符串转换为List<T>
+     * @param jsonString
+     * @param <T> 泛型
+     * @return
+     */
+    public static <T> List<T> formJson(String jsonString){
+        return gson.fromJson(jsonString,new TypeToken<List<T>>(){}.getType());
     }
 }

@@ -3,11 +3,13 @@ package com.zhuazhu.frame.mvp.activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
+
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.module.MainModule;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
+
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;
@@ -23,6 +25,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void initParam() {
+
     }
 
     @Override
@@ -58,7 +61,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
             case R.id.upgrade:
                 new UpgradeAppManager(
                         "http://dl.mejust.com/weijie_app/weijie-pro.apk").setProgressManager(
-                        ProgressType.NOTIFICATION,
+                        ProgressType.DIALOG,
                         new ProgressMessageBuilder(R.mipmap.ic_launcher, "app更新")).start(this);
                 break;
             default:
