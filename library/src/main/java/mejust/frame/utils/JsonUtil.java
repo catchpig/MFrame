@@ -54,7 +54,7 @@ public class JsonUtil {
      * @param <T> 泛型
      * @return
      */
-    public static <T> List<T> formJson(String jsonString){
+    public static <T> List<T> fromJson(String jsonString){
         return gson.fromJson(jsonString,new TypeToken<List<T>>(){}.getType());
     }
 }
