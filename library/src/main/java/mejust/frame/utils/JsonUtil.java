@@ -2,8 +2,12 @@ package mejust.frame.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mejust.frame.app.AppConfig;
@@ -57,4 +61,21 @@ public class JsonUtil {
     public static <T> List<T> fromJson(String jsonString){
         return gson.fromJson(jsonString,new TypeToken<List<T>>(){}.getType());
     }
+
+
+    /**
+     * 字符串转换为List<T> ， 此方法可解决转换时的类型擦除
+     * @param json
+     * @param <T> 泛型
+     * @return
+     */
+    public <T> List<T> fromJsonList(String json, Class<T> cls) {
+        List<T> mList = new ArrayList<T>();
+        JsonArray array = new JsonParser().parse(json).getAsJsonArray();
+        for(final JsonElement elem : array){
+            mList.add(gson.fromJson(elem, cls));
+        }
+        return mList;
+    }
+
 }

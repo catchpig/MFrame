@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 
+import java.io.File;
+
 import conm.zhuazhu.common.utils.ScreenUtils;
 import conm.zhuazhu.common.utils.StringUtils;
 
@@ -97,6 +99,37 @@ public class ImageUtils {
                 .load(packUrl(url))
                 .placeholder(defaultImage)
                 .error(errorImage)
+                .into(imageView);
+    }
+
+
+    /**
+     * 加载图片
+     * @param file 文件
+     * @param defaultImage  默认图
+     * @param errorImage   错误图
+     */
+    public static void show(ImageView imageView, File file, @DrawableRes int defaultImage, @DrawableRes int errorImage) {
+        GlideApp.with(imageView.getContext())
+                .load(file)
+                .placeholder(defaultImage)
+                .error(errorImage)
+                .into(imageView);
+    }
+
+    /**
+     * 加载圆形图片
+     *
+     * @param file 文件
+     * @param defaultImage  默认图
+     * @param errorImage   错误图
+     */
+    public static void showCircle(ImageView imageView, File file, @DrawableRes int defaultImage, @DrawableRes int errorImage) {
+        GlideApp.with(imageView.getContext())
+                .load(file)
+                .placeholder(sDefaultImage)
+                .error(sErrorImage)
+                .transform(new CircleCrop())
                 .into(imageView);
     }
 
