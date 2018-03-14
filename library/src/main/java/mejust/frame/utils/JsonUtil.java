@@ -69,7 +69,7 @@ public class JsonUtil {
      * @param <T> 泛型
      * @return
      */
-    public <T> List<T> fromJsonList(String json, Class<T> cls) {
+    public static <T> List<T> fromJsonList(String json, Class<T> cls) {
         List<T> mList = new ArrayList<T>();
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
         for(final JsonElement elem : array){
