@@ -77,6 +77,5 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FrameApplication.getRefWatcher(this).watch(this);
     }
 }

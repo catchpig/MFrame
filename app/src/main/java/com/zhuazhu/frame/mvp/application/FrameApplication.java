@@ -1,7 +1,6 @@
 package com.zhuazhu.frame.mvp.application;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -9,8 +8,6 @@ import android.support.annotation.NonNull;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 import com.zhuazhu.frame.BuildConfig;
 import com.zhuazhu.frame.FrameConfig;
 import com.zhuazhu.frame.R;
@@ -64,20 +61,12 @@ public class FrameApplication extends BaseApplication {
         SmartRefreshLayout.setDefaultRefreshFooterCreater(
                 (context, layout) -> new BallPulseFooter(context));
     }
-    private RefWatcher mRefWatcher;
-    public static RefWatcher getRefWatcher(Context context) {
-        FrameApplication application = (FrameApplication) context.getApplicationContext();
-        return application.mRefWatcher;
-    }
+
     @Override
     public void onCreate() {
         FrameConfig.init();
         super.onCreate();
         initImage();
-        if(LeakCanary.isInAnalyzerProcess(this)){
-            return;
-        }
-        mRefWatcher = LeakCanary.install(this);
     }
 
     private static AppComponent appComponent;
