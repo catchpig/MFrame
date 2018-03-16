@@ -306,7 +306,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     }
 
     @Override
-    public void finishView(){
+    public void finishView() {
         finish();
     }
 }
