@@ -11,6 +11,7 @@ import mejust.frame.utils.log.Logger;
  */
 
 public class SignErrorException extends Exception {
+    private static final String TAG = "SignErrorException";
     /**
      * 错误码
      */
@@ -23,7 +24,7 @@ public class SignErrorException extends Exception {
     public SignErrorException(int code) {
         this.code = code;
         this.message = "验签失败";
-        Logger.e(this, code + ":" + message);
+        Logger.e(TAG, code + ":" + message);
     }
 
     public int getCode() {

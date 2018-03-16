@@ -11,6 +11,7 @@ import mejust.frame.utils.log.Logger;
  */
 
 public class TokenErrorException extends Exception {
+    private static final String TAG = "TokenErrorException";
     /**
      * 错误码
      */
@@ -23,7 +24,7 @@ public class TokenErrorException extends Exception {
     public TokenErrorException(int code) {
         this.code = code;
         this.message = "token失效";
-        Logger.e(this, code + ":" + message);
+        Logger.e(TAG, code + ":" + message);
     }
 
     public int getCode() {
