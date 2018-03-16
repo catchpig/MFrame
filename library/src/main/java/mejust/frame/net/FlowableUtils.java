@@ -5,7 +5,7 @@ import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import mejust.frame.app.AppConfig;
+import mejust.frame.enums.NetWorkCode;
 import mejust.frame.exception.HttpException;
 import mejust.frame.exception.SignErrorException;
 import mejust.frame.exception.TokenErrorException;
@@ -37,15 +37,16 @@ public class FlowableUtils {
     public static <T> FlowableTransformer<AjaxResult<T>, Optional<T>> transformerResult() {
         return httpResponseFollowable -> httpResponseFollowable.flatMap(
                 (Function<AjaxResult<T>, Flowable<Optional<T>>>) result -> {
+                    @NetWorkCode
                     int code = result.getCode();
                     Exception exception;
                     switch (code) {
-                        case AppConfig.NETWORK_CODE_SUCCESS:
+                        case NetWorkCode.SUCCESS:
                             return Flowable.just(result.getData());
-                        case AppConfig.NETWORK_CODE_TOKEN_ERROR:
+                        case NetWorkCode.TOKEN_ERROR:
                             exception = new TokenErrorException(code);
                             break;
-                        case AppConfig.NETWORK_CODE_SIGN_ERROR:
+                        case NetWorkCode.SIGN_ERROR:
                             exception = new SignErrorException(code);
                             break;
                         default:

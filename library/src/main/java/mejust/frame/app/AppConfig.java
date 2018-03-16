@@ -42,19 +42,4 @@ public class AppConfig {
      * 网络状态监听标志判断
      */
     public static boolean NETWORK_STATUS_MONITORING = true;
-
-    /**
-     * 网络请求成功
-     */
-    public static final int NETWORK_CODE_SUCCESS = 200;
-
-    /**
-     * 网络请求token失效
-     */
-    public static final int NETWORK_CODE_TOKEN_ERROR = 405;
-
-    /**
-     * 网络请求sign验签失败
-     */
-    public static final int NETWORK_CODE_SIGN_ERROR = 2001;
 }

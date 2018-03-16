@@ -6,10 +6,12 @@ import android.widget.TextView;
 
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.module.MainModule;
+import com.zhuazhu.frame.model.User;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
 
+import lombok.NonNull;
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;
@@ -35,6 +37,10 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void initView() {
+        @NonNull
+        User user = null;
+
+
         mStatusBar.transparentBar().init();
     }
 

@@ -6,10 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.databinding.ActivityImageBinding;
+import com.zhuazhu.frame.mvp.application.FrameApplication;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import mejust.frame.dialog.ImageDialog;
 import mejust.frame.image.ImageUtils;
 
@@ -36,6 +40,18 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
 //        ImageUtils.show(img1,url);
         ImageUtils.showCircle(img2,url);
         ImageUtils.showRound(img3,url,10);
+        LeakThread leakThread = new LeakThread();
+        leakThread.start();
+    }
+    public static class LeakThread extends Thread {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(6 * 60 * 1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -56,5 +72,11 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FrameApplication.getRefWatcher(this).watch(this);
     }
 }
