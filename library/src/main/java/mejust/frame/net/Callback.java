@@ -92,7 +92,7 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
 
     @Override
     public void onError(Throwable t) {
-        Logger.e(TAG, t.getMessage());
+        Logger.e(TAG, t);
         String msg;
         if (t instanceof TokenErrorException) {//token失效
             TokenErrorException e = (TokenErrorException) t;

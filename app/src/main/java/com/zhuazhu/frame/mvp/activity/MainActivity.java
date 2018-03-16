@@ -11,7 +11,6 @@ import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
 
-import lombok.NonNull;
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;
@@ -37,9 +36,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void initView() {
-        @NonNull
-        User user = null;
-
+        User user = new User();
 
         mStatusBar.transparentBar().init();
     }

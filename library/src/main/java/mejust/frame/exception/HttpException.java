@@ -11,6 +11,7 @@ import mejust.frame.utils.log.Logger;
  */
 
 public class HttpException extends Exception {
+    private static final String TAG = "HttpException";
     /**
      * 错误码
      */
@@ -23,7 +24,7 @@ public class HttpException extends Exception {
     public HttpException(int code, String message) {
         this.code = code;
         this.message = message;
-        Logger.e(this, code + ":" + message);
+        Logger.e(TAG, code + ":" + message);
     }
 
     public int getCode() {

@@ -1,7 +1,6 @@
 package com.zhuazhu.frame.model;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * 创建时间:2018-01-25 18:29<br/>
@@ -12,7 +11,6 @@ import lombok.experimental.Accessors;
  */
 
 @Data
-@Accessors(chain = true,fluent = true)
 public class User {
 
     public String username;
