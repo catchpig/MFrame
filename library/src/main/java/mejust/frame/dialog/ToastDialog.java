@@ -88,6 +88,8 @@ public class ToastDialog extends Dialog implements View.OnClickListener {
         TextView cancel = findViewById(R.id.text_cancel);
         submit.setVisibility(determineShow ? View.VISIBLE : View.GONE);
         cancel.setVisibility(cancelShow ? View.VISIBLE : View.GONE);
+        findViewById(R.id.view_button_divider).setVisibility(
+                determineShow && cancelShow ? View.VISIBLE : View.GONE);
         submit.setOnClickListener(this);
         cancel.setOnClickListener(this);
     }

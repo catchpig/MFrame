@@ -18,6 +18,7 @@ import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.upgrade.ProgressMessageBuilder;
 import mejust.frame.upgrade.ProgressType;
 import mejust.frame.upgrade.UpgradeAppManager;
+import mejust.frame.utils.log.Logger;
 
 @LayoutId(R.layout.activity_main)
 @TitleBar(value = "首页", hiddenBack = true)
@@ -58,8 +59,9 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
                 startActivity(intent);
                 break;
             case R.id.puppet:
-                intent.setClass(this, PuppetActivity.class);
-                startActivity(intent);
+                //intent.setClass(this, PuppetActivity.class);
+                //startActivity(intent);
+                showToastDialog("你好", v1 -> Logger.i("点击确定"));
                 break;
             case R.id.upgrade:
                 new UpgradeAppManager(
