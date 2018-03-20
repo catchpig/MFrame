@@ -11,6 +11,8 @@ import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
 
+import java.util.List;
+
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;
@@ -18,6 +20,7 @@ import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.upgrade.ProgressMessageBuilder;
 import mejust.frame.upgrade.ProgressType;
 import mejust.frame.upgrade.UpgradeAppManager;
+import mejust.frame.utils.JsonUtil;
 import mejust.frame.utils.log.Logger;
 
 @LayoutId(R.layout.activity_main)
@@ -27,7 +30,9 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void initParam() {
-
+        String user = "[{\"username\":\"132\"}]";
+        List<User> list = JsonUtil.toList(user,User.class);
+        System.out.println(list);
     }
 
     @Override

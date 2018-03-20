@@ -5,8 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +59,9 @@ public class JsonUtil {
      * @param <T> 泛型
      * @return
      */
-    public static <T> List<T> fromJson(String jsonString){
-        return gson.fromJson(jsonString,new TypeToken<List<T>>(){}.getType());
+    public static <T> List<T> toList(String jsonString,Class<T> cls){
+        Type type = new ListParameterizedType(cls);
+        return gson.fromJson(jsonString,type);
     }
 
 
@@ -69,6 +71,7 @@ public class JsonUtil {
      * @param <T> 泛型
      * @return
      */
+    @Deprecated
     public static <T> List<T> fromJsonList(String json, Class<T> cls) {
         List<T> mList = new ArrayList<T>();
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
@@ -77,5 +80,23 @@ public class JsonUtil {
         }
         return mList;
     }
-
+    private static class ListParameterizedType implements ParameterizedType {
+        private Type type;
+        private ListParameterizedType(Type type) {
+            this.type = type;
+        }
+        @Override
+        public Type[] getActualTypeArguments() {
+            return new Type[] {type};
+        }
+        @Override
+        public Type getRawType() {
+            return ArrayList.class;
+        }
+        @Override
+        public Type getOwnerType() {
+            return null;
+        }
+        // implement equals method too! (as per javadoc)
+    }
 }
