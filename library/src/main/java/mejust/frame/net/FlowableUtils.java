@@ -6,9 +6,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import mejust.frame.enums.NetWorkCode;
-import mejust.frame.exception.HttpException;
-import mejust.frame.exception.SignErrorException;
-import mejust.frame.exception.TokenErrorException;
+import mejust.frame.exception.NetWorkException;
 
 /**
  * 创建时间:2017/12/21 20:40<br/>
@@ -19,9 +17,6 @@ import mejust.frame.exception.TokenErrorException;
  */
 
 public class FlowableUtils {
-
-    private FlowableUtils() {
-    }
 
     /** 统一的线程切换处理 */
     public static <T> FlowableTransformer<T, T> rxSchedulerHelper() {
@@ -37,20 +32,19 @@ public class FlowableUtils {
     public static <T> FlowableTransformer<AjaxResult<T>, Optional<T>> transformerResult() {
         return httpResponseFollowable -> httpResponseFollowable.flatMap(
                 (Function<AjaxResult<T>, Flowable<Optional<T>>>) result -> {
-                    @NetWorkCode
-                    int code = result.getCode();
+                    @NetWorkCode int code = result.getCode();
                     Exception exception;
                     switch (code) {
                         case NetWorkCode.SUCCESS:
                             return Flowable.just(result.getData());
                         case NetWorkCode.TOKEN_ERROR:
-                            exception = new TokenErrorException(code);
+                            exception = new NetWorkException.TokenError();
                             break;
                         case NetWorkCode.SIGN_ERROR:
-                            exception = new SignErrorException(code);
+                            exception = new NetWorkException.SignError();
                             break;
                         default:
-                            exception = new HttpException(code, result.getMessage());
+                            exception = new NetWorkException.HttpError(code, result.getMessage());
                             break;
                     }
                     return Flowable.error(exception);

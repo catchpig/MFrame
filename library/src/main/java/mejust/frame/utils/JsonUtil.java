@@ -35,8 +35,6 @@ public class JsonUtil {
 
     /**
      * 转换为字符串
-     * @param object
-     * @return
      */
     public static String toString(Object object) {
         return gson.toJson(object);
@@ -44,10 +42,6 @@ public class JsonUtil {
 
     /**
      * 字符串转化为对象
-     * @param jsonString
-     * @param classOfT
-     * @param <T>
-     * @return
      */
     public static <T> T fromJson(String jsonString, Class<T> classOfT) {
         return gson.fromJson(jsonString, classOfT);
@@ -55,44 +49,46 @@ public class JsonUtil {
 
     /**
      * 字符串转换为List<T>
-     * @param jsonString
+     *
      * @param <T> 泛型
-     * @return
      */
-    public static <T> List<T> toList(String jsonString,Class<T> cls){
+    public static <T> List<T> toList(String jsonString, Class<T> cls) {
         Type type = new ListParameterizedType(cls);
-        return gson.fromJson(jsonString,type);
+        return gson.fromJson(jsonString, type);
     }
-
 
     /**
      * 字符串转换为List<T> ， 此方法可解决转换时的类型擦除
-     * @param json
+     *
      * @param <T> 泛型
-     * @return
      */
     @Deprecated
     public static <T> List<T> fromJsonList(String json, Class<T> cls) {
         List<T> mList = new ArrayList<T>();
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
-        for(final JsonElement elem : array){
+        for (final JsonElement elem : array) {
             mList.add(gson.fromJson(elem, cls));
         }
         return mList;
     }
+
     private static class ListParameterizedType implements ParameterizedType {
         private Type type;
+
         private ListParameterizedType(Type type) {
             this.type = type;
         }
+
         @Override
         public Type[] getActualTypeArguments() {
-            return new Type[] {type};
+            return new Type[] { type };
         }
+
         @Override
         public Type getRawType() {
             return ArrayList.class;
         }
+
         @Override
         public Type getOwnerType() {
             return null;

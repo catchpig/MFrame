@@ -1,16 +1,12 @@
 package mejust.frame.net;
 
 import android.support.annotation.Nullable;
-
+import io.reactivex.subscribers.ResourceSubscriber;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.net.UnknownServiceException;
-
-import io.reactivex.subscribers.ResourceSubscriber;
-import mejust.frame.exception.HttpException;
-import mejust.frame.exception.SignErrorException;
-import mejust.frame.exception.TokenErrorException;
+import mejust.frame.exception.NetWorkException;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.utils.log.Logger;
 
@@ -23,8 +19,6 @@ import mejust.frame.utils.log.Logger;
  */
 
 public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
-
-    private static final String TAG = "Callback";
 
     /**
      * loading类型
@@ -92,20 +86,19 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
 
     @Override
     public void onError(Throwable t) {
-        Logger.e(t,TAG,t.getMessage());
         String msg;
-        if (t instanceof TokenErrorException) {//token失效
-            TokenErrorException e = (TokenErrorException) t;
-            msg = e.getMessage();
+        if (t instanceof NetWorkException.TokenError) {//token失效
+            NetWorkException.TokenError e = (NetWorkException.TokenError) t;
+            msg = e.getErrorMessage();
             if (mView != null) {
                 mView.startLoginActivity();
             }
-        } else if (t instanceof SignErrorException) {//验签失败
-            SignErrorException e = (SignErrorException) t;
-            msg = e.getMessage();
-        } else if (t instanceof HttpException) {
-            HttpException e = (HttpException) t;
-            msg = e.getMessage();
+        } else if (t instanceof NetWorkException.SignError) {//验签失败
+            NetWorkException.SignError e = (NetWorkException.SignError) t;
+            msg = e.getErrorMessage();
+        } else if (t instanceof NetWorkException.HttpError) {
+            NetWorkException.HttpError e = (NetWorkException.HttpError) t;
+            msg = e.getErrorMessage();
         } else if (t instanceof ConnectException
                 || t instanceof SocketTimeoutException
                 || t instanceof UnknownHostException
@@ -116,6 +109,7 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
         } else {
             msg = "未知异常";
         }
+        Logger.e(msg, t);
         if (mView != null) {
             mView.show(msg);
         }
