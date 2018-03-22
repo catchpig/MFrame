@@ -12,8 +12,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import conm.zhuazhu.common.utils.KeyboardUtils;
@@ -69,7 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     private static DefaultActivityOption sActivityOption;
     private TitleBarOptions titleBarOptions;
-    private RelativeLayout mLayoutBody;
+    private FrameLayout mLayoutBody;
     private Unbinder mUnBinder;
     private TitleBar mTitleBar;
     private View mLoadingView;
@@ -77,14 +77,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     private NetworkReceiver mNetworkReceiver;
     private ToastDialog mToastDialog;
     protected StatusBar mStatusBar;
+    private LinearLayout mNetworkTip;
 
     @CallSuper
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-         * 方法调用顺序不能改变
-         */
+        // 方法调用顺序不能改变
         super.setContentView(R.layout.view_root);
         AnnotationBind.injectLayoutId(this);
         mUnBinder = ButterKnife.bind(this);
@@ -94,7 +93,78 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         initNetworkTip();
     }
 
-    private LinearLayout mNetworkTip;
+    @Override
+    public void setContentView(View view) {
+        if (mLayoutBody == null) {
+            mLayoutBody = findViewById(R.id.layout_body);
+        }
+        ViewGroup.LayoutParams params =
+                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+        mLayoutBody.addView(view, params);
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        setContentView(View.inflate(this, layoutResID, null));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerNetChangeListener();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unRegisterNetChangeListener();
+        if (mToastDialog != null) {
+            mToastDialog.cancel();
+            mToastDialog = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mUnBinder.unbind();
+        if (mStatusBar != null) {
+            mStatusBar.destroy();
+        }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        KeyboardUtils.hideSoftInput(this);
+    }
+
+    /**
+     * 设置基类activity的参数(标题栏参数,状态栏颜色,登录页面)
+     */
+    public static void setDefaultActivityOption(DefaultActivityOption option) {
+        sActivityOption = option;
+    }
+
+    /**
+     * 设置标题栏
+     *
+     * @param options 标题栏属性
+     */
+    protected void setTitleBar(@NonNull TitleBarOptions options) {
+        mTitleBar.setOptions(options);
+    }
+
+    /**
+     * 获取当前页面的TitleBar配置
+     */
+    public TitleBarOptions getTitleBarOptions() {
+        if (titleBarOptions == null) {
+            throw new IllegalStateException("设置TitleBar,必须添加@TitleBar注解");
+        }
+        return titleBarOptions;
+    }
 
     /**
      * 初始化网络未打开的提示控件
@@ -103,13 +173,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         mNetworkTip = findViewById(R.id.network_tip);
         //设置打开网络点击监听事件
         mNetworkTip.setOnClickListener(v -> NetworkUtils.openWifiSettings());
-    }
-
-    /**
-     * 设置基类activity的参数(标题栏参数,状态栏颜色,登录页面)
-     */
-    public static void setDefaultActivityOption(DefaultActivityOption option) {
-        sActivityOption = option;
     }
 
     private void initLoadingView() {
@@ -155,90 +218,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
             }
         }
         mStatusBar.init();
-    }
-
-    @Override
-    public void setContentView(View view) {
-        if (mLayoutBody == null) {
-            mLayoutBody = findViewById(R.id.layout_body);
-        }
-        ViewGroup.LayoutParams params =
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
-        mLayoutBody.addView(view, params);
-    }
-
-    @Override
-    public void setContentView(int layoutResID) {
-        setContentView(View.inflate(this, layoutResID, null));
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //注册网络变化广播监听,标志位默认监听
-        if (AppConfig.NETWORK_STATUS_MONITORING && mNetworkReceiver == null) {
-            mNetworkReceiver = new NetworkReceiver();
-            mNetworkReceiver.setOnNetworkListener(network -> {
-                if (network) {
-                    //网络提示页面隐藏
-                    mNetworkTip.setVisibility(View.GONE);
-                } else {
-                    //网络提示页面展示
-                    mNetworkTip.setVisibility(View.VISIBLE);
-                }
-            });
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            registerReceiver(mNetworkReceiver, filter);
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mToastDialog != null) {
-            mToastDialog.cancel();
-            mToastDialog = null;
-        }
-        if (mNetworkReceiver != null) {
-            unregisterReceiver(mNetworkReceiver);
-            mNetworkReceiver = null;
-        }
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        KeyboardUtils.hideSoftInput(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mUnBinder.unbind();
-        if (mStatusBar != null) {
-            mStatusBar.destroy();
-        }
-    }
-
-    /**
-     * 设置标题栏
-     *
-     * @param options 标题栏属性
-     */
-    protected void setTitleBar(@NonNull TitleBarOptions options) {
-        mTitleBar.setOptions(options);
-    }
-
-    /**
-     * 获取当前页面的TitleBar配置
-     */
-    public TitleBarOptions getTitleBarOptions() {
-        if (titleBarOptions == null) {
-            throw new IllegalStateException("设置TitleBar,必须添加@TitleBar注解");
-        }
-        return titleBarOptions;
     }
 
     @Override
@@ -308,5 +287,29 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     @Override
     public void finishView() {
         finish();
+    }
+
+    /**
+     * 注册网络变化广播监听,{@link AppConfig#NETWORK_STATUS_MONITORING}标志位默认监听
+     */
+    private void registerNetChangeListener() {
+        if (AppConfig.NETWORK_STATUS_MONITORING && mNetworkReceiver == null) {
+            mNetworkReceiver = new NetworkReceiver();
+            mNetworkReceiver.setOnNetworkListener(
+                    network -> mNetworkTip.setVisibility(network ? View.GONE : View.VISIBLE));
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+            registerReceiver(mNetworkReceiver, filter);
+        }
+    }
+
+    /**
+     * 取消网络注册监听
+     */
+    private void unRegisterNetChangeListener() {
+        if (mNetworkReceiver != null) {
+            unregisterReceiver(mNetworkReceiver);
+            mNetworkReceiver = null;
+        }
     }
 }

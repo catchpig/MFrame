@@ -30,8 +30,8 @@ import mejust.frame.widget.title.TitleBarOptions;
  */
 
 public class FrameApplication extends BaseApplication {
-    static {
 
+    static {
         BaseActivity.setDefaultActivityOption(new DefaultActivityOption() {
             @Override
             public void login(Activity activity) {
