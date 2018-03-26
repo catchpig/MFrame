@@ -12,8 +12,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import conm.zhuazhu.common.utils.KeyboardUtils;
@@ -77,7 +79,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     private NetworkReceiver mNetworkReceiver;
     private ToastDialog mToastDialog;
     protected StatusBar mStatusBar;
-    private LinearLayout mNetworkTip;
+    private ViewStub mNetworkViewStub;
+    private LinearLayout mNetWorkTip;
+    /**
+     * ViewStub是否被初始化,默认没有初始化
+     */
+    private boolean isInflate = false;
 
     @CallSuper
     @Override
@@ -170,9 +177,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
      * 初始化网络未打开的提示控件
      */
     private void initNetworkTip() {
-        mNetworkTip = findViewById(R.id.network_tip);
-        //设置打开网络点击监听事件
-        mNetworkTip.setOnClickListener(v -> NetworkUtils.openWifiSettings());
+        mNetworkViewStub = findViewById(R.id.network_viewstub);
+        mNetworkViewStub.setOnInflateListener((stub, inflated) -> {
+            isInflate = true;
+            //设置打开网络点击监听事件
+            mNetWorkTip = findViewById(R.id.network_tip);
+            mNetWorkTip.setOnClickListener(v -> NetworkUtils.openWifiSettings());
+        });
+
     }
 
     private void initLoadingView() {
@@ -296,7 +308,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         if (AppConfig.NETWORK_STATUS_MONITORING && mNetworkReceiver == null) {
             mNetworkReceiver = new NetworkReceiver();
             mNetworkReceiver.setOnNetworkListener(
-                    network -> mNetworkTip.setVisibility(network ? View.GONE : View.VISIBLE));
+                    network -> {
+                        if(!isInflate){
+                            mNetworkViewStub.inflate();
+                        }
+                        mNetworkViewStub.setVisibility(network ? View.GONE : View.VISIBLE);
+                    });
             IntentFilter filter = new IntentFilter();
             filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
             registerReceiver(mNetworkReceiver, filter);
