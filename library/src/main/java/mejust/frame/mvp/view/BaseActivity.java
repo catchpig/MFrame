@@ -177,7 +177,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
      * 初始化网络未打开的提示控件
      */
     private void initNetworkTip() {
-        mNetworkViewStub = findViewById(R.id.network_viewstub);
+        mNetworkViewStub = findViewById(R.id.network_view_stub);
         mNetworkViewStub.setOnInflateListener((stub, inflated) -> {
             isInflate = true;
             //设置打开网络点击监听事件

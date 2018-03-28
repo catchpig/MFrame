@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/c_000">
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:background="@color/c_000"
+   >
 
-    <FrameLayout
-        android:id="@+id/mframe_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="15dp">
+  <FrameLayout
+     android:id="@+id/mframe_frame"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:layout_marginBottom="15dp"
+     >
 
-        <mejust.frame.widget.MultipleTouchViewPager
-            android:id="@+id/mframe_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <mejust.frame.widget.MultipleTouchViewPager
+       android:id="@+id/mframe_viewpager"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       >
 
-        </mejust.frame.widget.MultipleTouchViewPager>
+    </mejust.frame.widget.MultipleTouchViewPager>
 
-        <TextView
-            android:id="@+id/mframe_index"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/mframe_viewpager"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/c_fff"
-            android:textSize="15sp"/>
-    </FrameLayout>
+    <TextView
+       android:id="@+id/mframe_index"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="bottom|center_horizontal"
+       android:layout_marginBottom="10dp"
+       android:textColor="@color/c_fff"
+       android:textSize="15sp"
+       />
+  </FrameLayout>
 
-    <ImageView
-        android:id="@+id/mframe_close"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
-        android:src="@mipmap/close"/>
+  <ImageView
+     android:id="@+id/mframe_close"
+     android:layout_width="20dp"
+     android:layout_height="20dp"
+     android:layout_alignParentEnd="true"
+     android:layout_alignParentRight="true"
+     android:layout_marginEnd="15dp"
+     android:layout_marginRight="15dp"
+     android:layout_marginTop="15dp"
+     android:contentDescription="@null"
+     android:src="@mipmap/close"
+     />
 </RelativeLayout>
