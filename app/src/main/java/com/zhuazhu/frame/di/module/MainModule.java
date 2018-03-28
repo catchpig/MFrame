@@ -12,8 +12,8 @@ import mejust.frame.di.module.ActivityModule;
 
 @Module
 public class MainModule extends ActivityModule<MainContract.View> {
+
     public MainModule(MainContract.View view) {
         super(view);
     }
-
 }

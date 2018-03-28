@@ -17,20 +17,21 @@ import mejust.frame.widget.refresh.IPageControl;
  */
 @Module
 public class RecyclerModule extends ActivityModule<RecyclerContract.View> {
+
     private IPageControl mPageControl;
-    public RecyclerModule(RecyclerContract.View view,IPageControl pageControl){
+
+    public RecyclerModule(RecyclerContract.View view, IPageControl pageControl) {
         super(view);
         mPageControl = pageControl;
     }
 
-
     @Provides
-    public IPageControl providePageControl(){
+    public IPageControl providePageControl() {
         return mPageControl;
     }
-    @Provides
-    public ReAdapter provideReAdapter(IPageControl pageControl){
-        return  new ReAdapter(pageControl);
-    }
 
+    @Provides
+    public ReAdapter provideReAdapter(IPageControl pageControl) {
+        return new ReAdapter(pageControl);
+    }
 }

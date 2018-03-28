@@ -14,10 +14,13 @@ import mejust.frame.mvp.BaseContract;
  */
 @Module
 public abstract class FragmentModule<V extends BaseContract.View> {
+
     private final V mView;
-    public FragmentModule(V v){
+
+    public FragmentModule(V v) {
         mView = v;
     }
+
     @FragmentScope
     @Provides
     public V provideView() {

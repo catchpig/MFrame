@@ -14,14 +14,16 @@ import mejust.frame.mvp.BaseContract;
  */
 @Module
 public abstract class ActivityModule<V extends BaseContract.View> {
+
     private final V mView;
-    public ActivityModule(V v){
+
+    public ActivityModule(V v) {
         mView = v;
     }
+
     @ActivityScope
     @Provides
     public V provideView() {
         return mView;
     }
-
 }
