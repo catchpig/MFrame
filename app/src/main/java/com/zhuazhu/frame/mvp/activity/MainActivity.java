@@ -31,7 +31,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
     @Override
     protected void initParam() {
         String user = "[{\"username\":\"132\"}]";
-        List<User> list = JsonUtil.toList(user,User.class);
+        List<User> list = JsonUtil.toList(user, User.class);
         System.out.println(list);
     }
 
@@ -71,7 +71,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
             case R.id.upgrade:
                 new UpgradeAppManager(
                         "http://dl.mejust.com/weijie_app/weijie-pro.apk").setProgressManager(
-                        ProgressType.DIALOG,
+                        ProgressType.NOTIFICATION,
                         new ProgressMessageBuilder(R.mipmap.ic_launcher, "app更新")).start(this);
                 break;
             default:

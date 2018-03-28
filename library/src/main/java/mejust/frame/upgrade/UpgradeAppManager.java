@@ -1,9 +1,13 @@
 package mejust.frame.upgrade;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.AlertDialog;
 import conm.zhuazhu.common.utils.FileUtils;
 import conm.zhuazhu.common.utils.Utils;
 import java.io.File;
@@ -40,11 +44,13 @@ public class UpgradeAppManager {
         return this;
     }
 
-    public void start(FragmentActivity context) {
-        String path = new File(createParentFile(), getFileName()).getAbsolutePath();
-        DownloadResultReceiver resultReceiver =
-                new DownloadResultReceiver(getProgressHelper(context));
-        UpgradeDownloadService.start(context, url, path, resultReceiver);
+    public void start(@NonNull FragmentActivity context) {
+        // 检查通知栏进度显示，是否有权限
+        if (progressType == ProgressType.NOTIFICATION && !checkNotificationPermission(context)) {
+            showNotificationAsk(context);
+            return;
+        }
+        startDownload(context);
     }
 
     /**
@@ -69,6 +75,9 @@ public class UpgradeAppManager {
         return url.substring(index + 1, url.length());
     }
 
+    /**
+     * 选取进度显示样式
+     */
     private ProgressHelper getProgressHelper(Context context) {
         ProgressHelper progressHelper;
         switch (progressType) {
@@ -83,5 +92,58 @@ public class UpgradeAppManager {
                 break;
         }
         return progressHelper;
+    }
+
+    /**
+     * 开启IntentService进行下载任务
+     */
+    private void startDownload(Context context) {
+        String path = new File(createParentFile(), getFileName()).getAbsolutePath();
+        DownloadResultReceiver resultReceiver =
+                new DownloadResultReceiver(getProgressHelper(context));
+        UpgradeDownloadService.start(context, url, path, resultReceiver);
+    }
+
+    /**
+     * 检查是否开启通知栏通知
+     */
+    private boolean checkNotificationPermission(Context context) {
+        boolean ret = true;
+        try {
+            NotificationManagerCompat manager = NotificationManagerCompat.from(context);
+            ret = manager.areNotificationsEnabled();
+        } catch (Exception e) {
+            // ignore
+        }
+        return ret;
+    }
+
+    /**
+     * 显示获取通知栏权限dialog
+     * <p/>
+     * 确定：跳转音乐设置
+     * 取消：直接开始下载
+     */
+    private void showNotificationAsk(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("通知权限")
+                .setMessage("通知权限的关闭，会影响进度通知信息的显示，是否要打开通知？")
+                .setPositiveButton("打开", (dialog, which) -> startAppSetting(context))
+                .setNegativeButton("取消", (dialog, which) -> startDownload(context));
+        builder.show();
+    }
+
+    /**
+     * 打开音乐设置界面
+     */
+    private void startAppSetting(Context context) {
+        try {
+            Intent localIntent = new Intent();
+            localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            localIntent.setData(Uri.fromParts("package", context.getPackageName(), null));
+            context.startActivity(localIntent);
+        } catch (Exception e) {
+            // ignore
+        }
     }
 }
