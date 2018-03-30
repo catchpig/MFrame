@@ -13,6 +13,7 @@ import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
 
 import java.util.List;
 
+import conm.zhuazhu.common.utils.AppUtils;
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;

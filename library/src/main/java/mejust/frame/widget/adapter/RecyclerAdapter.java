@@ -147,6 +147,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
         return mData;
     }
 
+    @Override
     public M get(int position) {
         if (position < 0 || position > (mData.size() - 1)) {
             throw new IllegalStateException("position必须大于0,且不能大于mData的个数");
@@ -160,6 +161,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
     /**
      * 设置list为这个list
      */
+    @Override
     public void set(List<M> data) {
         firstLoad = false;
         if (data != null) {
@@ -179,6 +181,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
     /**
      * list中添加更多的数据
      */
+    @Override
     public void add(List<M> data) {
         if (mData == null) {
             return;
@@ -357,12 +360,9 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
         }
         M m = mData.get(index);
         //设置item的点击回调事件
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.itemClick(mRecyclerView.getId(), m, finalIndex);
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (mListener != null) {
+                mListener.itemClick(mRecyclerView.getId(), m, finalIndex);
             }
         });
 
@@ -371,11 +371,19 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
 
     /**
      * 绑定viewHolder的数据
+     * @param holder
+     * @param m
+     * @param position 下标
      */
     public abstract void bindViewHolder(VH holder, M m, int position);
 
     private RecyclerView mRecyclerView;
 
+    /**
+     * 处理RecyclerView.LayoutManager是GridLayoutManager类型,
+     * 对头部和底部实体进行一个处理,使其占满一行
+     * @param recyclerView
+     */
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -394,6 +402,11 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
         }
     }
 
+    /**
+     * 加入针对StaggeredGridLayoutManager跨列处理的代码
+     * 一个item通过adapter开始显示会被回调
+     * @param holder
+     */
     @Override
     public void onViewAttachedToWindow(BaseViewHolder holder) {
         super.onViewAttachedToWindow(holder);
@@ -403,6 +416,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
                 && holder.getLayoutPosition() == 0) {
             StaggeredGridLayoutManager.LayoutParams p =
                     (StaggeredGridLayoutManager.LayoutParams) lp;
+            //占满一行
             p.setFullSpan(true);
         }
     }

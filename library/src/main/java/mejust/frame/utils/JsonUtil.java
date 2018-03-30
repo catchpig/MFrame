@@ -26,25 +26,25 @@ public class JsonUtil {
         throw new RuntimeException("this class not be instantiated");
     }
 
-    private static final Gson gson =
+    private static final Gson GSON =
             new GsonBuilder().setDateFormat(AppConfig.DATE_FORMAT).create();
 
     public static Gson getGson() {
-        return gson;
+        return GSON;
     }
 
     /**
      * 转换为字符串
      */
     public static String toString(Object object) {
-        return gson.toJson(object);
+        return GSON.toJson(object);
     }
 
     /**
      * 字符串转化为对象
      */
     public static <T> T fromJson(String jsonString, Class<T> classOfT) {
-        return gson.fromJson(jsonString, classOfT);
+        return GSON.fromJson(jsonString, classOfT);
     }
 
     /**
@@ -54,7 +54,7 @@ public class JsonUtil {
      */
     public static <T> List<T> toList(String jsonString, Class<T> cls) {
         Type type = new ListParameterizedType(cls);
-        return gson.fromJson(jsonString, type);
+        return GSON.fromJson(jsonString, type);
     }
 
     /**
@@ -67,7 +67,7 @@ public class JsonUtil {
         List<T> mList = new ArrayList<T>();
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
         for (final JsonElement elem : array) {
-            mList.add(gson.fromJson(elem, cls));
+            mList.add(GSON.fromJson(elem, cls));
         }
         return mList;
     }

@@ -51,6 +51,8 @@ public class NetworkReceiver extends BroadcastReceiver {
                     mOnNetworkListener.onNetwork(isNetwork);
                 }
                 break;
+                default:
+                    break;
         }
     }
 
