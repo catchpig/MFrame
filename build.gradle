@@ -2,11 +2,13 @@
 
 buildscript {
     ext{
-        support_version = '26.1.0'
-        okhttp3_version = '3.9.1'
-        dagger_version = '2.13'
-        retrofit2_version = '2.3.0'
-        glide_version = '4.4.0'
+        support_version = '27.1.0'
+        okhttp3_version = '3.10.0'
+        dagger_version = '2.15'
+        retrofit2_version = '2.4.0'
+        glide_version = '4.6.1'
+        rxjava_version = '2.1.12'
+        rxandroid_version = '2.0.2'
     }
     repositories {
         google()
