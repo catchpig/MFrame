@@ -14,7 +14,6 @@ import mejust.frame.net.HttpConfigHelper;
  * <p>
  * 全局Module，提供全局注入
  */
-@Singleton
 @Module
 public class AppModule {
 
