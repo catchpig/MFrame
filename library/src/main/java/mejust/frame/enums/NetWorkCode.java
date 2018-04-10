@@ -1,10 +1,8 @@
 package mejust.frame.enums;
 
 import android.support.annotation.IntDef;
-
-import static mejust.frame.enums.NetWorkCode.SIGN_ERROR;
-import static mejust.frame.enums.NetWorkCode.SUCCESS;
-import static mejust.frame.enums.NetWorkCode.TOKEN_ERROR;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * 创建时间:2018-03-16 16:53<br/>
@@ -13,7 +11,8 @@ import static mejust.frame.enums.NetWorkCode.TOKEN_ERROR;
  * 修改时间: 2018-03-16 16:53<br/>
  * 描述:
  */
-@IntDef({SUCCESS,TOKEN_ERROR,SIGN_ERROR})
+@Retention(RetentionPolicy.SOURCE)
+@IntDef({ NetWorkCode.SUCCESS, NetWorkCode.TOKEN_ERROR, NetWorkCode.SIGN_ERROR })
 public @interface NetWorkCode {
     /**
      * 网络请求成功
