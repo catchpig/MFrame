@@ -6,6 +6,11 @@
     <item name="colorPrimary">@color/title_backgroud</item>
     <item name="colorPrimaryDark">@color/title_backgroud</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="title_bar_style">@style/titleBarStyle</item>
   </style>
 
+  <style name="titleBarStyle">
+    <item name="frame_title_background_color">@color/title_backgroud</item>
+    <item name="frame_title_title_color">@color/c_fff</item>
+  </style>
 </resources>

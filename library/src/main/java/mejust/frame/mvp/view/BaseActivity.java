@@ -5,35 +5,29 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import conm.zhuazhu.common.utils.KeyboardUtils;
 import conm.zhuazhu.common.utils.NetworkUtils;
 import mejust.frame.R;
-import mejust.frame.annotation.utils.AnnotionUtils;
-import mejust.frame.annotation.utils.StatusBarUtils;
-import mejust.frame.annotation.utils.TitleBarAnnotationUtils;
-import mejust.frame.app.AppConfig;
 import mejust.frame.annotation.utils.AnnotationBind;
-import mejust.frame.widget.dialog.ToastDialog;
+import mejust.frame.annotation.utils.AnnotionUtils;
+import mejust.frame.app.AppConfig;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.mvp.view.option.DefaultActivityOption;
 import mejust.frame.receiver.NetworkReceiver;
 import mejust.frame.widget.ToastMsg;
+import mejust.frame.widget.dialog.ToastDialog;
 import mejust.frame.widget.title.StatusBar;
 import mejust.frame.widget.title.TitleBar;
-import mejust.frame.widget.title.TitleBarOptions;
 
 /**
  * 创建时间:2017-12-21 10:41<br/>
@@ -70,7 +64,6 @@ import mejust.frame.widget.title.TitleBarOptions;
 public abstract class BaseActivity extends AppCompatActivity implements BaseContract.View {
 
     private static DefaultActivityOption sActivityOption;
-    private TitleBarOptions titleBarOptions;
     private FrameLayout mLayoutBody;
     private Unbinder mUnBinder;
     private TitleBar mTitleBar;
@@ -155,25 +148,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     }
 
     /**
-     * 设置标题栏
-     *
-     * @param options 标题栏属性
-     */
-    protected void setTitleBar(@NonNull TitleBarOptions options) {
-        mTitleBar.setOptions(options);
-    }
-
-    /**
-     * 获取当前页面的TitleBar配置
-     */
-    public TitleBarOptions getTitleBarOptions() {
-        if (titleBarOptions == null) {
-            throw new IllegalStateException("设置TitleBar,必须添加@TitleBar注解");
-        }
-        return titleBarOptions;
-    }
-
-    /**
      * 初始化网络未打开的提示控件
      */
     private void initNetworkTip() {
@@ -184,7 +158,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
             mNetWorkTip = findViewById(R.id.network_tip);
             mNetWorkTip.setOnClickListener(v -> NetworkUtils.openWifiSettings());
         });
-
     }
 
     private void initLoadingView() {
@@ -197,17 +170,17 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
      * 初始化TitleBar
      */
     private void initTitleBar() {
-        mTitleBar = findViewById(R.id.title_bar);
-        //有@TitleBar这个注解,才执行下面的操作
-        if (TitleBarAnnotationUtils.isTitleBarAnnotation(this.getClass())) {
-            titleBarOptions = sActivityOption.titleBarOption();
-            mTitleBar.setOptions(titleBarOptions);
-            AnnotationBind.injectTitleBar(this, mTitleBar);
-            //设置返回按钮监听事件(关闭当前页面)
-            mTitleBar.setBackListener(v -> finish());
-        } else {
-            mTitleBar.setVisibility(View.GONE);
-        }
+        //mTitleBar = findViewById(R.id.title_bar);
+        ////有@TitleBar这个注解,才执行下面的操作
+        //if (TitleBarAnnotationUtils.isTitleBarAnnotation(this.getClass())) {
+        //    titleBarOptions = sActivityOption.titleBarOption();
+        //    mTitleBar.setOptions(titleBarOptions);
+        //    AnnotationBind.injectTitleBar(this, mTitleBar);
+        //    //设置返回按钮监听事件(关闭当前页面)
+        //    mTitleBar.setBackListener(v -> finish());
+        //} else {
+        //    mTitleBar.setVisibility(View.GONE);
+        //}
     }
 
     /**
@@ -220,15 +193,15 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
             return;
         }
         mStatusBar = StatusBar.with(this);
-        if (TitleBarAnnotationUtils.isTitleBarAnnotation(this.getClass())) {
-            mStatusBar = mStatusBar.statusBarView(R.id.top_view)
-                    .statusBarColor(sActivityOption.titleBarOption().getBackgroundColor());
-            if (StatusBarUtils.isDarkStatus(ContextCompat.getColor(this,
-                    sActivityOption.titleBarOption().getBackgroundColor())) || (statusBar != null
-                    && statusBar.isDarkStatus())) {
-                mStatusBar = mStatusBar.statusBarDarkFont(true, 0.2f);
-            }
-        }
+        //if (TitleBarAnnotationUtils.isTitleBarAnnotation(this.getClass())) {
+        //    mStatusBar = mStatusBar.statusBarView(R.id.top_view)
+        //            .statusBarColor(sActivityOption.titleBarOption().getBackgroundColor());
+        //    if (StatusBarUtils.isDarkStatus(ContextCompat.getColor(this,
+        //            sActivityOption.titleBarOption().getBackgroundColor())) || (statusBar != null
+        //            && statusBar.isDarkStatus())) {
+        //        mStatusBar = mStatusBar.statusBarDarkFont(true, 0.2f);
+        //    }
+        //}
         mStatusBar.init();
     }
 
@@ -307,13 +280,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     private void registerNetChangeListener() {
         if (AppConfig.NETWORK_STATUS_MONITORING && mNetworkReceiver == null) {
             mNetworkReceiver = new NetworkReceiver();
-            mNetworkReceiver.setOnNetworkListener(
-                    network -> {
-                        if(!isInflate){
-                            mNetworkViewStub.inflate();
-                        }
-                        mNetworkViewStub.setVisibility(network ? View.GONE : View.VISIBLE);
-                    });
+            mNetworkReceiver.setOnNetworkListener(network -> {
+                if (!isInflate) {
+                    mNetworkViewStub.inflate();
+                }
+                mNetworkViewStub.setVisibility(network ? View.GONE : View.VISIBLE);
+            });
             IntentFilter filter = new IntentFilter();
             filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
             registerReceiver(mNetworkReceiver, filter);

@@ -3,8 +3,6 @@ package com.zhuazhu.frame.mvp.application;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
-
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -15,14 +13,12 @@ import com.zhuazhu.frame.di.component.AppComponent;
 import com.zhuazhu.frame.di.component.DaggerAppComponent;
 import com.zhuazhu.frame.di.module.NetModule;
 import com.zhuazhu.frame.mvp.activity.MainActivity;
-
 import conm.zhuazhu.common.utils.Utils;
 import mejust.frame.app.BaseApplication;
 import mejust.frame.di.module.AppModule;
 import mejust.frame.image.ImageUtils;
 import mejust.frame.mvp.view.BaseActivity;
 import mejust.frame.mvp.view.option.DefaultActivityOption;
-import mejust.frame.widget.title.TitleBarOptions;
 
 /**
  * @author : Beaven
@@ -36,20 +32,6 @@ public class FrameApplication extends BaseApplication {
             @Override
             public void login(Activity activity) {
                 activity.startActivity(new Intent(activity, MainActivity.class));
-            }
-
-            @NonNull
-            @Override
-            public TitleBarOptions titleBarOption() {
-                TitleBarOptions options = new TitleBarOptions();
-                options.setBackgroundColor(R.color.white);
-                options.setTextColor(R.color.c_000);
-                options.setTitleTextSize(18);
-                options.setBackImage(R.mipmap.back);
-                options.setBackTextSize(15);
-                options.setRightTextSize(15);
-                options.setBackText("返回");
-                return options;
             }
         });
         SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> {

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <attr format="reference" name="title_bar_style"/>
+
+  <declare-styleable name="TitleBar">
+    <attr format="dimension" name="frame_title_height"/>
+    <attr format="color" name="frame_title_background_color"/>
+    <attr format="dimension" name="frame_title_padding"/>
+    <attr format="color" name="frame_title_title_color"/>
+    <attr format="dimension" name="frame_title_title_size"/>
+    <attr format="dimension" name="frame_title_menu_icon_size"/>
+    <attr format="color" name="frame_title_menu_text_color"/>
+    <attr format="dimension" name="frame_title_menu_text_size"/>
+  </declare-styleable>
+
+</resources>

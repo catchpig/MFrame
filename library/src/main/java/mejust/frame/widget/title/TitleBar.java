@@ -1,241 +1,318 @@
 package mejust.frame.widget.title;
 
 import android.content.Context;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.util.SparseArray;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import conm.zhuazhu.common.utils.ScreenUtils;
 import mejust.frame.R;
 
 /**
- * 创建时间:2017-12-21 9:49<br/>
- * 创建人: 王培峰<br/>
- * 修改人: 李涛<br/>
- * 修改时间: 2017年12月24日12:56:41<br/>
- * 描述: 自定义TitleBar,默认按钮被隐藏了的
+ * 创建时间: 2018/04/12
+ * 创建人: 王培峰
+ * 修改人: 王培峰
+ * 修改时间: 2018/04/12
+ * 描述: <empty/>
  */
+public class TitleBar extends LinearLayout {
 
-public class TitleBar extends FrameLayout {
+    // 标题栏左边菜单区域
+    private LinearLayout layoutToolLeft;
+    // 标题栏右边菜单区域
+    private LinearLayout layoutToolRight;
+    // 中心标题内容
+    private FrameLayout layoutToolCenter;
+    // 标题栏背景颜色
+    private int barColor;
+    // 标题栏高度
+    private int barHeight;
+    // 中心文本颜色
+    private int centerTitleColor;
+    // 中心文本大小
+    private float centerTitleSize;
+    // 菜单图标大小
+    private int menuIconSize;
+    // 菜单文本颜色
+    private int menuTextColor;
+    // 菜单文本大小
+    private float menuTextSize;
+    // 传入的配置
+    private TitleBarSetting titleBarSetting;
 
-    private FrameLayout layoutTitle;
-    private LinearLayout layoutBack;
-    private LinearLayout layoutRight;
-    private ImageView imageBack;
-    private TextView textBack;
-    private TextView textTitle;
-    private ImageView imageRight1;
-    private ImageView imageRight2;
-    private TextView textRight1;
-    private TextView textRight2;
-
-    public TitleBar(@NonNull Context context) {
+    public TitleBar(Context context) {
         this(context, null);
     }
 
-    public TitleBar(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs, 0);
+    public TitleBar(Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, R.attr.title_bar_style);
     }
 
-    public TitleBar(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public TitleBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        View view = LayoutInflater.from(context).inflate(R.layout.title_bar, this, true);
-        layoutTitle = view.findViewById(R.id.layout_title);
-        layoutBack = view.findViewById(R.id.mframe_back_layout);
-        layoutRight = view.findViewById(R.id.mframe_layout_right);
-        textTitle = view.findViewById(R.id.mframe_text_title);
-        imageBack = view.findViewById(R.id.mframe_back_image);
-        imageRight1 = view.findViewById(R.id.mframe_image_right1);
-        imageRight2 = view.findViewById(R.id.mframe_image_right2);
-        textBack = view.findViewById(R.id.mframe_back_text);
-        textRight1 = view.findViewById(R.id.mframe_text_right1);
-        textRight2 = view.findViewById(R.id.mframe_text_right2);
-        //隐藏右边的按钮和文字
-        textRight1.setVisibility(GONE);
-        textRight2.setVisibility(GONE);
-        imageRight1.setVisibility(GONE);
-        imageRight2.setVisibility(GONE);
+        initAttr(context, attrs, defStyleAttr);
+        setOrientation(HORIZONTAL);
+        layoutToolLeft = buildToolLayout();
+        addView(layoutToolLeft);
+        layoutToolCenter = buildCenterLayout();
+        addView(layoutToolCenter);
+        layoutToolRight = buildToolLayout();
+        addView(layoutToolRight);
+        getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            int leftWidth = layoutToolLeft.getMeasuredWidth();
+            int rightWidth = layoutToolRight.getMeasuredWidth();
+            int width = Math.max(leftWidth, rightWidth);
+            layoutToolLeft.setLayoutParams(
+                    new LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT));
+            layoutToolRight.setLayoutParams(
+                    new LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT));
+        });
     }
 
     /**
-     * 设置右边第二个图片按钮的监听
+     * 设置当前标题栏配置
      */
-    public void setImageRightSecondListener(OnClickListener listener) {
-        imageRight2.setVisibility(VISIBLE);
-        imageRight2.setOnClickListener(listener);
+    public void setTitleBarSetting(TitleBarSetting titleBarSetting) {
+        this.titleBarSetting = titleBarSetting;
+        if (titleBarSetting == null) {
+            setVisibility(GONE);
+            return;
+        }
+        if (titleBarSetting.getBackgroundColor() != 0) {
+            setBackgroundColor(titleBarSetting.getBackgroundColor());
+        }
+        setTitleCenter(titleBarSetting.getTitleTextContent(), titleBarSetting.getTitleTextColor(),
+                titleBarSetting.getTitleTextSize());
+        SparseArray<TitleBarSetting.TitleMenu> titleMenuSparseArray =
+                titleBarSetting.getMenuArray();
+        if (titleMenuSparseArray == null || titleMenuSparseArray.size() == 0) {
+            return;
+        }
+        layoutToolLeft.removeAllViews();
+        layoutToolRight.removeAllViews();
+        // 位置的确定，不能用这种方式
+        for (int i = 0; i < titleMenuSparseArray.size(); i++) {
+            TitleBarSetting.TitleMenu titleMenu = titleMenuSparseArray.valueAt(i);
+            if (titleMenu != null) {
+                setTitleMenu(titleMenu);
+            }
+        }
     }
 
     /**
-     * 设置右边第一个图片按钮的监听
+     * 获取当前标题栏配置
      */
-    public void setImageRightFirstListener(OnClickListener listener) {
-        imageRight1.setVisibility(VISIBLE);
-        imageRight1.setOnClickListener(listener);
+    public TitleBarSetting getTitleBarSetting() {
+        final TitleBarSetting setting = this.titleBarSetting;
+        TitleBarSetting.Builder builder = new TitleBarSetting.Builder();
+        if (setting == null) {
+            return builder.setTitleTextColor(centerTitleColor)
+                    .setTitleTextSize(centerTitleSize)
+                    .setBackgroundColor(barColor)
+                    .build();
+        }
+        builder.setBackgroundColor((int) checkValue(setting.getBackgroundColor(), barColor))
+                .setTitleTextContext(setting.getTitleTextContent())
+                .setTitleTextColor((int) checkValue(setting.getTitleTextColor(), centerTitleColor))
+                .setTitleTextSize(checkValue(setting.getTitleTextSize(), centerTitleSize));
+        SparseArray<TitleBarSetting.TitleMenu> titleMenuSparseArray = setting.getMenuArray();
+        if (titleMenuSparseArray == null || titleMenuSparseArray.size() == 0) {
+            return builder.build();
+        }
+        for (int i = 0; i < titleMenuSparseArray.size(); i++) {
+            TitleBarSetting.TitleMenu titleMenu = titleMenuSparseArray.valueAt(i);
+            if (titleMenu != null) {
+                titleMenu.setTextColor((int) checkValue(titleMenu.getTextColor(), menuTextColor));
+                titleMenu.setTextSize(checkValue(titleMenu.getTextSize(), menuTextSize));
+                builder.addTitleMenu(titleMenu);
+            }
+        }
+        return builder.build();
+    }
+
+    private void initAttr(Context context, AttributeSet attrs, int defStyleAttr) {
+        TypedArray typedArray =
+                context.obtainStyledAttributes(attrs, R.styleable.TitleBar, defStyleAttr, 0);
+        barHeight = typedArray.getDimensionPixelSize(R.styleable.TitleBar_frame_title_height,
+                ScreenUtils.dpToPxInt(56));
+        barColor =
+                typedArray.getColor(R.styleable.TitleBar_frame_title_background_color, Color.WHITE);
+        int paddingSize = typedArray.getDimensionPixelSize(R.styleable.TitleBar_frame_title_padding,
+                ScreenUtils.dpToPxInt(16));
+        centerTitleColor =
+                typedArray.getColor(R.styleable.TitleBar_frame_title_title_color, Color.BLACK);
+        centerTitleSize = typedArray.getDimension(R.styleable.TitleBar_frame_title_title_size, 18);
+        menuIconSize =
+                typedArray.getDimensionPixelSize(R.styleable.TitleBar_frame_title_menu_icon_size,
+                        ScreenUtils.dpToPxInt(24));
+        menuTextColor =
+                typedArray.getColor(R.styleable.TitleBar_frame_title_menu_text_color, Color.BLACK);
+        menuTextSize = typedArray.getDimension(R.styleable.TitleBar_frame_title_menu_text_size, 16);
+        typedArray.recycle();
+        setBackgroundColor(barColor);
+        setPadding(paddingSize, 0, paddingSize, 0);
     }
 
     /**
-     * 设置右边第一个文字按钮的监听
+     * 生成中心标题容器
      */
-    public void setTextRightFirstListener(OnClickListener listener) {
-        textRight1.setVisibility(VISIBLE);
-        textRight1.setOnClickListener(listener);
+    private FrameLayout buildCenterLayout() {
+        FrameLayout frameLayout = new FrameLayout(getContext());
+        LayoutParams layoutParams = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1.0f);
+        frameLayout.setLayoutParams(layoutParams);
+        return frameLayout;
     }
 
     /**
-     * 设置右边第二个文字按钮的监听
+     * 生成菜单区域容器
      */
-    public void setTextRightSecondListener(OnClickListener listener) {
-        textRight2.setVisibility(VISIBLE);
-        textRight2.setOnClickListener(listener);
+    private LinearLayout buildToolLayout() {
+        LinearLayout layout = new LinearLayout(getContext());
+        layout.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        layout.setOrientation(HORIZONTAL);
+        return layout;
     }
 
     /**
-     * 设置返回按钮的监听
-     */
-    public void setBackListener(OnClickListener listener) {
-        layoutBack.setOnClickListener(listener);
-    }
-
-    /**
-     * 隐藏返回按钮
-     */
-    public void hiddenBackButton() {
-        layoutBack.setVisibility(GONE);
-    }
-
-    /**
-     * 设置基本属性
-     */
-    public void setOptions(@NonNull TitleBarOptions options) {
-        //背景
-        setTitleBarBackgroundColor(options.getBackgroundColor());
-        //返回
-        setBackImage(options.getBackImage());
-        setBackText(options.getBackText());
-        setBackTextSize(options.getBackTextSize());
-        //文字颜色
-        setTextColor(colorRes(options.getTextColor()));
-        //标题
-        setTitleTextSize(options.getTitleTextSize());
-        // 标题文字
-        setTitleText(options.getTitleText());
-        //右边文字的大小
-        setRightTextSize(options.getRightTextSize());
-    }
-
-    /**
-     * 设置文字颜色
-     */
-    public void setTextColor(int color) {
-        textBack.setTextColor(color);
-        textRight1.setTextColor(color);
-        textRight2.setTextColor(color);
-        textTitle.setTextColor(color);
-    }
-
-    /**
-     * 设置标题的文字
-     */
-    public void setTitleText(String titleText) {
-        textTitle.setText(titleText);
-    }
-
-    /**
-     * 设置标题的文字大小
+     * 设置标题主题
      *
-     * @param titleSize 单位:sp
+     * @param titleTextContent 内容
+     * @param titleTextColor 颜色
+     * @param titleTextSize 大小
      */
-    private void setTitleTextSize(float titleSize) {
-        textTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleSize);
+    private void setTitleCenter(String titleTextContent, int titleTextColor, float titleTextSize) {
+        layoutToolCenter.removeAllViews();
+        if (TextUtils.isEmpty(titleTextContent)) {
+            return;
+        }
+        int color = (int) checkValue(titleTextColor, this.centerTitleColor);
+        float size = checkValue(titleTextSize, this.centerTitleSize);
+        TextView textView = new TextView(getContext());
+        textView.setText(titleTextContent);
+        textView.setTextColor(color);
+        textView.setTextSize(size);
+        textView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+        textView.setMaxLines(1);
+        textView.setGravity(Gravity.CENTER);
+        FrameLayout.LayoutParams layoutParams =
+                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutToolCenter.addView(textView, layoutParams);
     }
 
     /**
-     * 设置返回文字的大小
+     * 设置标题菜单
+     */
+    private void setTitleMenu(TitleBarSetting.TitleMenu titleMenu) {
+        int location = titleMenu.getLocation();
+        Drawable drawable = titleMenu.getIconDrawable();
+        FrameLayout frameLayout;
+        if (drawable == null) {
+            frameLayout = buildToolTextLayout(titleMenu.getText(), titleMenu.getTextSize(),
+                    titleMenu.getTextColor(), titleMenu.getClickListener());
+        } else {
+            frameLayout =
+                    buildToolImageLayout(titleMenu.getIconDrawable(), titleMenu.getClickListener());
+        }
+        if (location == TitleBarMenuLocation.leftFirstMenu
+                || location == TitleBarMenuLocation.leftSecondMenu) {
+            layoutToolLeft.addView(frameLayout);
+        } else if (location == TitleBarMenuLocation.rightFirstMenu
+                || location == TitleBarMenuLocation.rightSecondMenu) {
+            layoutToolRight.addView(frameLayout);
+        }
+    }
+
+    /**
+     * 生成菜单图标按钮
      *
-     * @param textBackSize 单位:sp
+     * @param drawable 图标
+     * @param clickListener 点击事件
+     * @return 图标菜单
      */
-    private void setBackTextSize(int textBackSize) {
-        textBack.setTextSize(TypedValue.COMPLEX_UNIT_SP, textBackSize);
+    private FrameLayout buildToolImageLayout(Drawable drawable, OnClickListener clickListener) {
+        ImageView imageView = new ImageView(getContext());
+        imageView.setImageDrawable(drawable);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        FrameLayout.LayoutParams imageLayoutParams =
+                new FrameLayout.LayoutParams(menuIconSize, menuIconSize);
+        imageLayoutParams.gravity = Gravity.CENTER;
+        imageView.setLayoutParams(imageLayoutParams);
+        FrameLayout frameLayout = new FrameLayout(getContext());
+        frameLayout.setBackground(
+                ContextCompat.getDrawable(getContext(), R.drawable.selector_transparent));
+        frameLayout.setClickable(true);
+        int touchWidth = menuIconSize + ScreenUtils.dpToPxInt(16);
+        LayoutParams layoutParams =
+                new LayoutParams(touchWidth, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.CENTER;
+        frameLayout.setLayoutParams(layoutParams);
+        frameLayout.addView(imageView);
+        frameLayout.setOnClickListener(clickListener);
+        return frameLayout;
     }
 
     /**
-     * 设置返回的文字
-     */
-    public void setBackText(String backText) {
-        textBack.setText(backText);
-    }
-
-    /**
-     * 设置返回的图片
-     */
-    private void setBackImage(@DrawableRes int backImage) {
-        imageBack.setImageResource(backImage);
-    }
-
-    /**
-     * 设置右边按钮文字的大小
+     * 生成文字菜单按钮
      *
-     * @param textRightSize 单位:sp
+     * @param text 文字内容
+     * @param textSize 文字大小
+     * @param textColor 文字颜色
+     * @param clickListener 按钮点击事件
+     * @return 文字菜单按钮
      */
-    private void setRightTextSize(int textRightSize) {
-        textRight1.setTextSize(TypedValue.COMPLEX_UNIT_SP, textRightSize);
-        textRight2.setTextSize(TypedValue.COMPLEX_UNIT_SP, textRightSize);
+    private FrameLayout buildToolTextLayout(String text, float textSize, int textColor,
+            OnClickListener clickListener) {
+        String content = text == null ? "" : text;
+        float size = checkValue(textSize, this.menuTextSize);
+        int color = (int) checkValue(textColor, this.menuTextColor);
+        TextView textView = new TextView(getContext());
+        textView.setText(content);
+        textView.setTextSize(size);
+        textView.setTextColor(color);
+        textView.setMaxLines(1);
+        textView.setPadding(20, 20, 20, 20);
+        FrameLayout.LayoutParams textLayoutParams =
+                new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+        textLayoutParams.gravity = Gravity.CENTER;
+        textView.setLayoutParams(textLayoutParams);
+
+        FrameLayout frameLayout = new FrameLayout(getContext());
+        frameLayout.setBackground(
+                ContextCompat.getDrawable(getContext(), R.drawable.selector_transparent));
+        frameLayout.setClickable(true);
+        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        frameLayout.setLayoutParams(layoutParams);
+        frameLayout.addView(textView);
+        frameLayout.setOnClickListener(clickListener);
+        return frameLayout;
     }
 
-    /**
-     * 设置右边第一个文字
-     */
-    public void setRightText1(String rightText1) {
-        textRight1.setText(rightText1);
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        if (heightMode == MeasureSpec.AT_MOST) {
+            heightSize = barHeight;
+        }
+        int heightSpec = MeasureSpec.makeMeasureSpec(heightSize, MeasureSpec.EXACTLY);
+        super.onMeasure(widthMeasureSpec, heightSpec);
     }
 
-    /**
-     * 设置右边第二个文字
-     */
-    public void setRightText2(String rightText2) {
-        textRight2.setText(rightText2);
-    }
-
-    /**
-     * 设置右边第一张图片
-     */
-    public void setRightImage1(@DrawableRes int rightImage1) {
-        imageRight1.setVisibility(VISIBLE);
-        imageRight1.setImageResource(rightImage1);
-    }
-
-    /**
-     * 设置右边第二张图片
-     */
-    public void setRightImage2(@DrawableRes int rightImage2) {
-        imageRight2.setVisibility(VISIBLE);
-        imageRight2.setImageResource(rightImage2);
-    }
-
-    /**
-     * 设置背景颜色
-     */
-    public void setTitleBarBackgroundColor(@ColorRes int backgroundColor) {
-        layoutTitle.setBackgroundResource(backgroundColor);
-        layoutBack.setBackgroundResource(backgroundColor);
-        layoutRight.setBackgroundResource(backgroundColor);
-    }
-
-    /**
-     * 转换颜色值
-     */
-    @ColorInt
-    public int colorRes(@ColorRes int color) {
-        return ContextCompat.getColor(getContext(), color);
+    private float checkValue(float value, float defaultValue) {
+        return value == 0 ? defaultValue : value;
     }
 }
