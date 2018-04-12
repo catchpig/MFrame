@@ -4,7 +4,7 @@ import com.zhuazhu.frame.di.module.RecyclerModule;
 import com.zhuazhu.frame.mvp.activity.RecyclerActivity;
 
 import dagger.Subcomponent;
-import mejust.frame.annotation.ActivityScope;
+import mejust.frame.di.scope.ActivityScope;
 
 /**
  * Created by Beaven on 2017/12/22.

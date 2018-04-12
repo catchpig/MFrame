@@ -4,7 +4,7 @@ import com.zhuazhu.frame.di.module.MainModule;
 import com.zhuazhu.frame.mvp.activity.MainActivity;
 
 import dagger.Subcomponent;
-import mejust.frame.annotation.ActivityScope;
+import mejust.frame.di.scope.ActivityScope;
 
 /**
  * @author : Beaven

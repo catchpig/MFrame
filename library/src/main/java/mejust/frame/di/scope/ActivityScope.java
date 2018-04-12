@@ -1,4 +1,4 @@
-package mejust.frame.annotation;
+package mejust.frame.di.scope;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -7,10 +7,10 @@ import javax.inject.Scope;
 
 /**
  * @author : Beaven
- * @date : 2017-12-20 10:48
+ * @date : 2017-12-20 10:49
  */
 @Scope
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FragmentScope {
+public @interface ActivityScope {
 }

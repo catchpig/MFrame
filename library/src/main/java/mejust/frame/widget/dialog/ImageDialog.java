@@ -1,4 +1,4 @@
-package mejust.frame.dialog;
+package mejust.frame.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

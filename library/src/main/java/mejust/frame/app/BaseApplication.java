@@ -3,7 +3,6 @@ package mejust.frame.app;
 import android.app.Application;
 import android.support.annotation.CallSuper;
 import conm.zhuazhu.common.utils.Utils;
-import mejust.frame.cash.CrashHandler;
 import mejust.frame.utils.log.DebugLogTree;
 import mejust.frame.utils.log.ReleaseLogTree;
 import mejust.frame.widget.ToastMsg;

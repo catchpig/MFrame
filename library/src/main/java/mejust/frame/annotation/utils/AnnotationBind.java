@@ -1,4 +1,4 @@
-package mejust.frame.bind;
+package mejust.frame.annotation.utils;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -13,8 +13,6 @@ import mejust.frame.annotation.ImageRightSecondEvent;
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TextRightSecondEvent;
-import mejust.frame.annotation.utils.AnnotionUtils;
-import mejust.frame.annotation.utils.TitleBarAnnotationUtils;
 import mejust.frame.utils.log.Logger;
 import mejust.frame.widget.title.TitleBar;
 

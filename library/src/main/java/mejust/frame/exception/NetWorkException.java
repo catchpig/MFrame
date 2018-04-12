@@ -1,6 +1,6 @@
 package mejust.frame.exception;
 
-import mejust.frame.enums.NetWorkCode;
+import mejust.frame.net.NetWorkCode;
 
 /**
  * 创建时间: 2018/03/21 17:19<br>

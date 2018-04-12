@@ -9,12 +9,11 @@ import android.widget.ImageView;
 
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.databinding.ActivityImageBinding;
-import com.zhuazhu.frame.mvp.application.FrameApplication;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import mejust.frame.dialog.ImageDialog;
+import mejust.frame.widget.dialog.ImageDialog;
 import mejust.frame.image.ImageUtils;
 
 /**

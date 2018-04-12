@@ -1,4 +1,4 @@
-package mejust.frame.cash;
+package mejust.frame.app;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

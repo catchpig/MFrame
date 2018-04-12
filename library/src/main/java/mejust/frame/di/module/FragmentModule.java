@@ -2,7 +2,7 @@ package mejust.frame.di.module;
 
 import dagger.Module;
 import dagger.Provides;
-import mejust.frame.annotation.FragmentScope;
+import mejust.frame.di.scope.FragmentScope;
 import mejust.frame.mvp.BaseContract;
 
 /**

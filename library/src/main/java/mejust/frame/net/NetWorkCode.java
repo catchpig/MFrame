@@ -1,4 +1,4 @@
-package mejust.frame.enums;
+package mejust.frame.net;
 
 import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;

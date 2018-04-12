@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import mejust.frame.annotation.utils.AnnotionUtils;
-import mejust.frame.bind.AnnotationBind;
+import mejust.frame.annotation.utils.AnnotationBind;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.widget.title.StatusBar;
 
