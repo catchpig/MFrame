@@ -1,4 +1,4 @@
-package com.zhuazhu.frame.data;
+package mejust.frame.pay.info;
 
 /**
  * 创建时间: 2018/04/16
@@ -7,7 +7,7 @@ package com.zhuazhu.frame.data;
  * 修改时间: 2018/04/16
  * 描述: <empty/>
  */
-public class PayInfo {
+public class WebPayInfo {
 
     private String redirectUrl;
 
@@ -17,6 +17,20 @@ public class PayInfo {
 
     public String getRedirectUrl() {
         return redirectUrl;
+    }
+
+    /**
+     * 回调地址，拼接支付状态码
+     */
+    public String getRedirectUrl(@WebPayStatus String status) {
+        StringBuilder builder = new StringBuilder(redirectUrl);
+        if (redirectUrl.contains("?")) {
+            builder.append("&");
+        } else {
+            builder.append("?");
+        }
+        builder.append("state=").append(status);
+        return builder.toString();
     }
 
     public void setRedirectUrl(String redirectUrl) {

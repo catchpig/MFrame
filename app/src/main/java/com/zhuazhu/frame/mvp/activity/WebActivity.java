@@ -8,9 +8,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import com.zhuazhu.frame.R;
-import com.zhuazhu.frame.data.PayInfo;
 import mejust.frame.pay.FramePay;
 import mejust.frame.pay.PayListener;
+import mejust.frame.pay.info.WebPayInfo;
 import mejust.frame.utils.JsonUtil;
 
 public class WebActivity extends AppCompatActivity {
@@ -34,25 +34,24 @@ public class WebActivity extends AppCompatActivity {
 
         @JavascriptInterface
         public void nativePay(String s) {
-            PayInfo payInfo = JsonUtil.fromJson(s, PayInfo.class);
-            FramePay.getInstance()
-                    .payAli(WebActivity.this, payInfo.getPayInfo(), new PayListener() {
-                        @Override
-                        public void onPaySuccess() {
-                            System.out.println("支付成功");
-                            webView.loadUrl(payInfo.getRedirectUrl());
-                        }
+            WebPayInfo webPayInfo = JsonUtil.fromJson(s, WebPayInfo.class);
+            FramePay.getInstance().pay(WebActivity.this, webPayInfo, new PayListener() {
+                @Override
+                public void onPaySuccess() {
+                    System.out.println("支付成功");
+                    webView.loadUrl(webPayInfo.getRedirectUrl());
+                }
 
-                        @Override
-                        public void onPayError(int error_code, String message) {
-                            System.out.println("支付失败--" + message);
-                        }
+                @Override
+                public void onPayError(int error_code, String message) {
+                    System.out.println("支付失败--" + message);
+                }
 
-                        @Override
-                        public void onPayCancel() {
-                            System.out.println("支付取消");
-                        }
-                    });
+                @Override
+                public void onPayCancel() {
+                    System.out.println("支付取消");
+                }
+            });
         }
     }
 }
