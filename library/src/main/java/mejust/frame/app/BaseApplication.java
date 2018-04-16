@@ -15,6 +15,8 @@ import timber.log.Timber;
  * 修改人: 李涛<br/>
  * 修改时间: 2017-12-21 10:41<br/>
  * 描述: 无MVP的基类<br/>
+ *
+ * @author zhuazhu
  */
 
 public abstract class BaseApplication extends Application {
@@ -27,6 +29,7 @@ public abstract class BaseApplication extends Application {
         initCash();
         initLog();
         ToastMsg.init(this);
+
     }
 
     /**
