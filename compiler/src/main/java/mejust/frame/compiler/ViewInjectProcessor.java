@@ -10,23 +10,28 @@ import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
+import mejust.frame.annotation.TitleBar;
+import mejust.frame.annotation.TitleBarMenu;
 
 @AutoService(Processor.class)
 public class ViewInjectProcessor extends AbstractProcessor {
 
     private Filer filer;
+    private Elements elementUtils;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
         super.init(processingEnvironment);
         filer = processingEnvironment.getFiler();
+        elementUtils = processingEnvironment.getElementUtils();
     }
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> set = new HashSet<>();
-        set.add("mejust.frame.annotation.TitleBar");
-        set.add("mejust.frame.annotation.TitleBarMenu");
+        set.add(TitleBar.class.getCanonicalName());
+        set.add(TitleBarMenu.class.getCanonicalName());
         return set;
     }
 
@@ -38,6 +43,6 @@ public class ViewInjectProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
         // TODO: 2018/04/12 收集相关信息，生成代码
-        return true;
+        return false;
     }
 }
