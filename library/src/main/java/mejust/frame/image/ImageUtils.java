@@ -79,9 +79,6 @@ public class ImageUtils {
      */
     @BindingAdapter("imageUrl")
     public static void show(ImageView imageView, String url) {
-        if(StringUtils.isEmpty(url)){
-            return;
-        }
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
                 .placeholder(sDefaultImage)
@@ -98,9 +95,6 @@ public class ImageUtils {
      */
     public static void show(ImageView imageView, String url, @DrawableRes int defaultImage,
             @DrawableRes int errorImage) {
-        if(StringUtils.isEmpty(url)){
-            return;
-        }
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
                 .placeholder(defaultImage)
@@ -116,9 +110,6 @@ public class ImageUtils {
      * @param errorImage   错误图
      */
     public static void show(ImageView imageView, File file, @DrawableRes int defaultImage, @DrawableRes int errorImage) {
-        if (file==null) {
-            return;
-        }
         GlideApp.with(imageView.getContext())
                 .load(file)
                 .placeholder(defaultImage)
@@ -134,9 +125,6 @@ public class ImageUtils {
      * @param errorImage   错误图
      */
     public static void showCircle(ImageView imageView, File file, @DrawableRes int defaultImage, @DrawableRes int errorImage) {
-        if(file==null){
-            return;
-        }
         GlideApp.with(imageView.getContext())
                 .load(file)
                 .placeholder(defaultImage)
@@ -151,9 +139,6 @@ public class ImageUtils {
      * @param url 地址
      */
     public static void showCircle(ImageView imageView, String url) {
-        if(StringUtils.isEmpty(url)){
-            return;
-        }
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
                 .placeholder(sDefaultImage)
@@ -171,9 +156,6 @@ public class ImageUtils {
      */
     public static void showCircle(ImageView imageView, String url, @DrawableRes int defaultImage,
             @DrawableRes int errorImage) {
-        if(StringUtils.isEmpty(url)){
-            return;
-        }
         GlideApp.with(imageView.getContext())
                 .load(packUrl(url))
                 .placeholder(defaultImage)
@@ -189,9 +171,6 @@ public class ImageUtils {
      * @param radiusDp 圆角大小
      */
     public static void showRound(ImageView imageView, String url, float radiusDp) {
-        if(StringUtils.isEmpty(url)){
-            return;
-        }
         int radius = ScreenUtils.dpToPxInt(radiusDp);
         ViewGroup.LayoutParams layoutParams = imageView.getLayoutParams();
         GlideApp.with(imageView.getContext())
