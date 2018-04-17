@@ -9,16 +9,20 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import mejust.frame.annotation.TitleBar;
 import mejust.frame.annotation.TitleBarMenu;
+import mejust.frame.compiler.bean.TitleBarInfo;
 
 @AutoService(Processor.class)
 public class ViewInjectProcessor extends AbstractProcessor {
 
     private Filer filer;
     private Elements elementUtils;
+    private InjectInfo injectInfo;
 
     @Override
     public synchronized void init(ProcessingEnvironment processingEnvironment) {
@@ -42,7 +46,41 @@ public class ViewInjectProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment) {
-        // TODO: 2018/04/12 收集相关信息，生成代码
-        return false;
+        injectInfo = new InjectInfo(processingEnv.getMessager());
+        collectionTitleBarInfo(roundEnvironment);
+        collectionTitleBarMenuInfo(roundEnvironment);
+        injectInfo.writeFile(filer);
+        return true;
+    }
+
+    private void collectionTitleBarInfo(RoundEnvironment roundEnvironment) {
+        Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(TitleBar.class);
+        for (Element element : elements) {
+            TitleBar titleBar = element.getAnnotation(TitleBar.class);
+            TitleBarInfo titleBarInfo = new TitleBarInfo();
+            titleBarInfo.setBackgroundColor(titleBar.backgroundColor());
+            titleBarInfo.setColor(titleBar.color());
+            titleBarInfo.setSize(titleBar.size());
+            titleBarInfo.setValue(titleBar.value());
+            injectInfo.putTitleBar((TypeElement) element, titleBarInfo);
+        }
+    }
+
+    private void collectionTitleBarMenuInfo(RoundEnvironment roundEnvironment) {
+        Set<? extends Element> elements =
+                roundEnvironment.getElementsAnnotatedWith(TitleBarMenu.class);
+        for (Element element : elements) {
+            TitleBarMenu titleBarMenu = element.getAnnotation(TitleBarMenu.class);
+            ExecutableElement executableElement = (ExecutableElement) element;
+            TitleBarInfo.TitleBarMenuInfo titleBarMenuInfo =
+                    new TitleBarInfo.TitleBarMenuInfo(executableElement.getSimpleName().toString());
+            titleBarMenuInfo.setIconRes(titleBarMenu.iconRes());
+            titleBarMenuInfo.setLocation(titleBarMenu.location());
+            titleBarMenuInfo.setText(titleBarMenu.text());
+            titleBarMenuInfo.setTextColor(titleBarMenu.textColor());
+            titleBarMenuInfo.setTextSize(titleBarMenu.textSize());
+            injectInfo.putTitleBarMenu((TypeElement) element.getEnclosingElement(),
+                    titleBarMenuInfo);
+        }
     }
 }

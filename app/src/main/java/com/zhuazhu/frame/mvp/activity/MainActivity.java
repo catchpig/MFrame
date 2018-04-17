@@ -3,29 +3,27 @@ package com.zhuazhu.frame.mvp.activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
-
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.module.MainModule;
 import com.zhuazhu.frame.model.User;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
-
 import java.util.List;
-
-import conm.zhuazhu.common.utils.AppUtils;
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TitleBar;
+import mejust.frame.annotation.TitleBarMenu;
 import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.upgrade.ProgressMessageBuilder;
 import mejust.frame.upgrade.ProgressType;
 import mejust.frame.upgrade.UpgradeAppManager;
 import mejust.frame.utils.JsonUtil;
 import mejust.frame.utils.log.Logger;
+import mejust.frame.widget.title.TitleBarMenuLocation;
 
 @LayoutId(R.layout.activity_main)
-@TitleBar(value = "首页", hiddenBack = true)
+@TitleBar(value = "首页", size = 15, color = R.color.c_000)
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
 
@@ -53,6 +51,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         showToastDialog("Hello World", null);
     }
 
+    @TitleBarMenu(location = TitleBarMenuLocation.leftFirstMenu, iconRes = R.drawable.loading_border)
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {

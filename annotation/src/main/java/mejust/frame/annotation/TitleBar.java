@@ -6,33 +6,27 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * 创建时间:2017/12/23 21:25<br/>
- * 创建人: 李涛<br/>
- * 修改人: 李涛<br/>
- * 修改时间: 2017/12/23 21:25<br/>
- */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
 @Documented
 public @interface TitleBar {
     /**
-     * 标题内容
+     * title content
      */
     String value();
 
     /**
-     * 文字的颜色
+     * title color
      */
     int color() default 0;
 
     /**
-     * 文字大小
+     * title size
      */
     float size() default 0;
 
     /**
-     * 背景色
+     * title background
      */
     int backgroundColor() default 0;
 }

@@ -2,15 +2,15 @@ package com.zhuazhu.frame.mvp.activity;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
+import android.view.View;
+import butterknife.BindView;
+import butterknife.OnClick;
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.adpter.ReAdapter;
 import com.zhuazhu.frame.di.module.RecyclerModule;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.RecyclerContract;
 import com.zhuazhu.frame.mvp.presenter.RecyclerPresenterImp;
-
-import butterknife.BindView;
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TitleBar;
 import mejust.frame.mvp.view.BasePresenterActivity;
@@ -26,7 +26,7 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  * 描述:
  */
 @LayoutId(R.layout.activity_recycler)
-@TitleBar(value = "列表", backText = "首页")
+@TitleBar(value = "列表", backgroundColor = R.color.colorAccent)
 public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp>
         implements RecyclerContract.View {
 
@@ -65,5 +65,10 @@ public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp
         mRecycler.addItemDecoration(decoration);
         mRecycler.setLayoutManager(linearLayoutManager);
         mRecycler.setAdapter(adapter);
+    }
+
+    @OnClick(R.id.button_ss)
+    public void clickSS(View view) {
+        System.out.println("fff");
     }
 }

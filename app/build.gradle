@@ -42,9 +42,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':library')
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     annotationProcessor 'com.google.dagger:dagger-compiler:2.15'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation project(':annotation')
+    annotationProcessor project(':compiler')
 }

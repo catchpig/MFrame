@@ -1,32 +1,22 @@
 package mejust.frame.compiler.bean;
 
+import java.util.HashMap;
+
 /**
- * 创建时间: 2018/04/12
- * 创建人: 王培峰
- * 修改人: 王培峰
- * 修改时间: 2018/04/12
- * 描述: <empty/>
+ * @author wangpeifeng
+ * @date 2018/04/17 10:57
  */
 public class TitleBarInfo {
-    /**
-     * 标题内容
-     */
+
     private String value;
 
-    /**
-     * 文字的颜色
-     */
     private int color;
 
-    /**
-     * 文字大小
-     */
     private float size;
 
-    /**
-     * 背景色
-     */
     private int backgroundColor;
+
+    private HashMap<Integer, TitleBarMenuInfo> menuInfoHashMap = new HashMap<>();
 
     public String getValue() {
         return value;
@@ -58,5 +48,93 @@ public class TitleBarInfo {
 
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    public HashMap<Integer, TitleBarMenuInfo> getMenuInfoHashMap() {
+        return menuInfoHashMap;
+    }
+
+    public void addMenuInfo(TitleBarMenuInfo titleBarMenuInfo) {
+        this.menuInfoHashMap.put(titleBarMenuInfo.getLocation(), titleBarMenuInfo);
+    }
+
+    @Override
+    public String toString() {
+        return "TitleBarInfo{"
+                + "value='"
+                + value
+                + '\''
+                + ", color="
+                + color
+                + ", size="
+                + size
+                + ", backgroundColor="
+                + backgroundColor
+                + ", menuInfoHashMap="
+                + menuInfoHashMap
+                + '}';
+    }
+
+    public static class TitleBarMenuInfo {
+
+        private String methodName;
+
+        private int location;
+
+        private int iconRes;
+
+        private String text;
+
+        private int textColor;
+
+        private float textSize;
+
+        public TitleBarMenuInfo(String methodName) {
+            this.methodName = methodName;
+        }
+
+        public int getLocation() {
+            return location;
+        }
+
+        public void setLocation(int location) {
+            this.location = location;
+        }
+
+        public int getIconRes() {
+            return iconRes;
+        }
+
+        public void setIconRes(int iconRes) {
+            this.iconRes = iconRes;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        public int getTextColor() {
+            return textColor;
+        }
+
+        public void setTextColor(int textColor) {
+            this.textColor = textColor;
+        }
+
+        public float getTextSize() {
+            return textSize;
+        }
+
+        public void setTextSize(float textSize) {
+            this.textSize = textSize;
+        }
+
+        public String getMethodName() {
+            return methodName;
+        }
     }
 }

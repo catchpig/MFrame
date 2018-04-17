@@ -6,8 +6,8 @@ import mejust.frame.annotation.ImageRightFirstEvent;
 import mejust.frame.annotation.ImageRightSecondEvent;
 import mejust.frame.annotation.TextRightFirstEvent;
 import mejust.frame.annotation.TextRightSecondEvent;
-import mejust.frame.annotation.TitleBar;
 import mejust.frame.utils.log.Logger;
+import mejust.frame.widget.title.TitleBar;
 
 /**
  * 创建时间:2017/12/23 21:29<br/>
@@ -21,8 +21,8 @@ public class TitleBarAnnotationUtils {
     private static final String TAG = "TitleBarAnnotationUtils";
 
     public static void setRightSecondImageAnnotation(@NonNull Object object, final Method method,
-                                                     ImageRightSecondEvent imageRightSecondEvent,
-                                                     mejust.frame.widget.title.TitleBar titleBar) {
+            ImageRightSecondEvent imageRightSecondEvent,
+            mejust.frame.widget.title.TitleBar titleBar) {
         if (imageRightSecondEvent == null) {
             return;
         } else {
@@ -44,8 +44,8 @@ public class TitleBarAnnotationUtils {
     }
 
     public static void setRightFirstImageAnnotation(@NonNull Object object, final Method method,
-                                                    ImageRightFirstEvent imageRightFirstEvent,
-                                                    mejust.frame.widget.title.TitleBar titleBar) {
+            ImageRightFirstEvent imageRightFirstEvent,
+            mejust.frame.widget.title.TitleBar titleBar) {
         if (imageRightFirstEvent == null) {
             return;
         } else {
@@ -67,8 +67,8 @@ public class TitleBarAnnotationUtils {
     }
 
     public static void setRightTextSecondAnnotation(@NonNull Object object, Method method,
-                                                    TextRightSecondEvent textRightSecondEvent,
-                                                    mejust.frame.widget.title.TitleBar titleBar) {
+            TextRightSecondEvent textRightSecondEvent,
+            mejust.frame.widget.title.TitleBar titleBar) {
         if (textRightSecondEvent == null) {
             return;
         } else {
@@ -90,8 +90,7 @@ public class TitleBarAnnotationUtils {
     }
 
     public static void setRightTextFirstAnnotation(@NonNull Object object, Method method,
-                                                   TextRightFirstEvent textRightFirstEvent,
-                                                   mejust.frame.widget.title.TitleBar titleBar) {
+            TextRightFirstEvent textRightFirstEvent, mejust.frame.widget.title.TitleBar titleBar) {
         if (textRightFirstEvent == null) {
             return;
         } else {
@@ -115,12 +114,12 @@ public class TitleBarAnnotationUtils {
     /**
      * 设置TitleBar
      *
-     * @param cls
-     * @param titleBar
      * @return true:有TitleBar这个注解<br/>false:没有TitleBar这个注解
      */
-    public static boolean setTitleBarAnnotation(Class<?> cls, mejust.frame.widget.title.TitleBar titleBar) {
-        TitleBar bar = AnnotionUtils.annotation(cls, TitleBar.class);
+    public static boolean setTitleBarAnnotation(Class<?> cls,
+            mejust.frame.widget.title.TitleBar titleBar) {
+        //TitleBar bar = AnnotionUtils.annotation(cls, TitleBar.class);
+        TitleBar bar = null;
         if (bar == null) {
             Logger.e(TAG, cls.getName() + "当前类没有TitleBar注解");
             return false;
@@ -148,12 +147,11 @@ public class TitleBarAnnotationUtils {
 
     /**
      * 判断当前类是否有TitileBar这个注解
-     * @param cls
-     * @return
      */
-    public static boolean isTitleBarAnnotation(Class<?> cls){
-        TitleBar titileBar = AnnotionUtils.annotation(cls,TitleBar.class);
-        if(titileBar==null){
+    public static boolean isTitleBarAnnotation(Class<?> cls) {
+        //TitleBar titileBar = AnnotionUtils.annotation(cls,TitleBar.class);
+        TitleBar titleBar = null;
+        if (titleBar == null) {
             return false;
         }
         return true;
