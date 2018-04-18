@@ -13,7 +13,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
-import mejust.frame.annotation.TitleBar;
+import mejust.frame.annotation.TitleBarConfig;
 import mejust.frame.annotation.TitleBarMenu;
 import mejust.frame.compiler.bean.TitleBarInfo;
 
@@ -34,7 +34,7 @@ public class ViewInjectProcessor extends AbstractProcessor {
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         Set<String> set = new HashSet<>();
-        set.add(TitleBar.class.getCanonicalName());
+        set.add(TitleBarConfig.class.getCanonicalName());
         set.add(TitleBarMenu.class.getCanonicalName());
         return set;
     }
@@ -54,14 +54,15 @@ public class ViewInjectProcessor extends AbstractProcessor {
     }
 
     private void collectionTitleBarInfo(RoundEnvironment roundEnvironment) {
-        Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(TitleBar.class);
+        Set<? extends Element> elements =
+                roundEnvironment.getElementsAnnotatedWith(TitleBarConfig.class);
         for (Element element : elements) {
-            TitleBar titleBar = element.getAnnotation(TitleBar.class);
+            TitleBarConfig titleBarConfig = element.getAnnotation(TitleBarConfig.class);
             TitleBarInfo titleBarInfo = new TitleBarInfo();
-            titleBarInfo.setBackgroundColor(titleBar.backgroundColor());
-            titleBarInfo.setColor(titleBar.color());
-            titleBarInfo.setSize(titleBar.size());
-            titleBarInfo.setValue(titleBar.value());
+            titleBarInfo.setBackgroundColor(titleBarConfig.backgroundColor());
+            titleBarInfo.setColor(titleBarConfig.color());
+            titleBarInfo.setSize(titleBarConfig.size());
+            titleBarInfo.setValue(titleBarConfig.value());
             injectInfo.putTitleBar((TypeElement) element, titleBarInfo);
         }
     }

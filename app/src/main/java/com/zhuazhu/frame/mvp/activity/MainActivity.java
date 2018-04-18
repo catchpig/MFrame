@@ -2,36 +2,32 @@ package com.zhuazhu.frame.mvp.activity;
 
 import android.content.Intent;
 import android.view.View;
-import android.widget.TextView;
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.module.MainModule;
-import com.zhuazhu.frame.model.User;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
-import java.util.List;
 import mejust.frame.annotation.LayoutId;
-import mejust.frame.annotation.TextRightFirstEvent;
-import mejust.frame.annotation.TitleBar;
+import mejust.frame.annotation.TitleBarConfig;
 import mejust.frame.annotation.TitleBarMenu;
 import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.upgrade.ProgressMessageBuilder;
 import mejust.frame.upgrade.ProgressType;
 import mejust.frame.upgrade.UpgradeAppManager;
-import mejust.frame.utils.JsonUtil;
 import mejust.frame.utils.log.Logger;
 import mejust.frame.widget.title.TitleBarMenuLocation;
 
+/**
+ * @author wangpeifeng
+ * @date 2018/04/18 9:25
+ */
 @LayoutId(R.layout.activity_main)
-@TitleBar(value = "首页", size = 15, color = R.color.c_000)
+@TitleBarConfig(value = "首页", size = 15, color = R.color.c_000)
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
 
     @Override
     protected void initParam() {
-        String user = "[{\"username\":\"132\"}]";
-        List<User> list = JsonUtil.toList(user, User.class);
-        System.out.println(list);
     }
 
     @Override
@@ -41,17 +37,14 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void initView() {
-        User user = new User();
-
         mStatusBar.transparentBar().init();
     }
 
-    @TextRightFirstEvent("详情")
-    public void detail(TextView v) {
+    @TitleBarMenu(location = TitleBarMenuLocation.leftFirstMenu, iconRes = R.drawable.loading_border)
+    public void detail(View v) {
         showToastDialog("Hello World", null);
     }
 
-    @TitleBarMenu(location = TitleBarMenuLocation.leftFirstMenu, iconRes = R.drawable.loading_border)
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {

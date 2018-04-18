@@ -35,7 +35,8 @@ public class InjectInfo {
     private static final ClassName CONTEXT = ClassName.get("android.content", "Context");
     private static final ClassName VIEW = ClassName.get("android.view", "View");
     private static final String ACTIVITY_TYPE = "android.app.Activity";
-    private static final String FRAGMENT_TYPE = "android.support.v4.app.Fragment";
+    private static final String FRAGMENT_TYPE_SUPPORT = "android.support.v4.app.Fragment";
+    private static final String FRAGMENT_TYPE = "android.app.Fragment";
 
     private Messager messager;
 
@@ -89,7 +90,8 @@ public class InjectInfo {
         TypeMirror typeMirror = typeElement.asType();
         if (isSubtypeOfType(typeMirror, ACTIVITY_TYPE)) {
             builder.addStatement("$T context = target", CONTEXT);
-        } else if (isSubtypeOfType(typeMirror, FRAGMENT_TYPE)) {
+        } else if (isSubtypeOfType(typeMirror, FRAGMENT_TYPE) || isSubtypeOfType(typeMirror,
+                FRAGMENT_TYPE_SUPPORT)) {
             builder.addStatement("$T context = target.getContext()", CONTEXT);
         }
         generateStatement(builder, value);

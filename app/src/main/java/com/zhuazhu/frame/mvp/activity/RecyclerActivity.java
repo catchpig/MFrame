@@ -12,7 +12,7 @@ import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.RecyclerContract;
 import com.zhuazhu.frame.mvp.presenter.RecyclerPresenterImp;
 import mejust.frame.annotation.LayoutId;
-import mejust.frame.annotation.TitleBar;
+import mejust.frame.annotation.TitleBarConfig;
 import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.widget.divider.SpacesItemDecoration;
 import mejust.frame.widget.refresh.OnRefreshListener;
@@ -26,7 +26,7 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  * 描述:
  */
 @LayoutId(R.layout.activity_recycler)
-@TitleBar(value = "列表", backgroundColor = R.color.colorAccent)
+@TitleBarConfig(value = "列表", backgroundColor = R.color.colorAccent)
 public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp>
         implements RecyclerContract.View {
 
