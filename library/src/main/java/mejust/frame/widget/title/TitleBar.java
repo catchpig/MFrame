@@ -17,37 +17,57 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import conm.zhuazhu.common.utils.ScreenUtils;
 import mejust.frame.R;
+import mejust.frame.annotation.TitleBarMenuLocation;
 
 /**
- * 创建时间: 2018/04/12
- * 创建人: 王培峰
- * 修改人: 王培峰
- * 修改时间: 2018/04/12
- * 描述: <empty/>
+ * @author wangpeifeng
+ * @date 2018/04/18 11:07
  */
 public class TitleBar extends LinearLayout {
 
-    // 标题栏左边菜单区域
+    /**
+     * 标题栏左边菜单区域
+     */
     private LinearLayout layoutToolLeft;
-    // 标题栏右边菜单区域
+    /**
+     * 标题栏右边菜单区域
+     */
     private LinearLayout layoutToolRight;
-    // 中心标题内容
+    /**
+     * 中心标题内容
+     */
     private FrameLayout layoutToolCenter;
-    // 标题栏背景颜色
+    /**
+     * 标题栏背景颜色
+     */
     private int barColor;
-    // 标题栏高度
+    /**
+     * 标题栏高度
+     */
     private int barHeight;
-    // 中心文本颜色
+    /**
+     * 中心文本颜色
+     */
     private int centerTitleColor;
-    // 中心文本大小
+    /**
+     * 中心文本大小
+     */
     private float centerTitleSize;
-    // 菜单图标大小
+    /**
+     * 菜单图标大小
+     */
     private int menuIconSize;
-    // 菜单文本颜色
+    /**
+     * 菜单文本颜色
+     */
     private int menuTextColor;
-    // 菜单文本大小
+    /**
+     * 菜单文本大小
+     */
     private float menuTextSize;
-    // 传入的配置
+    /**
+     * 传入的配置
+     */
     private TitleBarSetting titleBarSetting;
 
     public TitleBar(Context context) {

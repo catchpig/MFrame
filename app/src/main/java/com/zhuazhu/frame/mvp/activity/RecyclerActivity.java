@@ -7,7 +7,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.adpter.ReAdapter;
-import com.zhuazhu.frame.di.module.RecyclerModule;
+import com.zhuazhu.frame.di.module.RecyclerModuleBase;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.RecyclerContract;
 import com.zhuazhu.frame.mvp.presenter.RecyclerPresenterImp;
@@ -43,7 +43,7 @@ public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp
     @Override
     protected void injectComponent() {
         FrameApplication.getAppComponent()
-                .recyclerComponent(new RecyclerModule(this, mRefresh))
+                .recyclerComponent(new RecyclerModuleBase(this, mRefresh))
                 .inject(this);
     }
 

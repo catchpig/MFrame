@@ -1,9 +1,9 @@
 package com.zhuazhu.frame.di.component;
 
 import com.zhuazhu.frame.data.HttpHelper;
-import com.zhuazhu.frame.di.module.MainModule;
+import com.zhuazhu.frame.di.module.MainModuleBase;
 import com.zhuazhu.frame.di.module.NetModule;
-import com.zhuazhu.frame.di.module.RecyclerModule;
+import com.zhuazhu.frame.di.module.RecyclerModuleBase;
 
 import javax.inject.Singleton;
 
@@ -20,7 +20,7 @@ public interface AppComponent {
 
     HttpHelper getHttpHelper();
 
-    MainComponent mainComponent(MainModule mainModule);
+    MainComponent mainComponent(MainModuleBase mainModule);
 
-    RecyclerComponent recyclerComponent(RecyclerModule module);
+    RecyclerComponent recyclerComponent(RecyclerModuleBase module);
 }

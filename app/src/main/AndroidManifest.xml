@@ -20,12 +20,12 @@
        android:name=".mvp.activity.MainActivity"
        android:launchMode="singleTask">
 
-      <!-- <intent-filter> -->
-      <!-- <action android:name="android.intent.action.MAIN"/> -->
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
 
 
-      <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-      <!-- </intent-filter> -->
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
     </activity>
     <activity
        android:name=".mvp.activity.ImageActivity"
@@ -38,11 +38,11 @@
        android:screenOrientation="portrait">
     </activity>
     <activity android:name=".mvp.activity.TitleBarActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+      <!--<intent-filter>-->
+      <!--<action android:name="android.intent.action.MAIN"/>-->
 
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
+      <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+      <!--</intent-filter>-->
     </activity>
   </application>
 

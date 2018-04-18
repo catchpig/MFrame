@@ -1,15 +1,12 @@
-package mejust.frame.widget.title;
+package mejust.frame.annotation;
 
 import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * 创建时间: 2018/04/12
- * 创建人: 王培峰
- * 修改人: 王培峰
- * 修改时间: 2018/04/12
- * 描述: <empty/>
+ * @author wangpeifeng
+ * @date 2018/04/18 11:04
  */
 @Retention(RetentionPolicy.SOURCE)
 @IntDef({

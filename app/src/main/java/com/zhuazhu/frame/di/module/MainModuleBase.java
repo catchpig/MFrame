@@ -3,7 +3,7 @@ package com.zhuazhu.frame.di.module;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 
 import dagger.Module;
-import mejust.frame.di.module.ActivityModule;
+import mejust.frame.di.module.BaseActivityModule;
 
 /**
  * @author : Beaven
@@ -11,9 +11,9 @@ import mejust.frame.di.module.ActivityModule;
  */
 
 @Module
-public class MainModule extends ActivityModule<MainContract.View> {
+public class MainModuleBase extends BaseActivityModule<MainContract.View> {
 
-    public MainModule(MainContract.View view) {
+    public MainModuleBase(MainContract.View view) {
         super(view);
     }
 }

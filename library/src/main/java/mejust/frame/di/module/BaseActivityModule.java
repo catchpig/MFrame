@@ -13,11 +13,11 @@ import mejust.frame.mvp.BaseContract;
  * 描述:
  */
 @Module
-public abstract class ActivityModule<V extends BaseContract.View> {
+public abstract class BaseActivityModule<V extends BaseContract.View> {
 
     private final V mView;
 
-    public ActivityModule(V v) {
+    public BaseActivityModule(V v) {
         mView = v;
     }
 

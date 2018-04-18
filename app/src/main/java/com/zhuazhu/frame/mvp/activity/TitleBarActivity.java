@@ -11,7 +11,7 @@ import mejust.frame.annotation.TitleBarConfig;
 import mejust.frame.annotation.TitleBarMenu;
 import mejust.frame.utils.TitleBarUtil;
 import mejust.frame.widget.title.TitleBar;
-import mejust.frame.widget.title.TitleBarMenuLocation;
+import mejust.frame.annotation.TitleBarMenuLocation;
 import mejust.frame.widget.title.TitleBarSetting;
 
 /**

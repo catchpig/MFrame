@@ -1,39 +1,31 @@
 package com.zhuazhu.frame.mvp.application;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.app.Application;
 import android.graphics.Color;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.zhuazhu.frame.BuildConfig;
-import com.zhuazhu.frame.FrameConfig;
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.component.AppComponent;
 import com.zhuazhu.frame.di.component.DaggerAppComponent;
 import com.zhuazhu.frame.di.module.NetModule;
 import com.zhuazhu.frame.mvp.activity.MainActivity;
 import conm.zhuazhu.common.utils.Utils;
-import mejust.frame.app.BaseApplication;
+import mejust.frame.annotation.TitleBarMenuLocation;
+import mejust.frame.app.AppConfig;
 import mejust.frame.di.module.AppModule;
 import mejust.frame.image.ImageUtils;
-import mejust.frame.mvp.view.BaseActivity;
-import mejust.frame.mvp.view.option.DefaultActivityOption;
+import mejust.frame.widget.title.TitleBarSetting;
 
 /**
  * @author : Beaven
  * @date : 2017-12-20 11:39
  */
 
-public class FrameApplication extends BaseApplication {
+public class FrameApplication extends Application {
 
     static {
-        BaseActivity.setDefaultActivityOption(new DefaultActivityOption() {
-            @Override
-            public void login(Activity activity) {
-                activity.startActivity(new Intent(activity, MainActivity.class));
-            }
-        });
         SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> {
             ClassicsHeader classicsHeader = new ClassicsHeader(context);
             layout.setEnableHeaderTranslationContent(false);
@@ -46,9 +38,18 @@ public class FrameApplication extends BaseApplication {
 
     @Override
     public void onCreate() {
-        FrameConfig.init();
         super.onCreate();
+        AppConfig.init(this, BuildConfig.DEBUG);
+        AppConfig.setLoginClass(MainActivity.class);
+        setTitleBar();
         initImage();
+    }
+
+    private void setTitleBar() {
+        TitleBarSetting.TitleMenu titleMenu =
+                new TitleBarSetting.TitleMenu(TitleBarMenuLocation.leftFirstMenu);
+        titleMenu.setIconDrawableRes(getApplicationContext(), R.drawable.ic_arrow_back_white_24dp);
+        AppConfig.setTitleBar(new TitleBarSetting.Builder().build());
     }
 
     private static AppComponent appComponent;

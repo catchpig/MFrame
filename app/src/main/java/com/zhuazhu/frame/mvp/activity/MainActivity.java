@@ -3,7 +3,7 @@ package com.zhuazhu.frame.mvp.activity;
 import android.content.Intent;
 import android.view.View;
 import com.zhuazhu.frame.R;
-import com.zhuazhu.frame.di.module.MainModule;
+import com.zhuazhu.frame.di.module.MainModuleBase;
 import com.zhuazhu.frame.mvp.application.FrameApplication;
 import com.zhuazhu.frame.mvp.contract.MainContract;
 import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
@@ -15,14 +15,14 @@ import mejust.frame.upgrade.ProgressMessageBuilder;
 import mejust.frame.upgrade.ProgressType;
 import mejust.frame.upgrade.UpgradeAppManager;
 import mejust.frame.utils.log.Logger;
-import mejust.frame.widget.title.TitleBarMenuLocation;
+import mejust.frame.annotation.TitleBarMenuLocation;
 
 /**
  * @author wangpeifeng
  * @date 2018/04/18 9:25
  */
 @LayoutId(R.layout.activity_main)
-@TitleBarConfig(value = "首页", size = 15, color = R.color.c_000)
+@TitleBarConfig(value = "首页", size = 15)
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
 
@@ -32,15 +32,14 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @Override
     protected void injectComponent() {
-        FrameApplication.getAppComponent().mainComponent(new MainModule(this)).inject(this);
+        FrameApplication.getAppComponent().mainComponent(new MainModuleBase(this)).inject(this);
     }
 
     @Override
     protected void initView() {
-        mStatusBar.transparentBar().init();
     }
 
-    @TitleBarMenu(location = TitleBarMenuLocation.leftFirstMenu, iconRes = R.drawable.loading_border)
+    @TitleBarMenu(location = TitleBarMenuLocation.rightFirstMenu, text = "测试")
     public void detail(View v) {
         showToastDialog("Hello World", null);
     }

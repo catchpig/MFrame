@@ -5,7 +5,7 @@ import com.zhuazhu.frame.mvp.contract.RecyclerContract;
 
 import dagger.Module;
 import dagger.Provides;
-import mejust.frame.di.module.ActivityModule;
+import mejust.frame.di.module.BaseActivityModule;
 import mejust.frame.widget.refresh.IPageControl;
 
 /**
@@ -16,11 +16,11 @@ import mejust.frame.widget.refresh.IPageControl;
  * 描述:
  */
 @Module
-public class RecyclerModule extends ActivityModule<RecyclerContract.View> {
+public class RecyclerModuleBase extends BaseActivityModule<RecyclerContract.View> {
 
     private IPageControl mPageControl;
 
-    public RecyclerModule(RecyclerContract.View view, IPageControl pageControl) {
+    public RecyclerModuleBase(RecyclerContract.View view, IPageControl pageControl) {
         super(view);
         mPageControl = pageControl;
     }

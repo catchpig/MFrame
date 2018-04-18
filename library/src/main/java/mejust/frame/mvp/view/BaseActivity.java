@@ -1,10 +1,11 @@
 package mejust.frame.mvp.view;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -19,40 +20,20 @@ import conm.zhuazhu.common.utils.KeyboardUtils;
 import conm.zhuazhu.common.utils.NetworkUtils;
 import mejust.frame.R;
 import mejust.frame.annotation.utils.AnnotationBind;
-import mejust.frame.annotation.utils.AnnotionUtils;
 import mejust.frame.app.AppConfig;
 import mejust.frame.mvp.BaseContract;
-import mejust.frame.mvp.view.option.DefaultActivityOption;
 import mejust.frame.receiver.NetworkReceiver;
+import mejust.frame.utils.TitleBarUtil;
 import mejust.frame.widget.ToastMsg;
 import mejust.frame.widget.dialog.ToastDialog;
 import mejust.frame.widget.title.StatusBar;
 import mejust.frame.widget.title.TitleBar;
+import mejust.frame.widget.title.TitleBarSetting;
 
 /**
- * 创建时间:2017-12-21 10:41<br/>
- * 创建人: 王培峰<br/>
- * 修改人: 李涛<br/>
- * 修改时间: 2017-12-21 10:41<br/>
- * 描述: 无MVP的基类<br/>
  * <p>
  * 添加布局文件,不再调用setContentView方法,在继承的子类上添加<br/>
  * {@link mejust.frame.annotation.LayoutId}注解<br/><br/>
- * <p>
- * 默认的标题,用标题栏注解<br/>
- * {@link mejust.frame.annotation.TitleBar}<br/><br/>
- * <p>
- * 标题栏右边第一个文字的按钮监听和文字的设置用注解<br/>
- * {@link mejust.frame.annotation.TextRightFirstEvent}<br/><br/>
- * <p>
- * 标题栏右边第二个文字的按钮监听和文字的设置用注解<br/>
- * {@link mejust.frame.annotation.TextRightSecondEvent}<br/><br/>
- * <p>
- * 标题栏右边第一个图片的按钮监听和文字的设置用注解<br/>
- * {@link mejust.frame.annotation.ImageRightFirstEvent}<br/><br/>
- * <p>
- * 标题栏右边第二个图片的按钮监听和文字的设置用注解<br/>
- * {@link mejust.frame.annotation.ImageRightSecondEvent}<br/><br/>
  * <p>
  * 状态栏设置,用注解<br/>
  * {@link mejust.frame.annotation.StatusBar}
@@ -60,13 +41,14 @@ import mejust.frame.widget.title.TitleBar;
  * 在manifest中必须开启权限:<br/>
  * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}
  * <p>
+ *
+ * @author litao wangpeifeng
+ * @date 2018/04/18 11:10
  */
 public abstract class BaseActivity extends AppCompatActivity implements BaseContract.View {
 
-    private static DefaultActivityOption sActivityOption;
     private FrameLayout mLayoutBody;
     private Unbinder mUnBinder;
-    private TitleBar mTitleBar;
     private View mLoadingView;
     private Dialog mLoadingDialog;
     private NetworkReceiver mNetworkReceiver;
@@ -79,7 +61,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
      */
     private boolean isInflate = false;
 
-    @CallSuper
+    protected TitleBar mTitleBar;
+
+    private TitleBarSetting titleBarSetting = AppConfig.getTitleBarSetting();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,10 +83,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         if (mLayoutBody == null) {
             mLayoutBody = findViewById(R.id.layout_body);
         }
-        ViewGroup.LayoutParams params =
-                new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT);
-        mLayoutBody.addView(view, params);
+        mLayoutBody.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     @Override
@@ -141,13 +124,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     }
 
     /**
-     * 设置基类activity的参数(标题栏参数,状态栏颜色,登录页面)
-     */
-    public static void setDefaultActivityOption(DefaultActivityOption option) {
-        sActivityOption = option;
-    }
-
-    /**
      * 初始化网络未打开的提示控件
      */
     private void initNetworkTip() {
@@ -170,29 +146,20 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
      * 初始化TitleBar
      */
     private void initTitleBar() {
-        //mTitleBar = findViewById(R.id.title_bar);
-        ////有@TitleBar这个注解,才执行下面的操作
-        //if (TitleBarAnnotationUtils.isTitleBarAnnotation(this.getClass())) {
-        //    titleBarOptions = sActivityOption.titleBarOption();
-        //    mTitleBar.setOptions(titleBarOptions);
-        //    AnnotationBind.injectTitleBar(this, mTitleBar);
-        //    //设置返回按钮监听事件(关闭当前页面)
-        //    mTitleBar.setBackListener(v -> finish());
-        //} else {
-        //    mTitleBar.setVisibility(View.GONE);
-        //}
+        mTitleBar = findViewById(R.id.title_bar);
+        titleBarSetting = TitleBarUtil.inject(this, mTitleBar, titleBarSetting);
     }
 
     /**
      * 初始化状态栏
      */
     private void initStatusBar() {
-        mejust.frame.annotation.StatusBar statusBar =
-                AnnotionUtils.annotation(this.getClass(), mejust.frame.annotation.StatusBar.class);
-        if (statusBar != null && !statusBar.isInitActivity()) {
-            return;
-        }
-        mStatusBar = StatusBar.with(this);
+        //mejust.frame.annotation.StatusBar statusBar =
+        //        AnnotionUtils.annotation(this.getClass(), mejust.frame.annotation.StatusBar.class);
+        //if (statusBar != null && !statusBar.isInitActivity()) {
+        //    return;
+        //}
+        //mStatusBar = StatusBar.with(this);
         //if (TitleBarAnnotationUtils.isTitleBarAnnotation(this.getClass())) {
         //    mStatusBar = mStatusBar.statusBarView(R.id.top_view)
         //            .statusBarColor(sActivityOption.titleBarOption().getBackgroundColor());
@@ -202,7 +169,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         //        mStatusBar = mStatusBar.statusBarDarkFont(true, 0.2f);
         //    }
         //}
-        mStatusBar.init();
+        //mStatusBar.init();
     }
 
     @Override
@@ -230,7 +197,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
                 return;
             }
             mLoadingDialog = new Dialog(BaseActivity.this, R.style.mframe_imagedialog);
-            mLoadingDialog.setCancelable(false);// 不可以用“返回键”取消
+            // 不可以用“返回键”取消
+            mLoadingDialog.setCancelable(false);
             mLoadingDialog.setContentView(R.layout.dialog_loading);
             mLoadingDialog.show();
         });
@@ -261,7 +229,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     @Override
     public void startLoginActivity() {
-        sActivityOption.login(this);
+        Class<? extends Activity> loginClass = AppConfig.getLoginClass();
+        if (loginClass == null) {
+            throw new IllegalArgumentException("login Activity class is null,please set");
+        }
+        startActivity(new Intent(this, loginClass));
     }
 
     @Override

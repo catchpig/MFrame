@@ -10,19 +10,30 @@ import android.util.SparseArray;
 import android.view.View;
 
 /**
- * @author Beaven
+ * @author wangpeifeng
+ * @date 2018/04/18 11:07
  */
 public class TitleBarSetting {
 
-    // title背景颜色
+    /**
+     * title背景颜色
+     */
     private int backgroundColor;
-    // 标题
+    /**
+     * 标题
+     */
     private String titleTextContent;
-    // 标题大小
+    /**
+     * 标题大小
+     */
     private float titleTextSize;
-    // 标题颜色
+    /**
+     * 标题颜色
+     */
     private int titleTextColor;
-    // 菜单列表
+    /**
+     * 菜单列表
+     */
     private SparseArray<TitleMenu> menuArray;
 
     public TitleBarSetting(Builder builder) {
@@ -82,15 +93,14 @@ public class TitleBarSetting {
 
     public static class Builder {
 
-        // title背景颜色
         private int backgroundColor = 0;
-        // 标题
+
         private String titleTextContent;
-        // 标题大小
+
         private float titleTextSize = 0;
-        // 标题颜色
+
         private int titleTextColor = 0;
-        // 菜单列表
+
         private SparseArray<TitleMenu> menuArray;
 
         public Builder setBackgroundColor(@ColorInt int color) {
