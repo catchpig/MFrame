@@ -15,12 +15,12 @@ import java.lang.annotation.RetentionPolicy;
 })
 public @interface TitleBarMenuLocation {
 
-    /** 左边第一个，默认为返回键位置 */
+    /** The first on the left, the default is the return key position */
     int leftFirstMenu = 0x01;
-    /** 左边第二个 */
+    /** The second on the left */
     int leftSecondMenu = 0x02;
-    /** 右边第一个 */
+    /** The first on the right */
     int rightFirstMenu = 0x11;
-    /** 右边第二个 */
+    /** The second on the right */
     int rightSecondMenu = 0x12;
 }

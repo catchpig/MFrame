@@ -62,10 +62,10 @@ public final class AppConfig {
      */
     private static TitleBarSetting titleBarSetting = new TitleBarSetting.Builder().build();
 
-    public static void init(Application application, boolean debug) {
-        AppConfig.DEBUG = debug;
-        CrashHandler.getInstance().init(application);
+    public static void init(Application application, ConfigInterface configInterface) {
+        setConfigInterface(configInterface);
         Utils.init(application);
+        CrashHandler.getInstance().init(application);
         ToastMsg.init(application);
         if (AppConfig.DEBUG) {
             Timber.plant(new DebugLogTree());
@@ -74,19 +74,17 @@ public final class AppConfig {
         }
     }
 
-    public static void setLoginClass(Class<? extends Activity> cls) {
-        AppConfig.loginClass = cls;
-    }
-
-    public static void setTitleBar(TitleBarSetting titleBarSetting) {
-        AppConfig.titleBarSetting = titleBarSetting;
-    }
-
     public static Class<? extends Activity> getLoginClass() {
         return AppConfig.loginClass;
     }
 
     public static TitleBarSetting getTitleBarSetting() {
         return titleBarSetting;
+    }
+
+    private static void setConfigInterface(ConfigInterface configInterface) {
+        AppConfig.DEBUG = configInterface.isAppDebug();
+        AppConfig.loginClass = configInterface.getLoginActivityClass();
+        AppConfig.titleBarSetting = configInterface.getTitleBarSetting();
     }
 }

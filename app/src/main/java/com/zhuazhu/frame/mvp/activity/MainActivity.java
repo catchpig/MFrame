@@ -1,6 +1,7 @@
 package com.zhuazhu.frame.mvp.activity;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.module.MainModuleBase;
@@ -10,12 +11,11 @@ import com.zhuazhu.frame.mvp.presenter.MainPresenterImp;
 import mejust.frame.annotation.LayoutId;
 import mejust.frame.annotation.TitleBarConfig;
 import mejust.frame.annotation.TitleBarMenu;
+import mejust.frame.annotation.TitleBarMenuLocation;
 import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.upgrade.ProgressMessageBuilder;
 import mejust.frame.upgrade.ProgressType;
 import mejust.frame.upgrade.UpgradeAppManager;
-import mejust.frame.utils.log.Logger;
-import mejust.frame.annotation.TitleBarMenuLocation;
 
 /**
  * @author wangpeifeng
@@ -25,6 +25,8 @@ import mejust.frame.annotation.TitleBarMenuLocation;
 @TitleBarConfig(value = "首页", size = 15)
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void initParam() {
@@ -41,6 +43,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @TitleBarMenu(location = TitleBarMenuLocation.rightFirstMenu, text = "测试")
     public void detail(View v) {
+        Log.i(TAG, "detail: ---------------------------------");
         showToastDialog("Hello World", null);
     }
 
@@ -56,9 +59,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
                 startActivity(intent);
                 break;
             case R.id.puppet:
-                //intent.setClass(this, PuppetActivity.class);
-                //startActivity(intent);
-                showToastDialog("你好", v1 -> Logger.i("点击确定"));
+                startActivity(intent.setClass(this, PuppetActivity.class));
                 break;
             case R.id.upgrade:
                 new UpgradeAppManager(

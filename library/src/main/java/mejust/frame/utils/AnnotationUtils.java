@@ -1,18 +1,14 @@
-package mejust.frame.annotation.utils;
+package mejust.frame.utils;
 
 import android.support.annotation.NonNull;
 
 import java.lang.annotation.Annotation;
 
 /**
- * 创建时间:2017/4/2 18:18
- * 创建人: 李涛
- * 修改人:
- * 修改时间:
- * 描述:获取注解内容工具类
+ * @author litao
+ * @date 2017/4/2 18:18
  */
-
-public class AnnotionUtils {
+public class AnnotationUtils {
     /**
      * 只在当前类中获取注解类
      *

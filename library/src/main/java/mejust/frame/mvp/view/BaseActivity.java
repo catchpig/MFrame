@@ -19,16 +19,17 @@ import butterknife.Unbinder;
 import conm.zhuazhu.common.utils.KeyboardUtils;
 import conm.zhuazhu.common.utils.NetworkUtils;
 import mejust.frame.R;
-import mejust.frame.annotation.utils.AnnotationBind;
+import mejust.frame.annotation.StatusBarConfig;
 import mejust.frame.app.AppConfig;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.receiver.NetworkReceiver;
+import mejust.frame.utils.ContentViewBind;
+import mejust.frame.utils.StatusBarUtil;
 import mejust.frame.utils.TitleBarUtil;
 import mejust.frame.widget.ToastMsg;
 import mejust.frame.widget.dialog.ToastDialog;
 import mejust.frame.widget.title.StatusBar;
 import mejust.frame.widget.title.TitleBar;
-import mejust.frame.widget.title.TitleBarSetting;
 
 /**
  * <p>
@@ -36,7 +37,7 @@ import mejust.frame.widget.title.TitleBarSetting;
  * {@link mejust.frame.annotation.LayoutId}注解<br/><br/>
  * <p>
  * 状态栏设置,用注解<br/>
- * {@link mejust.frame.annotation.StatusBar}
+ * {@link StatusBarConfig}
  * <p>
  * 在manifest中必须开启权限:<br/>
  * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}
@@ -63,17 +64,15 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     protected TitleBar mTitleBar;
 
-    private TitleBarSetting titleBarSetting = AppConfig.getTitleBarSetting();
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 方法调用顺序不能改变
         super.setContentView(R.layout.view_root);
-        AnnotationBind.injectLayoutId(this);
+        ContentViewBind.injectLayoutId(this);
         mUnBinder = ButterKnife.bind(this);
         initTitleBar();
-        initStatusBar();
+        mStatusBar = StatusBarUtil.init(this, mTitleBar);
         initLoadingView();
         initNetworkTip();
     }
@@ -147,29 +146,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
      */
     private void initTitleBar() {
         mTitleBar = findViewById(R.id.title_bar);
-        titleBarSetting = TitleBarUtil.inject(this, mTitleBar, titleBarSetting);
-    }
-
-    /**
-     * 初始化状态栏
-     */
-    private void initStatusBar() {
-        //mejust.frame.annotation.StatusBar statusBar =
-        //        AnnotionUtils.annotation(this.getClass(), mejust.frame.annotation.StatusBar.class);
-        //if (statusBar != null && !statusBar.isInitActivity()) {
-        //    return;
-        //}
-        //mStatusBar = StatusBar.with(this);
-        //if (TitleBarAnnotationUtils.isTitleBarAnnotation(this.getClass())) {
-        //    mStatusBar = mStatusBar.statusBarView(R.id.top_view)
-        //            .statusBarColor(sActivityOption.titleBarOption().getBackgroundColor());
-        //    if (StatusBarUtils.isDarkStatus(ContextCompat.getColor(this,
-        //            sActivityOption.titleBarOption().getBackgroundColor())) || (statusBar != null
-        //            && statusBar.isDarkStatus())) {
-        //        mStatusBar = mStatusBar.statusBarDarkFont(true, 0.2f);
-        //    }
-        //}
-        //mStatusBar.init();
+        TitleBarUtil.inject(this, mTitleBar, AppConfig.getTitleBarSetting());
     }
 
     @Override

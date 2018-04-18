@@ -8,6 +8,10 @@ import mejust.frame.annotation.LayoutId;
 import mejust.frame.image.ImageUtils;
 import mejust.frame.mvp.view.BaseActivity;
 
+/**
+ * @author wangpeifeng
+ * @date 2018/04/18 17:12
+ */
 @LayoutId(R.layout.activity_puppet)
 public class PuppetActivity extends BaseActivity {
     private String url = "http://image.tianjimedia.com/uploadImages/2015/285/24/586K2UOWHG9D.jpg";

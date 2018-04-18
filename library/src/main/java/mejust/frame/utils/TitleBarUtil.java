@@ -12,8 +12,7 @@ import mejust.frame.widget.title.TitleBarSetting;
 public class TitleBarUtil {
 
     @SuppressWarnings("unchecked")
-    public static TitleBarSetting inject(Activity activity, TitleBar titleBar,
-            TitleBarSetting setting) {
+    public static void inject(Activity activity, TitleBar titleBar, TitleBarSetting setting) {
         TitleBarSetting titleBarSetting = setting;
         try {
             String className = activity.getClass().getName() + "_TitleBarInject";
@@ -23,10 +22,8 @@ public class TitleBarUtil {
             titleBarSetting =
                     (TitleBarSetting) method.invoke(cls.newInstance(), activity, titleBarSetting);
             titleBar.setTitleBarSetting(titleBarSetting);
-            return titleBarSetting;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return setting;
     }
 }

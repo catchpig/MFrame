@@ -42,7 +42,7 @@ dependencies {
     //刷新控件
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
     //工具包
-    api('com.github.zhuazhu:Common:1.0.6', {
+    api('com.github.zhuazhu:Common:1.0.7', {
         exclude group: 'com.android.support'
     })
     api 'com.google.code.gson:gson:2.8.2'

@@ -1,4 +1,4 @@
-package mejust.frame.annotation.utils;
+package mejust.frame.utils;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -7,25 +7,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import mejust.frame.annotation.LayoutId;
-import mejust.frame.utils.log.Logger;
+import mejust.frame.utils.AnnotationUtils;
 
 /**
  * @author litao
  * @date 2018/04/18 9:20
  */
-public class AnnotationBind {
-
-    private static final String TAG = AnnotationBind.class.getSimpleName();
+public class ContentViewBind {
 
     /**
      * 注入activity的布局文件
      */
     public static void injectLayoutId(@NonNull Activity activity) {
-        LayoutId layoutId = AnnotionUtils.annotationRecycle(activity.getClass(), LayoutId.class);
+        LayoutId layoutId = AnnotationUtils.annotationRecycle(activity.getClass(), LayoutId.class);
         if (layoutId != null) {
             activity.setContentView(layoutId.value());
         } else {
-            Logger.i(TAG, "layoutId为空,请设置layoutId");
+            throw new IllegalArgumentException(
+                    "layoutId is null, please use @LayoutId in Activity");
         }
     }
 
@@ -36,12 +35,13 @@ public class AnnotationBind {
      */
     public static View injectLayoutId(Fragment fragment, LayoutInflater inflater,
             ViewGroup container) {
-        LayoutId layoutId = AnnotionUtils.annotationRecycle(fragment.getClass(), LayoutId.class);
-        View v = null;
+        LayoutId layoutId = AnnotationUtils.annotationRecycle(fragment.getClass(), LayoutId.class);
+        View v;
         if (layoutId != null) {
             v = inflater.inflate(layoutId.value(), container, false);
         } else {
-            Logger.i(TAG, "layoutId为空,请设置layoutId");
+            throw new IllegalArgumentException(
+                    "layoutId is null, please use @LayoutId in Fragment");
         }
         return v;
     }

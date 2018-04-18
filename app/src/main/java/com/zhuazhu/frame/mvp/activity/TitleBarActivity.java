@@ -36,7 +36,7 @@ public class TitleBarActivity extends AppCompatActivity {
         titleMenu.setIconDrawable(ContextCompat.getDrawable(this, R.mipmap.back));
         titleMenu.setClickListener(v -> finish());
         titleBarSetting = new TitleBarSetting.Builder().addTitleMenu(titleMenu).build();
-        titleBarSetting = TitleBarUtil.inject(this, titleBar, titleBarSetting);
+        TitleBarUtil.inject(this, titleBar, titleBarSetting);
         Log.i(TAG, "onCreate: titleBarSetting--" + titleBarSetting.toString());
     }
 
