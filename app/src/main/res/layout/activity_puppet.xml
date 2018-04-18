@@ -7,16 +7,12 @@
    android:orientation="vertical"
    tools:context="com.zhuazhu.frame.mvp.activity.PuppetActivity"
    >
-  <FrameLayout
-     android:id="@+id/fragment"
+  <ImageView
+     android:id="@+id/image"
      android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     >
-    <ImageView
-       android:id="@+id/image"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:scaleType="fitXY"
-       />
-  </FrameLayout>
+     android:layout_height="wrap_content"
+     android:contentDescription="@null"
+     android:scaleType="fitXY"
+     android:src="@drawable/test"
+     />
 </LinearLayout>
