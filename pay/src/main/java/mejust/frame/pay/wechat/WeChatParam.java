@@ -21,6 +21,8 @@ public class WeChatParam {
     // 签名
     private String sign;
 
+    private String packageValue;
+
     public String getAppId() {
         return appId;
     }
@@ -67,5 +69,13 @@ public class WeChatParam {
 
     public void setSign(String sign) {
         this.sign = sign;
+    }
+
+    public String getPackageValue() {
+        return packageValue;
+    }
+
+    public void setPackageValue(String packageValue) {
+        this.packageValue = packageValue;
     }
 }

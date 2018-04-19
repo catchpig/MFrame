@@ -42,7 +42,7 @@ public class WechatPay {
         request.appId = weChatParam.getAppId();
         request.partnerId = weChatParam.getPartnerId();
         request.prepayId = weChatParam.getPrepayId();
-        request.packageValue = "Sign=WXPay";
+        request.packageValue = weChatParam.getPackageValue();
         request.nonceStr = weChatParam.getNonceStr();
         request.timeStamp = weChatParam.getTimeStamp();
         request.sign = weChatParam.getSign();
