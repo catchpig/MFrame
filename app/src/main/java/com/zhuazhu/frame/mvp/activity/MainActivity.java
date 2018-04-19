@@ -22,7 +22,7 @@ import mejust.frame.upgrade.UpgradeAppManager;
  * @date 2018/04/18 9:25
  */
 @LayoutId(R.layout.activity_main)
-@TitleBarConfig(textValue = "首页", textSize = 15)
+@TitleBarConfig(textValue = "https://www.cnblogs.com/Qian123/p/5710533.html")
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
 
@@ -41,7 +41,13 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
     protected void initView() {
     }
 
-    @TitleBarMenu(location = TitleBarMenuLocation.rightFirstMenu, text = "测试")
+    @TitleBarMenu(location = TitleBarMenuLocation.rightSecondMenu, text = "第二")
+    public void second(View v) {
+        Log.i(TAG, "detail: ---------------------------------");
+        showToastDialog("Hello World", null);
+    }
+
+    @TitleBarMenu(location = TitleBarMenuLocation.rightFirstMenu, text = "第一")
     public void detail(View v) {
         Log.i(TAG, "detail: ---------------------------------");
         showToastDialog("Hello World", null);

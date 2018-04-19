@@ -20,7 +20,7 @@ public @interface TitleBarMenuLocation {
     /** The second on the left */
     int leftSecondMenu = 0x02;
     /** The first on the right */
-    int rightFirstMenu = 0x11;
+    int rightFirstMenu = 0x19;
     /** The second on the right */
-    int rightSecondMenu = 0x12;
+    int rightSecondMenu = 0x18;
 }

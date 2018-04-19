@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import conm.zhuazhu.common.utils.ScreenUtils;
 import mejust.frame.R;
-import mejust.frame.annotation.TitleBarMenuLocation;
 
 /**
  * @author wangpeifeng
@@ -245,11 +244,10 @@ public class TitleBar extends LinearLayout {
             frameLayout =
                     buildToolImageLayout(titleMenu.getIconDrawable(), titleMenu.getClickListener());
         }
-        if (location == TitleBarMenuLocation.leftFirstMenu
-                || location == TitleBarMenuLocation.leftSecondMenu) {
+        int value = location >> 4;
+        if (value == 0) {
             layoutToolLeft.addView(frameLayout);
-        } else if (location == TitleBarMenuLocation.rightFirstMenu
-                || location == TitleBarMenuLocation.rightSecondMenu) {
+        } else if (value == 1) {
             layoutToolRight.addView(frameLayout);
         }
     }
