@@ -18,7 +18,7 @@ import mejust.frame.widget.title.TitleBarSetting;
  * @author wangpeifeng
  * @date 2018/04/18 9:50
  */
-@TitleBarConfig(value = "测试", color = R.color.colorAccent)
+@TitleBarConfig(value = "测试", textColor = R.color.colorAccent)
 public class TitleBarActivity extends AppCompatActivity {
 
     private static final String TAG = "TitleBarActivity";

@@ -138,7 +138,7 @@ public class TitleBarSetting {
                 menuArray = new SparseArray<>(4);
             }
             if (menuArray.size() >= 4) {
-                throw new IllegalArgumentException("title menu size more than four");
+                throw new IllegalArgumentException("title menu textSize more than four");
             }
             int location = titleMenu.getLocation();
             menuArray.put(location, titleMenu);

@@ -16,17 +16,22 @@ public @interface TitleBarConfig {
     String value();
 
     /**
-     * title color
+     * title textColor
      */
-    int color() default 0;
+    int textColor() default 0;
 
     /**
-     * title size
+     * title textSize
      */
-    float size() default 0;
+    float textSize() default 0;
 
     /**
      * title background
      */
     int backgroundColor() default 0;
+
+    /**
+     * title visible
+     */
+    boolean visible() default true;
 }

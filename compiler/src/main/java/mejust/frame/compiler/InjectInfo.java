@@ -111,6 +111,7 @@ public class InjectInfo {
             builder.addStatement("builder.setBackgroundColorRes(context,$L)",
                     value.getBackgroundColor());
         }
+        // TODO: 2018/04/19  添加titleBar的显示与隐藏
         for (Map.Entry<Integer, TitleBarInfo.TitleBarMenuInfo> entry : value.getMenuInfoHashMap()
                 .entrySet()) {
             TitleBarInfo.TitleBarMenuInfo menuInfo = entry.getValue();

@@ -20,6 +20,9 @@ import mejust.frame.widget.title.TitleBar;
  */
 public class StatusBarUtil {
 
+    /**
+     * 初始化状态栏
+     */
     public static StatusBar init(@NonNull BaseActivity activity, @NonNull TitleBar mTitleBar) {
         StatusBar statusBar = null;
         StatusBarConfig statusBarConfig = activity.getClass().getAnnotation(StatusBarConfig.class);

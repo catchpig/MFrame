@@ -16,6 +16,8 @@ public class TitleBarInfo {
 
     private int backgroundColor;
 
+    private boolean isVisible;
+
     private HashMap<Integer, TitleBarMenuInfo> menuInfoHashMap = new HashMap<>();
 
     public String getValue() {
@@ -58,6 +60,14 @@ public class TitleBarInfo {
         this.menuInfoHashMap.put(titleBarMenuInfo.getLocation(), titleBarMenuInfo);
     }
 
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
+
     @Override
     public String toString() {
         return "TitleBarInfo{"
@@ -70,6 +80,8 @@ public class TitleBarInfo {
                 + size
                 + ", backgroundColor="
                 + backgroundColor
+                + ", isVisible="
+                + isVisible
                 + ", menuInfoHashMap="
                 + menuInfoHashMap
                 + '}';
