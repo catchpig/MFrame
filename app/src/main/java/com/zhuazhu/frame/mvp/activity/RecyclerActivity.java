@@ -26,7 +26,7 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
  * 描述:
  */
 @LayoutId(R.layout.activity_recycler)
-@TitleBarConfig(value = "列表", backgroundColor = R.color.colorAccent)
+@TitleBarConfig(textValue = "列表", backgroundColor = R.color.colorAccent)
 public class RecyclerActivity extends BasePresenterActivity<RecyclerPresenterImp>
         implements RecyclerContract.View {
 

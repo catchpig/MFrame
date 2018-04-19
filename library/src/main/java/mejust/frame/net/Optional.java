@@ -5,9 +5,9 @@ import java.util.NoSuchElementException;
 // Android-changed: removed ValueBased paragraph.
 
 /**
- * A container object which may or may not contain a non-null value.
- * If a value is present, {@code isPresent()} will return {@code true} and
- * {@code get()} will return the value.
+ * A container object which may or may not contain a non-null textValue.
+ * If a textValue is present, {@code isPresent()} will return {@code true} and
+ * {@code get()} will return the textValue.
  * <p>
  */
 public final class Optional<T> {
@@ -18,7 +18,7 @@ public final class Optional<T> {
     private static final Optional<?> EMPTY = new Optional<>();
 
     /**
-     * If non-null, the value; if null, indicates no value is present
+     * If non-null, the textValue; if null, indicates no textValue is present
      */
     private final T value;
 
@@ -33,10 +33,10 @@ public final class Optional<T> {
     }
 
     /**
-     * Returns an empty {@code Optional} instance.  No value is present for this
+     * Returns an empty {@code Optional} instance.  No textValue is present for this
      * Optional.
      *
-     * @param <T> Type of the non-existent value
+     * @param <T> Type of the non-existent textValue
      * @return an empty {@code Optional}
      * @apiNote Though it may be tempting to do so, avoid testing if an object
      * is empty by comparing with {@code ==} against instances returned by
@@ -48,10 +48,10 @@ public final class Optional<T> {
     }
 
     /**
-     * Constructs an instance with the value present.
+     * Constructs an instance with the textValue present.
      *
-     * @param value the non-null value to be present
-     * @throws NullPointerException if value is null
+     * @param value the non-null textValue to be present
+     * @throws NullPointerException if textValue is null
      */
     private Optional(T value) {
         if (value == null) throw new NullPointerException();
@@ -59,24 +59,24 @@ public final class Optional<T> {
     }
 
     /**
-     * Returns an {@code Optional} with the specified present non-null value.
+     * Returns an {@code Optional} with the specified present non-null textValue.
      *
-     * @param <T> the class of the value
-     * @param value the value to be present, which must be non-null
-     * @return an {@code Optional} with the value present
-     * @throws NullPointerException if value is null
+     * @param <T> the class of the textValue
+     * @param value the textValue to be present, which must be non-null
+     * @return an {@code Optional} with the textValue present
+     * @throws NullPointerException if textValue is null
      */
     public static <T> Optional<T> of(T value) {
         return new Optional<>(value);
     }
 
     /**
-     * Returns an {@code Optional} describing the specified value, if non-null,
+     * Returns an {@code Optional} describing the specified textValue, if non-null,
      * otherwise returns an empty {@code Optional}.
      *
-     * @param <T> the class of the value
-     * @param value the possibly-null value to describe
-     * @return an {@code Optional} with a present value if the specified value
+     * @param <T> the class of the textValue
+     * @param value the possibly-null textValue to describe
+     * @return an {@code Optional} with a present textValue if the specified textValue
      * is non-null, otherwise an empty {@code Optional}
      */
     public static <T> Optional<T> ofNullable(T value) {
@@ -84,15 +84,15 @@ public final class Optional<T> {
     }
 
     /**
-     * If a value is present in this {@code Optional}, returns the value,
+     * If a textValue is present in this {@code Optional}, returns the textValue,
      * otherwise throws {@code NoSuchElementException}.
      *
-     * @return the non-null value held by this {@code Optional}
-     * @throws NoSuchElementException if there is no value present
+     * @return the non-null textValue held by this {@code Optional}
+     * @throws NoSuchElementException if there is no textValue present
      */
     public T get() {
         if (value == null) {
-            throw new NoSuchElementException("No value present");
+            throw new NoSuchElementException("No textValue present");
         }
         return value;
     }

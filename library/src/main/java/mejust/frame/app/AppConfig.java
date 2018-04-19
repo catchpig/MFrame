@@ -13,7 +13,6 @@ import timber.log.Timber;
  * @author : Beaven
  * @date : 2017-12-20 11:16
  * <p>
- * 系统固定字段定义，上层应用可继承，添加字段
  */
 public final class AppConfig {
 
@@ -79,7 +78,7 @@ public final class AppConfig {
     }
 
     public static TitleBarSetting getTitleBarSetting() {
-        return titleBarSetting;
+        return titleBarSetting.newBuilder().build();
     }
 
     private static void setConfigInterface(ConfigInterface configInterface) {

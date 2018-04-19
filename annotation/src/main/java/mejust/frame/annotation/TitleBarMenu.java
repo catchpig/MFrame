@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface TitleBarMenu {
 
-    int location();
+    @TitleBarMenuLocation int location();
 
     int iconRes() default 0;
 

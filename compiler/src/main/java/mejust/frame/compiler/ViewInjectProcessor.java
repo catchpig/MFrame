@@ -62,7 +62,7 @@ public class ViewInjectProcessor extends AbstractProcessor {
             titleBarInfo.setBackgroundColor(titleBarConfig.backgroundColor());
             titleBarInfo.setColor(titleBarConfig.textColor());
             titleBarInfo.setSize(titleBarConfig.textSize());
-            titleBarInfo.setValue(titleBarConfig.value());
+            titleBarInfo.setValue(titleBarConfig.textValue());
             titleBarInfo.setVisible(titleBarConfig.visible());
             injectInfo.putTitleBar((TypeElement) element, titleBarInfo);
         }

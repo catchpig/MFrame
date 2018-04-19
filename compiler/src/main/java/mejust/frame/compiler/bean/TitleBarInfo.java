@@ -71,7 +71,7 @@ public class TitleBarInfo {
     @Override
     public String toString() {
         return "TitleBarInfo{"
-                + "value='"
+                + "textValue='"
                 + value
                 + '\''
                 + ", color="

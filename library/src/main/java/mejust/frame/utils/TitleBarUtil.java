@@ -13,15 +13,12 @@ public class TitleBarUtil {
 
     @SuppressWarnings("unchecked")
     public static void inject(Activity activity, TitleBar titleBar, TitleBarSetting setting) {
-        TitleBarSetting titleBarSetting = setting;
         try {
             String className = activity.getClass().getName() + "_TitleBarInject";
             Class cls = Class.forName(className);
-            Method method =
-                    cls.getMethod("getTitleBar", activity.getClass(), titleBarSetting.getClass());
-            titleBarSetting =
-                    (TitleBarSetting) method.invoke(cls.newInstance(), activity, titleBarSetting);
-            titleBar.setTitleBarSetting(titleBarSetting);
+            Method method = cls.getMethod("getTitleBar", activity.getClass(), setting.getClass());
+            titleBar.setTitleBarSetting(
+                    (TitleBarSetting) method.invoke(cls.newInstance(), activity, setting));
         } catch (Exception e) {
             e.printStackTrace();
         }

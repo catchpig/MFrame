@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
  * @author wangpeifeng
  * @date 2018/04/18 11:04
  */
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.CLASS)
 @IntDef({
         TitleBarMenuLocation.leftFirstMenu, TitleBarMenuLocation.leftSecondMenu,
         TitleBarMenuLocation.rightFirstMenu, TitleBarMenuLocation.rightSecondMenu

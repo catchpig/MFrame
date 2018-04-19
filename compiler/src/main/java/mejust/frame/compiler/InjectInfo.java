@@ -99,6 +99,10 @@ public class InjectInfo {
     }
 
     private void generateStatement(MethodSpec.Builder builder, TitleBarInfo value) {
+        if (!value.isVisible()) {
+            builder.addStatement("return null");
+            return;
+        }
         builder.addStatement("TitleBarSetting.Builder builder = setting.newBuilder()");
         builder.addStatement("builder.setTitleTextContext($S)", value.getValue());
         if (value.getSize() != 0) {
@@ -111,7 +115,6 @@ public class InjectInfo {
             builder.addStatement("builder.setBackgroundColorRes(context,$L)",
                     value.getBackgroundColor());
         }
-        // TODO: 2018/04/19  添加titleBar的显示与隐藏
         for (Map.Entry<Integer, TitleBarInfo.TitleBarMenuInfo> entry : value.getMenuInfoHashMap()
                 .entrySet()) {
             TitleBarInfo.TitleBarMenuInfo menuInfo = entry.getValue();

@@ -8,6 +8,7 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
 import android.view.View;
+import mejust.frame.annotation.TitleBarMenuLocation;
 
 /**
  * @author wangpeifeng
@@ -51,6 +52,11 @@ public class TitleBarSetting {
         builder.titleTextColor = this.titleTextColor;
         builder.titleTextSize = this.titleTextSize;
         builder.menuArray = this.menuArray;
+        try {
+            return (Builder) builder.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         return builder;
     }
 
@@ -91,7 +97,7 @@ public class TitleBarSetting {
                 + '}';
     }
 
-    public static class Builder {
+    public static class Builder implements Cloneable {
 
         private int backgroundColor = 0;
 
@@ -148,9 +154,16 @@ public class TitleBarSetting {
         public TitleBarSetting build() {
             return new TitleBarSetting(this);
         }
+
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            Builder builder = (Builder) super.clone();
+            builder.menuArray = menuArray.clone();
+            return builder;
+        }
     }
 
-    public static class TitleMenu {
+    public static class TitleMenu implements Cloneable {
 
         private int location;
 
@@ -164,10 +177,11 @@ public class TitleBarSetting {
 
         private View.OnClickListener clickListener;
 
-        public TitleMenu(int location) {
+        public TitleMenu(@TitleBarMenuLocation int location) {
             this.location = location;
         }
 
+        @TitleBarMenuLocation
         public int getLocation() {
             return location;
         }
@@ -218,6 +232,11 @@ public class TitleBarSetting {
 
         public void setClickListener(View.OnClickListener clickListener) {
             this.clickListener = clickListener;
+        }
+
+        @Override
+        protected Object clone() throws CloneNotSupportedException {
+            return super.clone();
         }
 
         @Override

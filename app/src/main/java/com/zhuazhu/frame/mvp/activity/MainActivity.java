@@ -22,7 +22,7 @@ import mejust.frame.upgrade.UpgradeAppManager;
  * @date 2018/04/18 9:25
  */
 @LayoutId(R.layout.activity_main)
-@TitleBarConfig(value = "首页", textSize = 15)
+@TitleBarConfig(textValue = "首页", textSize = 15)
 public class MainActivity extends BasePresenterActivity<MainPresenterImp>
         implements MainContract.View {
 
