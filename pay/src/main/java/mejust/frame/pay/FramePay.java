@@ -51,7 +51,7 @@ public class FramePay {
             try {
                 JSONObject jsonObject = new JSONObject(webPayInfo.getPayInfo());
                 WeChatParam weChatParam = new WeChatParam();
-                weChatParam.setAppId(jsonObject.getString("appId"));
+                weChatParam.setAppId(jsonObject.getString("appid"));
                 weChatParam.setPartnerId(jsonObject.getString("partnerid"));
                 weChatParam.setNonceStr(jsonObject.getString("nonceStr"));
                 weChatParam.setPrepayId(jsonObject.getString("prepayid"));
