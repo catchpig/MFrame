@@ -13,9 +13,13 @@ public class ProgressMessageBuilder implements Serializable {
 
     private static final long serialVersionUID = -7863198910142138929L;
 
-    /* 通知栏图标 */
+    /**
+     * 通知栏图标
+     */
     private int smallIcon;
-    /* 通知栏标题 */
+    /**
+     * 通知栏标题
+     */
     private String contentTitle;
 
     public ProgressMessageBuilder(int smallIcon, String contentTitle) {

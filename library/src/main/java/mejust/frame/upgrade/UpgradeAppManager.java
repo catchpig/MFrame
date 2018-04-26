@@ -26,11 +26,17 @@ import java.io.File;
  */
 public class UpgradeAppManager {
 
-    /* 更新APP下载地址 */
+    /**
+     * 更新APP下载地址
+     */
     private String url;
-    /* 通知方式 */
+    /**
+     * 通知方式
+     */
     private int progressType;
-    /* 进度通知相关参数 */
+    /**
+     * 进度通知相关参数
+     */
     private ProgressMessageBuilder progressMessageBuilder;
 
     public UpgradeAppManager(@NonNull String url) {
