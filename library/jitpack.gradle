@@ -1,7 +1,7 @@
 //jitpack文档及发布参数
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.zhuazhu'
-android{
+
+android {
     compileSdkVersion 26
 }
 // 指定编码
@@ -16,7 +16,7 @@ task sourcesJar(type: Jar) {
 }
 
 task javadoc(type: Javadoc) {
-    failOnError  false
+    failOnError false
     source = android.sourceSets.main.java.sourceFiles
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     classpath += configurations.compile
