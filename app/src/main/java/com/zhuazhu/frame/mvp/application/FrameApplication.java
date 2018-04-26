@@ -6,6 +6,7 @@ import android.graphics.Color;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.squareup.leakcanary.LeakCanary;
 import com.zhuazhu.frame.BuildConfig;
 import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.di.component.AppComponent;
@@ -41,6 +42,12 @@ public class FrameApplication extends Application implements ConfigInterface {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
         AppConfig.init(this, this);
         initImage();
     }
