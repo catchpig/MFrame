@@ -25,41 +25,46 @@ android {
         abortOnError false
     }
     compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compileOnly "com.android.support:appcompat-v7:$support_version"
+    compileOnly "com.android.support:recyclerview-v7:$support_version"
 
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api "com.android.support:appcompat-v7:$support_version"
-    api "com.android.support:recyclerview-v7:$support_version"
     //刷新控件
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+
     //工具包
     api('com.github.zhuazhu:Common:1.0.7', {
         exclude group: 'com.android.support'
     })
     api 'com.google.code.gson:gson:2.8.2'
+
     //dagger
     api "com.google.dagger:dagger:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
-    //okhttp3
+
+    //okHttp3
     api "com.squareup.okhttp3:okhttp:$okhttp3_version"
     api "com.squareup.okhttp3:logging-interceptor:$okhttp3_version"
+
     //retrofit2
     api "com.squareup.retrofit2:retrofit:$retrofit2_version"
     api "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit2_version"
-    //rxjava
+
+    //rxJava
     api "io.reactivex.rxjava2:rxjava:$rxjava_version"
     api "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
-    //图片异步加载框架
+
+    //Glide
     api("com.github.bumptech.glide:glide:$glide_version", {
         exclude group: "com.android.support"
     })
@@ -67,12 +72,15 @@ dependencies {
     api("com.github.bumptech.glide:okhttp3-integration:$glide_version", {
         transitive = false
     })
+
     //图片放大缩小控件
     api 'com.github.chrisbanes:PhotoView:2.1.3'
     api 'com.jakewharton.timber:timber:4.6.0'
     api 'com.jakewharton:butterknife:8.8.1'
+
     //动画
     api 'com.wang.avi:library:2.1.3'
+
     //状态栏
     api 'com.gyf.barlibrary:barlibrary:2.3.0'
     api project(':annotation')

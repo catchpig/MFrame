@@ -13,9 +13,11 @@ import com.android.databinding.library.baseAdapters.BR;
  * 描述:
  */
 
-public class User extends BaseObservable{
+public class User extends BaseObservable {
+
     private int id;
     private String name;
+
     @Bindable
     public int getId() {
         return id;
@@ -25,6 +27,7 @@ public class User extends BaseObservable{
         this.id = id;
         notifyPropertyChanged(BR.id);
     }
+
     @Bindable
     public String getName() {
         return name;
