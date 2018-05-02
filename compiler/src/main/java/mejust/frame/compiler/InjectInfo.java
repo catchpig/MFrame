@@ -26,7 +26,6 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 
 /**
  * @author wangpeifeng
- * @date 2018/04/17 13:43
  */
 public class InjectInfo {
 

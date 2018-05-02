@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 /**
  * @author wangpeifeng
- * @date 2018/04/17 10:57
  */
 public class TitleBarInfo {
 

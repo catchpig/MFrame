@@ -6,7 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author wangpeifeng
- * @date 2018/04/18 11:04
  */
 @Retention(RetentionPolicy.CLASS)
 @IntDef({
