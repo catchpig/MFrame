@@ -158,7 +158,9 @@ public class TitleBarSetting {
         @Override
         protected Object clone() throws CloneNotSupportedException {
             Builder builder = (Builder) super.clone();
-            builder.menuArray = menuArray.clone();
+            if (menuArray != null) {
+                builder.menuArray = menuArray.clone();
+            }
             return builder;
         }
     }
