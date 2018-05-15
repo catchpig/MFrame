@@ -8,12 +8,11 @@
    android:gravity="center"
    android:orientation="vertical"
    >
-  <com.wang.avi.AVLoadingIndicatorView
-     android:layout_width="50dp"
-     android:layout_height="50dp"
-     android:visibility="visible"
-     app:indicatorColor="@color/c_1e81d2"
-     app:indicatorName="BallSpinFadeLoaderIndicator"
+  <mejust.frame.widget.LoadingView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     app:loading_view_color="@color/c_1e81d2"
+     app:loading_view_size="50dp"
      />
 
 </LinearLayout>

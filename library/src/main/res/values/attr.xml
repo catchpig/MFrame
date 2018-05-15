@@ -14,4 +14,11 @@
     <attr format="dimension" name="frame_title_menu_text_size"/>
   </declare-styleable>
 
+  <attr format="reference" name="loading_view_style"/>
+
+  <declare-styleable name="LoadingView">
+    <attr format="dimension" name="loading_view_size"/>
+    <attr format="color" name="loading_view_color"/>
+  </declare-styleable>
+
 </resources>

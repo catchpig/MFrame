@@ -44,7 +44,8 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
     @TitleBarMenu(location = TitleBarMenuLocation.rightSecondMenu, text = "第二")
     public void second(View v) {
         Log.i(TAG, "detail: ---------------------------------");
-        showToastDialog("Hello World", null);
+        //showToastDialog("Hello World", null);
+        loadingDialog();
     }
 
     @TitleBarMenu(location = TitleBarMenuLocation.rightFirstMenu, text = "第一")
