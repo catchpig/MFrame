@@ -26,7 +26,7 @@ import mejust.frame.receiver.NetworkReceiver;
 import mejust.frame.utils.ContentViewBind;
 import mejust.frame.utils.StatusBarUtil;
 import mejust.frame.utils.TitleBarUtil;
-import mejust.frame.widget.ToastMsg;
+import mejust.frame.widget.ToastFrame;
 import mejust.frame.widget.dialog.ToastDialog;
 import mejust.frame.widget.title.StatusBar;
 import mejust.frame.widget.title.TitleBar;
@@ -151,7 +151,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     @Override
     public void show(String msg) {
-        ToastMsg.makeText(msg);
+        ToastFrame.show(msg);
     }
 
     @Override

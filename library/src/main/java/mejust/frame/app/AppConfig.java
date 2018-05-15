@@ -2,10 +2,11 @@ package mejust.frame.app;
 
 import android.app.Activity;
 import android.app.Application;
+import android.widget.Toast;
 import conm.zhuazhu.common.utils.Utils;
 import mejust.frame.utils.log.DebugLogTree;
 import mejust.frame.utils.log.ReleaseLogTree;
-import mejust.frame.widget.ToastMsg;
+import mejust.frame.widget.ToastFrame;
 import mejust.frame.widget.title.TitleBarSetting;
 import timber.log.Timber;
 
@@ -65,12 +66,13 @@ public final class AppConfig {
         setConfigInterface(configInterface);
         Utils.init(application);
         CrashHandler.getInstance().init(application);
-        ToastMsg.init(application);
+        ToastFrame.init(application);
         if (AppConfig.DEBUG) {
             Timber.plant(new DebugLogTree());
         } else {
             Timber.plant(new ReleaseLogTree());
         }
+        Toast.makeText(application, "", Toast.LENGTH_SHORT).show();
     }
 
     public static Class<? extends Activity> getLoginClass() {

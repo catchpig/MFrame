@@ -3,9 +3,7 @@ package mejust.frame.widget;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import mejust.frame.R;
 
 /**
@@ -15,36 +13,33 @@ import mejust.frame.R;
  * 修改时间: 2018/1/15  15:46<br/>
  * 描述:
  */
-public class ToastMsg {
+public class ToastFrame {
 
-    private static Toast result;
-    private static TextView textView;
+    private static Toast toast;
 
     public static void init(Context context) {
-        result = new Toast(context);
-
+        toast = new Toast(context.getApplicationContext());
         //获取LayoutInflater对象
         LayoutInflater inflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (inflater == null) {
+            return;
+        }
         //由layout文件创建一个View对象
         View layout = inflater.inflate(R.layout.toast_in_style_layout, null);
-
-        //实例化ImageView和TextView对象
-        textView = (TextView) layout.findViewById(R.id.tip);
-
-        result.setView(layout);
-        result.setDuration(Toast.LENGTH_SHORT);
-        //        result.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setView(layout);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        // toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
     }
 
-    public static void makeText(String text, int duration) {
-        textView.setText(text);
-        result.setDuration(duration);
-        result.show();
+    public static void show(String text, int duration) {
+        toast.setText(text);
+        toast.setDuration(duration);
+        toast.show();
     }
 
-    public static void makeText(String text) {
-        textView.setText(text);
-        result.show();
+    public static void show(String text) {
+        toast.setText(text);
+        toast.show();
     }
 }
