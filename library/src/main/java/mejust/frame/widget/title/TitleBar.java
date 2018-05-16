@@ -269,7 +269,7 @@ public class TitleBar extends LinearLayout {
         imageView.setLayoutParams(imageLayoutParams);
         FrameLayout frameLayout = new FrameLayout(getContext());
         frameLayout.setBackground(
-                ContextCompat.getDrawable(getContext(), R.drawable.selector_transparent));
+                ContextCompat.getDrawable(getContext(), R.drawable.selector_trans_frame));
         frameLayout.setClickable(true);
         int touchWidth = menuIconSize + ScreenUtils.dpToPxInt(16);
         LayoutParams layoutParams =
@@ -309,7 +309,7 @@ public class TitleBar extends LinearLayout {
 
         FrameLayout frameLayout = new FrameLayout(getContext());
         frameLayout.setBackground(
-                ContextCompat.getDrawable(getContext(), R.drawable.selector_transparent));
+                ContextCompat.getDrawable(getContext(), R.drawable.selector_trans_frame));
         frameLayout.setClickable(true);
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);

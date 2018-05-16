@@ -15,11 +15,11 @@ import io.reactivex.processors.PublishProcessor;
 public class RxBus {
 
     private static class RxBusHolder {
-        private static final RxBus rxBus = new RxBus();
+        private static final RxBus RX_BUS = new RxBus();
     }
 
     public static RxBus getInstance() {
-        return RxBusHolder.rxBus;
+        return RxBusHolder.RX_BUS;
     }
 
     private final FlowableProcessor<Object> busFlowable;

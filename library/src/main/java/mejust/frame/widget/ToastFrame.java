@@ -26,7 +26,7 @@ public class ToastFrame {
             return;
         }
         //由layout文件创建一个View对象
-        View layout = inflater.inflate(R.layout.toast_in_style_layout, null);
+        View layout = inflater.inflate(R.layout.layout_toast_frame, null);
         toast.setView(layout);
         toast.setDuration(Toast.LENGTH_SHORT);
         // toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);

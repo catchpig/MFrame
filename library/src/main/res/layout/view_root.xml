@@ -22,7 +22,7 @@
      android:id="@+id/network_view_stub"
      android:layout_width="match_parent"
      android:layout_height="@dimen/title_height"
-     android:layout="@layout/layout_network_tip"
+     android:layout="@layout/layout_network_tip_frame"
      />
 
   <FrameLayout

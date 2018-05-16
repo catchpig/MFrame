@@ -25,7 +25,7 @@ public class ToastDialog extends Dialog implements View.OnClickListener {
     private boolean cancelShow;
 
     public ToastDialog(@NonNull Context context, Builder builder) {
-        super(context, R.style.customDialog);
+        super(context, R.style.FrameDialog);
         this.content = builder.content;
         this.determineListener = builder.determineListener;
         this.cancelListener = builder.cancelListener;

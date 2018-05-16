@@ -173,7 +173,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
             if (mLoadingDialog != null) {
                 return;
             }
-            mLoadingDialog = new Dialog(BaseActivity.this, R.style.mframe_imagedialog);
+            mLoadingDialog = new Dialog(BaseActivity.this, R.style.FrameDialog);
             // 不可以用“返回键”取消
             mLoadingDialog.setCancelable(false);
             mLoadingDialog.setContentView(R.layout.dialog_loading);

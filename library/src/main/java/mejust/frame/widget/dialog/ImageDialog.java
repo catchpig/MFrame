@@ -47,7 +47,7 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
      * @param url
      */
     public ImageDialog(Context context, String url) {
-        super(context, R.style.mframe_imagedialog);
+        super(context, R.style.FrameDialog);
         mUrls = new ArrayList<>();
         mUrls.add(url);
     }
@@ -57,7 +57,7 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
      * @param urls
      */
     public ImageDialog(Context context, String... urls) {
-        super(context, R.style.mframe_imagedialog);
+        super(context, R.style.FrameDialog);
         mUrls = new ArrayList<>();
         for (String url:urls){
             mUrls.add(url);
@@ -72,7 +72,7 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
      * @param urls
      */
     public ImageDialog(Context context, List<String> urls) {
-        super(context, R.style.mframe_imagedialog);
+        super(context, R.style.FrameDialog);
         mUrls = urls;
     }
     private String mHostUrl = "";
