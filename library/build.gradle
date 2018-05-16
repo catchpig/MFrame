@@ -33,8 +33,8 @@ android {
 dependencies {
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     api "com.android.support:appcompat-v7:$support_version"
@@ -42,7 +42,7 @@ dependencies {
     //刷新控件
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
     //工具包
-    api('com.github.zhuazhu:Common:1.0.6', {
+    api('com.github.zhuazhu:Common:1.0.8', {
         exclude group: 'com.android.support'
     })
     api 'com.google.code.gson:gson:2.8.2'
