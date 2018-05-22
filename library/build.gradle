@@ -80,5 +80,6 @@ dependencies {
 
     //状态栏
     api 'com.gyf.barlibrary:barlibrary:2.3.0'
+    api 'com.gcssloop.widget:rclayout:1.6.0'
     api project(':annotation')
 }
