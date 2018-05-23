@@ -5,14 +5,17 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import conm.zhuazhu.common.utils.ScreenUtils;
 import mejust.frame.R;
+import mejust.frame.widget.LoadingView;
 
 /**
  * @author wangpeifeng
@@ -51,6 +54,9 @@ public class FrameDialog extends Dialog {
         window.setAttributes(wmlp);
     }
 
+    /**
+     * 常用文本信息dialog
+     */
     public static class MessageDialogBuilder extends BaseFrameDialogBuilder<MessageDialogBuilder> {
 
         private CharSequence charSequence;
@@ -80,6 +86,36 @@ public class FrameDialog extends Dialog {
                         new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT));
             }
+        }
+    }
+
+    /**
+     * 加载中dialog
+     */
+    public static class LoadingDialogBuilder extends BaseFrameDialogBuilder<LoadingDialogBuilder> {
+
+        public LoadingDialogBuilder(Context context) {
+            super(context);
+            setCancelable(false);
+            setCanceledOnTouchOutside(false);
+        }
+
+        @Override
+        protected void createContent(FrameDialog frameDialog, LinearLayout rootLayout,
+                Context dialogContext) {
+            FrameLayout frameLayout = new FrameLayout(dialogContext);
+            int paddingSize = ScreenUtils.dpToPxInt(16);
+            frameLayout.setPadding(paddingSize, paddingSize, paddingSize, paddingSize);
+            LinearLayout.LayoutParams layoutParams =
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.gravity = Gravity.CENTER;
+            frameLayout.setLayoutParams(layoutParams);
+            frameLayout.setBackground(
+                    ContextCompat.getDrawable(dialogContext, R.drawable.shape_dialog_border_frame));
+            LoadingView loadingView = new LoadingView(dialogContext);
+            frameLayout.addView(loadingView);
+            rootLayout.addView(frameLayout);
         }
     }
 }

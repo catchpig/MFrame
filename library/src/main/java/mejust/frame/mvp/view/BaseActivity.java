@@ -53,9 +53,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     private FrameLayout mLayoutBody;
     private Unbinder mUnBinder;
     private View mLoadingView;
-    private Dialog mLoadingDialog;
     private NetworkReceiver mNetworkReceiver;
     private Dialog messageDialog;
+    private Dialog loadingDialog;
     protected StatusBar mStatusBar;
     private ViewStub mNetworkViewStub;
     private LinearLayout mNetWorkTip;
@@ -175,14 +175,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     @Override
     public void loadingDialog() {
         runOnUiThread(() -> {
-            if (mLoadingDialog != null) {
+            if (loadingDialog != null) {
                 return;
             }
-            mLoadingDialog = new Dialog(BaseActivity.this, R.style.FrameDialog);
-            // 不可以用“返回键”取消
-            mLoadingDialog.setCancelable(false);
-            mLoadingDialog.setContentView(R.layout.dialog_loading);
-            mLoadingDialog.show();
+            loadingDialog = new FrameDialog.LoadingDialogBuilder(this).create();
+            loadingDialog.show();
         });
     }
 
@@ -199,9 +196,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     @Override
     public void hidden() {
         runOnUiThread(() -> {
-            if (mLoadingDialog != null) {
-                mLoadingDialog.cancel();
-                mLoadingDialog = null;
+            if (loadingDialog != null) {
+                loadingDialog.cancel();
+                loadingDialog = null;
             }
             if (mLoadingView != null) {
                 mLoadingView.setVisibility(View.GONE);

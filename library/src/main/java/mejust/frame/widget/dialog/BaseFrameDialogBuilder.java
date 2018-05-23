@@ -27,7 +27,9 @@ public abstract class BaseFrameDialogBuilder<T extends BaseFrameDialogBuilder> {
 
     private boolean mCancelable = true;
     private boolean mCanceledOnTouchOutside = true;
-
+    /**
+     * 操作栏集合
+     */
     private List<FrameDialogAction> actionList = new ArrayList<>();
 
     private String titleText;
@@ -36,6 +38,12 @@ public abstract class BaseFrameDialogBuilder<T extends BaseFrameDialogBuilder> {
         this.context = context;
     }
 
+    /**
+     * 设置标题
+     *
+     * @param title 标题
+     * @return this
+     */
     @SuppressWarnings("unchecked")
     public T setTitle(String title) {
         this.titleText = title;
@@ -58,6 +66,9 @@ public abstract class BaseFrameDialogBuilder<T extends BaseFrameDialogBuilder> {
         return (T) this;
     }
 
+    /**
+     * 增加操作控制
+     */
     @SuppressWarnings("unchecked")
     public T addAction(FrameDialogAction action) {
         if (action != null) {
@@ -66,6 +77,9 @@ public abstract class BaseFrameDialogBuilder<T extends BaseFrameDialogBuilder> {
         return (T) this;
     }
 
+    /**
+     * dialog 创建
+     */
     public FrameDialog create() {
         FrameDialog frameDialog = new FrameDialog(context);
         View rootView = inflateRootView();
