@@ -9,7 +9,7 @@
      android:id="@+id/button_ss"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
-     android:text="@string/download_success"
+     android:text="@string/download_success_frame"
      />
   <mejust.frame.widget.refresh.RefreshLayoutWrapper
      android:id="@+id/refresh"

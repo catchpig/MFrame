@@ -51,14 +51,14 @@ public class NotificationProgress implements ProgressHelper {
     @Override
     public void updateProgress(int progress) {
         notificationBuilder.setProgress(100, progress, false)
-                .setContentText(Utils.getApp().getResources().getString(R.string.download_ing));
+                .setContentText(Utils.getApp().getResources().getString(R.string.download_ing_frame));
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
     }
 
     @Override
     public void downloadSuccess() {
         notificationBuilder.setProgress(0, 0, false)
-                .setContentText(Utils.getApp().getResources().getString(R.string.download_success));
+                .setContentText(Utils.getApp().getResources().getString(R.string.download_success_frame));
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
         notificationManager.cancel(NOTIFICATION_ID);
     }
@@ -66,7 +66,7 @@ public class NotificationProgress implements ProgressHelper {
     @Override
     public void downloadFail() {
         notificationBuilder.setProgress(0, 0, false)
-                .setContentText(Utils.getApp().getResources().getString(R.string.download_fail));
+                .setContentText(Utils.getApp().getResources().getString(R.string.download_fail_frame));
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
         notificationManager.cancel(NOTIFICATION_ID);
     }

@@ -16,9 +16,6 @@ import mejust.frame.mvp.view.BasePresenterActivity;
 import mejust.frame.upgrade.ProgressMessageBuilder;
 import mejust.frame.upgrade.ProgressType;
 import mejust.frame.upgrade.UpgradeAppManager;
-import mejust.frame.utils.log.Logger;
-import mejust.frame.widget.dialog.FrameDialog;
-import mejust.frame.widget.dialog.FrameDialogAction;
 
 /**
  * @author wangpeifeng
@@ -53,13 +50,8 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @TitleBarMenu(location = TitleBarMenuLocation.rightFirstMenu, text = "第一")
     public void detail(View v) {
-        new FrameDialog.MessageDialogBuilderBase(this).setMessage("Hello World 你好")
-                .addAction(new FrameDialogAction("确定", (dialog, index) -> {
-                    Logger.i("点击了dialog--index --" + index);
-                    dialog.dismiss();
-                }))
-                .create()
-                .show();
+        showToastDialog("", "由于release签名的唯一性，可以考虑在native层进行签名的校验。如果签名不正确，直接让App crash",
+                (dialog, index) -> dialog.dismiss());
     }
 
     public void onClick(View v) {

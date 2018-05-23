@@ -2,6 +2,7 @@ package mejust.frame.mvp.view;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +14,7 @@ import butterknife.Unbinder;
 import mejust.frame.utils.ContentViewBind;
 import mejust.frame.utils.StatusBarUtil;
 import mejust.frame.mvp.BaseContract;
+import mejust.frame.widget.dialog.FrameDialogAction;
 import mejust.frame.widget.title.StatusBar;
 
 /**
@@ -77,8 +79,9 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
     }
 
     @Override
-    public void showToastDialog(CharSequence msg, View.OnClickListener clickListener) {
-        mActivity.showToastDialog(msg, clickListener);
+    public void showToastDialog(String title, CharSequence msg,
+            @NonNull FrameDialogAction.ActionListener actionListener) {
+        mActivity.showToastDialog(title, msg, actionListener);
     }
 
     @Override

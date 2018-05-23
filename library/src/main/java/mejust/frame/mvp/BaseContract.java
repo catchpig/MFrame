@@ -1,9 +1,11 @@
 package mejust.frame.mvp;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import io.reactivex.Flowable;
 import mejust.frame.net.Callback;
 import mejust.frame.net.Optional;
+import mejust.frame.widget.dialog.FrameDialogAction;
 
 /**
  * 创建时间:2017-12-21 16:17<br/>
@@ -36,7 +38,8 @@ public interface BaseContract {
         /**
          * 显示dialog提醒信息
          */
-        void showToastDialog(CharSequence msg, android.view.View.OnClickListener clickListener);
+        void showToastDialog(String title, CharSequence msg,
+                @NonNull FrameDialogAction.ActionListener actionListener);
 
         /**
          * 关闭loading

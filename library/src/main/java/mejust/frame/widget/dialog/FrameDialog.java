@@ -43,7 +43,7 @@ public class FrameDialog extends Dialog {
             return;
         }
         int padding = getContext().getResources()
-                .getDimensionPixelOffset(R.dimen.activity_horizontal_margin);
+                .getDimensionPixelOffset(R.dimen.dialog_width_margin_frame);
         int width = ScreenUtils.getScreenWidth(baseContext) - (padding * 2);
         WindowManager.LayoutParams wmlp = window.getAttributes();
         wmlp.width = width;
@@ -51,16 +51,15 @@ public class FrameDialog extends Dialog {
         window.setAttributes(wmlp);
     }
 
-    public static class MessageDialogBuilderBase
-            extends BaseFrameDialogBuilder<MessageDialogBuilderBase> {
+    public static class MessageDialogBuilder extends BaseFrameDialogBuilder<MessageDialogBuilder> {
 
-        protected CharSequence charSequence;
+        private CharSequence charSequence;
 
-        public MessageDialogBuilderBase(Context context) {
+        public MessageDialogBuilder(Context context) {
             super(context);
         }
 
-        public MessageDialogBuilderBase setMessage(CharSequence charSequence) {
+        public MessageDialogBuilder setMessage(CharSequence charSequence) {
             this.charSequence = charSequence;
             return this;
         }
@@ -73,7 +72,10 @@ public class FrameDialog extends Dialog {
                 TextView textView = new TextView(dialogContext);
                 textView.setText(charSequence);
                 textView.setGravity(Gravity.CENTER);
-                textView.setPadding(0, ScreenUtils.dpToPxInt(16), 0, ScreenUtils.dpToPxInt(16));
+                textView.setTextSize(14f);
+                int paddingSize = dialogContext.getResources()
+                        .getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+                textView.setPadding(paddingSize, paddingSize, paddingSize, paddingSize);
                 rootLayout.addView(textView,
                         new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT));

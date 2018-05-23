@@ -27,7 +27,7 @@
      android:layout_height="wrap_content"
      android:layout_marginLeft="16dp"
      android:layout_marginStart="16dp"
-     android:text="@string/network_desc"
+     android:text="@string/network_error_desc_frame"
      android:textColor="@color/c_665959"
      android:textSize="13sp"
      />

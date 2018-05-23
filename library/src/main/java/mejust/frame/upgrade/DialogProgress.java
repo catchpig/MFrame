@@ -84,20 +84,20 @@ public class DialogProgress extends DialogFragment implements ProgressHelper {
     @Override
     public void updateProgress(int progress) {
         progressBar.setProgress(progress);
-        textContent.setText(getResources().getString(R.string.download_ing));
+        textContent.setText(getResources().getString(R.string.download_ing_frame));
     }
 
     @Override
     public void downloadSuccess() {
         progressBar.setProgress(100);
-        textContent.setText(getResources().getString(R.string.download_success));
+        textContent.setText(getResources().getString(R.string.download_success_frame));
         dismiss();
     }
 
     @Override
     public void downloadFail() {
         progressBar.setProgress(0);
-        textContent.setText(getResources().getString(R.string.download_fail));
+        textContent.setText(getResources().getString(R.string.download_fail_frame));
         progressBar.postDelayed(this::dismiss, 1000);
     }
 }

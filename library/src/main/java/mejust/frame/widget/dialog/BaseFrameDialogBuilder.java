@@ -14,6 +14,7 @@ import com.gcssloop.widget.RCRelativeLayout;
 import conm.zhuazhu.common.utils.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
+import mejust.frame.R;
 
 /**
  * @author wangpeifeng
@@ -134,11 +135,17 @@ public abstract class BaseFrameDialogBuilder<T extends BaseFrameDialogBuilder> {
 
     /**
      * 设置TitleView
+     *
+     * @param titleTextView 标题栏view
      */
     protected void configTitleView(TextView titleTextView) {
         titleTextView.setGravity(Gravity.CENTER);
         titleTextView.setTextSize(20f);
         titleTextView.setTextColor(Color.BLACK);
-        titleTextView.setPadding(0, ScreenUtils.dpToPxInt(16), 0, ScreenUtils.dpToPxInt(6));
+        int padding =
+                context.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
+        titleTextView.setPadding(padding, padding, padding, ScreenUtils.dpToPxInt(6));
+        titleTextView.setMaxLines(1);
+        titleTextView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
     }
 }

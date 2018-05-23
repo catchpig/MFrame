@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,8 @@ import mejust.frame.utils.ContentViewBind;
 import mejust.frame.utils.StatusBarUtil;
 import mejust.frame.utils.TitleBarUtil;
 import mejust.frame.widget.ToastFrame;
-import mejust.frame.widget.dialog.ToastDialog;
+import mejust.frame.widget.dialog.FrameDialog;
+import mejust.frame.widget.dialog.FrameDialogAction;
 import mejust.frame.widget.title.StatusBar;
 import mejust.frame.widget.title.TitleBar;
 
@@ -53,7 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     private View mLoadingView;
     private Dialog mLoadingDialog;
     private NetworkReceiver mNetworkReceiver;
-    private ToastDialog mToastDialog;
+    private Dialog messageDialog;
     protected StatusBar mStatusBar;
     private ViewStub mNetworkViewStub;
     private LinearLayout mNetWorkTip;
@@ -101,9 +103,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     protected void onStop() {
         super.onStop();
         unRegisterNetChangeListener();
-        if (mToastDialog != null) {
-            mToastDialog.cancel();
-            mToastDialog = null;
+        if (messageDialog != null) {
+            messageDialog.cancel();
+            messageDialog = null;
         }
     }
 
@@ -155,15 +157,18 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     }
 
     @Override
-    public void showToastDialog(CharSequence msg, View.OnClickListener clickListener) {
+    public void showToastDialog(String title, CharSequence msg,
+            @NonNull FrameDialogAction.ActionListener actionListener) {
         runOnUiThread(() -> {
-            if (mToastDialog != null) {
-                mToastDialog.cancel();
+            if (messageDialog != null) {
+                messageDialog.cancel();
             }
-            mToastDialog = new ToastDialog.Builder(this).content(msg)
-                    .setDetermine(true, clickListener)
-                    .build();
-            mToastDialog.show();
+            messageDialog = new FrameDialog.MessageDialogBuilder(this).setTitle(title)
+                    .setMessage(msg)
+                    .addAction(new FrameDialogAction(getString(R.string.determine_frame),
+                            actionListener))
+                    .create();
+            messageDialog.show();
         });
     }
 

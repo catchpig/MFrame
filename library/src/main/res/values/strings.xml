@@ -1,8 +1,9 @@
 <resources>
   <string name="app_name">library</string>
-  <string name="no_data">暂无数据</string>
-  <string name="network_desc">当前网络不可用，请点击检查你的网络</string>
-  <string name="download_ing">正在下载中…</string>
-  <string name="download_success">下载完成</string>
-  <string name="download_fail">下载失败</string>
+  <string name="empty_data_frame">暂无数据</string>
+  <string name="network_error_desc_frame">当前网络不可用，请点击检查你的网络</string>
+  <string name="download_ing_frame">正在下载中…</string>
+  <string name="download_success_frame">下载完成</string>
+  <string name="download_fail_frame">下载失败</string>
+  <string name="determine_frame">确定</string>
 </resources>
