@@ -3,8 +3,6 @@ package mejust.frame.mvp.view;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,21 +10,18 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import conm.zhuazhu.common.utils.KeyboardUtils;
-import conm.zhuazhu.common.utils.NetworkUtils;
 import mejust.frame.R;
 import mejust.frame.annotation.StatusBarConfig;
 import mejust.frame.app.AppConfig;
 import mejust.frame.mvp.BaseContract;
-import mejust.frame.receiver.NetworkReceiver;
 import mejust.frame.utils.ContentViewBind;
 import mejust.frame.utils.StatusBarUtil;
 import mejust.frame.utils.TitleBarUtil;
+import mejust.frame.widget.NetWorkControlView;
 import mejust.frame.widget.ToastFrame;
 import mejust.frame.widget.dialog.FrameDialog;
 import mejust.frame.widget.dialog.FrameDialogAction;
@@ -53,18 +48,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     private FrameLayout mLayoutBody;
     private Unbinder mUnBinder;
     private View mLoadingView;
-    private NetworkReceiver mNetworkReceiver;
     private Dialog messageDialog;
     private Dialog loadingDialog;
     protected StatusBar mStatusBar;
-    private ViewStub mNetworkViewStub;
-    private LinearLayout mNetWorkTip;
-    /**
-     * ViewStub是否被初始化,默认没有初始化
-     */
-    private boolean isInflate = false;
 
     protected TitleBar mTitleBar;
+
+    private NetWorkControlView netWorkControlView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,7 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         initTitleBar();
         mStatusBar = StatusBarUtil.init(this, mTitleBar);
         initLoadingView();
-        initNetworkTip();
+        netWorkControlView = findViewById(R.id.network_control_view);
     }
 
     @Override
@@ -96,13 +86,13 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     @Override
     protected void onStart() {
         super.onStart();
-        registerNetChangeListener();
+        netWorkControlView.registerNetChangeListener();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        unRegisterNetChangeListener();
+        netWorkControlView.unRegisterNetChangeListener();
         if (messageDialog != null) {
             messageDialog.cancel();
             messageDialog = null;
@@ -122,19 +112,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     public void finish() {
         super.finish();
         KeyboardUtils.hideSoftInput(this);
-    }
-
-    /**
-     * 初始化网络未打开的提示控件
-     */
-    private void initNetworkTip() {
-        mNetworkViewStub = findViewById(R.id.network_view_stub);
-        mNetworkViewStub.setOnInflateListener((stub, inflated) -> {
-            isInflate = true;
-            //设置打开网络点击监听事件
-            mNetWorkTip = findViewById(R.id.network_tip);
-            mNetWorkTip.setOnClickListener(v -> NetworkUtils.openWifiSettings());
-        });
     }
 
     private void initLoadingView() {
@@ -223,33 +200,5 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     @Override
     public void finishView() {
         finish();
-    }
-
-    /**
-     * 注册网络变化广播监听,{@link AppConfig#NETWORK_STATUS_MONITORING}标志位默认监听
-     */
-    private void registerNetChangeListener() {
-        if (AppConfig.NETWORK_STATUS_MONITORING && mNetworkReceiver == null) {
-            mNetworkReceiver = new NetworkReceiver();
-            mNetworkReceiver.setOnNetworkListener(network -> {
-                if (!isInflate) {
-                    mNetworkViewStub.inflate();
-                }
-                mNetworkViewStub.setVisibility(network ? View.GONE : View.VISIBLE);
-            });
-            IntentFilter filter = new IntentFilter();
-            filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            registerReceiver(mNetworkReceiver, filter);
-        }
-    }
-
-    /**
-     * 取消网络注册监听
-     */
-    private void unRegisterNetChangeListener() {
-        if (mNetworkReceiver != null) {
-            unregisterReceiver(mNetworkReceiver);
-            mNetworkReceiver = null;
-        }
     }
 }

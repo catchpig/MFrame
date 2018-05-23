@@ -23,13 +23,11 @@ import mejust.frame.widget.adapter.BaseViewHolder;
 public @interface Adapter {
     /**
      * 布局文件
-     * @return
      */
     @LayoutRes int layout();
 
     /**
      * ViewHolder的class
-     * @return
      */
     Class<? extends BaseViewHolder> holder();
 }

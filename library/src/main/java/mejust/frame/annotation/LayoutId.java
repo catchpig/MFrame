@@ -17,6 +17,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface LayoutId {
-    @LayoutRes
-    int value();
+    @LayoutRes int value();
 }

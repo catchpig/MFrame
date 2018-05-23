@@ -64,7 +64,7 @@ public class JsonUtil {
      */
     @Deprecated
     public static <T> List<T> fromJsonList(String json, Class<T> cls) {
-        List<T> mList = new ArrayList<T>();
+        List<T> mList = new ArrayList<>();
         JsonArray array = new JsonParser().parse(json).getAsJsonArray();
         for (final JsonElement elem : array) {
             mList.add(GSON.fromJson(elem, cls));
