@@ -1,8 +1,5 @@
 package mejust.frame.mvp.view;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,7 +20,6 @@ import mejust.frame.utils.StatusBarUtil;
 import mejust.frame.utils.TitleBarUtil;
 import mejust.frame.widget.NetWorkControlView;
 import mejust.frame.widget.ToastFrame;
-import mejust.frame.widget.dialog.FrameDialog;
 import mejust.frame.widget.dialog.FrameDialogAction;
 import mejust.frame.widget.title.StatusBar;
 import mejust.frame.widget.title.TitleBar;
@@ -45,16 +41,11 @@ import mejust.frame.widget.title.TitleBar;
  */
 public abstract class BaseActivity extends AppCompatActivity implements BaseContract.View {
 
-    private FrameLayout mLayoutBody;
+    private FrameLayout mLayoutRoot;
     private Unbinder mUnBinder;
-    private View mLoadingView;
-    private Dialog messageDialog;
-    private Dialog loadingDialog;
-    protected StatusBar mStatusBar;
-
-    protected TitleBar mTitleBar;
-
     private NetWorkControlView netWorkControlView;
+    private StatusBar mStatusBar;
+    private ActivityStatusViewControl statusViewControl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,18 +54,17 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         super.setContentView(R.layout.view_root);
         ContentViewBind.injectLayoutId(this);
         mUnBinder = ButterKnife.bind(this);
-        initTitleBar();
-        mStatusBar = StatusBarUtil.init(this, mTitleBar);
-        initLoadingView();
+        initBar();
         netWorkControlView = findViewById(R.id.network_control_view);
+        statusViewControl = new ActivityStatusViewControl(this, mLayoutRoot);
     }
 
     @Override
     public void setContentView(View view) {
-        if (mLayoutBody == null) {
-            mLayoutBody = findViewById(R.id.layout_body);
+        if (mLayoutRoot == null) {
+            mLayoutRoot = findViewById(R.id.layout_body);
         }
-        mLayoutBody.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        mLayoutRoot.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
@@ -93,14 +83,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     protected void onStop() {
         super.onStop();
         netWorkControlView.unRegisterNetChangeListener();
-        if (messageDialog != null) {
-            messageDialog.cancel();
-            messageDialog = null;
-        }
     }
 
     @Override
     protected void onDestroy() {
+        statusViewControl.destroyControl();
         super.onDestroy();
         mUnBinder.unbind();
         if (mStatusBar != null) {
@@ -110,86 +97,44 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     @Override
     public void finish() {
-        super.finish();
         KeyboardUtils.hideSoftInput(this);
-    }
-
-    private void initLoadingView() {
-        setContentView(R.layout.view_loading);
-        mLoadingView = findViewById(R.id.layout_loading);
-        mLoadingView.setVisibility(View.GONE);
+        super.finish();
     }
 
     /**
      * 初始化TitleBar
      */
-    private void initTitleBar() {
-        mTitleBar = findViewById(R.id.title_bar);
+    private void initBar() {
+        TitleBar mTitleBar = findViewById(R.id.title_bar);
         TitleBarUtil.inject(this, mTitleBar, AppConfig.getTitleBarSetting());
+        mStatusBar = StatusBarUtil.init(this, mTitleBar);
+        configBar(mTitleBar, mStatusBar);
     }
 
     @Override
-    public void show(String msg) {
+    public void showToast(String msg) {
         ToastFrame.show(msg);
     }
 
     @Override
-    public void showToastDialog(String title, CharSequence msg,
+    public void showMessageDialog(String title, CharSequence msg,
             @NonNull FrameDialogAction.ActionListener actionListener) {
-        runOnUiThread(() -> {
-            if (messageDialog != null) {
-                messageDialog.cancel();
-            }
-            messageDialog = new FrameDialog.MessageDialogBuilder(this).setTitle(title)
-                    .setMessage(msg)
-                    .addAction(new FrameDialogAction(getString(R.string.determine_frame),
-                            actionListener))
-                    .create();
-            messageDialog.show();
-        });
+        statusViewControl.showDetermineMessageDialog(title, msg, actionListener);
     }
 
     @Override
-    public void loadingDialog() {
-        runOnUiThread(() -> {
-            if (loadingDialog != null) {
-                return;
-            }
-            loadingDialog = new FrameDialog.LoadingDialogBuilder(this).create();
-            loadingDialog.show();
-        });
+    public void showLoading(boolean isLoadingDialog) {
+        statusViewControl.showLoading(isLoadingDialog);
     }
 
     @Override
-    public void loadingView() {
-        runOnUiThread(() -> {
-            if (mLoadingView == null) {
-                return;
-            }
-            mLoadingView.setVisibility(View.VISIBLE);
-        });
-    }
-
-    @Override
-    public void hidden() {
-        runOnUiThread(() -> {
-            if (loadingDialog != null) {
-                loadingDialog.cancel();
-                loadingDialog = null;
-            }
-            if (mLoadingView != null) {
-                mLoadingView.setVisibility(View.GONE);
-            }
-        });
+    public void hideLoading() {
+        statusViewControl.hideLoading();
     }
 
     @Override
     public void startLoginActivity() {
-        Class<? extends Activity> loginClass = AppConfig.getLoginClass();
-        if (loginClass == null) {
-            throw new IllegalArgumentException("login Activity class is null,please set");
-        }
-        startActivity(new Intent(this, loginClass));
+        AppConfig.startLoginActivity(this);
     }
 
     @Override
@@ -200,5 +145,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     @Override
     public void finishView() {
         finish();
+    }
+
+    /**
+     * TitleBar 和 StatusBar配置
+     */
+    protected void configBar(TitleBar titleBar, StatusBar statusBar) {
+
     }
 }

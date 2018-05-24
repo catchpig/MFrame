@@ -64,29 +64,24 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
     }
 
     @Override
-    public void loadingView() {
-        mActivity.loadingView();
+    public void showLoading(boolean isLoadingDialog) {
+        mActivity.showLoading(isLoadingDialog);
     }
 
     @Override
-    public void loadingDialog() {
-        mActivity.loadingDialog();
+    public void showToast(String msg) {
+        mActivity.showToast(msg);
     }
 
     @Override
-    public void show(String msg) {
-        mActivity.show(msg);
-    }
-
-    @Override
-    public void showToastDialog(String title, CharSequence msg,
+    public void showMessageDialog(String title, CharSequence msg,
             @NonNull FrameDialogAction.ActionListener actionListener) {
-        mActivity.showToastDialog(title, msg, actionListener);
+        mActivity.showMessageDialog(title, msg, actionListener);
     }
 
     @Override
-    public void hidden() {
-        mActivity.hidden();
+    public void hideLoading() {
+        mActivity.hideLoading();
     }
 
     @Override

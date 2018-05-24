@@ -62,10 +62,10 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
                 case LOADING_NO:
                     break;
                 case LOADING_DIALOG:
-                    mView.loadingDialog();
+                    mView.showLoading(true);
                     break;
                 case LOADING_VIEW:
-                    mView.loadingView();
+                    mView.showLoading(false);
                     break;
                 default:
                     break;
@@ -87,13 +87,15 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
     @Override
     public void onError(Throwable t) {
         String msg;
-        if (t instanceof NetWorkException.TokenError) {//token失效
+        if (t instanceof NetWorkException.TokenError) {
+            //token失效
             NetWorkException.TokenError e = (NetWorkException.TokenError) t;
             msg = e.getErrorMessage();
             if (mView != null) {
                 mView.startLoginActivity();
             }
-        } else if (t instanceof NetWorkException.SignError) {//验签失败
+        } else if (t instanceof NetWorkException.SignError) {
+            //验签失败
             NetWorkException.SignError e = (NetWorkException.SignError) t;
             msg = e.getErrorMessage();
         } else if (t instanceof NetWorkException.HttpError) {
@@ -111,7 +113,7 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
         }
         Logger.e(msg, t);
         if (mView != null) {
-            mView.show(msg);
+            mView.showToast(msg);
         }
         onComplete();
     }
@@ -119,7 +121,7 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
     @Override
     public void onComplete() {
         if (mView != null) {
-            mView.hidden();
+            mView.hideLoading();
         }
     }
 }

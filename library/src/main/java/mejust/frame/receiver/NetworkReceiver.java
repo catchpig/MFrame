@@ -28,14 +28,8 @@ public class NetworkReceiver extends BroadcastReceiver {
         if (TextUtils.isEmpty(action)) {
             return;
         }
-        switch (action) {
-            case ConnectivityManager.CONNECTIVITY_ACTION:
-                if (mOnNetworkListener != null) {
-                    mOnNetworkListener.onNetwork(NetworkUtils.isConnected());
-                }
-                break;
-            default:
-                break;
+        if (mOnNetworkListener != null && ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
+            mOnNetworkListener.onNetwork(NetworkUtils.isConnected());
         }
     }
 

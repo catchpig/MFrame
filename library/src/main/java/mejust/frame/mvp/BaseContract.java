@@ -18,33 +18,29 @@ import mejust.frame.widget.dialog.FrameDialogAction;
 public interface BaseContract {
 
     interface View {
-        /**
-         * loading一个View<br/>
-         * 可以点击返回键
-         */
-        void loadingView();
 
         /**
-         * loading一个Dialog<br/>
-         * 不可以点击返回键
+         * 显示loading view，两种样式dialog or view
+         *
+         * @param isLoadingDialog true is dialog，otherwise is view
          */
-        void loadingDialog();
+        void showLoading(boolean isLoadingDialog);
 
         /**
          * 显示Toast的提示信息
          */
-        void show(String msg);
+        void showToast(String msg);
 
         /**
          * 显示dialog提醒信息
          */
-        void showToastDialog(String title, CharSequence msg,
+        void showMessageDialog(String title, CharSequence msg,
                 @NonNull FrameDialogAction.ActionListener actionListener);
 
         /**
          * 关闭loading
          */
-        void hidden();
+        void hideLoading();
 
         /**
          * 打开登录页面

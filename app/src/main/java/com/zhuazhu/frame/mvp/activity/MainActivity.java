@@ -13,9 +13,6 @@ import mejust.frame.annotation.TitleBarConfig;
 import mejust.frame.annotation.TitleBarMenu;
 import mejust.frame.annotation.TitleBarMenuLocation;
 import mejust.frame.mvp.view.BasePresenterActivity;
-import mejust.frame.upgrade.ProgressMessageBuilder;
-import mejust.frame.upgrade.ProgressType;
-import mejust.frame.upgrade.UpgradeAppManager;
 
 /**
  * @author wangpeifeng
@@ -44,14 +41,10 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
     @TitleBarMenu(location = TitleBarMenuLocation.rightSecondMenu, text = "第二")
     public void second(View v) {
         Log.i(TAG, "detail: ---------------------------------");
-        //showToastDialog("Hello World", null);
-        loadingDialog();
     }
 
     @TitleBarMenu(location = TitleBarMenuLocation.rightFirstMenu, text = "第一")
     public void detail(View v) {
-        showToastDialog("", "由于release签名的唯一性，可以考虑在native层进行签名的校验。如果签名不正确，直接让App crash",
-                (dialog, index) -> dialog.dismiss());
     }
 
     public void onClick(View v) {
@@ -69,10 +62,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
                 startActivity(intent.setClass(this, PuppetActivity.class));
                 break;
             case R.id.upgrade:
-                new UpgradeAppManager(
-                        "http://dl.mejust.com/weijie_app/weijie-pro.apk").setProgressManager(
-                        ProgressType.NOTIFICATION,
-                        new ProgressMessageBuilder(R.mipmap.ic_launcher, "app更新")).start(this);
+                startActivity(intent.setClass(this, TitleBarActivity.class));
                 break;
             default:
                 break;

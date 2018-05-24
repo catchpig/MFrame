@@ -2,7 +2,8 @@ package mejust.frame.app;
 
 import android.app.Activity;
 import android.app.Application;
-import android.widget.Toast;
+import android.content.Context;
+import android.content.Intent;
 import conm.zhuazhu.common.utils.Utils;
 import mejust.frame.utils.log.DebugLogTree;
 import mejust.frame.utils.log.ReleaseLogTree;
@@ -72,15 +73,18 @@ public final class AppConfig {
         } else {
             Timber.plant(new ReleaseLogTree());
         }
-        Toast.makeText(application, "", Toast.LENGTH_SHORT).show();
-    }
-
-    public static Class<? extends Activity> getLoginClass() {
-        return AppConfig.loginClass;
     }
 
     public static TitleBarSetting getTitleBarSetting() {
         return titleBarSetting.newBuilder().build();
+    }
+
+    public static void startLoginActivity(Context context) {
+        Class<? extends Activity> loginClass = AppConfig.loginClass;
+        if (loginClass == null) {
+            throw new IllegalArgumentException("login Activity class is null,please set");
+        }
+        context.startActivity(new Intent(context, loginClass));
     }
 
     private static void setConfigInterface(ConfigInterface configInterface) {

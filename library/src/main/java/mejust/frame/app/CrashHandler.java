@@ -103,7 +103,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         //            @Override
         //            public void run() {
         //                Looper.prepare();
-        //                T.show(mContext, "很抱歉,程序出现异常,即将退出.");
+        //                T.showToast(mContext, "很抱歉,程序出现异常,即将退出.");
         //                Looper.loop();
         //            }
         //        }.start();

@@ -36,7 +36,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         ImageView img2 = findViewById(R.id.image2);
         ImageView img3 = findViewById(R.id.image3);
         binding.setImageUrl(url);
-//        ImageUtils.show(img1,url);
+//        ImageUtils.showToast(img1,url);
         ImageUtils.showCircle(img2,url);
         ImageUtils.showRound(img3,url,10);
         LeakThread leakThread = new LeakThread();

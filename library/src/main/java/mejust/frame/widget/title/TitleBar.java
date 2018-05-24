@@ -90,6 +90,9 @@ public class TitleBar extends LinearLayout {
         getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             int leftWidth = layoutToolLeft.getMeasuredWidth();
             int rightWidth = layoutToolRight.getMeasuredWidth();
+            if (leftWidth == rightWidth) {
+                return;
+            }
             int width = Math.max(leftWidth, rightWidth);
             layoutToolLeft.setLayoutParams(
                     new LayoutParams(width, ViewGroup.LayoutParams.MATCH_PARENT));

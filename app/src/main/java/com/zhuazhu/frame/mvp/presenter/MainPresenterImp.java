@@ -49,15 +49,15 @@ public class MainPresenterImp extends BasePresenter<MainContract.View>
     }
 
     private void checkLoading() {
-        mView.loadingDialog();
+        mView.showLoading(true);
         disposable.add(Flowable.timer(2000, TimeUnit.MILLISECONDS)
                 .flatMap(aLong -> {
-                    mView.hidden();
+                    mView.hideLoading();
                     return Flowable.just(String.valueOf(aLong));
                 })
                 .delay(2000, TimeUnit.MILLISECONDS)
                 .map(s -> {
-                    mView.loadingDialog();
+                    mView.showLoading(true);
                     return s;
                 })
                 .delay(2000, TimeUnit.MILLISECONDS)
@@ -75,7 +75,7 @@ public class MainPresenterImp extends BasePresenter<MainContract.View>
 
                     @Override
                     public void onComplete() {
-                        mView.hidden();
+                        mView.hideLoading();
                         Logger.i("onComplete");
                     }
                 }));
