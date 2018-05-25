@@ -17,7 +17,7 @@ import mejust.frame.mvp.BaseContract;
 public abstract class BasePresenterFragment<P extends BaseContract.Presenter> extends BaseFragment {
 
     @Inject
-    protected P presenter;
+    protected P mPresenter;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -25,25 +25,25 @@ public abstract class BasePresenterFragment<P extends BaseContract.Presenter> ex
         initData();
         injectComponent();
         initView();
-        presenter.onCreate();
+        mPresenter.onCreate();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        presenter.onResume();
+        mPresenter.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        presenter.onPause();
+        mPresenter.onPause();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
+        mPresenter.onDestroy();
     }
 
     protected abstract void initData();

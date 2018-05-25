@@ -13,7 +13,7 @@ public @interface TitleBarConfig {
     /**
      * title content
      */
-    String textValue();
+    String textValue() default "";
 
     /**
      * title textColor
