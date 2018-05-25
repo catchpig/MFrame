@@ -45,6 +45,7 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
 
     @TitleBarMenu(location = TitleBarMenuLocation.rightFirstMenu, text = "第一")
     public void detail(View v) {
+        showLoading(true);
     }
 
     public void onClick(View v) {

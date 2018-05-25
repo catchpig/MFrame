@@ -124,9 +124,9 @@ public class LoadingView extends View {
         canvas.translate(centerSize, centerSize);
         for (int i = 0; i < LINE_COUNT; i++) {
             canvas.rotate(DEGREE_PER_LINE);
-            float radius = (height / 4) + i * (height / 28);
+            double radius = (7 + i) * height / 28.0;
             canvas.translate(0, -loadSize / 2 + width / 2);
-            canvas.drawCircle(0, 0, radius, paint);
+            canvas.drawCircle(0, 0, (float) radius, paint);
             canvas.translate(0, loadSize / 2 - width / 2);
         }
     }
