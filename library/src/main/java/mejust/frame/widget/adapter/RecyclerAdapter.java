@@ -18,6 +18,7 @@ import java.util.List;
 import conm.zhuazhu.common.utils.ListUtils;
 import mejust.frame.R;
 import mejust.frame.annotation.Adapter;
+import mejust.frame.utils.log.Logger;
 import mejust.frame.widget.refresh.IPageControl;
 import mejust.frame.widget.refresh.RefreshLayoutWrapper;
 
@@ -31,7 +32,7 @@ import mejust.frame.widget.refresh.RefreshLayoutWrapper;
 
 public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
         extends RecyclerView.Adapter<BaseViewHolder> implements IAdapterListControl<M> {
-
+    private static final String TAG = "RecyclerAdapter";
     private List<M> mData;
     /**
      * 头部类型
@@ -258,7 +259,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
     }
 
     @Override
-    public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public final BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //加载头部信息
         if (TYPE_HEADER == viewType) {
             return new HeaderAndFooterViewHolder(mHeaderView);
@@ -291,7 +292,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
             Constructor<VH> con = c.getConstructor(View.class);
             holder = con.newInstance(v);
         } catch (NoSuchMethodException e) {
-            System.err.println("检查ViewHolder类及构造函数是否是public");
+            Logger.e(TAG,"检查ViewHolder类及构造函数是否是public");
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
