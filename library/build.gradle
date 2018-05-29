@@ -72,6 +72,9 @@ dependencies {
     api("com.github.bumptech.glide:okhttp3-integration:$glide_version", {
         transitive = false
     })
+    api("jp.wasabeef:glide-transformations:3.3.0", {
+        transitive = false
+    })
 
     //图片放大缩小控件
     api 'com.github.chrisbanes:PhotoView:2.1.3'

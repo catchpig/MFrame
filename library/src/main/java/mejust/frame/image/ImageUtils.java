@@ -20,6 +20,8 @@ import conm.zhuazhu.common.utils.StringUtils;
  * 修改时间: 2017/12/20 14:39<br/>
  * 描述:网络图片异步加载工具<br/>
  * 在Application中初始化ImageUtils.init(hostImageUrl,defalutImage,errorImage)
+ *
+ * @deprecated {@link GlideLoad}
  */
 
 public class ImageUtils {
@@ -102,14 +104,15 @@ public class ImageUtils {
                 .into(imageView);
     }
 
-
     /**
      * 加载图片
+     *
      * @param file 文件
-     * @param defaultImage  默认图
-     * @param errorImage   错误图
+     * @param defaultImage 默认图
+     * @param errorImage 错误图
      */
-    public static void show(ImageView imageView, File file, @DrawableRes int defaultImage, @DrawableRes int errorImage) {
+    public static void show(ImageView imageView, File file, @DrawableRes int defaultImage,
+            @DrawableRes int errorImage) {
         GlideApp.with(imageView.getContext())
                 .load(file)
                 .placeholder(defaultImage)
@@ -121,10 +124,11 @@ public class ImageUtils {
      * 加载圆形图片
      *
      * @param file 文件
-     * @param defaultImage  默认图
-     * @param errorImage   错误图
+     * @param defaultImage 默认图
+     * @param errorImage 错误图
      */
-    public static void showCircle(ImageView imageView, File file, @DrawableRes int defaultImage, @DrawableRes int errorImage) {
+    public static void showCircle(ImageView imageView, File file, @DrawableRes int defaultImage,
+            @DrawableRes int errorImage) {
         GlideApp.with(imageView.getContext())
                 .load(file)
                 .placeholder(sDefaultImage)
