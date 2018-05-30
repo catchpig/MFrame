@@ -31,7 +31,7 @@ public class NotificationProgress implements ProgressHelper {
             String name = "应用更新";
             String description = "Prompt to say that you received the offer";
             NotificationChannel channel =
-                    new NotificationChannel(CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+                    new NotificationChannel(CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
             channel.setDescription(description);
             NotificationManager notificationManager =
                     (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
@@ -51,14 +51,16 @@ public class NotificationProgress implements ProgressHelper {
     @Override
     public void updateProgress(int progress) {
         notificationBuilder.setProgress(100, progress, false)
-                .setContentText(Utils.getApp().getResources().getString(R.string.download_ing_frame));
+                .setContentText(
+                        Utils.getApp().getResources().getString(R.string.download_ing_frame));
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
     }
 
     @Override
     public void downloadSuccess() {
         notificationBuilder.setProgress(0, 0, false)
-                .setContentText(Utils.getApp().getResources().getString(R.string.download_success_frame));
+                .setContentText(
+                        Utils.getApp().getResources().getString(R.string.download_success_frame));
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
         notificationManager.cancel(NOTIFICATION_ID);
     }
@@ -66,7 +68,8 @@ public class NotificationProgress implements ProgressHelper {
     @Override
     public void downloadFail() {
         notificationBuilder.setProgress(0, 0, false)
-                .setContentText(Utils.getApp().getResources().getString(R.string.download_fail_frame));
+                .setContentText(
+                        Utils.getApp().getResources().getString(R.string.download_fail_frame));
         notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build());
         notificationManager.cancel(NOTIFICATION_ID);
     }
