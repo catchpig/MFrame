@@ -10,8 +10,8 @@ import com.zhuazhu.frame.R;
 import com.zhuazhu.frame.databinding.ActivityImageBinding;
 import java.util.ArrayList;
 import java.util.List;
-import mejust.frame.image.GlideLoad;
-import mejust.frame.image.IImageLoad;
+import mejust.frame.image.GlideLoadManager;
+import mejust.frame.image.IImageLoadManager;
 import mejust.frame.image.ImageLoadConfig;
 import mejust.frame.widget.dialog.ImageDialog;
 
@@ -35,7 +35,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         ImageView img1 = findViewById(R.id.image1);
         ImageView img2 = findViewById(R.id.image2);
         ImageView img3 = findViewById(R.id.image3);
-        IImageLoad imageLoad = new GlideLoad();
+        IImageLoadManager imageLoad = new GlideLoadManager();
         imageLoad.loadNet(img1, url);
         imageLoad.loadNet(img2, url, new ImageLoadConfig(true));
         imageLoad.loadNet(img3, url, new ImageLoadConfig(30));

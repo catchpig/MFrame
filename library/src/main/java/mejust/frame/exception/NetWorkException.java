@@ -28,7 +28,7 @@ public class NetWorkException {
     public static class SignError extends BaseException {
 
         public SignError() {
-            super(NetWorkCode.SIGN_ERROR, "请求验签失败");
+            super(NetWorkCode.SIGN_ERROR, "请求验证失败");
         }
     }
 }

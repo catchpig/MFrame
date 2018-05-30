@@ -12,7 +12,7 @@ import mejust.frame.widget.dialog.FrameDialogAction;
  * @author wangpeifeng
  * @date 2018/05/24 10:08
  */
-public class ActivityStatusViewControl {
+public class ActivityStateViewControl {
 
     private BaseActivity baseActivity;
     private FrameLayout layoutRoot;
@@ -21,7 +21,7 @@ public class ActivityStatusViewControl {
     private Dialog messageDialog;
     private View loadingView;
 
-    public ActivityStatusViewControl(BaseActivity baseActivity, FrameLayout layoutRoot) {
+    public ActivityStateViewControl(BaseActivity baseActivity, FrameLayout layoutRoot) {
         this.baseActivity = baseActivity;
         this.layoutRoot = layoutRoot;
     }

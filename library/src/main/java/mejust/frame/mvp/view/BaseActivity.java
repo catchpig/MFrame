@@ -45,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     private Unbinder mUnBinder;
     private NetWorkControlView netWorkControlView;
     private StatusBar mStatusBar;
-    private ActivityStatusViewControl statusViewControl;
+    private ActivityStateViewControl statusViewControl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         mUnBinder = ButterKnife.bind(this);
         initBar();
         netWorkControlView = findViewById(R.id.network_control_view);
-        statusViewControl = new ActivityStatusViewControl(this, mLayoutRoot);
+        statusViewControl = new ActivityStateViewControl(this, mLayoutRoot);
     }
 
     @Override

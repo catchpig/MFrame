@@ -21,7 +21,7 @@ import conm.zhuazhu.common.utils.StringUtils;
  * 描述:网络图片异步加载工具<br/>
  * 在Application中初始化ImageUtils.init(hostImageUrl,defalutImage,errorImage)
  *
- * @deprecated {@link GlideLoad}
+ * @deprecated {@link GlideLoadManager}
  */
 
 public class ImageUtils {

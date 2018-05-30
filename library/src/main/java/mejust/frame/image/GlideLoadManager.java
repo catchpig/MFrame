@@ -12,7 +12,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  * @author wangpeifeng
  * @date 2018/05/29 15:26
  */
-public class GlideLoad implements IImageLoad {
+public class GlideLoadManager implements IImageLoadManager {
 
     private static final String ASSET_FILE_HOST = "file:///android_asset/";
 

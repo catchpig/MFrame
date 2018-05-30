@@ -11,15 +11,15 @@ import mejust.frame.utils.log.Logger;
  */
 public abstract class BaseException extends Exception {
 
-    /* 错误码 */
+    /** 错误码 */
     private int errorCode;
-    /* 错误信息 */
+    /** 错误信息 */
     private String errorMessage;
 
     public BaseException(int errorCode, String errorMessage) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
-        Logger.e(errorMessage, this);
+        Logger.e(this, errorMessage);
     }
 
     public int getErrorCode() {
