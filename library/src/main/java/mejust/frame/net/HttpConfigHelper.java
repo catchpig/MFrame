@@ -2,8 +2,8 @@ package mejust.frame.net;
 
 import java.util.concurrent.TimeUnit;
 import mejust.frame.annotation.ServiceUrl;
-import mejust.frame.utils.AnnotationUtils;
 import mejust.frame.app.AppConfig;
+import mejust.frame.utils.AnnotationUtils;
 import mejust.frame.utils.JsonUtil;
 import mejust.frame.utils.log.Logger;
 import okhttp3.OkHttpClient;

@@ -13,6 +13,9 @@ import mejust.frame.annotation.TitleBarConfig;
 import mejust.frame.annotation.TitleBarMenu;
 import mejust.frame.annotation.TitleBarMenuLocation;
 import mejust.frame.mvp.view.BasePresenterActivity;
+import mejust.frame.upgrade.ProgressMessageBuilder;
+import mejust.frame.upgrade.ProgressType;
+import mejust.frame.upgrade.UpgradeAppManager;
 
 /**
  * @author wangpeifeng
@@ -63,7 +66,12 @@ public class MainActivity extends BasePresenterActivity<MainPresenterImp>
                 startActivity(intent.setClass(this, PuppetActivity.class));
                 break;
             case R.id.upgrade:
-                startActivity(intent.setClass(this, TitleBarActivity.class));
+                //startActivity(intent.setClass(this, TitleBarActivity.class));
+                new UpgradeAppManager(
+                        "http://dl.mejust.com/partner/partner_release_102_05301422_102_jiagu_sign.apk")
+                        .setProgressManager(ProgressType.NOTIFICATION,
+                                new ProgressMessageBuilder(R.mipmap.ic_launcher, "app更新"))
+                        .start(this);
                 break;
             default:
                 break;
