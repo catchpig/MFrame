@@ -4,14 +4,13 @@ import android.databinding.BindingAdapter;
 import android.support.annotation.DrawableRes;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-
-import java.io.File;
-
 import conm.zhuazhu.common.utils.ScreenUtils;
 import conm.zhuazhu.common.utils.StringUtils;
+import java.io.File;
+import mejust.frame.refactor.image.GlideApp;
+import mejust.frame.refactor.image.GlideLoadManager;
 
 /**
  * 创建时间:2017/12/20 14:39<br/>

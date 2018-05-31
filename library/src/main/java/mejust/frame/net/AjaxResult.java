@@ -14,17 +14,17 @@ public class AjaxResult<T> {
     /**
      * 返回码
      */
-    @SerializedName(value = "code",alternate = {"resCode"})
+    @SerializedName(value = "code", alternate = { "resCode" })
     private String code;
     /**
      * 返回的提示信息
      */
-    @SerializedName(value = "message",alternate = {"msg"})
+    @SerializedName(value = "message", alternate = { "msg" })
     private String message;
     /**
      * 返回码为200的时候,真正需要的数据
      */
-    @SerializedName(value = "data",alternate = {"result"})
+    @SerializedName(value = "data", alternate = { "result" })
     private T data;
 
     public int getCode() {
