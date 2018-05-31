@@ -1,8 +1,7 @@
 package mejust.frame.refactor.image;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
@@ -10,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions;
 import conm.zhuazhu.common.utils.StringUtils;
 import java.io.File;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+import mejust.frame.utils.log.Logger;
 
 /**
  * @author wangpeifeng
@@ -37,12 +37,13 @@ public class GlideLoadManager implements IImageLoadManager {
             realUrl = url;
         } else {
             if (imageConfig == null) {
-                throw new IllegalArgumentException("image load config not init");
+                Logger.e("image url is incomplete,and app host url is null,url address is" + url);
+                realUrl = url;
             } else {
                 realUrl = imageConfig.getHostUrl() + url;
             }
         }
-        requestImage(Glide.with(imageView).load(realUrl), loadConfig, imageView);
+        requestImageReal(Glide.with(imageView).load(realUrl), loadConfig, imageView);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class GlideLoadManager implements IImageLoadManager {
 
     @Override
     public void loadLocal(ImageView imageView, File file, ImageLoadConfig loadConfig) {
-        requestImage(Glide.with(imageView).load(file), loadConfig, imageView);
+        requestImageReal(Glide.with(imageView).load(file), loadConfig, imageView);
     }
 
     @Override
@@ -62,47 +63,80 @@ public class GlideLoadManager implements IImageLoadManager {
 
     @Override
     public void loadAsset(ImageView imageView, String assetName, ImageLoadConfig loadConfig) {
-        requestImage(Glide.with(imageView).load(ASSET_FILE_HOST + assetName), loadConfig,
+        requestImageReal(Glide.with(imageView).load(ASSET_FILE_HOST + assetName), loadConfig,
                 imageView);
     }
 
-    private void requestImage(RequestBuilder<Drawable> requestBuilder, ImageLoadConfig loadConfig,
-            ImageView imageView) {
-        if (loadConfig == null) {
-            if (imageConfig == null) {
-                requestBuilder.into(imageView);
+    private void requestImageReal(RequestBuilder<Drawable> requestBuilder,
+            ImageLoadConfig loadConfig, ImageView imageView) {
+        RequestBuilder<Drawable> requestBuilderReal = requestBuilder;
+        RequestOptions requestOptions = new RequestOptions();
+        if (imageConfig == null) {
+            if (loadConfig == null) {
+                requestOptions = null;
             } else {
-                RequestOptions requestOptions =
-                        new RequestOptions().fallback(new ColorDrawable(Color.GRAY));
+                if (loadConfig.getPlaceholderResId() > 0) {
+                    requestOptions = requestOptions.placeholder(loadConfig.getPlaceholderResId())
+                            .fallback(loadConfig.getPlaceholderResId());
+                }
+                if (loadConfig.getErrorResId() > 0) {
+                    requestOptions = requestOptions.error(loadConfig.getErrorResId());
+                    requestBuilderReal = requestBuilderReal.error(Glide.with(imageView)
+                            .load(ContextCompat.getDrawable(imageView.getContext(),
+                                    loadConfig.getErrorResId())));
+                }
+                if (loadConfig.isShowCircle()) {
+                    requestOptions = requestOptions.circleCrop();
+                }
+                if (loadConfig.getRoundRadius() > 0) {
+                    requestOptions = requestOptions.transform(
+                            new RoundedCornersTransformation(loadConfig.getRoundRadius(), 0));
+                }
+            }
+        } else {
+            if (loadConfig == null) {
                 if (imageConfig.getPlaceholderResId() > 0) {
-                    requestOptions = requestOptions.placeholder(imageConfig.getPlaceholderResId());
+                    requestOptions = requestOptions.placeholder(imageConfig.getPlaceholderResId())
+                            .fallback(imageConfig.getPlaceholderResId());
                 }
                 if (imageConfig.getErrorResId() > 0) {
                     requestOptions = requestOptions.error(imageConfig.getErrorResId());
+                    requestBuilderReal = requestBuilderReal.error(Glide.with(imageView)
+                            .load(ContextCompat.getDrawable(imageView.getContext(),
+                                    imageConfig.getErrorResId())));
                 }
-                requestBuilder.apply(requestOptions)
-                        .error(Glide.with(imageView).load(new ColorDrawable(Color.GRAY)))
-                        .into(imageView);
+            } else {
+                if (loadConfig.getPlaceholderResId() > 0) {
+                    requestOptions = requestOptions.placeholder(loadConfig.getPlaceholderResId())
+                            .fallback(loadConfig.getPlaceholderResId());
+                } else if (imageConfig.getPlaceholderResId() > 0) {
+                    requestOptions = requestOptions.placeholder(imageConfig.getPlaceholderResId())
+                            .fallback(imageConfig.getPlaceholderResId());
+                }
+                if (loadConfig.getErrorResId() > 0) {
+                    requestOptions = requestOptions.error(loadConfig.getErrorResId());
+                    requestBuilderReal = requestBuilderReal.error(Glide.with(imageView)
+                            .load(ContextCompat.getDrawable(imageView.getContext(),
+                                    loadConfig.getErrorResId())));
+                } else if (imageConfig.getErrorResId() > 0) {
+                    requestOptions = requestOptions.error(imageConfig.getErrorResId());
+                    requestBuilderReal = requestBuilderReal.error(Glide.with(imageView)
+                            .load(ContextCompat.getDrawable(imageView.getContext(),
+                                    imageConfig.getErrorResId())));
+                }
+                if (loadConfig.isShowCircle()) {
+                    requestOptions = requestOptions.circleCrop();
+                }
+                if (loadConfig.getRoundRadius() > 0) {
+                    requestOptions = requestOptions.transform(
+                            new RoundedCornersTransformation(loadConfig.getRoundRadius(), 0));
+                }
             }
+        }
+        if (requestOptions == null) {
+            requestBuilderReal.into(imageView);
         } else {
-            RequestOptions requestOptions =
-                    new RequestOptions().fallback(new ColorDrawable(Color.GRAY));
-            if (loadConfig.getPlaceholderResId() > 0) {
-                requestOptions = requestOptions.placeholder(imageConfig.getPlaceholderResId());
-            }
-            if (loadConfig.getErrorResId() > 0) {
-                requestOptions = requestOptions.error(imageConfig.getErrorResId());
-            }
-            if (loadConfig.isShowCircle()) {
-                requestOptions = requestOptions.circleCrop();
-            }
-            if (loadConfig.getRoundRadius() > 0) {
-                requestOptions = requestOptions.transform(
-                        new RoundedCornersTransformation(loadConfig.getRoundRadius(), 0));
-            }
-            requestBuilder.apply(requestOptions)
-                    .error(Glide.with(imageView).load(new ColorDrawable(Color.GRAY)))
-                    .into(imageView);
+            requestBuilderReal.apply(requestOptions).into(imageView);
         }
     }
 }
