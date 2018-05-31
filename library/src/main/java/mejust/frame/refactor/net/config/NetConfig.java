@@ -1,16 +1,15 @@
-package mejust.frame.refactor.net;
+package mejust.frame.refactor.net.config;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import okhttp3.Interceptor;
 
 /**
  * @author wangpeifeng
  * @date 2018/05/30 14:47
  */
 public class NetConfig {
-
-    public static final String RESULT_CODE_KEY = "result_code_key";
-    public static final String RESULT_MSG_KEY = "result_msg_key";
-    public static final String RESULT_DATA_KEY = "result_data_key";
 
     /** http请求log tag */
     private String httpLogTag;
@@ -28,8 +27,8 @@ public class NetConfig {
     private String responseCodeTokenError;
     /** 网络请求状态码定义 */
     private HashMap<String, String> responseErrorMap;
-    /** 网络返回外层result key定义 */
-    private HashMap<String, String> responseResultMap;
+    /** 拦截器 */
+    private List<Interceptor> httpInterceptor;
 
     public NetConfig() {
         this.httpLogTag = "HTTP_TAG";
@@ -40,7 +39,7 @@ public class NetConfig {
         this.responseCodeSuccess = "200";
         this.responseCodeTokenError = "405";
         this.responseErrorMap = new HashMap<>();
-        this.responseResultMap = new HashMap<>(3);
+        this.httpInterceptor = new LinkedList<>();
     }
 
     public String getHttpLogTag() {
@@ -107,13 +106,11 @@ public class NetConfig {
         this.responseErrorMap.put(errorCode, errorMessage);
     }
 
-    public void setResponseResultKey(String codeKey, String msgKey, String dataKey) {
-        this.responseResultMap.put(RESULT_CODE_KEY, codeKey);
-        this.responseResultMap.put(RESULT_MSG_KEY, msgKey);
-        this.responseResultMap.put(RESULT_DATA_KEY, dataKey);
+    public void addInterceptor(Interceptor interceptor) {
+        this.httpInterceptor.add(interceptor);
     }
 
-    public String getResponseResultKey(String key) {
-        return this.responseResultMap.get(key);
+    public List<Interceptor> getHttpInterceptor() {
+        return httpInterceptor;
     }
 }

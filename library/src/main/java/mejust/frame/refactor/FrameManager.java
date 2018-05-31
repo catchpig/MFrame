@@ -6,8 +6,8 @@ import mejust.frame.refactor.di.DaggerFrameComponent;
 import mejust.frame.refactor.di.FrameComponent;
 import mejust.frame.refactor.image.IImageLoadManager;
 import mejust.frame.refactor.image.ImageConfig;
-import mejust.frame.refactor.net.NetConfig;
 import mejust.frame.refactor.net.NetManager;
+import mejust.frame.refactor.net.config.NetConfig;
 
 /**
  * @author wangpeifeng

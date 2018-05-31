@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 import mejust.frame.refactor.config.FrameConfig;
 import mejust.frame.refactor.image.IImageLoadManager;
 import mejust.frame.refactor.image.ImageConfig;
-import mejust.frame.refactor.net.NetConfig;
+import mejust.frame.refactor.net.config.NetConfig;
 import mejust.frame.refactor.net.NetManager;
 
 /**
