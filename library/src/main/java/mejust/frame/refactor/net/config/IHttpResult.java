@@ -6,7 +6,7 @@ package mejust.frame.refactor.net.config;
  */
 public interface IHttpResult<T> {
 
-    T getData();
+    T getResultData();
 
     String getStatusCode();
 

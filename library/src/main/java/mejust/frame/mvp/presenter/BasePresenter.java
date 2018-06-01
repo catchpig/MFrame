@@ -1,8 +1,6 @@
 package mejust.frame.mvp.presenter;
 
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import mejust.frame.mvp.BaseContract;
@@ -50,10 +48,5 @@ public abstract class BasePresenter<V extends BaseContract.View> implements Base
     @Override
     public void onDestroy() {
         disposable.clear();
-    }
-
-    @Override
-    public FragmentActivity getViewActivity() {
-        return mView.getViewActivity();
     }
 }

@@ -1,7 +1,6 @@
 package mejust.frame.mvp;
 
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import io.reactivex.Flowable;
 import mejust.frame.net.Callback;
 import mejust.frame.net.Optional;
@@ -28,6 +27,8 @@ public interface BaseContract {
 
         /**
          * 显示Toast的提示信息
+         *
+         * @param msg msg
          */
         void showToast(String msg);
 
@@ -43,19 +44,9 @@ public interface BaseContract {
         void hideLoading();
 
         /**
-         * 打开登录页面
-         */
-        void startLoginActivity();
-
-        /**
-         * 页面Activity
-         */
-        FragmentActivity getViewActivity();
-
-        /**
          * 关闭activity
          */
-        void finishView();
+        void finishActivity();
     }
 
     interface Presenter {
@@ -71,7 +62,5 @@ public interface BaseContract {
         void onPause();
 
         void onDestroy();
-
-        FragmentActivity getViewActivity();
     }
 }

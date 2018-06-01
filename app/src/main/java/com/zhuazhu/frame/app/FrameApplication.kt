@@ -1,7 +1,9 @@
 package com.zhuazhu.frame.app
 
 import android.app.Application
+import com.squareup.leakcanary.LeakCanary
 import com.zhuazhu.frame.BuildConfig
+import com.zhuazhu.frame.mvp.image.ImageActivity
 import conm.zhuazhu.common.utils.Utils
 import mejust.frame.refactor.FrameManager
 import mejust.frame.refactor.config.FrameConfig
@@ -16,6 +18,10 @@ class FrameApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return
+        }
+        LeakCanary.install(this)
         Utils.init(this)
         initLibrary()
     }
@@ -30,6 +36,7 @@ class FrameApplication : Application() {
         val frameConfig = FrameConfig().apply {
             isDebug = BuildConfig.DEBUG
             isOpenNetworkState = false
+            loginClass = ImageActivity::class.java
         }
         FrameManager.init(this, imageConfig, netConfig, frameConfig)
     }

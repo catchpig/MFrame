@@ -51,7 +51,7 @@ public class StatusBarUtil {
         StatusBar statusBar = null;
         if (statusBarConfig != null && statusBarConfig.isInitFragment()) {
             hideStatusListener.change(statusBarConfig.isHideStatus());
-            statusBar = StatusBar.with(baseFragment.getViewActivity(), baseFragment);
+            statusBar = StatusBar.with(baseFragment.getActivity(), baseFragment);
             if (statusBarConfig.isDarkStatus()) {
                 statusBar = statusBar.statusBarDarkFont(true, 0.2f);
             }

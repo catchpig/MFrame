@@ -1,10 +1,11 @@
-package mejust.frame.mvp.view;
+package mejust.frame.mvp.view.support;
 
 import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.FrameLayout;
 import mejust.frame.R;
+import mejust.frame.mvp.view.BaseActivity;
 import mejust.frame.widget.dialog.FrameDialog;
 import mejust.frame.widget.dialog.FrameDialogAction;
 
@@ -66,6 +67,9 @@ public class ActivityStateViewControl {
     }
 
     public void destroyControl() {
+        baseActivity = null;
+        layoutRoot = null;
+        hideLoading();
         if (messageDialog != null) {
             messageDialog.cancel();
             messageDialog = null;

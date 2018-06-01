@@ -8,6 +8,9 @@ import mejust.frame.refactor.image.IImageLoadManager;
 import mejust.frame.refactor.image.ImageConfig;
 import mejust.frame.refactor.net.NetManager;
 import mejust.frame.refactor.net.config.NetConfig;
+import mejust.frame.utils.log.DebugLogTree;
+import mejust.frame.utils.log.ReleaseLogTree;
+import timber.log.Timber;
 
 /**
  * @author wangpeifeng
@@ -29,6 +32,11 @@ public class FrameManager {
                 .build();
         imageLoadManager = frameComponent.imageLoadManager();
         netManager = frameComponent.netManager();
+        if (frameConfig.isDebug()) {
+            Timber.plant(new DebugLogTree());
+        } else {
+            Timber.plant(new ReleaseLogTree());
+        }
     }
 
     public static void setImageLoadManager(IImageLoadManager loadManager) {

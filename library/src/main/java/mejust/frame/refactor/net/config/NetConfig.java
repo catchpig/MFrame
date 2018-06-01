@@ -1,5 +1,6 @@
 package mejust.frame.refactor.net.config;
 
+import android.support.annotation.NonNull;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,7 +103,7 @@ public class NetConfig {
         return responseErrorMap;
     }
 
-    public void setResponseErrorMessage(String errorCode, String errorMessage) {
+    public void setResponseErrorMessage(@NonNull String errorCode, @NonNull String errorMessage) {
         this.responseErrorMap.put(errorCode, errorMessage);
     }
 

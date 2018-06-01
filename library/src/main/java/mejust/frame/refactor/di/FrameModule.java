@@ -9,13 +9,12 @@ import mejust.frame.refactor.config.FrameConfig;
 import mejust.frame.refactor.image.GlideLoadManager;
 import mejust.frame.refactor.image.IImageLoadManager;
 import mejust.frame.refactor.image.ImageConfig;
-import mejust.frame.refactor.net.config.NetConfig;
 import mejust.frame.refactor.net.NetManager;
+import mejust.frame.refactor.net.config.NetConfig;
 import mejust.frame.utils.log.Logger;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
 
 /**
  * @author wangpeifeng
@@ -32,21 +31,15 @@ public class FrameModule {
 
     @Singleton
     @Provides
-    public NetManager provideNetManager(NetConfig netConfig, OkHttpClient okHttpClient,
-            Retrofit.Builder retrofitBuilder) {
-        return new NetManager(netConfig, okHttpClient, retrofitBuilder);
+    public NetManager provideNetManager(FrameConfig frameConfig, NetConfig netConfig,
+            OkHttpClient okHttpClient) {
+        return new NetManager(frameConfig, netConfig, okHttpClient);
     }
 
     @Singleton
     @Provides
-    public OkHttpClient.Builder provideHttpClientBuilder() {
-        return new OkHttpClient.Builder();
-    }
-
-    @Singleton
-    @Provides
-    public OkHttpClient provideHttpClient(OkHttpClient.Builder builder, NetConfig netConfig,
-            FrameConfig frameConfig) {
+    public OkHttpClient provideHttpClient(NetConfig netConfig, FrameConfig frameConfig) {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
         List<Interceptor> interceptorList = netConfig.getHttpInterceptor();
         for (Interceptor interceptor : interceptorList) {
             builder.addInterceptor(interceptor);
@@ -61,11 +54,5 @@ public class FrameModule {
                 .readTimeout(netConfig.getReadTimeout(), TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true);
         return builder.build();
-    }
-
-    @Singleton
-    @Provides
-    public Retrofit.Builder provideRetrofitBuilder() {
-        return new Retrofit.Builder();
     }
 }

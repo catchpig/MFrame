@@ -92,7 +92,8 @@ public abstract class Callback<T> extends ResourceSubscriber<Optional<T>> {
             NetWorkException.TokenError e = (NetWorkException.TokenError) t;
             msg = e.getErrorMessage();
             if (mView != null) {
-                mView.startLoginActivity();
+                // TODO: 2018/06/01
+                //mView.startLoginActivity();
             }
         } else if (t instanceof NetWorkException.SignError) {
             //验签失败
