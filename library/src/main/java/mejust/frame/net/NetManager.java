@@ -10,12 +10,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import java.util.HashMap;
+import mejust.frame.data.FrameConfig;
 import mejust.frame.data.annotation.ServiceUrl;
 import mejust.frame.mvp.view.BaseActivity;
-import mejust.frame.net.config.NetWorkException;
-import mejust.frame.data.FrameConfig;
 import mejust.frame.net.config.IHttpResult;
 import mejust.frame.net.config.NetConfig;
+import mejust.frame.net.config.NetWorkException;
 import mejust.frame.utils.AnnotationUtils;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -53,7 +53,7 @@ public class NetManager {
         String baseUrl = serviceUrl.value();
         Retrofit retrofit = retrofitMap.get(baseUrl);
         if (retrofit == null) {
-            retrofit = retrofitBuild().baseUrl(baseUrl).build();
+            retrofit = buildRetrofit(baseUrl);
             retrofitMap.put(baseUrl, retrofit);
         }
         return retrofit.create(sClass);
@@ -145,10 +145,12 @@ public class NetManager {
     /**
      * 基础Retrofit构建
      */
-    private Retrofit.Builder retrofitBuild() {
+    private Retrofit buildRetrofit(String baseUrl) {
         return new Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(
                         new GsonBuilder().setDateFormat(netConfig.getDateFormat()).create()))
-                .client(okHttpClient);
+                .client(okHttpClient)
+                .baseUrl(baseUrl)
+                .build();
     }
 }
