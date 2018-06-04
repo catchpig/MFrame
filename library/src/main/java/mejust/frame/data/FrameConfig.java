@@ -1,6 +1,7 @@
-package mejust.frame.config;
+package mejust.frame.data;
 
 import android.app.Activity;
+import mejust.frame.widget.title.TitleBarSetting;
 
 /**
  * @author wangpeifeng
@@ -14,7 +15,11 @@ public class FrameConfig {
     /** 登录页面 */
     private Class<? extends Activity> loginClass;
 
+    /** 网络状态监听栏控制位 */
     private boolean openNetworkState;
+
+    /** TitleBar全局配置 */
+    private TitleBarSetting titleBarSetting = new TitleBarSetting.Builder().build();
 
     public boolean isDebug() {
         return isDebug;
@@ -38,5 +43,13 @@ public class FrameConfig {
 
     public void setOpenNetworkState(boolean openNetworkState) {
         this.openNetworkState = openNetworkState;
+    }
+
+    public TitleBarSetting getTitleBarSetting() {
+        return titleBarSetting;
+    }
+
+    public void setTitleBarSetting(TitleBarSetting titleBarSetting) {
+        this.titleBarSetting = titleBarSetting;
     }
 }

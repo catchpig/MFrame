@@ -1,4 +1,4 @@
-package mejust.frame.upgrade;
+package mejust.frame.common.upgrade;
 
 /**
  * 创建时间: 2018/03/09 17:37<br>

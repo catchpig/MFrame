@@ -5,7 +5,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.view.View;
 import mejust.frame.R;
-import mejust.frame.annotation.StatusBarConfig;
+import mejust.frame.data.annotation.StatusBarConfig;
 import mejust.frame.mvp.view.BaseActivity;
 import mejust.frame.mvp.view.BaseFragment;
 import mejust.frame.widget.title.StatusBar;

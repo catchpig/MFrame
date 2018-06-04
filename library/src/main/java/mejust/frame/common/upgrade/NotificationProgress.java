@@ -1,4 +1,4 @@
-package mejust.frame.upgrade;
+package mejust.frame.common.upgrade;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;

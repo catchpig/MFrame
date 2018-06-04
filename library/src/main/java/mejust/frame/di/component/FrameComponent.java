@@ -5,10 +5,10 @@ import dagger.BindsInstance;
 import dagger.Component;
 import javax.inject.Singleton;
 import mejust.frame.common.json.IJsonManager;
-import mejust.frame.config.FrameConfig;
+import mejust.frame.data.FrameConfig;
 import mejust.frame.di.module.FrameModule;
-import mejust.frame.image.IImageLoadManager;
-import mejust.frame.image.ImageConfig;
+import mejust.frame.common.image.IImageLoadManager;
+import mejust.frame.common.image.ImageConfig;
 import mejust.frame.net.NetManager;
 import mejust.frame.net.config.NetConfig;
 

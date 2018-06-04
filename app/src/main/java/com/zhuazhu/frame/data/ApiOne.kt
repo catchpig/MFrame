@@ -2,7 +2,7 @@ package com.zhuazhu.frame.data
 
 import com.zhuazhu.frame.mvp.http.model.ResultOne
 import io.reactivex.Observable
-import mejust.frame.annotation.ServiceUrl
+import mejust.frame.data.annotation.ServiceUrl
 import retrofit2.http.GET
 
 /**

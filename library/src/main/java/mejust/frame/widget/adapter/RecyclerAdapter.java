@@ -17,7 +17,7 @@ import java.util.List;
 
 import conm.zhuazhu.common.utils.ListUtils;
 import mejust.frame.R;
-import mejust.frame.annotation.Adapter;
+import mejust.frame.data.annotation.Adapter;
 import mejust.frame.common.log.Logger;
 import mejust.frame.widget.refresh.IPageControl;
 import mejust.frame.widget.refresh.RefreshLayoutWrapper;

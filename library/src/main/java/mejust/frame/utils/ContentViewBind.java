@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import mejust.frame.annotation.LayoutId;
+import mejust.frame.data.annotation.LayoutId;
 
 /**
  * @author litao

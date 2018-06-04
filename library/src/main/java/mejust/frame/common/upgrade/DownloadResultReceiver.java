@@ -1,4 +1,4 @@
-package mejust.frame.upgrade;
+package mejust.frame.common.upgrade;
 
 import android.os.Bundle;
 import android.os.Handler;

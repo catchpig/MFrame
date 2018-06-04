@@ -1,4 +1,4 @@
-package mejust.frame.upgrade;
+package mejust.frame.common.upgrade;
 
 import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;

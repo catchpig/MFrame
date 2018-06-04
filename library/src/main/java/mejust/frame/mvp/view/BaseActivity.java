@@ -12,9 +12,10 @@ import android.widget.FrameLayout;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import conm.zhuazhu.common.utils.KeyboardUtils;
+import mejust.frame.FrameManager;
 import mejust.frame.R;
-import mejust.frame.annotation.StatusBarConfig;
-import mejust.frame.app.AppConfig;
+import mejust.frame.data.annotation.StatusBarConfig;
+import mejust.frame.data.annotation.LayoutId;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.mvp.view.support.ActivityStateViewControl;
 import mejust.frame.utils.ContentViewBind;
@@ -29,7 +30,7 @@ import mejust.frame.widget.title.TitleBar;
 /**
  * <p>
  * 添加布局文件,不再调用setContentView方法,在继承的子类上添加<br/>
- * {@link mejust.frame.annotation.LayoutId}注解<br/><br/>
+ * {@link LayoutId}注解<br/><br/>
  * <p>
  * 状态栏设置,用注解<br/>
  * {@link StatusBarConfig}
@@ -170,7 +171,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
      */
     private void initBar() {
         TitleBar mTitleBar = findViewById(R.id.title_bar);
-        TitleBarUtil.inject(this, mTitleBar, AppConfig.getTitleBarSetting());
+        TitleBarUtil.inject(this, mTitleBar,
+                FrameManager.provideFrameConfig().getTitleBarSetting());
         mStatusBar = StatusBarUtil.init(this, mTitleBar);
         configBar(mTitleBar, mStatusBar);
     }

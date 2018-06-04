@@ -1,4 +1,4 @@
-package mejust.frame.exception;
+package mejust.frame.data.exception;
 
 import mejust.frame.common.log.Logger;
 

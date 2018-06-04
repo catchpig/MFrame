@@ -1,4 +1,4 @@
-package mejust.frame.image;
+package mejust.frame.common.image;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;

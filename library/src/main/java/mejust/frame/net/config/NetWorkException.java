@@ -2,7 +2,7 @@ package mejust.frame.net.config;
 
 import android.app.Activity;
 import java.util.Locale;
-import mejust.frame.exception.BaseException;
+import mejust.frame.data.exception.BaseException;
 import mejust.frame.utils.CommonUtil;
 import mejust.frame.widget.ToastFrame;
 

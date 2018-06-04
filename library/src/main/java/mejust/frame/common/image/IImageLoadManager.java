@@ -1,4 +1,4 @@
-package mejust.frame.image;
+package mejust.frame.common.image;
 
 import android.widget.ImageView;
 import java.io.File;

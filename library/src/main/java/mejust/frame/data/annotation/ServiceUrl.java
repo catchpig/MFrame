@@ -1,4 +1,4 @@
-package mejust.frame.annotation;
+package mejust.frame.data.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

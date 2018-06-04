@@ -9,7 +9,7 @@
 
   <application>
     <service
-      android:name=".upgrade.UpgradeDownloadService"
+      android:name=".common.upgrade.UpgradeDownloadService"
       android:exported="false">
 
     </service>

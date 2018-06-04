@@ -8,7 +8,7 @@ import com.zhuazhu.frame.mvp.http.presenter.HttpPresenter
 import kotlinx.android.synthetic.main.activity_http.bt_get
 import kotlinx.android.synthetic.main.activity_http.bt_test
 import kotlinx.android.synthetic.main.activity_http.text_http_result
-import mejust.frame.annotation.LayoutId
+import mejust.frame.data.annotation.LayoutId
 import mejust.frame.annotation.TitleBarConfig
 import mejust.frame.common.log.Logger
 import mejust.frame.mvp.view.BasePresenterActivity

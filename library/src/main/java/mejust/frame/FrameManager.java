@@ -3,15 +3,15 @@ package mejust.frame;
 import android.app.Application;
 import android.support.annotation.NonNull;
 import conm.zhuazhu.common.utils.Utils;
-import mejust.frame.app.CrashHandler;
+import mejust.frame.common.CrashHandler;
 import mejust.frame.common.json.IJsonManager;
 import mejust.frame.common.log.DebugLogTree;
 import mejust.frame.common.log.ReleaseLogTree;
-import mejust.frame.config.FrameConfig;
+import mejust.frame.data.FrameConfig;
 import mejust.frame.di.component.DaggerFrameComponent;
 import mejust.frame.di.component.FrameComponent;
-import mejust.frame.image.IImageLoadManager;
-import mejust.frame.image.ImageConfig;
+import mejust.frame.common.image.IImageLoadManager;
+import mejust.frame.common.image.ImageConfig;
 import mejust.frame.net.NetManager;
 import mejust.frame.net.config.NetConfig;
 import mejust.frame.widget.ToastFrame;
@@ -23,17 +23,17 @@ import timber.log.Timber;
  */
 public class FrameManager {
 
-    private static FrameComponent frameComponent;
-
     private static IImageLoadManager imageLoadManager;
 
     private static NetManager netManager;
 
     private static IJsonManager iJsonManager;
 
-    public static void init(Application application, ImageConfig imageConfig, NetConfig netConfig,
-            FrameConfig frameConfig) {
-        frameComponent = DaggerFrameComponent.builder()
+    private static FrameConfig frameConfig;
+
+    public static FrameComponent init(Application application, ImageConfig imageConfig,
+            NetConfig netConfig, FrameConfig frameConfig) {
+        FrameComponent frameComponent = DaggerFrameComponent.builder()
                 .application(application)
                 .imageConfig(imageConfig)
                 .netConfig(netConfig)
@@ -42,6 +42,7 @@ public class FrameManager {
         imageLoadManager = frameComponent.imageLoadManager();
         netManager = frameComponent.netManager();
         iJsonManager = frameComponent.jsonManager();
+        FrameManager.frameConfig = frameConfig;
         if (frameConfig.isDebug()) {
             Timber.plant(new DebugLogTree());
         } else {
@@ -50,9 +51,6 @@ public class FrameManager {
         Utils.init(application);
         ToastFrame.init(application);
         CrashHandler.getInstance().init(application);
-    }
-
-    public static FrameComponent getFrameComponent() {
         return frameComponent;
     }
 
@@ -83,5 +81,9 @@ public class FrameManager {
             throw new IllegalArgumentException("please init() or setJsonManager() first");
         }
         return iJsonManager;
+    }
+
+    public static FrameConfig provideFrameConfig() {
+        return frameConfig;
     }
 }

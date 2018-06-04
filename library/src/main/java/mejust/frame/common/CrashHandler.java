@@ -1,4 +1,4 @@
-package mejust.frame.app;
+package mejust.frame.common;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

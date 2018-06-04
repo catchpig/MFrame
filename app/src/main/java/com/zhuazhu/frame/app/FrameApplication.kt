@@ -1,16 +1,22 @@
 package com.zhuazhu.frame.app
 
 import android.app.Application
+import android.view.View
 import com.squareup.leakcanary.LeakCanary
 import com.zhuazhu.frame.BuildConfig
 import com.zhuazhu.frame.R
 import com.zhuazhu.frame.di.component.AppComponent
 import com.zhuazhu.frame.di.component.DaggerAppComponent
 import com.zhuazhu.frame.mvp.image.ImageActivity
+import conm.zhuazhu.common.utils.Utils
 import mejust.frame.FrameManager
-import mejust.frame.config.FrameConfig
-import mejust.frame.image.ImageConfig
+import mejust.frame.annotation.TitleBarMenuLocation
+import mejust.frame.common.image.ImageConfig
+import mejust.frame.data.FrameConfig
+import mejust.frame.di.component.FrameComponent
 import mejust.frame.net.config.NetConfig
+import mejust.frame.widget.title.TitleBarSetting
+import mejust.frame.widget.title.TitleBarSetting.TitleMenu
 
 /**
  * @author wangpeifeng
@@ -28,12 +34,11 @@ class FrameApplication : Application() {
             return
         }
         LeakCanary.install(this)
-        initLibrary()
-        appComponent = DaggerAppComponent.builder().frameComponent(FrameManager.getFrameComponent())
-            .build()
+        val frameComponent = initLibrary()
+        appComponent = DaggerAppComponent.builder().frameComponent(frameComponent).build()
     }
 
-    private fun initLibrary() {
+    private fun initLibrary(): FrameComponent {
         val imageConfig = ImageConfig().apply {
             hostUrl = BuildConfig.IMAGE_URL
             placeholderResId = R.drawable.ic_launcher_background
@@ -45,9 +50,16 @@ class FrameApplication : Application() {
         }
         val frameConfig = FrameConfig().apply {
             isDebug = BuildConfig.DEBUG
-            isOpenNetworkState = false
+            isOpenNetworkState = true
             loginClass = ImageActivity::class.java
+            titleBarSetting = TitleBarSetting.Builder()
+                .addTitleMenu(TitleMenu(TitleBarMenuLocation.leftFirstMenu).apply {
+                    setIconDrawableRes(this@FrameApplication, R.drawable.ic_arrow_back_white)
+                    clickListener = View.OnClickListener {
+                        Utils.getTopActivity().finish()
+                    }
+                }).build()
         }
-        FrameManager.init(this, imageConfig, netConfig, frameConfig)
+        return FrameManager.init(this, imageConfig, netConfig, frameConfig)
     }
 }

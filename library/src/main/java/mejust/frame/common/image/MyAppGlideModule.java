@@ -1,4 +1,4 @@
-package mejust.frame.image;
+package mejust.frame.common.image;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;

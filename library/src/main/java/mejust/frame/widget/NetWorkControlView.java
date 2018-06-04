@@ -10,8 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import conm.zhuazhu.common.utils.NetworkUtils;
+import mejust.frame.FrameManager;
 import mejust.frame.R;
-import mejust.frame.app.AppConfig;
+import mejust.frame.data.FrameConfig;
 import mejust.frame.receiver.NetworkReceiver;
 
 /**
@@ -33,7 +34,7 @@ public class NetWorkControlView extends FrameLayout implements NetworkReceiver.O
     public NetWorkControlView(@NonNull Context context, @Nullable AttributeSet attrs,
             int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        if (AppConfig.NETWORK_STATUS_MONITORING) {
+        if (FrameManager.provideFrameConfig().isOpenNetworkState()) {
             View statusView = LayoutInflater.from(context)
                     .inflate(R.layout.layout_network_tip_frame, this, true);
             statusView.setOnClickListener(v -> NetworkUtils.openWifiSettings());
@@ -42,10 +43,10 @@ public class NetWorkControlView extends FrameLayout implements NetworkReceiver.O
     }
 
     /**
-     * 注册网络变化广播监听,{@link AppConfig#NETWORK_STATUS_MONITORING}标志位默认监听
+     * 注册网络变化广播监听,{@link FrameConfig#openNetworkState}标志位
      */
     public void registerNetChangeListener() {
-        if (AppConfig.NETWORK_STATUS_MONITORING && mNetworkReceiver == null) {
+        if (FrameManager.provideFrameConfig().isOpenNetworkState() && mNetworkReceiver == null) {
             mNetworkReceiver = new NetworkReceiver();
             mNetworkReceiver.setOnNetworkListener(this);
             IntentFilter filter = new IntentFilter();
