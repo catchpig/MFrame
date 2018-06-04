@@ -1,11 +1,10 @@
 package mejust.frame.mvp.presenter;
 
 import android.support.annotation.NonNull;
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import mejust.frame.mvp.BaseContract;
-import mejust.frame.net.Callback;
-import mejust.frame.net.Optional;
+import mejust.frame.net.HttpObserver;
 
 /**
  * 创建时间:2017-12-21 10:41<br/>
@@ -18,11 +17,11 @@ import mejust.frame.net.Optional;
 public abstract class BasePresenter<V extends BaseContract.View> implements BaseContract.Presenter {
 
     protected final V mView;
-    protected final CompositeDisposable disposable;
+    protected final CompositeDisposable disposableSet;
 
     public BasePresenter(@NonNull V view) {
         this.mView = view;
-        this.disposable = new CompositeDisposable();
+        this.disposableSet = new CompositeDisposable();
     }
 
     @Override
@@ -41,12 +40,12 @@ public abstract class BasePresenter<V extends BaseContract.View> implements Base
     }
 
     @Override
-    public <T> void execute(Flowable<Optional<T>> flowable, Callback<T> callback) {
-        disposable.add(flowable.subscribeWith(callback));
+    public <T> void execute(Observable<T> observable, HttpObserver<T> httpObserver) {
+        disposableSet.add(observable.subscribeWith(httpObserver));
     }
 
     @Override
     public void onDestroy() {
-        disposable.clear();
+        disposableSet.clear();
     }
 }

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import conm.zhuazhu.common.utils.AppUtils;
 import conm.zhuazhu.common.utils.Utils;
-import mejust.frame.utils.log.Logger;
+import mejust.frame.common.log.Logger;
 
 /**
  * 创建时间:2017-12-21 17:50<br/>

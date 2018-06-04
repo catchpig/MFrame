@@ -5,10 +5,10 @@ import com.squareup.leakcanary.LeakCanary
 import com.zhuazhu.frame.BuildConfig
 import com.zhuazhu.frame.R
 import com.zhuazhu.frame.mvp.image.ImageActivity
-import mejust.frame.refactor.FrameManager
-import mejust.frame.refactor.config.FrameConfig
-import mejust.frame.refactor.image.ImageConfig
-import mejust.frame.refactor.net.config.NetConfig
+import mejust.frame.FrameManager
+import mejust.frame.config.FrameConfig
+import mejust.frame.image.ImageConfig
+import mejust.frame.net.config.NetConfig
 
 /**
  * @author wangpeifeng

@@ -4,16 +4,17 @@ import android.os.Bundle
 import com.zhuazhu.frame.R
 import com.zhuazhu.frame.data.ApiService
 import com.zhuazhu.frame.mvp.http.model.ResultOne
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_http.bt_get
 import kotlinx.android.synthetic.main.activity_http.bt_test
 import kotlinx.android.synthetic.main.activity_http.text_http_result
+import mejust.frame.FrameManager
 import mejust.frame.annotation.LayoutId
 import mejust.frame.annotation.TitleBarConfig
 import mejust.frame.mvp.view.BaseActivity
-import mejust.frame.refactor.FrameManager
-import mejust.frame.refactor.net.HttpObserver
-import mejust.frame.refactor.net.error.NetWorkException
+import mejust.frame.net.HttpObserver
+import mejust.frame.net.config.NetWorkException
 
 @TitleBarConfig(textValue = "Http")
 @LayoutId(R.layout.activity_http)
@@ -26,7 +27,16 @@ class HttpActivity : BaseActivity() {
         bt_get.setOnClickListener {
             val disposable = FrameManager.netManager().getApi(ApiService::class.java).requestOne()
                 .compose(FrameManager.netManager().handleLoadView(handler))
-                .compose(FrameManager.netManager().transformerHttp())
+                .compose(
+                    FrameManager.netManager().transformerHttp(
+                        Observable.just(
+                            ResultOne(
+                                "",
+                                ""
+                            )
+                        )
+                    )
+                )
                 .subscribeWith(object : HttpObserver<ResultOne>() {
                     override fun onNext(t: ResultOne) {
                         text_http_result.text = t.toString()

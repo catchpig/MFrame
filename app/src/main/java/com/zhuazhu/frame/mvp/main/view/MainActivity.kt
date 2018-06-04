@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import com.zhuazhu.frame.R.layout
+import com.zhuazhu.frame.mvp.common.CommonActivity
 import com.zhuazhu.frame.mvp.http.HttpActivity
 import com.zhuazhu.frame.mvp.image.ImageActivity
 import com.zhuazhu.frame.mvp.main.model.PageItem
@@ -18,7 +19,8 @@ class MainActivity : AppCompatActivity() {
 
     private val pageItems = listOf(
         PageItem("image", ImageActivity::class.java),
-        PageItem("http", HttpActivity::class.java)
+        PageItem("http", HttpActivity::class.java),
+        PageItem("common", CommonActivity::class.java)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

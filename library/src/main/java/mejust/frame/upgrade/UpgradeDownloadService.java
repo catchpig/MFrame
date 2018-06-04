@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import java.io.File;
 import java.io.IOException;
-import mejust.frame.utils.log.Logger;
+import mejust.frame.common.log.Logger;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;

@@ -13,15 +13,12 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.github.chrisbanes.photoview.PhotoView;
-
+import conm.zhuazhu.common.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
-
-import conm.zhuazhu.common.utils.StringUtils;
+import mejust.frame.FrameManager;
 import mejust.frame.R;
-import mejust.frame.image.ImageUtils;
 import mejust.frame.widget.MultipleTouchViewPager;
 
 /**
@@ -32,7 +29,7 @@ import mejust.frame.widget.MultipleTouchViewPager;
  * 描述:图片预览窗口
  */
 
-public class ImageDialog extends Dialog implements View.OnClickListener,OnPageChangeListener {
+public class ImageDialog extends Dialog implements View.OnClickListener, OnPageChangeListener {
     /**
      * 图片地址的集合
      */
@@ -41,59 +38,54 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
      * 图片的张数
      */
     private int mUrlLength;
+
     /**
      * 单张图片使用
-     * @param context
-     * @param url
      */
     public ImageDialog(Context context, String url) {
         super(context, R.style.FrameDialog);
         mUrls = new ArrayList<>();
         mUrls.add(url);
     }
+
     /**
      * 多张图片使用
-     * @param context
-     * @param urls
      */
     public ImageDialog(Context context, String... urls) {
         super(context, R.style.FrameDialog);
         mUrls = new ArrayList<>();
-        for (String url:urls){
+        for (String url : urls) {
             mUrls.add(url);
         }
     }
 
-
-
     /**
      * 多张图片使用
-     * @param context
-     * @param urls
      */
     public ImageDialog(Context context, List<String> urls) {
         super(context, R.style.FrameDialog);
         mUrls = urls;
     }
+
     private String mHostUrl = "";
 
     /**
      * 设置图片地址前缀
-     * @param host
      */
-    public void setHost(String host){
-        if(StringUtils.isNotEmpty(host)){
+    public void setHost(String host) {
+        if (StringUtils.isNotEmpty(host)) {
             this.mHostUrl = host;
         }
     }
 
     private MultipleTouchViewPager mViewPager;
     private TextView mIndex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_image);
-		/*
+        /*
          * 获取圣诞框的窗口对象及参数对象以修改对话框的布局设置,
          * 可以直接调用getWindow(),表示获得这个Activity的Window
          * 对象,这样这可以以同样的方式改变这个Activity的属性.
@@ -102,28 +94,29 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;
         lp.height = WindowManager.LayoutParams.MATCH_PARENT;
-        ImageView close =  findViewById(R.id.mframe_close);
-        FrameLayout frameLayout =  findViewById(R.id.mframe_frame);
+        ImageView close = findViewById(R.id.mframe_close);
+        FrameLayout frameLayout = findViewById(R.id.mframe_frame);
         mViewPager = findViewById(R.id.mframe_viewpager);
         mIndex = findViewById(R.id.mframe_index);
         close.setOnClickListener(this);
         mUrlLength = mUrls.size();
-        if(mUrls.size()>0){
+        if (mUrls.size() > 0) {
             frameLayout.setVisibility(View.VISIBLE);
             initViewPage();
         }
     }
+
     /**
      * 设置当前查看哪张图片
-     * @param index
      */
-    public void setIndex(int index){
-        if(index>=mUrlLength){
+    public void setIndex(int index) {
+        if (index >= mUrlLength) {
             return;
         }
         mViewPager.setCurrentItem(index);
     }
-    private void initViewPage(){
+
+    private void initViewPage() {
         mViewPager.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {
@@ -132,22 +125,24 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
 
             @Override
             public boolean isViewFromObject(View view, Object object) {
-                return view==object;
+                return view == object;
             }
+
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
                 PhotoView v = new PhotoView(getContext());
                 String url = mUrls.get(position);
-                if(StringUtils.isNotEmpty(mHostUrl)){
-                    url = mHostUrl+url;
+                if (StringUtils.isNotEmpty(mHostUrl)) {
+                    url = mHostUrl + url;
                 }
-                ImageUtils.show(v,url);
+                FrameManager.imageLoadManager().loadNet(v, url);
                 ViewParent vp = v.getParent();
-                if (vp!=null){
-                    ViewGroup parent = (ViewGroup)vp;
+                if (vp != null) {
+                    ViewGroup parent = (ViewGroup) vp;
                     parent.removeView(v);
                 }
-                container.addView(v, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                container.addView(v, ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
                 v.setOnClickListener(ImageDialog.this);
                 return v;
             }
@@ -156,13 +151,11 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
             public void destroyItem(ViewGroup container, int position, Object object) {
                 container.removeView((View) object);
             }
-
         });
         mViewPager.setCurrentItem(0);
-        mIndex.setText("1/"+ mUrlLength);
+        mIndex.setText("1/" + mUrlLength);
         mViewPager.addOnPageChangeListener(this);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -176,7 +169,7 @@ public class ImageDialog extends Dialog implements View.OnClickListener,OnPageCh
 
     @Override
     public void onPageSelected(int position) {
-        mIndex.setText((position+1)+"/"+ mUrlLength);
+        mIndex.setText((position + 1) + "/" + mUrlLength);
     }
 
     @Override

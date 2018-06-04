@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import conm.zhuazhu.common.utils.LogUtils;
-import mejust.frame.utils.log.Logger;
+import mejust.frame.common.log.Logger;
 
 /**
  * 创建时间:2017/12/20 14:39<br/>

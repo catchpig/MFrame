@@ -1,6 +1,6 @@
 package com.zhuazhu.frame.data
 
-import mejust.frame.refactor.net.config.IHttpResult
+import mejust.frame.net.config.IHttpResult
 
 /**
  * @author wangpeifeng
@@ -12,11 +12,11 @@ data class HttpResult<T>(var data: T, var code: String, var message: String) : I
         return data
     }
 
-    override fun getStatusCode(): String {
+    override fun getResultCode(): String {
         return code
     }
 
-    override fun getStatusMessage(): String {
+    override fun getResultMessage(): String {
         return message
     }
 }

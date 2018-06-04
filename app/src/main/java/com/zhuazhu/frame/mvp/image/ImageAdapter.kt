@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import com.zhuazhu.frame.mvp.image.ImageAdapter.ImageHolder
 import conm.zhuazhu.common.utils.ScreenUtils
-import mejust.frame.refactor.FrameManager
-import mejust.frame.refactor.image.ImageLoadConfig
+import mejust.frame.FrameManager
+import mejust.frame.image.ImageLoadConfig
 import java.io.File
 
 /**

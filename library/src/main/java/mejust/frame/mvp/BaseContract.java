@@ -2,9 +2,8 @@ package mejust.frame.mvp;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import io.reactivex.Flowable;
-import mejust.frame.net.Callback;
-import mejust.frame.net.Optional;
+import io.reactivex.Observable;
+import mejust.frame.net.HttpObserver;
 import mejust.frame.widget.dialog.FrameDialogAction;
 
 /**
@@ -56,10 +55,6 @@ public interface BaseContract {
     }
 
     interface Presenter {
-        /**
-         * 处理请求接口(线程安全,防止内存泄露)
-         */
-        <T> void execute(Flowable<Optional<T>> flowable, Callback<T> callback);
 
         void onCreate();
 
@@ -68,5 +63,10 @@ public interface BaseContract {
         void onPause();
 
         void onDestroy();
+
+        /**
+         * 处理请求接口(线程安全,防止内存泄露)
+         */
+        <T> void execute(Observable<T> observable, HttpObserver<T> httpObserver);
     }
 }
