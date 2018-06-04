@@ -10,7 +10,7 @@ import retrofit2.http.GET
  * @date 2018/06/01 9:43
  */
 @ServiceUrl("http://wanandroid.com")
-interface ApiService {
+interface ApiOne {
 
     @GET("/tools/mockapi/6193/1243one")
     fun requestOne(): Observable<HttpResult<ResultOne>>

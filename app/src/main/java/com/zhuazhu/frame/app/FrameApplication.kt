@@ -4,6 +4,8 @@ import android.app.Application
 import com.squareup.leakcanary.LeakCanary
 import com.zhuazhu.frame.BuildConfig
 import com.zhuazhu.frame.R
+import com.zhuazhu.frame.di.component.AppComponent
+import com.zhuazhu.frame.di.component.DaggerAppComponent
 import com.zhuazhu.frame.mvp.image.ImageActivity
 import mejust.frame.FrameManager
 import mejust.frame.config.FrameConfig
@@ -16,6 +18,10 @@ import mejust.frame.net.config.NetConfig
  */
 class FrameApplication : Application() {
 
+    companion object {
+        lateinit var appComponent: AppComponent
+    }
+
     override fun onCreate() {
         super.onCreate()
         if (LeakCanary.isInAnalyzerProcess(this)) {
@@ -23,6 +29,8 @@ class FrameApplication : Application() {
         }
         LeakCanary.install(this)
         initLibrary()
+        appComponent = DaggerAppComponent.builder().frameComponent(FrameManager.getFrameComponent())
+            .build()
     }
 
     private fun initLibrary() {

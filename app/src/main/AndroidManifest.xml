@@ -26,7 +26,7 @@
       </intent-filter>
     </activity>
     <activity android:name=".mvp.image.ImageActivity" />
-    <activity android:name=".mvp.http.HttpActivity" />
+    <activity android:name=".mvp.http.view.HttpActivity" />
     <activity android:name=".mvp.common.CommonActivity"></activity>
   </application>
 

@@ -23,6 +23,8 @@ import timber.log.Timber;
  */
 public class FrameManager {
 
+    private static FrameComponent frameComponent;
+
     private static IImageLoadManager imageLoadManager;
 
     private static NetManager netManager;
@@ -31,7 +33,7 @@ public class FrameManager {
 
     public static void init(Application application, ImageConfig imageConfig, NetConfig netConfig,
             FrameConfig frameConfig) {
-        FrameComponent frameComponent = DaggerFrameComponent.builder()
+        frameComponent = DaggerFrameComponent.builder()
                 .application(application)
                 .imageConfig(imageConfig)
                 .netConfig(netConfig)
@@ -48,6 +50,10 @@ public class FrameManager {
         Utils.init(application);
         ToastFrame.init(application);
         CrashHandler.getInstance().init(application);
+    }
+
+    public static FrameComponent getFrameComponent() {
+        return frameComponent;
     }
 
     public static void setImageLoadManager(@NonNull IImageLoadManager loadManager) {
