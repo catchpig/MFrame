@@ -3,8 +3,8 @@ package com.zhuazhu.frame.app
 import android.app.Application
 import com.squareup.leakcanary.LeakCanary
 import com.zhuazhu.frame.BuildConfig
+import com.zhuazhu.frame.R
 import com.zhuazhu.frame.mvp.image.ImageActivity
-import conm.zhuazhu.common.utils.Utils
 import mejust.frame.refactor.FrameManager
 import mejust.frame.refactor.config.FrameConfig
 import mejust.frame.refactor.image.ImageConfig
@@ -22,16 +22,18 @@ class FrameApplication : Application() {
             return
         }
         LeakCanary.install(this)
-        Utils.init(this)
         initLibrary()
     }
 
     private fun initLibrary() {
         val imageConfig = ImageConfig().apply {
             hostUrl = BuildConfig.IMAGE_URL
+            placeholderResId = R.drawable.ic_launcher_background
+            errorResId = R.drawable.ic_launcher_background
         }
         val netConfig = NetConfig().apply {
             setResponseErrorMessage("2001", "请求验证失败")
+            setResponseErrorMessage("404", "404错误，验证")
         }
         val frameConfig = FrameConfig().apply {
             isDebug = BuildConfig.DEBUG

@@ -11,13 +11,12 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import java.util.HashMap;
 import mejust.frame.annotation.ServiceUrl;
-import mejust.frame.mvp.view.support.ActivityHandler;
+import mejust.frame.mvp.view.BaseActivity;
 import mejust.frame.refactor.config.FrameConfig;
 import mejust.frame.refactor.net.config.IHttpResult;
 import mejust.frame.refactor.net.config.NetConfig;
 import mejust.frame.refactor.net.error.NetWorkException;
 import mejust.frame.utils.AnnotationUtils;
-import mejust.frame.utils.CommonUtil;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -68,18 +67,27 @@ public class NetManager {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    /**
+     * 结果转换 ， 判断业务结果是否正确，发送正确值，或者发送错误
+     *
+     * @param <T> 结果bean
+     */
     public <T> ObservableTransformer<IHttpResult<T>, T> transformerResult() {
         return upstream -> upstream.flatMap(
                 (Function<IHttpResult<T>, ObservableSource<T>>) tiHttpResult -> {
                     String statusCode = tiHttpResult.getStatusCode();
+                    // 结果正确，默认code == “200”
                     if (netConfig.getResponseCodeSuccess().equals(statusCode)) {
                         T data = tiHttpResult.getResultData();
+                        // 结果为null时，配合switchIfEmpty()操作符，设置默认选项
                         return data == null ? Observable.empty() : Observable.just(data);
                     }
+                    // token验证错误,默认code=="405",app需重新登录
                     if (netConfig.getResponseCodeTokenError().equals(statusCode)) {
-                        CommonUtil.startLoginActivity(frameConfig.getLoginClass());
-                        return Observable.error(new NetWorkException.TokenError(statusCode));
+                        return Observable.error(new NetWorkException.TokenError(statusCode,
+                                frameConfig.getLoginClass()));
                     }
+                    // 其他错误对应信息返回
                     String errorMsg = netConfig.getResponseErrorMap().get(statusCode);
                     if (TextUtils.isEmpty(errorMsg)) {
                         errorMsg = tiHttpResult.getStatusMessage();
@@ -88,10 +96,18 @@ public class NetManager {
                 }).subscribeOn(Schedulers.io());
     }
 
+    /**
+     * 结合线程切换和业务结果转换
+     */
     public <T> ObservableTransformer<IHttpResult<T>, T> transformerHttp() {
         return upstream -> upstream.compose(transformerResult()).compose(handleScheduler());
     }
 
+    /**
+     * 结合线程切换和业务结果转换
+     *
+     * @param emptyOther 业务结果正确为null时，默认操作设置
+     */
     public <T> ObservableTransformer<IHttpResult<T>, T> transformerHttp(
             ObservableSource<? extends T> emptyOther) {
         if (emptyOther == null) {
@@ -101,20 +117,34 @@ public class NetManager {
         }
     }
 
+    /**
+     * http请求，loading视图控制
+     *
+     * @param handler Activity handler
+     */
     public <T> ObservableTransformer<T, T> handleLoadView(final Handler handler) {
         return handleLoadView(handler, true);
     }
 
+    /**
+     * http请求，loading视图控制
+     *
+     * @param handler Activity handler
+     * @param isDialog true 显示dialog，false显示view
+     */
     public <T> ObservableTransformer<T, T> handleLoadView(final Handler handler, boolean isDialog) {
         return upstream -> upstream.doOnSubscribe(disposable -> {
-            int what = isDialog ? ActivityHandler.HANDLER_MSG_LOADING_DIALOG_OPEN
-                    : ActivityHandler.HANDLER_MSG_LOADING_VIEW_OPEN;
+            int what = isDialog ? BaseActivity.HANDLER_MSG_LOADING_DIALOG_OPEN
+                    : BaseActivity.HANDLER_MSG_LOADING_VIEW_OPEN;
             handler.sendEmptyMessage(what);
-        })
-                .doOnTerminate(() -> handler.sendEmptyMessageDelayed(
-                        ActivityHandler.HANDLER_MSG_LOADING_CLOSE, 3000));
+        }).doFinally(() -> {
+            handler.sendEmptyMessage(BaseActivity.HANDLER_MSG_LOADING_CLOSE);
+        });
     }
 
+    /**
+     * 基础Retrofit构建
+     */
     private Retrofit.Builder retrofitBuild() {
         return new Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(

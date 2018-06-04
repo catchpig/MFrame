@@ -16,7 +16,6 @@ public abstract class BaseException extends Exception {
     public BaseException(String errorCode, String errorMessage) {
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
-        Logger.e(this, errorMessage);
     }
 
     public String getErrorCode() {
@@ -27,14 +26,7 @@ public abstract class BaseException extends Exception {
         return errorMessage;
     }
 
-    @Override
-    public String toString() {
-        return "Exception{"
-                + "errorCode="
-                + errorCode
-                + ", errorMessage='"
-                + errorMessage
-                + '\''
-                + '}';
+    public void handleException() {
+        Logger.e(this, errorMessage);
     }
 }

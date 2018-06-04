@@ -1,6 +1,7 @@
 package mejust.frame.mvp.view;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -81,6 +82,11 @@ public abstract class BaseFragment extends Fragment implements BaseContract.View
     @Override
     public void hideLoading() {
         mActivity.hideLoading();
+    }
+
+    @Override
+    public Handler getHandler() {
+        return mActivity.getHandler();
     }
 
     @Override

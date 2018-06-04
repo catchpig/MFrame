@@ -1,6 +1,8 @@
 package mejust.frame.refactor;
 
 import android.app.Application;
+import conm.zhuazhu.common.utils.Utils;
+import mejust.frame.app.CrashHandler;
 import mejust.frame.refactor.config.FrameConfig;
 import mejust.frame.refactor.di.DaggerFrameComponent;
 import mejust.frame.refactor.di.FrameComponent;
@@ -10,6 +12,7 @@ import mejust.frame.refactor.net.NetManager;
 import mejust.frame.refactor.net.config.NetConfig;
 import mejust.frame.utils.log.DebugLogTree;
 import mejust.frame.utils.log.ReleaseLogTree;
+import mejust.frame.widget.ToastFrame;
 import timber.log.Timber;
 
 /**
@@ -37,6 +40,9 @@ public class FrameManager {
         } else {
             Timber.plant(new ReleaseLogTree());
         }
+        Utils.init(application);
+        ToastFrame.init(application);
+        CrashHandler.getInstance().init(application);
     }
 
     public static void setImageLoadManager(IImageLoadManager loadManager) {

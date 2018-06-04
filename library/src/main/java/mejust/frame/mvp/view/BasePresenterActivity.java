@@ -3,9 +3,7 @@ package mejust.frame.mvp.view;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
-
 import javax.inject.Inject;
-
 import mejust.frame.mvp.BaseContract;
 
 /**

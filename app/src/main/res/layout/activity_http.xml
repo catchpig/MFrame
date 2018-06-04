@@ -20,4 +20,10 @@
     android:layout_height="wrap_content"
     android:text="test"
     />
+  <TextView
+    android:id="@+id/text_http_result"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    />
 </LinearLayout>

@@ -1,5 +1,6 @@
 package mejust.frame.mvp;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import io.reactivex.Flowable;
 import mejust.frame.net.Callback;
@@ -42,6 +43,11 @@ public interface BaseContract {
          * 关闭loading
          */
         void hideLoading();
+
+        /**
+         * 获取Activity中Handler
+         */
+        Handler getHandler();
 
         /**
          * 关闭activity

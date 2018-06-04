@@ -1,6 +1,8 @@
 package mejust.frame.mvp.view;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +16,6 @@ import mejust.frame.R;
 import mejust.frame.annotation.StatusBarConfig;
 import mejust.frame.app.AppConfig;
 import mejust.frame.mvp.BaseContract;
-import mejust.frame.mvp.view.support.ActivityHandler;
 import mejust.frame.mvp.view.support.ActivityStateViewControl;
 import mejust.frame.utils.ContentViewBind;
 import mejust.frame.utils.StatusBarUtil;
@@ -42,12 +43,38 @@ import mejust.frame.widget.title.TitleBar;
  */
 public abstract class BaseActivity extends AppCompatActivity implements BaseContract.View {
 
+    public static final int HANDLER_MSG_LOADING_DIALOG_OPEN = 0x110;
+    public static final int HANDLER_MSG_LOADING_VIEW_OPEN = 0x111;
+    public static final int HANDLER_MSG_LOADING_CLOSE = 0x112;
+
     private FrameLayout mLayoutRoot;
     private Unbinder mUnBinder;
     private NetWorkControlView netWorkControlView;
     private StatusBar mStatusBar;
     private ActivityStateViewControl statusViewControl;
-    protected ActivityHandler activityHandler;
+
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            if (statusViewControl == null) {
+                return false;
+            }
+            switch (msg.what) {
+                case HANDLER_MSG_LOADING_DIALOG_OPEN:
+                    statusViewControl.showLoading(true);
+                    break;
+                case HANDLER_MSG_LOADING_VIEW_OPEN:
+                    statusViewControl.showLoading(false);
+                    break;
+                case HANDLER_MSG_LOADING_CLOSE:
+                    statusViewControl.hideLoading();
+                    break;
+                default:
+                    return handleActivityMessage(msg);
+            }
+            return true;
+        }
+    });
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,7 +86,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         initBar();
         netWorkControlView = findViewById(R.id.network_control_view);
         statusViewControl = new ActivityStateViewControl(this, mLayoutRoot);
-        activityHandler = new ActivityHandler(statusViewControl);
     }
 
     @Override
@@ -91,7 +117,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     @Override
     protected void onDestroy() {
         statusViewControl.destroyControl();
-        activityHandler.removeCallbacksAndMessages(null);
+        statusViewControl = null;
+        handler.removeCallbacksAndMessages(null);
         super.onDestroy();
         mUnBinder.unbind();
         if (mStatusBar != null) {
@@ -118,12 +145,19 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     @Override
     public void showLoading(boolean isLoadingDialog) {
-        statusViewControl.showLoading(isLoadingDialog);
+        int what = isLoadingDialog ? BaseActivity.HANDLER_MSG_LOADING_DIALOG_OPEN
+                : BaseActivity.HANDLER_MSG_LOADING_VIEW_OPEN;
+        handler.sendEmptyMessage(what);
     }
 
     @Override
     public void hideLoading() {
-        statusViewControl.hideLoading();
+        handler.sendEmptyMessage(BaseActivity.HANDLER_MSG_LOADING_CLOSE);
+    }
+
+    @Override
+    public Handler getHandler() {
+        return handler;
     }
 
     @Override
@@ -145,6 +179,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
      * TitleBar 和 StatusBar配置
      */
     protected void configBar(TitleBar titleBar, StatusBar statusBar) {
+    }
 
+    /**
+     * 处理Handler信息
+     */
+    protected boolean handleActivityMessage(Message message) {
+        return false;
     }
 }
