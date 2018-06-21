@@ -3,7 +3,6 @@ package mejust.frame;
 import android.app.Application;
 import android.support.annotation.NonNull;
 import conm.zhuazhu.common.utils.Utils;
-import mejust.frame.common.CrashHandler;
 import mejust.frame.common.json.IJsonManager;
 import mejust.frame.common.log.DebugLogTree;
 import mejust.frame.common.log.ReleaseLogTree;
@@ -50,7 +49,6 @@ public class FrameManager {
         }
         Utils.init(application);
         ToastFrame.init(application);
-        CrashHandler.getInstance().init(application);
         return frameComponent;
     }
 
