@@ -3,38 +3,34 @@ package mejust.frame.mvp.view;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import com.gyf.barlibrary.ImmersionBar;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import conm.zhuazhu.common.utils.KeyboardUtils;
-import mejust.frame.FrameManager;
 import mejust.frame.R;
-import mejust.frame.data.annotation.StatusBarConfig;
-import mejust.frame.data.annotation.LayoutId;
+import mejust.frame.data.annotation.Title;
 import mejust.frame.mvp.BaseContract;
 import mejust.frame.mvp.view.support.ActivityStateViewControl;
-import mejust.frame.utils.ContentViewBind;
-import mejust.frame.utils.StatusBarUtil;
-import mejust.frame.utils.TitleBarUtil;
-import mejust.frame.widget.NetWorkControlView;
 import mejust.frame.widget.ToastFrame;
 import mejust.frame.widget.dialog.FrameDialogAction;
-import mejust.frame.widget.title.StatusBar;
-import mejust.frame.widget.title.TitleBar;
 
 /**
  * <p>
- * 添加布局文件,不再调用setContentView方法,在继承的子类上添加<br/>
- * {@link LayoutId}注解<br/><br/>
+ * 标题文字设置,用注解
+ * {@link Title}<br/>
  * <p>
- * 状态栏设置,用注解<br/>
- * {@link StatusBarConfig}
- * <p>
+ * 标题栏按钮的对应的id,通过{@link butterknife.OnClick}监听点击事件
+ * {@link R.id.rightFirstText,R.id.rightSecondText,R.id.rightFirstDrawable,R.id.rightSecondDrawable}
+ * <p><br/>
  * 在manifest中必须开启权限:<br/>
  * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}
  * <p>
@@ -49,9 +45,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     public static final int HANDLER_MSG_LOADING_CLOSE = 0x112;
 
     private FrameLayout mLayoutRoot;
+    protected ImmersionBar mImmersionBar;
     private Unbinder mUnBinder;
-    private NetWorkControlView netWorkControlView;
-    private StatusBar mStatusBar;
     private ActivityStateViewControl statusViewControl;
 
     private Handler handler = new Handler(new Handler.Callback() {
@@ -79,15 +74,21 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         // 方法调用顺序不能改变
         super.setContentView(R.layout.view_root);
-        ContentViewBind.injectLayoutId(this);
+        setContentView(getLayoutId(savedInstanceState));
         mUnBinder = ButterKnife.bind(this);
-        initBar();
-        netWorkControlView = findViewById(R.id.network_control_view);
         statusViewControl = new ActivityStateViewControl(this, mLayoutRoot);
+        super.onCreate(savedInstanceState);
     }
+
+    /**
+     * 获取布局文件
+     * @param savedInstanceState
+     * @return
+     */
+    @LayoutRes
+    protected abstract int getLayoutId(@Nullable Bundle savedInstanceState);
 
     @Override
     public void setContentView(View view) {
@@ -103,16 +104,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         setContentView(View.inflate(this, layoutResID, null));
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        netWorkControlView.registerNetChangeListener();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        netWorkControlView.unRegisterNetChangeListener();
+    public void setImmersionBar(ImmersionBar immersionBar) {
+        mImmersionBar = immersionBar;
     }
 
     @Override
@@ -121,9 +114,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         statusViewControl = null;
         handler.removeCallbacksAndMessages(null);
         super.onDestroy();
-        mUnBinder.unbind();
-        if (mStatusBar != null) {
-            mStatusBar.destroy();
+        if (mUnBinder!=null) {
+            mUnBinder.unbind();
+        }
+        if(mImmersionBar!=null){
+            mImmersionBar.destroy();
         }
     }
 
@@ -166,22 +161,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         finish();
     }
 
-    /**
-     * 初始化TitleBar
-     */
-    private void initBar() {
-        TitleBar mTitleBar = findViewById(R.id.title_bar);
-        TitleBarUtil.inject(this, mTitleBar,
-                FrameManager.provideFrameConfig().getTitleBarSetting());
-        mStatusBar = StatusBarUtil.init(this, mTitleBar);
-        configBar(mTitleBar, mStatusBar);
-    }
-
-    /**
-     * TitleBar 和 StatusBar配置
-     */
-    protected void configBar(TitleBar titleBar, StatusBar statusBar) {
-    }
 
     /**
      * 处理Handler信息

@@ -22,6 +22,7 @@
          android:name="android.support.FILE_PROVIDER_PATHS"
          android:resource="@xml/version_upgrade_file_path"/>
     </provider>
+      <activity android:name=".mvp.view.BaseActivity" />
   </application>
 
 </manifest>

@@ -11,9 +11,11 @@ import mejust.frame.di.component.DaggerFrameComponent;
 import mejust.frame.di.component.FrameComponent;
 import mejust.frame.common.image.IImageLoadManager;
 import mejust.frame.common.image.ImageConfig;
+import mejust.frame.lifecycle.BarLifecycleCallbacksImpl;
 import mejust.frame.net.NetManager;
 import mejust.frame.net.config.NetConfig;
 import mejust.frame.widget.ToastFrame;
+import mejust.frame.widget.title.TitleBarConfig;
 import timber.log.Timber;
 
 /**
@@ -31,7 +33,7 @@ public class FrameManager {
     private static FrameConfig frameConfig;
 
     public static FrameComponent init(Application application, ImageConfig imageConfig,
-            NetConfig netConfig, FrameConfig frameConfig) {
+            NetConfig netConfig, FrameConfig frameConfig,TitleBarConfig titleBarConfig) {
         FrameComponent frameComponent = DaggerFrameComponent.builder()
                 .application(application)
                 .imageConfig(imageConfig)
@@ -48,6 +50,7 @@ public class FrameManager {
             Timber.plant(new ReleaseLogTree());
         }
         Utils.init(application);
+        application.registerActivityLifecycleCallbacks(new BarLifecycleCallbacksImpl(titleBarConfig));
         ToastFrame.init(application);
         return frameComponent;
     }

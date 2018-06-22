@@ -11,6 +11,7 @@ import com.zhuazhu.frame.mvp.http.view.HttpActivity
 import com.zhuazhu.frame.mvp.image.ImageActivity
 import com.zhuazhu.frame.mvp.main.model.PageItem
 import kotlinx.android.synthetic.main.activity_main.recycler_main
+import mejust.frame.data.annotation.Title
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.RuntimePermissions
 
