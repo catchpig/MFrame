@@ -14,7 +14,7 @@ import mejust.frame.common.log.Logger
 import mejust.frame.data.annotation.Title
 import mejust.frame.mvp.view.BasePresenterActivity
 
-@Title("请求",rightFirstText = "提交",rightSecondText = " 确定",rightFirstDrawable = R.drawable.ic_arrow_back_white)
+//@Title("请求",rightFirstText = "提交",rightSecondText = " 确定",rightFirstDrawable = R.drawable.ic_arrow_back_white)
 class HttpActivity : BasePresenterActivity<HttpPresenter>(), HttpView {
     override fun getLayoutId(savedInstanceState: Bundle?): Int {
         return R.layout.activity_http

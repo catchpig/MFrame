@@ -2,15 +2,16 @@ package mejust.frame;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
+
 import conm.zhuazhu.common.utils.Utils;
+import mejust.frame.common.image.IImageLoadManager;
+import mejust.frame.common.image.ImageConfig;
 import mejust.frame.common.json.IJsonManager;
 import mejust.frame.common.log.DebugLogTree;
 import mejust.frame.common.log.ReleaseLogTree;
 import mejust.frame.data.FrameConfig;
 import mejust.frame.di.component.DaggerFrameComponent;
 import mejust.frame.di.component.FrameComponent;
-import mejust.frame.common.image.IImageLoadManager;
-import mejust.frame.common.image.ImageConfig;
 import mejust.frame.lifecycle.BarLifecycleCallbacksImpl;
 import mejust.frame.net.NetManager;
 import mejust.frame.net.config.NetConfig;

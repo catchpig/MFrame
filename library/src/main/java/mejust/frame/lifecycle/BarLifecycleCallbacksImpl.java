@@ -33,62 +33,63 @@ public class BarLifecycleCallbacksImpl implements Application.ActivityLifecycleC
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         Title title = activity.getClass().getAnnotation(Title.class);
-        ImmersionBar immersionBar = ImmersionBar.with(activity);
         if (activity instanceof BaseActivity) {
             BaseActivity baseActivity = (BaseActivity) activity;
-            int textColor = mTitleBarConfig.getTitleTextColor();
             //标题栏
             FrameLayout titleBar = baseActivity.findViewById(R.id.title_bar);
-            titleBar.setVisibility(View.VISIBLE);
-            titleBar.setBackgroundColor(ContextCompat.getColor(activity,mTitleBarConfig.getBackgroundColor()));
             //返回按钮
             ImageView back = baseActivity.findViewById(R.id.back);
-            back.setImageResource(mTitleBarConfig.getBackDrawable());
-            back.setOnClickListener(v -> {
-                //返回上一级页面
-                Utils.getTopActivity().finish();
-            });
             //标题
             TextView titleTxt = baseActivity.findViewById(R.id.title);
-            titleTxt.setTextSize(mTitleBarConfig.getTitleTextSize());
-            titleTxt.setTextColor(ContextCompat.getColor(activity,textColor));
             //右边按钮
             TextView rightFirstText = baseActivity.findViewById(R.id.rightFirstText);
             TextView rightSecondText = baseActivity.findViewById(R.id.rightSecondText);
             ImageView rightFirstDrawable = baseActivity.findViewById(R.id.rightFirstDrawable);
             ImageView rightSecondDrawable = baseActivity.findViewById(R.id.rightSecondDrawable);
-            rightFirstText.setTextColor(ContextCompat.getColor(activity,textColor));
-            rightFirstText.setTextSize(mTitleBarConfig.getMenuTextSize());
-            rightSecondText.setTextColor(ContextCompat.getColor(activity,textColor));
-            rightSecondText.setTextSize(mTitleBarConfig.getMenuTextSize());
 
-            if(title!=null){
+            if(title!=null&&mTitleBarConfig!=null){
+                int textColor = mTitleBarConfig.getTitleTextColor();
+                titleBar.setVisibility(View.VISIBLE);
+                titleBar.setBackgroundColor(ContextCompat.getColor(activity,mTitleBarConfig.getBackgroundColor()));
+
+                back.setImageResource(mTitleBarConfig.getBackDrawable());
+                back.setOnClickListener(v -> {
+                    //返回上一级页面
+                    Utils.getTopActivity().finish();
+                });
+
+                titleTxt.setTextSize(mTitleBarConfig.getTitleTextSize());
+                titleTxt.setTextColor(ContextCompat.getColor(activity,textColor));
                 titleTxt.setText(title.value());
+
+
+                rightFirstText.setTextColor(ContextCompat.getColor(activity,textColor));
                 if(!TextUtils.isEmpty(title.rightFirstText())){
                     rightFirstText.setVisibility(View.VISIBLE);
                     rightFirstText.setText(title.rightFirstText());
                 }
+
+                rightFirstText.setTextSize(mTitleBarConfig.getMenuTextSize());
                 if(!TextUtils.isEmpty(title.rightSecondText())){
                     rightSecondText.setVisibility(View.VISIBLE);
                     rightSecondText.setText(title.rightSecondText());
                 }
+
+                rightSecondText.setTextColor(ContextCompat.getColor(activity,textColor));
                 if(title.rightFirstDrawable()!=-1){
                     rightFirstDrawable.setVisibility(View.VISIBLE);
                     rightFirstDrawable.setImageResource(title.rightFirstDrawable());
                 }
+
+                rightSecondText.setTextSize(mTitleBarConfig.getMenuTextSize());
                 if(title.rightSecondDrawable()!=-1){
                     rightSecondDrawable.setVisibility(View.VISIBLE);
                     rightSecondDrawable.setImageResource(title.rightSecondDrawable());
                 }
             }
-            //状态栏
-            immersionBar = immersionBar.statusBarView(R.id.top_view).titleBar(R.id.title_bar);
-            baseActivity.setImmersionBar(immersionBar);
+            baseActivity.setStateBarColor(mTitleBarConfig.getBackgroundColor());
         }
-        if(mTitleBarConfig!=null&&immersionBar!=null){
-            immersionBar = immersionBar.statusBarColorInt(mTitleBarConfig.getBackgroundColor());
-            immersionBar.init();
-        }
+
     }
 
 

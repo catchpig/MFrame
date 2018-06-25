@@ -1,23 +1,18 @@
 package com.zhuazhu.frame.app
 
 import android.app.Application
-import android.view.View
 import com.squareup.leakcanary.LeakCanary
 import com.zhuazhu.frame.BuildConfig
 import com.zhuazhu.frame.R
 import com.zhuazhu.frame.di.component.AppComponent
 import com.zhuazhu.frame.di.component.DaggerAppComponent
 import com.zhuazhu.frame.mvp.image.ImageActivity
-import conm.zhuazhu.common.utils.Utils
 import mejust.frame.FrameManager
-import mejust.frame.annotation.TitleBarMenuLocation
 import mejust.frame.common.image.ImageConfig
 import mejust.frame.data.FrameConfig
 import mejust.frame.di.component.FrameComponent
 import mejust.frame.net.config.NetConfig
 import mejust.frame.widget.title.TitleBarConfig
-import mejust.frame.widget.title.TitleBarSetting
-import mejust.frame.widget.title.TitleBarSetting.TitleMenu
 
 /**
  * @author wangpeifeng

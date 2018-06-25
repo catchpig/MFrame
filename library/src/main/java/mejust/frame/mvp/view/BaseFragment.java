@@ -10,12 +10,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import mejust.frame.mvp.BaseContract;
-import mejust.frame.utils.StatusBarUtil;
 import mejust.frame.widget.dialog.FrameDialogAction;
-import mejust.frame.widget.title.StatusBar;
 
 /**
  * 创建时间:2017-12-21 18:52<br/>

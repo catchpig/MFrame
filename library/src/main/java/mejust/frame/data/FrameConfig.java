@@ -1,7 +1,6 @@
 package mejust.frame.data;
 
 import android.app.Activity;
-import mejust.frame.widget.title.TitleBarSetting;
 
 /**
  * @author wangpeifeng

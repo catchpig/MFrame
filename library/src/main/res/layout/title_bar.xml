@@ -1,66 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/title_bar"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/title_bar"
     android:layout_width="match_parent"
-    android:visibility="gone"
     android:layout_height="50dp"
-    android:background="@color/c_1e81d2">
+    android:background="@color/c_1e81d2"
+    android:visibility="gone">
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="18sp"
         android:gravity="center"
         android:maxLines="1"
         android:textColor="@color/c_fff"
-        tools:text="标题"/>
+        android:textSize="18sp"
+        tools:text="标题" />
+
     <ImageView
         android:id="@+id/back"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
-        tools:src="@mipmap/close"
-        android:layout_gravity="center_vertical"/>
+        tools:src="@mipmap/close" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:paddingRight="10dp"
         android:layout_gravity="right"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingRight="10dp">
+
         <ImageView
             android:id="@+id/rightFirstDrawable"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:visibility="gone"
-            tools:src="@mipmap/close"
-            android:layout_gravity="center_vertical"/>
+            tools:src="@mipmap/close" />
+
         <TextView
             android:id="@+id/rightFirstText"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:textColor="@color/c_fff"
             android:gravity="center"
+            android:textColor="@color/c_fff"
             android:textSize="15sp"
-            tools:text="第1"/>
+            android:visibility="gone"
+            tools:text="第1" />
+
         <ImageView
             android:id="@+id/rightSecondDrawable"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:visibility="gone"
-            tools:src="@mipmap/close"
-            android:layout_gravity="center_vertical"/>
+            tools:src="@mipmap/close" />
+
         <TextView
             android:id="@+id/rightSecondText"
             android:layout_width="40dp"
-            android:visibility="gone"
             android:layout_height="match_parent"
-            android:textColor="@color/c_fff"
             android:gravity="center"
+            android:textColor="@color/c_fff"
             android:textSize="15sp"
-            tools:text="第2"/>
+            android:visibility="gone"
+            tools:text="第2" />
     </LinearLayout>
 
 </FrameLayout>

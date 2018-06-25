@@ -3,6 +3,8 @@ package mejust.frame.mvp.view;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -104,8 +106,15 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         setContentView(View.inflate(this, layoutResID, null));
     }
 
-    public void setImmersionBar(ImmersionBar immersionBar) {
-        mImmersionBar = immersionBar;
+    /**
+     * 设置状态栏颜色
+     * @param color
+     */
+    public void setStateBarColor(@ColorRes int color) {
+        if (mImmersionBar==null) {
+            mImmersionBar = ImmersionBar.with(this).statusBarView(R.id.top_view);
+        }
+        mImmersionBar.statusBarColor(color).init();
     }
 
     @Override
