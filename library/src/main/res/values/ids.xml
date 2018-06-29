@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="fragment" type="id"/>
+  <item name="fragment" type="id" />
+  <item name="title_right_menu_first_text" type="id" />
+  <item name="title_right_menu_second_text" type="id" />
+  <item name="title_right_menu_first_drawable" type="id" />
+  <item name="title_right_menu_second_drawable" type="id" />
 </resources>

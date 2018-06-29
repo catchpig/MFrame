@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="c_fff">#ffffff</color>
-  <color name="c_000">#000000</color>
-  <color name="c_665959">#665959</color>
-  <color name="c_ffdfdf">#ffdfdf</color>
-  <color name="c_1e81d2">#1e81d2</color>
+  <color name="color_FFF">#ffffff</color>
+  <color name="color_000">#000000</color>
+  <color name="color_665959">#665959</color>
+  <color name="color_FFDFDF">#ffdfdf</color>
+  <color name="color_1E81D2">#1e81d2</color>
   <color name="transparent_000">#00000000</color>
   <color name="transparent_200">#22000000</color>
 </resources>

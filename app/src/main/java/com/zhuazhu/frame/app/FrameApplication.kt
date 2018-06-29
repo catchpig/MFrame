@@ -12,7 +12,6 @@ import mejust.frame.common.image.ImageConfig
 import mejust.frame.data.FrameConfig
 import mejust.frame.di.component.FrameComponent
 import mejust.frame.net.config.NetConfig
-import mejust.frame.widget.title.TitleBarConfig
 
 /**
  * @author wangpeifeng
@@ -49,13 +48,6 @@ class FrameApplication : Application() {
             isOpenNetworkState = true
             loginClass = ImageActivity::class.java
         }
-        var titleBarConfig = TitleBarConfig().apply {
-            backDrawable = R.drawable.ic_arrow_back_white
-            titleTextColor = R.color.c_fff
-            menuTextSize = 15f
-            titleTextSize = 18f
-            backgroundColor = R.color.c_1e81d2
-        }
-        return FrameManager.init(this, imageConfig, netConfig, frameConfig,titleBarConfig)
+        return FrameManager.init(this, imageConfig, netConfig, frameConfig)
     }
 }

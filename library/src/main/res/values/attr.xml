@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <attr format="reference" name="title_bar_style"/>
+  <attr format="reference" name="title_bar_style" />
 
   <declare-styleable name="TitleBar">
-    <attr format="dimension" name="frame_title_height"/>
-    <attr format="color" name="frame_title_background_color"/>
-    <attr format="dimension" name="frame_title_padding"/>
-    <attr format="color" name="frame_title_title_color"/>
-    <attr format="dimension" name="frame_title_title_size"/>
-    <attr format="dimension" name="frame_title_menu_icon_size"/>
-    <attr format="color" name="frame_title_menu_text_color"/>
-    <attr format="dimension" name="frame_title_menu_text_size"/>
+    <attr format="dimension" name="title_bar_height" />
+    <attr format="color" name="title_bar_background" />
+    <attr format="color" name="title_bar_main_text_color" />
+    <attr format="dimension" name="title_bar_main_text_size" />
+    <attr format="boolean" name="title_bar_main_text_center" />
+    <attr format="color" name="title_bar_menu_text_color" />
+    <attr format="dimension" name="title_bar_menu_text_size" />
+    <attr format="integer" name="title_bar_menu_back_icon_res" />
   </declare-styleable>
 
-  <attr format="reference" name="loading_view_style"/>
+  <attr format="reference" name="loading_view_style" />
 
   <declare-styleable name="LoadingView">
-    <attr format="dimension" name="loading_view_size"/>
-    <attr format="color" name="loading_view_color"/>
+    <attr format="dimension" name="loading_view_size" />
+    <attr format="color" name="loading_view_color" />
   </declare-styleable>
 
 </resources>

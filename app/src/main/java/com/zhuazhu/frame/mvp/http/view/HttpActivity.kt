@@ -1,7 +1,6 @@
 package com.zhuazhu.frame.mvp.http.view
 
 import android.os.Bundle
-import butterknife.OnClick
 import com.zhuazhu.frame.R
 import com.zhuazhu.frame.app.FrameApplication
 import com.zhuazhu.frame.di.module.HttpModule
@@ -12,10 +11,32 @@ import kotlinx.android.synthetic.main.activity_http.bt_test
 import kotlinx.android.synthetic.main.activity_http.text_http_result
 import mejust.frame.common.log.Logger
 import mejust.frame.data.annotation.Title
+import mejust.frame.data.annotation.TitleMainTextStyle
+import mejust.frame.data.annotation.TitleRightMenu
+import mejust.frame.data.annotation.TitleRightMenuImage
+import mejust.frame.data.annotation.TitleRightMenuText
 import mejust.frame.mvp.view.BasePresenterActivity
 
-//@Title("请求",rightFirstText = "提交",rightSecondText = " 确定",rightFirstDrawable = R.drawable.ic_arrow_back_white)
+@Title(
+    "请求",
+    backgroundColorRes = R.color.color_000,
+    titlePaddingSize = 0,
+    showBackMenu = false,
+    mainTextStyle = TitleMainTextStyle(
+        textColor = R.color.colorPrimary,
+        textSize = 21,
+        textCenter = false
+    ),
+    titleRightMenu = [(TitleRightMenu(
+        viewId = R.id.title_right_menu_first_text,
+        menuText = TitleRightMenuText("菜单")
+    )), (TitleRightMenu(
+        viewId = R.id.title_right_menu_first_drawable,
+        menuImage = TitleRightMenuImage(R.drawable.ic_arrow_back_white)
+    ))]
+)
 class HttpActivity : BasePresenterActivity<HttpPresenter>(), HttpView {
+
     override fun getLayoutId(savedInstanceState: Bundle?): Int {
         return R.layout.activity_http
     }
@@ -34,11 +55,12 @@ class HttpActivity : BasePresenterActivity<HttpPresenter>(), HttpView {
         bt_test.setOnClickListener {
             Logger.i("bt_test click")
         }
-
-    }
-    @OnClick(R.id.rightFirstText)
-    fun click1(){
-        showToast("")
+        titleBar.bindRightMenuClickListener(R.id.title_right_menu_first_text) {
+            Logger.i("点击了文字")
+        }
+        titleBar.bindRightMenuClickListener(R.id.title_right_menu_first_drawable) {
+            Logger.i("点击了图标")
+        }
     }
 
     override fun showResult(ss: String) {

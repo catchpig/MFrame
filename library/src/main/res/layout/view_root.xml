@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_root"
+  android:id="@+id/layout_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  >
+
+  <View
+    android:id="@+id/top_view"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    />
+
+  <mejust.frame.widget.title.TitleBar
+    android:id="@+id/title_bar_base"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    />
+
+  <mejust.frame.widget.NetWorkControlView
+    android:id="@+id/network_control_view"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height_frame"
+    />
+
+  <FrameLayout
+    android:id="@+id/layout_body"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
 
-    <View
-        android:id="@+id/top_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
-
-    <include layout="@layout/title_bar"/>
-
-    <mejust.frame.widget.NetWorkControlView
-        android:id="@+id/network_control_view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height_frame" />
-
-    <FrameLayout
-        android:id="@+id/layout_body"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
+  </FrameLayout>
 </LinearLayout>

@@ -3,7 +3,6 @@ package mejust.frame.mvp.view;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -12,11 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
-import com.gyf.barlibrary.ImmersionBar;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.gyf.barlibrary.ImmersionBar;
 import conm.zhuazhu.common.utils.KeyboardUtils;
 import mejust.frame.R;
 import mejust.frame.data.annotation.Title;
@@ -24,6 +21,7 @@ import mejust.frame.mvp.BaseContract;
 import mejust.frame.mvp.view.support.ActivityStateViewControl;
 import mejust.frame.widget.ToastFrame;
 import mejust.frame.widget.dialog.FrameDialogAction;
+import mejust.frame.widget.title.TitleBar;
 
 /**
  * <p>
@@ -31,7 +29,7 @@ import mejust.frame.widget.dialog.FrameDialogAction;
  * {@link Title}<br/>
  * <p>
  * 标题栏按钮的对应的id,通过{@link butterknife.OnClick}监听点击事件
- * {@link R.id.rightFirstText,R.id.rightSecondText,R.id.rightFirstDrawable,R.id.rightSecondDrawable}
+ * {@link R.id.title_right_menu_first_text,R.id.title_right_menu_second_text,R.id.title_right_menu_first_drawable,R.id.title_right_menu_second_drawable}
  * <p><br/>
  * 在manifest中必须开启权限:<br/>
  * {@code <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />}
@@ -47,9 +45,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
     public static final int HANDLER_MSG_LOADING_CLOSE = 0x112;
 
     private FrameLayout mLayoutRoot;
-    protected ImmersionBar mImmersionBar;
     private Unbinder mUnBinder;
     private ActivityStateViewControl statusViewControl;
+
+    protected ImmersionBar mImmersionBar;
+    protected TitleBar titleBar;
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
@@ -86,8 +86,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
 
     /**
      * 获取布局文件
-     * @param savedInstanceState
-     * @return
+     *
+     * @param savedInstanceState Bundle value
+     * @return content view layout id
      */
     @LayoutRes
     protected abstract int getLayoutId(@Nullable Bundle savedInstanceState);
@@ -106,27 +107,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         setContentView(View.inflate(this, layoutResID, null));
     }
 
-    /**
-     * 设置状态栏颜色
-     * @param color
-     */
-    public void setStateBarColor(@ColorRes int color) {
-        if (mImmersionBar==null) {
-            mImmersionBar = ImmersionBar.with(this).statusBarView(R.id.top_view);
-        }
-        mImmersionBar.statusBarColor(color).init();
-    }
-
     @Override
     protected void onDestroy() {
         statusViewControl.destroyControl();
         statusViewControl = null;
         handler.removeCallbacksAndMessages(null);
         super.onDestroy();
-        if (mUnBinder!=null) {
+        if (mUnBinder != null) {
             mUnBinder.unbind();
         }
-        if(mImmersionBar!=null){
+        if (mImmersionBar != null) {
             mImmersionBar.destroy();
         }
     }
@@ -170,6 +160,15 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseCont
         finish();
     }
 
+    /**
+     * 设置状态栏颜色
+     */
+    protected void setStateBarColor(@ColorRes int color) {
+        if (mImmersionBar == null) {
+            mImmersionBar = ImmersionBar.with(this).statusBarView(R.id.top_view);
+        }
+        mImmersionBar.statusBarColor(color).init();
+    }
 
     /**
      * 处理Handler信息

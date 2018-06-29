@@ -6,14 +6,12 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
-    <item name="title_bar_style">@style/titleBarStyle</item>
+    <item name="title_bar_style">@style/title_bar_style</item>
     <item name="loading_view_style">@style/LoadingView</item>
   </style>
 
-  <style name="titleBarStyle">
-    <item name="frame_title_background_color">@color/colorPrimary</item>
-    <item name="frame_title_title_color">@color/c_fff</item>
-    <item name="frame_title_menu_text_color">@color/c_fff</item>
+  <style name="title_bar_style">
+    <item name="title_bar_background">@color/colorPrimary</item>
   </style>
 
   <style name="LoadingView">

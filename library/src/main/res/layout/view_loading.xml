@@ -4,14 +4,14 @@
    android:id="@+id/layout_loading"
    android:layout_width="match_parent"
    android:layout_height="match_parent"
-   android:background="@color/c_fff"
+   android:background="@color/color_FFF"
    android:gravity="center"
    android:orientation="vertical"
    >
   <mejust.frame.widget.LoadingView
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     app:loading_view_color="@color/c_1e81d2"
+     app:loading_view_color="@color/color_1E81D2"
      app:loading_view_size="50dp"
      />
 
