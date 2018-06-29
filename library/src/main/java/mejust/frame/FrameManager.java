@@ -23,14 +23,18 @@ import timber.log.Timber;
  */
 public class FrameManager {
 
+    /** 图片加载管理 */
     private static IImageLoadManager imageLoadManager;
-
+    /** 网络加载管理 */
     private static NetManager netManager;
-
+    /** json解析管理 */
     private static IJsonManager iJsonManager;
-
+    /** 全局配置文件 */
     private static FrameConfig frameConfig;
 
+    /**
+     * 初始化方法
+     */
     public static FrameComponent init(Application application, ImageConfig imageConfig,
             NetConfig netConfig, FrameConfig frameConfig) {
         FrameComponent frameComponent = DaggerFrameComponent.builder()
@@ -54,6 +58,9 @@ public class FrameManager {
         return frameComponent;
     }
 
+    /**
+     * 设置自定义图片加载管理
+     */
     public static void setImageLoadManager(@NonNull IImageLoadManager loadManager) {
         FrameManager.imageLoadManager = loadManager;
     }

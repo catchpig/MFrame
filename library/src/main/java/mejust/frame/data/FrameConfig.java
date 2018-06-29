@@ -17,8 +17,6 @@ public class FrameConfig {
     /** 网络状态监听栏控制位 */
     private boolean openNetworkState;
 
-
-
     public boolean isDebug() {
         return isDebug;
     }
