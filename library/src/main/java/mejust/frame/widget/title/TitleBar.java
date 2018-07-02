@@ -11,6 +11,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -286,8 +287,7 @@ public class TitleBar extends LinearLayout {
         if (titleBarMainTextCenter) {
             layoutMenuLeft.setLayoutParams(
                     new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
-            layoutMain.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT));
+            layoutMain.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
             layoutMenuRight.setLayoutParams(
                     new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1));
         } else {
@@ -305,6 +305,8 @@ public class TitleBar extends LinearLayout {
     @SuppressLint("RtlHardcoded")
     private void addMainText() {
         mainTextView = new TextView(getContext());
+        mainTextView.setMaxLines(1);
+        mainTextView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
         mainTextView.setTextSize(titleBarMainTextSize);
         mainTextView.setTextColor(titleBarMainTextColor);
         if (titleBarMainTextCenter) {
