@@ -11,7 +11,7 @@
     <attr format="boolean" name="title_bar_main_text_center" />
     <attr format="color" name="title_bar_menu_text_color" />
     <attr format="dimension" name="title_bar_menu_text_size" />
-    <attr format="integer" name="title_bar_menu_back_icon_res" />
+    <attr format="reference" name="title_bar_menu_back_icon_res" />
   </declare-styleable>
 
   <attr format="reference" name="loading_view_style" />

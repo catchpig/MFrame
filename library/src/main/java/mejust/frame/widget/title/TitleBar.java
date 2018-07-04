@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
@@ -46,7 +47,7 @@ public class TitleBar extends LinearLayout {
     /** 状态栏菜单文字尺寸 */
     private int titleBarMenuTextSize;
     /** 返回图标resId */
-    private int backIconDrawableRes;
+    private Drawable backIconDrawable;
 
     /** 左菜单layout */
     private LinearLayout layoutMenuLeft;
@@ -243,9 +244,12 @@ public class TitleBar extends LinearLayout {
                 array.getColor(R.styleable.TitleBar_title_bar_menu_text_color, Color.WHITE);
         this.titleBarMenuTextSize =
                 array.getDimensionPixelSize(R.styleable.TitleBar_title_bar_menu_text_size, 16);
-        this.backIconDrawableRes =
-                array.getInt(R.styleable.TitleBar_title_bar_menu_back_icon_res, R.mipmap.close);
+        this.backIconDrawable =
+                array.getDrawable(R.styleable.TitleBar_title_bar_menu_back_icon_res);
         array.recycle();
+        if (backIconDrawable == null) {
+            backIconDrawable = ContextCompat.getDrawable(getContext(), R.mipmap.close);
+        }
     }
 
     /**
@@ -325,7 +329,7 @@ public class TitleBar extends LinearLayout {
      */
     private void addBackMenu() {
         imageBack = new AppCompatImageView(getContext());
-        imageBack.setImageDrawable(ContextCompat.getDrawable(getContext(), backIconDrawableRes));
+        imageBack.setImageDrawable(backIconDrawable);
         imageBack.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         imageBack.setScaleType(ImageView.ScaleType.CENTER_INSIDE);

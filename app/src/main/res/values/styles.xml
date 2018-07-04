@@ -12,6 +12,7 @@
 
   <style name="title_bar_style">
     <item name="title_bar_background">@color/colorPrimary</item>
+    <item name="title_bar_menu_back_icon_res">@drawable/ic_arrow_back_white</item>
   </style>
 
   <style name="LoadingView">

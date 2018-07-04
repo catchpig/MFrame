@@ -21,7 +21,6 @@ import mejust.frame.mvp.view.BasePresenterActivity
     "请求",
     backgroundColorRes = R.color.color_000,
     titlePaddingSize = 0,
-    showBackMenu = false,
     mainTextStyle = TitleMainTextStyle(
         textColor = R.color.colorPrimary,
         textSize = 21,
