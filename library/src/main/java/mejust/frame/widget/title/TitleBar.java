@@ -173,7 +173,8 @@ public class TitleBar extends LinearLayout {
             textView.setId(viewId);
         }
         textView.setText(text);
-        textView.setTextSize(textSize == TITLE_BAR_NO_ID ? titleBarMenuTextSize : textSize);
+        int size = textSize == TITLE_BAR_NO_ID ? titleBarMenuTextSize : textSize;
+        textView.setTextSize(size);
         if (textColor == TITLE_BAR_NO_ID) {
             textView.setTextColor(titleBarMenuTextColor);
         } else {
@@ -222,6 +223,13 @@ public class TitleBar extends LinearLayout {
      */
     public void setRightMenuCountMax(int rightMenuCountMax) {
         this.rightMenuCountMax = rightMenuCountMax;
+    }
+
+    /**
+     * 清除右菜单选项
+     */
+    public void clearRightMenu() {
+        layoutMenuRight.removeAllViews();
     }
 
     /**
