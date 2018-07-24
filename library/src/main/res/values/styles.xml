@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="FrameDialog" parent="android:Theme.Dialog">
+  <style name="FrameDialog" parent="@android:style/Theme.Dialog">
     <item name="android:windowFrame">@null</item>
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowIsFloating">true</item>

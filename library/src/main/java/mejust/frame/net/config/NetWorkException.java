@@ -1,9 +1,10 @@
 package mejust.frame.net.config;
 
 import android.app.Activity;
+import android.content.Intent;
+import conm.zhuazhu.common.utils.Utils;
 import java.util.Locale;
 import mejust.frame.data.exception.BaseException;
-import mejust.frame.utils.CommonUtil;
 import mejust.frame.widget.ToastFrame;
 
 /**
@@ -39,7 +40,11 @@ public class NetWorkException {
         @Override
         public void handleException() {
             super.handleException();
-            CommonUtil.startLoginActivity(loginClass);
+            if (loginClass == null) {
+                return;
+            }
+            Intent intent = new Intent(Utils.getApp(), loginClass);
+            Utils.getTopActivity().startActivity(intent);
         }
     }
 }
