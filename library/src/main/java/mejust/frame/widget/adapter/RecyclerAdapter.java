@@ -9,16 +9,14 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import conm.zhuazhu.common.utils.ListUtils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
-import conm.zhuazhu.common.utils.ListUtils;
 import mejust.frame.R;
-import mejust.frame.data.annotation.Adapter;
 import mejust.frame.common.log.Logger;
+import mejust.frame.data.annotation.Adapter;
 import mejust.frame.widget.refresh.IPageControl;
 import mejust.frame.widget.refresh.RefreshLayoutWrapper;
 
@@ -165,9 +163,11 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
     @Override
     public void set(List<M> data) {
         firstLoad = false;
-        if (data != null) {
-            mData = data;
+        if (data == null) {
+            return;
         }
+        mData.clear();
+        mData.addAll(data);
         notifyDataSetChanged();
     }
 
@@ -292,7 +292,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
             Constructor<VH> con = c.getConstructor(View.class);
             holder = con.newInstance(v);
         } catch (NoSuchMethodException e) {
-            Logger.e(TAG,"检查ViewHolder类及构造函数是否是public");
+            Logger.e(TAG, "检查ViewHolder类及构造函数是否是public");
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -372,8 +372,7 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
 
     /**
      * 绑定viewHolder的数据
-     * @param holder
-     * @param m
+     *
      * @param position 下标
      */
     public abstract void bindViewHolder(VH holder, M m, int position);
@@ -383,7 +382,6 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
     /**
      * 处理RecyclerView.LayoutManager是GridLayoutManager类型,
      * 对头部和底部实体进行一个处理,使其占满一行
-     * @param recyclerView
      */
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -406,7 +404,6 @@ public abstract class RecyclerAdapter<M, VH extends BaseViewHolder>
     /**
      * 加入针对StaggeredGridLayoutManager跨列处理的代码
      * 一个item通过adapter开始显示会被回调
-     * @param holder
      */
     @Override
     public void onViewAttachedToWindow(BaseViewHolder holder) {
